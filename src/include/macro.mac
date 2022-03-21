@@ -1,0 +1,101 @@
+.nlist
+
+# macro.mac version 2.0.0
+# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __macro_mac__
+        __macro_mac__:=1
+
+
+* Constant ------------------------------------ *
+
+SR_T:  .equ 15
+SR_T1: .equ 15
+SR_T0: .equ 14
+SR_S:  .equ 13
+SR_M:  .equ 12
+SR_I2: .equ 10
+SR_I1: .equ 9
+SR_I0: .equ 8
+CCR_X: .equ 4
+CCR_N: .equ 3
+CCR_Z: .equ 2
+CCR_V: .equ 1
+CCR_C: .equ 0
+
+SR_I_MASK: .equ (1<<SR_I2+1<<SR_I1+1<<SR_I0)
+
+
+* User Macro ---------------------------------- *
+
+PUSH: .macro regs
+  movem.l regs,-(sp)
+.endm
+
+POP: .macro regs
+  movem.l (sp)+,regs
+.endm
+
+DI: .macro
+  ori #SR_I_MASK,sr
+.endm
+
+EI: .macro
+  andi #.not.SR_I_MASK,sr
+.endm
+
+PUSH_SR_DI: .macro
+  move sr,-(sp)
+  DI
+.endm
+
+POP_SR: .macro
+  move (sp)+,sr
+.endm
+
+STRCPY: .macro src,dst,rewind
+  .sizem sz,argc
+  @loop:
+    move.b (src)+,(dst)+
+  bne @loop
+  .if argc>=3
+    subq.l #-(rewind),dst
+  .endif
+.endm
+
+STREND: .macro areg
+  @loop:
+    tst.b (areg)+
+  bne @loop
+  subq.l #1,areg
+.endm
+
+STRCAT: .macro src,dst,rewind
+  .sizem sz,argc
+  STREND dst
+  .if argc>=3
+    STRCPY src,dst,rewind
+  .else
+    STRCPY src,dst
+  .endif
+.endm
+
+STRLEN: .macro areg,dreg
+  move.l areg,dreg
+  STREND areg
+  exg dreg,areg
+  sub.l areg,dreg
+.endm
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

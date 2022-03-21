@@ -1,0 +1,49 @@
+.nlist
+
+# console.mac version 2.0.0
+# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __console_mac__
+        __console_mac__:=1
+
+
+* Constant ------------------------------------ *
+
+NUL:   .equ $00
+EOT:   .equ $04
+BEL:   .equ $07
+BS:    .equ $08
+TAB:   .equ $09
+LF:    .equ $0a
+VT:    .equ $0b
+FF:    .equ $0c
+CR:    .equ $0d
+SO:    .equ $0e
+SI:    .equ $0f
+XOFF:  .equ $11
+XON:   .equ $13
+EOF:   .equ $1a
+SUB:   .equ $1a
+ESC:   .equ $1b
+RS:    .equ $1e
+SPACE: .equ $20
+DEL:   .equ $7f
+
+.ifdef __CRLF__
+  CRLF: .reg CR,LF
+.else
+  CRLF: .reg LF
+.endif
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

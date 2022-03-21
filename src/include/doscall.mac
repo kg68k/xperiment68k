@@ -1,0 +1,221 @@
+.nlist
+
+# doscall.mac version 2.0.0
+# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+.ifndef __doscall_mac__
+        __doscall_mac__:=1
+
+
+* Macro --------------------------------------- *
+
+DOS: .macro callno
+  .dc callno
+.endm
+
+
+* DOS Call Number ----------------------------- *
+
+_EXIT:          .equ    $ff00
+_GETCHAR:       .equ    $ff01
+_PUTCHAR:       .equ    $ff02
+_COMINP:        .equ    $ff03
+_COMOUT:        .equ    $ff04
+_PRNOUT:        .equ    $ff05
+_INPOUT:        .equ    $ff06
+_INKEY:         .equ    $ff07
+_GETC:          .equ    $ff08
+_PRINT:         .equ    $ff09
+_GETS:          .equ    $ff0a
+_KEYSNS:        .equ    $ff0b
+_KFLUSH:        .equ    $ff0c
+_FFLUSH:        .equ    $ff0d
+_CHGDRV:        .equ    $ff0e
+_CHDRV:         .equ    $ff0e  ;=_CHGDRV
+_DRVCTRL:       .equ    $ff0f
+_CONSNS:        .equ    $ff10
+_PRNSNS:        .equ    $ff11
+_CINSNS:        .equ    $ff12
+_COUTSNS:       .equ    $ff13
+_FATCHK:        .equ    $ff17
+_HENDSP:        .equ    $ff18
+_CURDRV:        .equ    $ff19
+_GETSS:         .equ    $ff1a
+_FGETC:         .equ    $ff1b
+_FGETS:         .equ    $ff1c
+_FPUTC:         .equ    $ff1d
+_FPUTS:         .equ    $ff1e
+_ALLCLOSE:      .equ    $ff1f
+_SUPER:         .equ    $ff20
+_FNCKEY:        .equ    $ff21
+_KNJCTRL:       .equ    $ff22
+_CONCTRL:       .equ    $ff23
+_KEYCTRL:       .equ    $ff24
+_INTVCS:        .equ    $ff25
+_MAKEPSP:       .equ    $ff26
+_PSPSET:        .equ    $ff26  ;=_MAKEPSP
+_GETTIM2:       .equ    $ff27
+_SETTIM2:       .equ    $ff28
+_NAMESTS:       .equ    $ff29
+_GETDATE:       .equ    $ff2a
+_SETDATE:       .equ    $ff2b
+_GETTIME:       .equ    $ff2c
+_SETTIME:       .equ    $ff2d
+_VERIFY:        .equ    $ff2e
+_DUP0:          .equ    $ff2f
+_VERNUM:        .equ    $ff30
+_KEEPPR:        .equ    $ff31
+_GETDPB:        .equ    $ff32
+_BREAKCK:       .equ    $ff33
+_DRVXCHG:       .equ    $ff34
+_INTVCG:        .equ    $ff35
+_DSKFRE:        .equ    $ff36
+_NAMECK:        .equ    $ff37
+_MKDIR:         .equ    $ff39
+_RMDIR:         .equ    $ff3a
+_CHDIR:         .equ    $ff3b
+_CREATE:        .equ    $ff3c
+_OPEN:          .equ    $ff3d
+_CLOSE:         .equ    $ff3e
+_READ:          .equ    $ff3f
+_WRITE:         .equ    $ff40
+_DELETE:        .equ    $ff41
+_SEEK:          .equ    $ff42
+_CHMOD:         .equ    $ff43
+_IOCTRL:        .equ    $ff44
+_DUP:           .equ    $ff45
+_DUP2:          .equ    $ff46
+_CURDIR:        .equ    $ff47
+_MALLOC:        .equ    $ff48
+_MFREE:         .equ    $ff49
+_SETBLOCK:      .equ    $ff4a
+_EXEC:          .equ    $ff4b
+_EXIT2:         .equ    $ff4c
+_WAIT:          .equ    $ff4d
+_FILES:         .equ    $ff4e
+_NFILES:        .equ    $ff4f
+
+_V2_SETPSP:     .equ    $ff50
+_V2_SETPDB:     .equ    $ff50  ;=_V2_SETPSP
+_V2_GETPSP:     .equ    $ff51
+_V2_GETPDB:     .equ    $ff51  ;=_V2_GETPSP
+_V2_SETENV:     .equ    $ff52
+_V2_GETENV:     .equ    $ff53
+_V2_VERIFYG:    .equ    $ff54
+_V2_COMMON:     .equ    $ff55
+_V2_RENAME:     .equ    $ff56
+_V2_FILEDATE:   .equ    $ff57
+_V2_MALLOC2:    .equ    $ff58
+_V2_MAKETMP:    .equ    $ff5a
+_V2_NEWFILE:    .equ    $ff5b
+_V2_LOCK:       .equ    $ff5c
+_V2_ASSIGN:     .equ    $ff5f
+
+;060turbo.sys
+.ifndef _V2_MALLOC3
+_V2_MALLOC3:    .equ    $ff60
+_V2_SETBLOCK2:  .equ    $ff61
+_V2_MALLOC4:    .equ    $ff62
+_V2_S_MALLOC2:  .equ    $ff63
+.endif
+
+_V2_FFLUSH_SET: .equ    $ff7a
+_V2_OS_PATCH:   .equ    $ff7b
+_V2_GETFCB:     .equ    $ff7c
+_V2_GET_FCB_ADR:.equ    $ff7c  ;=_V2_GETFCB
+_V2_S_MALLOC:   .equ    $ff7d
+_V2_S_MFREE:    .equ    $ff7e
+_V2_S_PROCESS:  .equ    $ff7f
+
+_SETPSP:        .equ    $ff80
+_SETPDB:        .equ    $ff80  ;=_SETPSP
+_GETPSP:        .equ    $ff81
+_GETPDB:        .equ    $ff81  ;=_GETPSP
+_SETENV:        .equ    $ff82
+_GETENV:        .equ    $ff83
+_VERIFYG:       .equ    $ff84
+_COMMON:        .equ    $ff85
+_RENAME:        .equ    $ff86
+_FILEDATE:      .equ    $ff87
+_MALLOC2:       .equ    $ff88
+_MAKETMP:       .equ    $ff8a
+_NEWFILE:       .equ    $ff8b
+_LOCK:          .equ    $ff8c
+_ASSIGN:        .equ    $ff8f
+
+;060turbo.sys
+.ifndef _MALLOC3
+_MALLOC3:       .equ    $ff90
+_SETBLOCK2:     .equ    $ff91
+_MALLOC4:       .equ    $ff92
+_S_MALLOC2:     .equ    $ff93
+.endif
+
+_FFLUSH_SET:    .equ    $ffaa
+_OS_PATCH:      .equ    $ffab
+_GETFCB:        .equ    $ffac
+_GET_FCB_ADR:   .equ    $ffac  ;=_GETFCB
+_S_MALLOC:      .equ    $ffad
+_S_MFREE:       .equ    $ffae
+_S_PROCESS:     .equ    $ffaf
+
+;(v)twentyone.sys
+.ifndef _TWON
+_TWON:          .equ    $ffb0
+.endif
+
+;dos_mvdir.r
+.ifndef _MVDIR
+_MVDIR:         .equ    $ffb1
+.endif
+
+;swapper.sys
+.ifndef _VMALLOC
+_VMALLOC:       .equ    $ffe0
+_VMFREE:        .equ    $ffe1
+_VMALLOC2:      .equ    $ffe2
+_VSETBLOCK:     .equ    $ffe3
+.endif
+
+;vmexec.sys
+.ifndef _VEXEC
+_VEXEC:         .equ    $ffe4
+.endif
+
+;fontman.x
+.ifndef _GETFONT
+_GETFONT:       .equ    $ffef
+.endif
+
+;not DOS Call
+_EXITVC:        .equ    $fff0
+_CTRLVC:        .equ    $fff1
+_ERRJVC:        .equ    $fff2
+
+_DISKRED:       .equ    $fff3
+_DISKWRT:       .equ    $fff4
+_INDOSFLG:      .equ    $fff5
+_SUPER_JSR:     .equ    $fff6
+_BUS_ERR:       .equ    $fff7
+
+_OPEN_PR:       .equ    $fff8
+_KILL_PR:       .equ    $fff9
+_GET_PR:        .equ    $fffa
+_SUSPEND_PR:    .equ    $fffb
+_SUSPEND:       .equ    $fffb  ;=_SUSPEND_PR
+_SLEEP_PR:      .equ    $fffc
+_SEND_PR:       .equ    $fffd
+_TIME_PR:       .equ    $fffe
+_CHANGE_PR:     .equ    $ffff
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

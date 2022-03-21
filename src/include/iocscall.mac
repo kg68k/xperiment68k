@@ -1,0 +1,261 @@
+.nlist
+
+# iocscall.mac version 2.0.0
+# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __iocscall_mac__
+        __iocscall_mac__:=1
+
+
+* Macro --------------------------------------- *
+
+IOCS: .macro callno
+  moveq #callno,d0
+  trap #15
+.endm
+
+
+* IOCS Call Number ---------------------------- *
+
+_B_KEYINP:      .equ    $00
+_B_KEYSNS:      .equ    $01
+_B_SFTSNS:      .equ    $02
+_KEY_INIT:      .equ    $03
+_BITSNS:        .equ    $04
+_SKEYSET:       .equ    $05
+_LEDCTRL:       .equ    $06
+_LEDSET:        .equ    $07
+_KEYDLY:        .equ    $08
+_KEYREP:        .equ    $09
+_OPT2EN:        .equ    $0a
+_OPT2DIS:       .equ    $0b
+_TVCTRL:        .equ    $0c
+_LEDMOD:        .equ    $0d
+_TGUSEMD:       .equ    $0e
+_DEFCHR:        .equ    $0f
+_CRTMOD:        .equ    $10
+_CONTRAST:      .equ    $11
+_HSVTORGB:      .equ    $12
+_TPALET:        .equ    $13
+_TPALET2:       .equ    $14
+_TCOLOR:        .equ    $15
+_FNTADR:        .equ    $16
+_VRAMGET:       .equ    $17
+_VRAMPUT:       .equ    $18
+_FNTGET:        .equ    $19
+_TEXTGET:       .equ    $1a
+_TEXTPUT:       .equ    $1b
+_CLIPPUT:       .equ    $1c
+_SCROLL:        .equ    $1d
+_B_CURON:       .equ    $1e
+_B_CUROFF:      .equ    $1f
+_B_PUTC:        .equ    $20
+_B_PRINT:       .equ    $21
+_B_COLOR:       .equ    $22
+_B_LOCATE:      .equ    $23
+_B_DOWN_S:      .equ    $24
+_B_UP_S:        .equ    $25
+_B_UP:          .equ    $26
+_B_DOWN:        .equ    $27
+_B_RIGHT:       .equ    $28
+_B_LEFT:        .equ    $29
+_B_CLR_ST:      .equ    $2a
+_B_ERA_ST:      .equ    $2b
+_B_INS:         .equ    $2c
+_B_DEL:         .equ    $2d
+_B_CONSOL:      .equ    $2e
+_B_PUTMES:      .equ    $2f
+_SET232C:       .equ    $30
+_LOF232C:       .equ    $31
+_INP232C:       .equ    $32
+_ISNS232C:      .equ    $33
+_OSNS232C:      .equ    $34
+_OUT232C:       .equ    $35
+_SETMSADR:      .equ    $36
+_SETESCADR:     .equ    $37
+_SETFNTADR:     .equ    $38
+_SET_BEEP:      .equ    $39
+_SET_PRN:       .equ    $3a
+_JOYGET:        .equ    $3b
+_INIT_PRN:      .equ    $3c
+_SNSPRN:        .equ    $3d
+_OUTLPT:        .equ    $3e
+_OUTPRN:        .equ    $3f
+_B_SEEK:        .equ    $40
+_B_VERIFY:      .equ    $41
+_B_READDI:      .equ    $42
+_B_DSKINI:      .equ    $43
+_B_DRVSNS:      .equ    $44
+_B_WRITE:       .equ    $45
+_B_READ:        .equ    $46
+_B_RECALI:      .equ    $47
+_B_ASSIGN:      .equ    $48
+_B_WRITED:      .equ    $49
+_B_READID:      .equ    $4a
+_B_BADFMT:      .equ    $4b
+_B_READDL:      .equ    $4c
+_B_FORMAT:      .equ    $4d
+_B_DRVCHK:      .equ    $4e
+_B_EJECT:       .equ    $4f
+_DATEBCD:       .equ    $50
+_DATESET:       .equ    $51
+_TIMEBCD:       .equ    $52
+_TIMESET:       .equ    $53
+_DATEGET:       .equ    $54
+_DATEBIN:       .equ    $55
+_TIMEGET:       .equ    $56
+_TIMEBIN:       .equ    $57
+_DATECNV:       .equ    $58
+_TIMECNV:       .equ    $59
+_DATEASC:       .equ    $5a
+_TIMEASC:       .equ    $5b
+_DAYASC:        .equ    $5c
+_ALARMMOD:      .equ    $5d
+_ALARMSET:      .equ    $5e
+_ALARMGET:      .equ    $5f
+_ADPCMOUT:      .equ    $60
+_ADPCMINP:      .equ    $61
+_ADPCMAOT:      .equ    $62
+_ADPCMAIN:      .equ    $63
+_ADPCMLOT:      .equ    $64
+_ADPCMLIN:      .equ    $65
+_ADPCMSNS:      .equ    $66
+_ADPCMMOD:      .equ    $67
+_OPMSET:        .equ    $68
+_OPMSNS:        .equ    $69
+_OPMINTST:      .equ    $6a
+_TIMERDST:      .equ    $6b
+_TIMERAST:      .equ    $6c
+_VDISPST:       .equ    $6c  ;=_TIMERAST
+_CRTCRAS:       .equ    $6d
+_HSYNCST:       .equ    $6e
+_PRNINTST:      .equ    $6f
+_MS_INIT:       .equ    $70
+_MS_CURON:      .equ    $71
+_MS_CUROF:      .equ    $72
+_MS_STAT:       .equ    $73
+_MS_GETDT:      .equ    $74
+_MS_CURGT:      .equ    $75
+_MS_CURST:      .equ    $76
+_MS_LIMIT:      .equ    $77
+_MS_OFFTM:      .equ    $78
+_MS_ONTM:       .equ    $79
+_MS_PATST:      .equ    $7a
+_MS_SEL:        .equ    $7b
+_MS_SEL2:       .equ    $7c
+_SKEY_MOD:      .equ    $7d
+_DENSNS:        .equ    $7e
+_ONTIME:        .equ    $7f
+_B_INTVCS:      .equ    $80
+_B_SUPER:       .equ    $81
+_B_BPEEK:       .equ    $82
+_B_WPEEK:       .equ    $83
+_B_LPEEK:       .equ    $84
+_B_MEMSTR:      .equ    $85
+_B_BPOKE:       .equ    $86
+_B_WPOKE:       .equ    $87
+_B_LPOKE:       .equ    $88
+_B_MEMSET:      .equ    $89
+_DMAMOVE:       .equ    $8a
+_DMAMOV_A:      .equ    $8b
+_DMAMOV_L:      .equ    $8c
+_DMAMODE:       .equ    $8d
+_BOOTINF:       .equ    $8e
+_ROMVER:        .equ    $8f
+_G_CLR_ON:      .equ    $90
+_VC_R0:         .equ    $91
+_VC_R1:         .equ    $92
+_VC_R2:         .equ    $93
+_GPALET:        .equ    $94
+_GCOLOR:        .equ    $95
+_APAGE2:        .equ    $96
+_GVRAMGET:      .equ    $97
+_GVRAMPUT2:     .equ    $98
+_GVRAMPUT:      .equ    $99
+_GBITPUT:       .equ    $9a
+_GBITPUT2:      .equ    $9b
+_GBITPUT3:      .equ    $9c
+
+_SFTJIS:        .equ    $a0
+_JISSFT:        .equ    $a1
+_AKCONV:        .equ    $a2
+_RMACNV:        .equ    $a3
+_DAKJOB:        .equ    $a4
+_HANJOB:        .equ    $a5
+
+_SYS_STAT:      .equ    $ac
+_B_CONMOD:      .equ    $ad
+_OS_CURON:      .equ    $ae
+_OS_CUROF:      .equ    $af
+_DRAWMODE:      .equ    $b0
+_APAGE:         .equ    $b1
+_VPAGE:         .equ    $b2
+_HOME:          .equ    $b3
+_WINDOW:        .equ    $b4
+_WIPE:          .equ    $b5
+_PSET:          .equ    $b6
+_POINT:         .equ    $b7
+_LINE:          .equ    $b8
+_BOX:           .equ    $b9
+_FILL:          .equ    $ba
+_CIRCLE:        .equ    $bb
+_PAINT:         .equ    $bc
+_SYMBOL:        .equ    $bd
+_GETGRM:        .equ    $be
+_PUTGRM:        .equ    $bf
+_SP_INIT:       .equ    $c0
+_SP_ON:         .equ    $c1
+_SP_OFF:        .equ    $c2
+_SP_CGCLR:      .equ    $c3
+_SP_DEFCG:      .equ    $c4
+_SP_GTPCG:      .equ    $c5
+_SP_REGST:      .equ    $c6
+_SP_REGGT:      .equ    $c7
+_BGSCRLST:      .equ    $c8
+_BGSCRLGT:      .equ    $c9
+_BGCTRLST:      .equ    $ca
+_BGCTRLGT:      .equ    $cb
+_BGTEXTCL:      .equ    $cc
+_BGTEXTST:      .equ    $cd
+_BGTEXTGT:      .equ    $ce
+_SPALET:        .equ    $cf
+
+*_MACS:         .equ    $d0  ;macsdrv.x
+*_MOON:         .equ    $d1  ;moon.x(on macsdrv.x)
+
+_TXXLINE:       .equ    $d3
+_TXYLINE:       .equ    $d4
+_TXLINE:        .equ    $d5
+_TXBOX:         .equ    $d6
+_TXFILL:        .equ    $d7
+_TXREV:         .equ    $d8
+_TXRASCPY:      .equ    $df
+
+_OPMDRV:        .equ    $f0  ;opmdrv.x
+_RSDRV:         .equ    $f1  ;rsdrv.sys
+_A_JOYGET:      .equ    $f2  ;ajoy.x
+_MUSICDRV:      .equ    $f3  ;musicdrv.x
+_MERCURY:       .equ    $f4  ;mercurydriver.sys
+_SCSIDRV:       .equ    $f5
+_HIMEM:         .equ    $f8  ;himem.sys/ts16drv.x/060turbo.sys
+
+;ts6bgag.x
+_TS6BGAG:       .equ    $f9
+_TS6BGAS:       .equ    $fa
+
+_ABORTRST:      .equ    $fd
+_IPLERR:        .equ    $fe
+_ABORTJOB:      .equ    $ff
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

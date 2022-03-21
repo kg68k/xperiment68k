@@ -1,0 +1,80 @@
+# This file is part of Xperiment68k
+# Copyright (C) 2022 TcbnErik
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+.xref DosBusFake_init,DosBusFake_translate
+.xref DosBusFake_END,DosBusFake_ZERO,DosBusFake_BUSERR
+
+
+DOSBUSFAKE_INIT: .macro
+  lea (FakeMemoryMap,pc),a0
+  bsr DosBusFake_init
+.endm
+
+TRANSLATE_ROM_ADDRESS: .macro areg
+  exg a0,areg
+  bsr DosBusFake_translate
+  exg a0,areg
+.endm
+
+TEST_ONLY: .macro op
+  op
+.endm
+
+
+.data
+
+;CZ-6BS1互換でROMの内容だけ違うボード(TS-6BS1は末尾にパラレルポートあり)
+cztype1: .equ TEST==SCSIEX_CZ6BS1|TEST==SCSIEX_SX68SC|TEST==SCSIEX_TS6BS1MK3
+cztype2: .equ TEST==SCSIEX_XM6|TEST==SCSIEX_XEIJ15|TEST==SCSIEX_XEIJ16
+
+.quad
+FakeMemoryMap:
+  .if TEST==SCSIEX_NONE
+    .dc.l DosBusFake_BUSERR,$ea0000,$ea2000
+  .elif TEST==SCSIEX_UNKNOWN
+    .dc.l DosBusFake_ZERO,  $ea0000,$ea2000
+  .elif TEST==SCSIEX_SPC
+    .dc.l DosBusFake_ZERO,  $ea0000,$ea0020
+    .dc.l DosBusFake_BUSERR,$ea0020,$ea2000
+  .elif cztype1|cztype2
+    .dc.l DosBusFake_ZERO,  $ea0000,$ea0020
+    .dc.l FakeRomFilename,  $ea0000,$ea2000
+  .elif TEST==SCSIEX_MACH2|TEST==SCSIEX_MACH2P
+    .dc.l DosBusFake_BUSERR,$ea0000,$ea0020
+    .dc.l DosBusFake_ZERO,  $ea007e,$ea00a0
+    .dc.l FakeRomFilename,  $ea0000,$ea8000
+  .endif
+  .dc.l DosBusFake_END
+
+FRF: .macro v,filename
+  .if TEST==v
+    .dc.b filename,0
+  .endif
+.endm
+
+FakeRomFilename:
+  FRF SCSIEX_CZ6BS1,   '../scsiexrom/cz6bs1.rom'
+  FRF SCSIEX_SX68SC,   '../scsiexrom/sx68sc.rom'
+  FRF SCSIEX_TS6BS1MK3,'../scsiexrom/ts6bs1mk3.rom'
+  FRF SCSIEX_MACH2    ,'../scsiexrom/6415.rom'
+  FRF SCSIEX_MACH2P   ,'../scsiexrom/6416.rom'
+  FRF SCSIEX_XM6      ,'../scsiexrom/xm6.rom'
+  FRF SCSIEX_XEIJ15   ,'../scsiexrom/xeij15.rom'
+  FRF SCSIEX_XEIJ16   ,'../scsiexrom/XEIJSCSIEXROM.DAT'
+
+
+.text
