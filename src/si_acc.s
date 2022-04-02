@@ -40,6 +40,8 @@ SPC_E9602D_SSTS:     .equ $e9602d
 
 XEIJ_E9F03C_HFS_MAGIC: .equ $e9f03c
 
+PHANTOMX_E9F800_REG:  .equ $e9f800
+
 AWESOMEX_EC0000_DSPADDR: .equ $ec0000
 AWESOMEX_EC8000_DSPCTRL: .equ $ec8000
 
@@ -59,7 +61,8 @@ ACC_040EXCEL:     .equ 6
 ACC_060EXCEL:     .equ 7
 ACC_040TURBO:     .equ 8
 ACC_060TURBO:     .equ 9
-;ACC_PHANTOMX:    .equ 10
+ACC_PHANTOMX:     .equ 10
+ACC_BIT_MAX:      .equ 10
 
 ;si_model.s
 MODEL_UNIDENTIFIED:      .equ  0
@@ -138,6 +141,11 @@ strBuf: .ds.b 256
 ;  ccr
 Accelerator_GetTypes::
   PUSH d1-d2/d7/a0
+  bsr Accelerator_GetPhantomX
+  beq @f
+    bsr getTypesPha
+    bra 9f
+  @@:
   cmpi.b #$fe,(SYSTEM_PORT6_E8E00B)
   bcc @f
     bsr getTypes030
@@ -147,6 +155,15 @@ Accelerator_GetTypes::
 9:
   POP d1-d2/d7/a0
   tst.l d0
+  rts
+
+
+;PhantomX検出時の併用アクセラレータの判別。
+;  MPUが68000以外ならPhantomXのエミュレーションの結果である。
+;out d0
+getTypesPha:
+  bsr Accelerator_GetXellent30
+  bset #ACC_PHANTOMX,d0
   rts
 
 
@@ -268,6 +285,19 @@ is040Excel:
 .cpu 68000
 
 
+;PhantomXの判別。
+;out d0/ccr
+Accelerator_GetPhantomX::
+  lea (PHANTOMX_E9F800_REG),a0
+  bsr DosBusErrWord
+  beq @f
+    moveq #0,d0
+    rts
+@@:
+  moveq #1,d0
+  rts
+
+
 xel0: .equ XELLENT30_S0_EC0000+$100
 xel1: .equ XELLENT30_S1_EC4000+$100
 xel2: .equ XELLENT30_S2_EC8000+$100
@@ -352,7 +382,7 @@ Accelerator_ToString::
   move.l d0,d7
   clr.b (a0)
 
-  moveq #ACC_060TURBO,d6
+  moveq #ACC_BIT_MAX,d6
   @@:
     bclr d6,d7
   dbne d6,@b
@@ -373,7 +403,7 @@ Accelerator_ToString::
   POP d1/d6-d7/a1
   rts
 
-accNameOffs: .dc.b @f-$,1f-$,2f-$,3f-$,4f-$,5f-$,6f-$,7f-$,8f-$,9f-$
+accNameOffs: .dc.b @f-$,1f-$,2f-$,3f-$,4f-$,5f-$,6f-$,7f-$,8f-$,9f-$,10f-$
 @@: .dc.b ' (#0)',0  ;Xellent30
 1:  .dc.b ' (#1)',0
 2:  .dc.b ' (#2)',0
@@ -384,6 +414,7 @@ accNameOffs: .dc.b @f-$,1f-$,2f-$,3f-$,4f-$,5f-$,6f-$,7f-$,8f-$,9f-$
 7:  .dc.b '060Excel',0
 8:  .dc.b '040turbo',0
 9:  .dc.b '060turbo',0
+10: .dc.b 'PhantomX',0
 .even
 
 copyXellent30:
