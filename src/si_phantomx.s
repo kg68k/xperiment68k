@@ -55,19 +55,16 @@ ProgramStart:
   lea (strVersion,pc),a1
   STRCPY a1,a0,-1
   bsr PhantomX_GetVersion
-  move.l #$1234,d0
   bsr PhantomX_VersionToString
 
   lea (strMpu,pc),a1
   STRCPY a1,a0,-1
   bsr PhantomX_GetMpu
-  move.l #$0003,d0
   bsr PhantomX_MpuToString
 
   lea (strTemp0,pc),a1
   STRCPY a1,a0,-1
   bsr PhantomX_GetTemperature
-  move.l #$5963,d0
   bsr PhantomX_TemperatureToString
   lea (strTemp1,pc),a1
   STRCPY a1,a0
