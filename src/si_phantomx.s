@@ -1,4 +1,4 @@
-.title si_sram - show information: PhantomX
+.title si_phantomx - show information: PhantomX
 
 # This file is part of Xperiment68k
 # Copyright (C) 2022 TcbnErik
@@ -29,6 +29,7 @@ PHANTOMX_E9F802_DATA: .equ $e9f802
 
 PHANTOMX_VERSION:     .equ $0000
 PHANTOMX_MPU:         .equ $0001
+PHANTOMX_WAIT:        .equ $0002
 PHANTOMX_VRAMDISK_ID: .equ $0010
 PHANTOMX_TEMPERATURE: .equ $00f0
 
@@ -62,6 +63,11 @@ ProgramStart:
   bsr PhantomX_GetMpu
   bsr PhantomX_MpuToString
 
+  lea (strWait,pc),a1
+  STRCPY a1,a0,-1
+  bsr PhantomX_GetWait
+  bsr PhantomX_WaitToString
+
   lea (strTemp0,pc),a1
   STRCPY a1,a0,-1
   bsr PhantomX_GetTemperature
@@ -86,6 +92,7 @@ strPhantomX: .dc.b 'PhantomX: ',0
 strNoPX:     .dc.b 'PhantomXは装着されていません。',CR,LF,0
 strVersion:  .dc.b 'version ',0
 strMpu:      .dc.b ', MPU ',0
+strWait:     .dc.b ', wait ',0
 strTemp0:    .dc.b ', ',0
 strTemp1:    .dc.b '℃',CR,LF,0
 
@@ -129,6 +136,15 @@ PhantomX_GetMpu::
   bra getData
 
 
+;PhantomXのウェイトレベルを取得する。
+;  PhantomXの装着を確認しておくこと。
+;  スーパーバイザモードで呼び出すこと。
+;out d0.l ... ウェイトレベル(0,1...7)
+PhantomX_GetWait::
+  moveq #PHANTOMX_WAIT,d0
+  bra getData
+
+
 ;Raspberry Pi SOCの温度を取得する。
 ;  PhantomXの装着を確認しておくこと。
 ;  スーパーバイザモードで呼び出すこと。
@@ -148,7 +164,6 @@ getData:
 
 
 ;PhantomXのバージョンを文字列化する。
-;  形式が不明なので暫定的に16進数4桁に変換。
 ;in
 ;  d0.l ... バージョン(PhantomX_GetVersion の返り値)
 ;  a0.l ... 文字列バッファ(今のところ8バイトあれば足りる)
@@ -157,7 +172,15 @@ getData:
 ;break d0
 PhantomX_VersionToString::
   PUSH d1-d2
-  bsr toHexString4
+  bsr toHexString1  ;10の位
+  moveq #$f,d1
+  and.b d0,d1
+  bne @f
+    subq.l #1,a0  ;10の位が0だったら省略する
+  @@:
+  bsr toHexString1  ;1の位
+  move.b #'.',(a0)+
+  bsr toHexString2  ;小数部
   POP d1-d2
   rts
 
@@ -180,6 +203,20 @@ PhantomX_MpuToString::
   rts
 
 
+;PhantomXのウェイトレベルを文字列化する。
+;in
+;  d0.l ... ウェイトレベル(PhantomX_GetWait の返り値)
+;  a0.l ... 文字列バッファ(今のところ8バイトあれば足りる)
+;out
+;  a0.l ... 文字列末尾のアドレス(NUL を指す)
+;break d0
+PhantomX_WaitToString::
+  addi.b #'0',d0
+  move.b d0,(a0)+
+  clr.b (a0)
+  rts
+
+
 ;Raspberry Pi SOCの温度を文字列化する。
 ;in
 ;  d0.l ... 温度(PhantomX_GetTemperature の返り値)
@@ -196,11 +233,11 @@ PhantomX_TemperatureToString::
   rts
 
 
+toHexString1:
+  moveq #1-1,d2
+  bra @f
 toHexString2:
   moveq #2-1,d2
-  bra @f
-toHexString4:
-  moveq #4-1,d2
   @@:
     rol #4,d0
     moveq #$f,d1
