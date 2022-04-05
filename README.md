@@ -79,6 +79,10 @@ MIDIボードの種類を表示します。
 本体の機種名を表示します。
 
 
+### si_phantomx
+PhantomXの情報を表示します。
+
+
 ### si_scsiex
 SCSIボードの機種名を表示します。
 
@@ -92,6 +96,7 @@ ch30*_omake.sysが組み込まれている場合はそのバージョンを表�
 
 ## License
 GNU General Public License version 3 or later.
+
 
 ## Author
 TcbnErik / 立花@桑島技研

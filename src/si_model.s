@@ -22,6 +22,7 @@
 .include doscall.mac
 
 .xref DosBusErrByte
+.xref DosBusErrWord
 .xref DosBusErrLong
 
 
@@ -29,6 +30,8 @@ SYSTEM_PORT6_E8E00B: .equ $e8e00b
 SPC_E9602D_SSTS:     .equ $e9602d
 
 XEIJ_E9F03C_HFS_MAGIC: .equ $e9f03c
+
+PHANTOMX_E9F800_REG:  .equ $e9f800
 
 MODEL_UNIDENTIFIED:      .equ  0
 MODEL_UNIDENTIFIED_SASI: .equ  1  ;初代/ACE/EXPERT/PRO
@@ -86,32 +89,38 @@ strBuf: .ds.b 256
 Model_GetType::
   PUSH d1-d2/a0
   move.b (SYSTEM_PORT6_E8E00B),d1
-  moveq #MODEL_X68030,d0
-  cmpi.b #$dc,d1
-  beq 9f
-
-  moveq #MODEL_X68020,d0
-  cmpi.b #$ec,d1
-  beq 9f
-
   cmpi.b #$fe,d1
-  bne @f
-    ;XVI/Compactの16MHzモード
+  beq getType16mhz
+  bhi getType10mhz
+
+    bsr isPhantomX
+    bne getType10mhz
+
+      moveq #MODEL_X68030,d0
+      cmpi.b #$dc,d1
+      beq 9f
+
+      moveq #MODEL_X68020,d0
+      cmpi.b #$ec,d1
+      beq 9f
+
+      moveq #MODEL_UNIDENTIFIED,d0
+      bra 9f
+
+  ;SystemPort6==$fe ... XVI/Compactの16MHzモード
+  getType16mhz:
     bsr getTypeXvi
     bra 9f
-  @@:
 
-  moveq #MODEL_UNIDENTIFIED,d0
-  addq.b #1,d1
-  bne 9f  ;$ffでなければ未知の機種
-
-  bsr isScsiModel
-  beq @f
-    ;SCSI内蔵機種 ... SUPER、またはXVI/Compactの10MHzモード
-    bsr getTypeScsi
-    bra 9f
-  @@:
-  bsr getTypeSasi
+  ;SystemPort6==$ff ... 初代～SUPER、またはXVI/Compactの10MHzモード
+  getType10mhz:
+    bsr isScsiModel
+    beq @f
+      ;SCSI内蔵機種 ... SUPER、またはXVI/Compactの10MHzモード
+      bsr getTypeScsi
+      bra 9f
+    @@:
+    bsr getTypeSasi
 9:
   POP d1-d2/a0
   rts
@@ -186,6 +195,19 @@ romVerTableXvi:
   .dc MODEL_XVI,    $11_910111.l
   .dc MODEL_COMPACT,$12_911024.l
   .dc -1
+
+
+;PhantomXか判別する。
+;out d0/ccr
+isPhantomX:
+  lea (PHANTOMX_E9F800_REG),a0
+  bsr DosBusErrWord
+  beq @f
+    moveq #0,d0
+    rts
+@@:
+  moveq #1,d0
+  rts
 
 
 ;XEiJか調べる。
