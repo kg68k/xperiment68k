@@ -24,8 +24,8 @@
 .xref DosBusErrWord
 
 
-PHANTOMX_E9F800_REG:  .equ $e9f800
-PHANTOMX_E9F802_DATA: .equ $e9f802
+PHANTOMX_EA8000_REG:  .equ $ea8000
+PHANTOMX_EA8002_DATA: .equ $ea8002
 
 PHANTOMX_VERSION:     .equ $0000
 PHANTOMX_MPU:         .equ $0001
@@ -106,7 +106,7 @@ strBuf: .ds.b 256
 ;out d0/ccr
 PhantomX_Exists::
   move.l a0,-(sp)
-  lea (PHANTOMX_E9F800_REG),a0
+  lea (PHANTOMX_EA8000_REG),a0
   bsr DosBusErrWord
   bne @f
     moveq #1,d0
@@ -157,8 +157,8 @@ PhantomX_GetTemperature::
 
 getData:
   PUSH_SR_DI
-  move d0,(PHANTOMX_E9F800_REG)
-  move (PHANTOMX_E9F802_DATA),d0
+  move d0,(PHANTOMX_EA8000_REG)
+  move (PHANTOMX_EA8002_DATA),d0
   POP_SR
   rts
 

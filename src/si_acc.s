@@ -40,7 +40,7 @@ SPC_E9602D_SSTS:     .equ $e9602d
 
 XEIJ_E9F03C_HFS_MAGIC: .equ $e9f03c
 
-PHANTOMX_E9F800_REG:  .equ $e9f800
+PHANTOMX_EA8000_REG:  .equ $ea8000
 
 AWESOMEX_EC0000_DSPADDR: .equ $ec0000
 AWESOMEX_EC8000_DSPCTRL: .equ $ec8000
@@ -288,7 +288,7 @@ is040Excel:
 ;PhantomXの判別。
 ;out d0/ccr
 Accelerator_GetPhantomX::
-  lea (PHANTOMX_E9F800_REG),a0
+  lea (PHANTOMX_EA8000_REG),a0
   bsr DosBusErrWord
   beq @f
     moveq #0,d0
