@@ -30,6 +30,7 @@ PHANTOMX_EA8002_DATA: .equ $ea8002
 PHANTOMX_VERSION:     .equ $0000
 PHANTOMX_MPU:         .equ $0001
 PHANTOMX_WAIT:        .equ $0002
+PHANTOMX_FDD_SWAP:    .equ $0003
 PHANTOMX_VRAMDISK_ID: .equ $0010
 PHANTOMX_TEMPERATURE: .equ $00f0
 
@@ -68,6 +69,11 @@ ProgramStart:
   bsr PhantomX_GetWait
   bsr PhantomX_WaitToString
 
+  lea (strFddSwap,pc),a1
+  STRCPY a1,a0,-1
+  bsr PhantomX_GetFddSwap
+  bsr PhantomX_FddSwapToString
+
   lea (strTemp0,pc),a1
   STRCPY a1,a0,-1
   bsr PhantomX_GetTemperature
@@ -93,7 +99,8 @@ strNoPX:     .dc.b 'PhantomXは装着されていません。',CR,LF,0
 strVersion:  .dc.b 'version ',0
 strMpu:      .dc.b ', MPU ',0
 strWait:     .dc.b ', wait ',0
-strTemp0:    .dc.b ', ',0
+strFddSwap:  .dc.b ', FDD swap ',0
+strTemp0:    .dc.b ', SOC ',0
 strTemp1:    .dc.b '℃',CR,LF,0
 
 .bss
@@ -143,6 +150,17 @@ PhantomX_GetMpu::
 PhantomX_GetWait::
   moveq #PHANTOMX_WAIT,d0
   bra getData
+
+
+;PhantomXのFDDスワップ設定を取得する。
+;  PhantomXの装着を確認しておくこと。
+;  スーパーバイザモードで呼び出すこと。
+;out d0.l ... 0:off 1:on
+PhantomX_GetFddSwap::
+  moveq #PHANTOMX_FDD_SWAP,d0
+  bsr getData
+  andi #1,d0
+  rts
 
 
 ;Raspberry Pi SOCの温度を取得する。
@@ -215,6 +233,29 @@ PhantomX_WaitToString::
   move.b d0,(a0)+
   clr.b (a0)
   rts
+
+
+;PhantomXのFDDスワップ設定を文字列化する。
+;in
+;  d0.l ... FDDスワップ設定(PhantomX_GetFddSwap の返り値)
+;  a0.l ... 文字列バッファ(今のところ8バイトあれば足りる)
+;out
+;  a0.l ... 文字列末尾のアドレス(NUL を指す)
+;break d0
+PhantomX_FddSwapToString::
+  move.l a1,-(sp)
+  lea (strOff,pc),a1
+  lsr #1,d0
+  bcc @f
+    addq.l #strOn-strOff,a1
+  @@:
+  STRCPY a1,a0,-1
+  movea.l (sp)+,a1
+  rts
+
+strOff: .dc.b 'off',0
+strOn:  .dc.b 'on',0
+.even
 
 
 ;Raspberry Pi SOCの温度を文字列化する。
