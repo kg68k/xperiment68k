@@ -48,6 +48,13 @@ IOCSワーク$cb8、$cbaの値を再計測します。
 MPU 68000、IOCS ROM version 1.1、1.2、1.3、1.6(XEiJ)専用です。
 
 
+### esc_dsr.x
+エスケープシーケンス `ESC [6n` (DSR = Device Status Report)
+を表示した際にキーバッファに入力されたデータを読み取って表示します。  
+Human68Kの標準では `ESC [{pl};{pc}R` (CPR = Cursor Position Report)
+が入力されますが、FEPによっては対応していません。
+
+
 ### mallocall
 プロセス自身のメモリブロックのアドレスとサイズを表示したあと、
 可能な限りメモリブロックを確保してそのアドレスとサイズを表示します。  
