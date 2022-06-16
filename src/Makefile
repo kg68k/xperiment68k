@@ -4,6 +4,8 @@ ifeq ($(notdir $(CURDIR)),src)
 $(error do not execute make in src directory)
 endif
 
+CC	= gcc2
+CFLAGS	= -Wall -O2
 AS	= has
 ASFLAGS	= -w -i include
 LD	= hlk
@@ -20,7 +22,8 @@ BUSERR = $(OBJ_DIR)/dosbuserr.o
 
 
 TARGET = chxdummy.x dbrams.x esc_dsr.x mallocall.x midi_reg.x pt_dbhw.x \
-         si_acc.x si_emu.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x
+         si_acc.x si_emu.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
+         sjis_tbl.x
 
 all: directories $(TARGET)
 
@@ -50,6 +53,9 @@ $(OBJ_DIR)/%.o: %.s $(OBJ_DIR)
 
 %.x:
 	$(LD) $(LDFLAGS) -o $@ $^
+
+sjis_tbl.x: sjis_tbl.c
+	$(CC) $(CFLAGS) -o $@ $^
 
 
 clean:
