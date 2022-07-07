@@ -21,7 +21,8 @@ BUSERR = $(OBJ_DIR)/dosbuserr.o
 .PRECIOUS: $(OBJ_DIR)/%.o
 
 
-TARGET = chxdummy.x dbrams.x esc_dsr.x mallocall.x midi_reg.x pt_dbhw.x \
+TARGET = chxdummy.x dbrams.x dos_nameck.x dos_open.x esc_dsr.x \
+         mallocall.x midi_reg.x pt_dbhw.x \
          si_acc.x si_emu.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
          sjis_tbl.x
 
@@ -29,6 +30,8 @@ all: directories $(TARGET)
 
 chxdummy.x:    $(OBJ_DIR)/chxdummy.o
 dbrams.x:      $(OBJ_DIR)/dbrams.o
+dos_open.x:    $(OBJ_DIR)/dos_open.o
+dos_nameck.x:  $(OBJ_DIR)/dos_nameck.o
 esc_dsr.x:     $(OBJ_DIR)/esc_dsr.o
 mallocall.x:   $(OBJ_DIR)/mallocall.o
 midi_reg.x:    $(OBJ_DIR)/midi_reg.o
