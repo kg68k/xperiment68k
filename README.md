@@ -43,12 +43,12 @@ chxdummy ch30_omake.sys
 chxinst ch30_omake.sys
 ```
 
-### dbrams.x
+### dbrams
 IOCSワーク$cb8、$cbaの値を再計測します。  
 MPU 68000、IOCS ROM version 1.1、1.2、1.3、1.6(XEiJ)専用です。
 
 
-### dos_create_sp.x
+### dos_create_sp
 コマンドライン引数で指定したファイルをDOS _CREATEの通常モードと特殊モード
 (ファイル属性のビット15を1にする)で連続して開き、
 戻り値(ファイルハンドルまたはエラーコード)を表示します。
@@ -56,22 +56,34 @@ MPU 68000、IOCS ROM version 1.1、1.2、1.3、1.6(XEiJ)専用です。
 特殊モードの動作により、同名のファイルが2個作成されます。
 
 
-### dos_nameck.x
+### dos_nameck
 コマンドライン引数で指定したファイルをDOS _NAMECKで展開し、
 戻り値と展開結果を表示します。
 
 
-### dos_open.x
+### dos_open
 コマンドライン引数で指定したファイルをDOS _OPENで開き、
 戻り値(ファイルハンドルまたはエラーコード)を表示します。
 
 
-### esc_dsr.x
+### esc_dsr
 エスケープシーケンス `ESC [6n` (DSR = Device Status Report)
 を表示した際にキーバッファに入力されたデータを読み取って表示します。  
 Human68Kの標準では `ESC [{pl};{pc}R` (CPR = Cursor Position Report)
 が入力されますが、FEPによっては対応していません。
 
+
+### keyflush
+SHIFTキーが押し下げられるまで待機し、キー入力をフラッシュしてから終了します。  
+コマンドライン引数でキーフラッシュの方法を指定できます(無指定時は`i`)。
+- `i` ... `IOCS _KEYSNS`/`_KEYINP`を使用します。
+- `c` ... `DOS _KEYCTRL`を使用します。
+- `f` ... `DOS _KFLUSH`を使用します。
+
+`c`は、FEPを組み込んでいると完全に消去できない場合があります。
+
+`f`は「標準入力に対するフラッシュ」なので、`keyflush f < nul`
+とすると(NUL デバイスに対してフラッシュを行うため)キーボード入力は消去されません。
 
 ### mallocall
 プロセス自身のメモリブロックのアドレスとサイズを表示したあと、

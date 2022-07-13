@@ -22,7 +22,7 @@ BUSERR = $(OBJ_DIR)/dosbuserr.o
 
 
 TARGET = chxdummy.x dbrams.x dos_create_sp.x dos_nameck.x dos_open.x esc_dsr.x \
-         mallocall.x midi_reg.x pt_dbhw.x \
+         keyflush.x mallocall.x midi_reg.x pt_dbhw.x \
          si_acc.x si_emu.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
          sjis_tbl.x
 
@@ -34,6 +34,7 @@ dos_create_sp.x: $(OBJ_DIR)/dos_create_sp.o
 dos_open.x:      $(OBJ_DIR)/dos_open.o
 dos_nameck.x:    $(OBJ_DIR)/dos_nameck.o
 esc_dsr.x:       $(OBJ_DIR)/esc_dsr.o
+keyflush.x:      $(OBJ_DIR)/keyflush.o
 mallocall.x:     $(OBJ_DIR)/mallocall.o
 midi_reg.x:      $(OBJ_DIR)/midi_reg.o
 pt_dbhw.x:       $(OBJ_DIR)/pt_dbhw.o
