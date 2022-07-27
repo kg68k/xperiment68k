@@ -128,7 +128,7 @@ PhantomX_Exists::
 ;PhantomXのバージョンを取得する。
 ;  PhantomXの装着を確認しておくこと。
 ;  スーパーバイザモードで呼び出すこと。
-;out d0.l ... バージョン(上位ワードは $0000)
+;out d0.l ... バージョン(BCD 4桁、上位ワードは $0000)
 PhantomX_GetVersion::
   moveq #PHANTOMX_VERSION,d0
   bra getData
@@ -166,7 +166,7 @@ PhantomX_GetFddSwap::
 ;Raspberry Pi SOCの温度を取得する。
 ;  PhantomXの装着を確認しておくこと。
 ;  スーパーバイザモードで呼び出すこと。
-;out d0.l ... MPUの種類 0:68000 3:68030 4:68040 6:68060
+;out d0.l ... 温度(BCD 4桁、上位ワードは $0000)
 PhantomX_GetTemperature::
   moveq #.notb.PHANTOMX_TEMPERATURE,d0
   not.b d0
