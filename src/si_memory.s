@@ -65,6 +65,16 @@ ProgramStart:
   lea (strMainMem,pc),a0
   bsr print_a0
 
+  bsr Memory_GetHighArea
+  movem.l d0-d1,(highArea)
+  sub.l d0,d1
+  moveq #3,d0
+  cmpi.l #1000*1024*1024,d1
+  bcs @f
+    moveq #4,d0  ;ハイメモリが1000MB以上ならメインメモリも4桁表示
+  @@:
+  move.b d0,(memWidth)
+
   bsr Memory_GetMainArea
   move.l d1,d2
   sub.l d0,d2  ;メインメモリのバイト数
@@ -78,7 +88,7 @@ ProgramStart:
   lea (strHighMem,pc),a0
   bsr print_a0
 
-  bsr Memory_GetHighArea
+  movem.l (highArea,pc),d0-d1
   move.l d1,d2
   beq no_himem
   sub.l d0,d2  ;ハイメモリのバイト数
@@ -102,6 +112,8 @@ print_mem:
 
   move.b #' ',(a0)+
   move.l d2,d0
+  moveq #0,d1
+  move.b (memWidth,pc),d1
   bsr Memory_SizeToString
 
   move.b #' ',(a0)+
@@ -130,6 +142,10 @@ strCrLf: .dc.b CR,LF,0
 .bss
 .even
 strBuf: .ds.b 256
+
+.even
+highArea: .ds.l 2
+memWidth: .ds.b 1
 .text
 
 
@@ -259,6 +275,7 @@ Memory_GetHighFreeSize::
   move.l d1,-(sp)
   moveq #_HIMEM_GETSIZE,d1
   IOCS _HIMEM
+  move.l d1,d0
   move.l (sp)+,d1
   rts
 
@@ -286,23 +303,20 @@ Memory_AreaToString::
 ;メモリ容量を文字列化する。
 ;in
 ;  d0.l ... バイト数
+;  d1.l ... 最小桁数
 ;  a0.l ... 文字列バッファ(今のところ16バイトあれば足りる)
 ;out
 ;  a0.l ... 文字列末尾のアドレス(NUL を指す)
 ;break d0
 Memory_SizeToString::
-  move.l d1,-(sp)
   clr d0
   swap d0
   lsr #4,d0  ;1024*1024で割ってメガバイト単位に変換
-
-  moveq #.sizeof.('256'),d1
   bsr fe_iusing
 
   move.b #'M',(a0)+
   move.b #'B',(a0)+
   clr.b (a0)
-  move.l (sp)+,d1
   rts
 
 
