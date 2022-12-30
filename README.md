@@ -182,6 +182,11 @@ Shift_JISの2バイト文字の文字表を表示します。
 `0xf000-0xf5ff`の文字表を表示します(下位バイトとして有効な値の範囲は要検証)。
 
 
+### sysport
+システムポート領域($00e8e000-$00e8e00f、ポート未割り当てのアドレスも含む)
+を読み込んで値を表示します。
+
+
 ## License
 GNU General Public License version 3 or later.
 

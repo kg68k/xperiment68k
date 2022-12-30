@@ -24,7 +24,7 @@ BUSERR = $(OBJ_DIR)/dosbuserr.o
 TARGET = a2arg.x chxdummy.x dbrams.x dos_create_sp.x dos_keyctrl01.x dos_nameck.x dos_open.x \
          esc_dsr.x keyflush.x mallocall.x midi_reg.x pt_dbhw.x putmes24.x \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
-         sjis_tbl.x
+         sjis_tbl.x sysport.x
 
 all: directories $(TARGET)
 
@@ -49,6 +49,7 @@ si_model.x:      $(OBJ_DIR)/si_model.o  $(BUSERR)
 si_phantomx.x:   $(OBJ_DIR)/si_phantomx.o $(BUSERR)
 si_scsiex.x:     $(OBJ_DIR)/si_scsiex.o $(BUSERR)
 si_sram.x:       $(OBJ_DIR)/si_sram.o   $(BUSERR)
+sysport.x:       $(OBJ_DIR)/sysport.o   $(BUSERR)
 
 
 directories: $(OBJ_DIR)
