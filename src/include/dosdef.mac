@@ -1,0 +1,213 @@
+.nlist
+
+# dosdef.mac version 2.0.0
+# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __dosdef_mac__
+        __dosdef_mac__:=1
+
+.include doscall.mac
+
+
+* Structure ----------------------------------- *
+
+.offset 0
+INPPTR_MAX:    .ds.b 1
+INPPTR_LENGTH: .ds.b 1
+INPPTR_BUFFER: .ds.b 256
+sizeof_INPPTR:
+.fail $.ne.258
+
+.offset 0
+INDOS_INDOSF:      .ds   1
+INDOS_DOSCMD:      .ds.b 1
+INDOS_FAT_FLG:     .ds.b 1
+INDOS_RETRY_COUNT: .ds   1
+INDOS_RETRY_TIME:  .ds   1
+INDOS_VERIFYF:     .ds   1
+INDOS_BREAKF:      .ds.b 1
+INDOS_CTRLPF:      .ds.b 1
+                   .ds.b 1
+INDOS_WKCURDRV:    .ds.b 1
+sizeof_INDOS:
+.fail $.ne.14
+
+.offset 0
+COMLINE_LEN:    .ds.b 1
+COMLINE_BUFFER: .ds.b 255
+sizeof_COMLINE:
+.fail $.ne.256
+
+.offset 0
+FREEINF_FREE: .ds 1
+FREEINF_MAX:  .ds 1
+FREEINF_SEC:  .ds 1
+FREEINF_BYTE: .ds 1
+sizeof_FREEINF:
+.fail $.ne.8
+
+.offset 0
+PRCCTRL_LENGTH:  .ds.l 1
+PRCCTRL_BUF_PTR: .ds.l 1
+PRCCTRL_COMMAND: .ds   1
+PRCCTRL_YOUR_ID: .ds   1
+sizeof_PRCCTRL:
+.fail $.ne.12
+
+.text
+
+
+* Error No ------------------------------------ *
+
+DOSE_ILGFNC:    .equ -1
+DOSE_NOENT:     .equ -2
+DOSE_NODIR:     .equ -3
+DOSE_MFILE:     .equ -4
+DOSE_ISDIR:     .equ -5
+DOSE_BADF:      .equ -6
+DOSE_BROKNMEM:  .equ -7
+DOSE_NOMEM:     .equ -8
+DOSE_ILGMPTR:   .equ -9
+DOSE_ILGENV:    .equ -10
+DOSE_ILGFMT:    .equ -11
+DOSE_ILGARG:    .equ -12
+DOSE_ILGFNAME:  .equ -13
+DOSE_ILGPARM:   .equ -14
+DOSE_ILGDRV:    .equ -15
+DOSE_ISCURDIR:  .equ -16
+DOSE_CANTIOC:   .equ -17
+DOSE_NOMORE:    .equ -18
+DOSE_RDONLY:    .equ -19
+DOSE_EXISTDIR:  .equ -20
+DOSE_NOTEMPTY:  .equ -21
+DOSE_CANTREN:   .equ -22
+DOSE_DISKFULL:  .equ -23
+DOSE_DIRFULL:   .equ -24
+DOSE_CANTSEEK:  .equ -25
+DOSE_SUPER:     .equ -26
+DOSE_DUPTHNAM:  .equ -27
+DOSE_CANTSEND:  .equ -28
+DOSE_THFULL:    .equ -29
+DOSE_LCKFULL:   .equ -32
+DOSE_LCKERR:    .equ -33
+DOSE_BUSYDRV:   .equ -34
+DOSE_SYMLOOP:   .equ -35
+DOSE_EXISTFILE: .equ -80
+
+
+* Constant ------------------------------------ *
+
+EXIT_SUCCESS: .equ 0
+EXIT_FAILURE: .equ 1
+
+STDIN:  .equ 0
+STDOUT: .equ 1
+STDERR: .equ 2
+STDAUX: .equ 3
+STDPRN: .equ 4
+
+ATR_EXEC: .equ 7
+ATR_LINK: .equ 6
+ATR_ARC:  .equ 5
+ATR_DIR:  .equ 4
+ATR_VOL:  .equ 3
+ATR_SYS:  .equ 2
+ATR_HID:  .equ 1
+ATR_READ: .equ 0
+
+EXEC:      .equ 7
+SYMLINK:   .equ 6
+ARCHIVE:   .equ 5
+DIRECTORY: .equ 4
+VOLUME:    .equ 3
+SYSTEM:    .equ 2
+HIDDEN:    .equ 1
+READONLY:  .equ 0
+
+READRV: .equ $40
+VIRDRV: .equ $50
+VIRDIR: .equ $60
+
+ROPEN:  .equ 0
+WOPEN:  .equ 1
+RWOPEN: .equ 2
+*COPEN: .equ 3
+*DOPEN: .equ 4
+
+SEEK_SET: .equ 0
+SEEK_CUR: .equ 1
+SEEK_END: .equ 2
+
+EXEC_LOADEXEC: .equ 0
+EXEC_LOAD:     .equ 1
+EXEC_PATHCHK:  .equ 2
+EXEC_DEVLOAD:  .equ 3
+EXEC_EXEC:     .equ 4
+EXEC_BINDNO:   .equ 5
+
+THREAD_KILL:   .equ $fff9
+THREAD_WAKEUP: .equ $fffb
+THREAD_SLEEP:  .equ $fffc
+THREAD_ISBUSY: .equ $ffff
+
+INPUT_MAX: .equ 256
+ENV_MAX:   .equ 256
+DRIVE_MAX: .equ 26
+
+MB_2DD10:   .equ $e0
+MB_1D9:     .equ $e5
+MB_2D9:     .equ $e6
+MB_1D8:     .equ $e7
+MB_2D8:     .equ $e8
+MB_2HT:     .equ $ea
+MB_2HS:     .equ $eb
+MB_2HDE:    .equ $ec
+MB_1DD9:    .equ $ee
+MB_1DD8:    .equ $ef
+
+MB_DAT:     .equ $f4
+MB_CDROM:   .equ $f5
+MB_MO:      .equ $f6
+MB_HD:      .equ $f7
+MB_SASI:    .equ $f8
+MB_RAMDISK: .equ $f9
+MB_2HQ:     .equ $fa
+MB_2DD8:    .equ $fb
+MB_2DD9:    .equ $fc
+MB_2HC:     .equ $fd
+MB_2HD:     .equ $fe
+
+
+* User Macro ---------------------------------- *
+
+TO_SUPER: .macro
+  clr.l -(sp)
+  DOS _SUPER
+  move.l d0,(sp)
+.endm
+
+TO_USER: .macro
+  DOS _SUPER
+  addq.l #4,sp
+.endm
+
+TO_USER2: .macro
+  tst.b (sp)
+  bmi @skip
+    DOS _SUPER
+  @skip:
+  addq.l #4,sp
+.endm
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

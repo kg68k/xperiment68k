@@ -1,0 +1,373 @@
+.nlist
+
+# iomap.mac version 2.0.0
+# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __iomap_mac__
+        __iomap_mac__:=1
+
+
+* Memory Map ---------------------------------- *
+
+MPU_VECTBL:     .equ $0000
+USER_VECTBL:    .equ $0100
+
+.ifndef IOCS_VECTBL
+IOCS_VECTBL:    .equ $0400
+.endif
+
+.ifndef DOS_VECTBL
+DOS_VECTBL:     .equ $1800
+.endif
+
+.ifndef IPL_BUF
+IPL_BUF:        .equ $2000
+IPL_STACK:      .equ $2000
+.endif
+
+GVRAM:          .equ $c00000
+GVRAM_SIZE:     .equ $080000
+GVRAM_P0:       .equ $c00000
+GVRAM_P1:       .equ $c80000
+GVRAM_P2:       .equ $d00000
+GVRAM_P3:       .equ $d80000
+
+TVRAM:          .equ $e00000
+TVRAM_SIZE:     .equ $080000
+TVRAM_PSIZE:    .equ $020000
+TVRAM_P0:       .equ $e00000
+TVRAM_P1:       .equ $e20000
+TVRAM_P2:       .equ $e40000
+TVRAM_P3:       .equ $e60000
+
+CRTC:           .equ $e80000
+CRTC_R00:       .equ $e80000
+CRTC_R01:       .equ $e80002
+CRTC_R02:       .equ $e80004
+CRTC_R03:       .equ $e80006
+CRTC_R04:       .equ $e80008
+CRTC_R05:       .equ $e8000a
+CRTC_R06:       .equ $e8000c
+CRTC_R07:       .equ $e8000e
+CRTC_R08:       .equ $e80010
+CRTC_R09:       .equ $e80012
+CRTC_R10:       .equ $e80014
+CRTC_R11:       .equ $e80016
+CRTC_R12:       .equ $e80018
+CRTC_R13:       .equ $e8001a
+CRTC_R14:       .equ $e8001c
+CRTC_R15:       .equ $e8001e
+CRTC_R16:       .equ $e80020
+CRTC_R17:       .equ $e80022
+CRTC_R18:       .equ $e80024
+CRTC_R19:       .equ $e80026
+CRTC_R20:       .equ $e80028
+CRTC_R20H:      .equ $e80028
+CRTC_R20L:      .equ $e80029
+CRTC_R21:       .equ $e8002a
+CRTC_R21H:      .equ $e8002a
+CRTC_R21L:      .equ $e8002b
+CRTC_R22:       .equ $e8002c
+CRTC_R23:       .equ $e8002e
+CRTC_ACT:       .equ $e80480
+CRTC_ACTL:      .equ $e80481
+
+~CRTC_R00:  .equ $00
+~CRTC_R01:  .equ $02
+~CRTC_R02:  .equ $04
+~CRTC_R03:  .equ $06
+~CRTC_R04:  .equ $08
+~CRTC_R05:  .equ $0a
+~CRTC_R06:  .equ $0c
+~CRTC_R07:  .equ $0e
+~CRTC_R08:  .equ $10
+~CRTC_R09:  .equ $12
+~CRTC_R10:  .equ $14
+~CRTC_R11:  .equ $16
+~CRTC_R12:  .equ $18
+~CRTC_R13:  .equ $1a
+~CRTC_R14:  .equ $1c
+~CRTC_R15:  .equ $1e
+~CRTC_R16:  .equ $20
+~CRTC_R17:  .equ $22
+~CRTC_R18:  .equ $24
+~CRTC_R19:  .equ $26
+~CRTC_R20:  .equ $28
+~CRTC_R20H: .equ $28
+~CRTC_R20L: .equ $29
+~CRTC_R21:  .equ $2a
+~CRTC_R21H: .equ $2a
+~CRTC_R21L: .equ $2b
+~CRTC_R22:  .equ $2c
+~CRTC_R23:  .equ $2e
+~CRTC_ACT:  .equ $480
+~CRTC_ACTL: .equ $481
+
+GPALET:         .equ $e82000
+TPALET:         .equ $e82200
+VC_R0:          .equ $e82400
+VC_R1:          .equ $e82500
+VC_R2:          .equ $e82600
+
+DMAC:           .equ $e84000
+DMAC_CH0:       .equ $e84000
+DMAC_CH1:       .equ $e84040
+DMAC_CH2:       .equ $e84080
+DMAC_CH3:       .equ $e840c0
+
+~DMAC_CSR: .equ $00
+~DMAC_CER: .equ $01
+~DMAC_DCR: .equ $04
+~DMAC_OCR: .equ $05
+~DMAC_SCR: .equ $06
+~DMAC_CCR: .equ $07
+~DMAC_MTC: .equ $0a
+~DMAC_MAR: .equ $0c
+~DMAC_DAR: .equ $14
+~DMAC_BTC: .equ $1a
+~DMAC_BAR: .equ $1c
+~DMAC_NIV: .equ $25
+~DMAC_EIV: .equ $27
+~DMAC_MFC: .equ $29
+~DMAC_CPR: .equ $2d
+~DMAC_DFC: .equ $31
+~DMAC_BFC: .equ $39
+~DMAC_GCR: .equ $3f
+
+AREASET_REG:    .equ $e86001
+AREASET_EX0:    .equ $eaff81
+AREASET_EX1:    .equ $eaff83
+AREASET_EX2:    .equ $eaff85
+AREASET_EX3:    .equ $eaff87
+AREASET_EX4:    .equ $eaff89
+
+MFP:            .equ $e88000
+MFP_GPIP:       .equ $e88001
+MFP_AER:        .equ $e88003
+MFP_DDR:        .equ $e88005
+MFP_IERA:       .equ $e88007
+MFP_IERB:       .equ $e88009
+MFP_IPRA:       .equ $e8800b
+MFP_IPRB:       .equ $e8800d
+MFP_ISRA:       .equ $e8800f
+MFP_ISRB:       .equ $e88011
+MFP_IMRA:       .equ $e88013
+MFP_IMRB:       .equ $e88015
+MFP_VR:         .equ $e88017
+MFP_TACR:       .equ $e88019
+MFP_TBCR:       .equ $e8801b
+MFP_TCDCR:      .equ $e8801d
+MFP_TADR:       .equ $e8801f
+MFP_TBDR:       .equ $e88021
+MFP_TCDR:       .equ $e88023
+MFP_TDDR:       .equ $e88025
+MFP_SCR:        .equ $e88027
+MFP_UCR:        .equ $e88029
+MFP_RSR:        .equ $e8802b
+MFP_TSR:        .equ $e8802d
+MFP_UDR:        .equ $e8802f
+
+~MFP_GPIP: .equ $01
+~MFP_AER:  .equ $03
+~MFP_DDR:  .equ $05
+~MFP_IERA: .equ $07
+~MFP_IERB: .equ $09
+~MFP_IPRA: .equ $0b
+~MFP_IPRB: .equ $0d
+~MFP_ISRA: .equ $0f
+~MFP_ISRB: .equ $11
+~MFP_IMRA: .equ $13
+~MFP_IMRB: .equ $15
+~MFP_VR:   .equ $17
+~MFP_TACR: .equ $19
+~MFP_TBCR: .equ $1b
+~MFP_TCDCR:.equ $1d
+~MFP_TADR: .equ $1f
+~MFP_TBDR: .equ $21
+~MFP_TCDR: .equ $23
+~MFP_TDDR: .equ $25
+~MFP_SCR:  .equ $27
+~MFP_UCR:  .equ $29
+~MFP_RSR:  .equ $2b
+~MFP_TSR:  .equ $2d
+~MFP_UDR:  .equ $2f
+
+RTC:            .equ $e8a000
+RTC_1SEC:       .equ $e8a001
+RTC_CLKOUT:     .equ $e8a001
+RTC_10SEC:      .equ $e8a003
+RTC_ADJUST:     .equ $e8a003
+RTC_1MIN:       .equ $e8a005
+RTC_AL1MIN:     .equ $e8a005
+RTC_10MIN:      .equ $e8a007
+RTC_AL10MIN:    .equ $e8a007
+RTC_1HOUR:      .equ $e8a009
+RTC_AL1HOUR:    .equ $e8a009
+RTC_10HOUR:     .equ $e8a00b
+RTC_AL10HOUR:   .equ $e8a00b
+RTC_DAY:        .equ $e8a00d
+RTC_ALDAY:      .equ $e8a00d
+RTC_1DAY:       .equ $e8a00f
+RTC_AL1DAY:     .equ $e8a00f
+RTC_10DAY:      .equ $e8a011
+RTC_AL10DAY:    .equ $e8a011
+RTC_1MON:       .equ $e8a013
+RTC_10MON:      .equ $e8a015
+RTC_12_24:      .equ $e8a015
+RTC_1YEAR:      .equ $e8a017
+RTC_LEAP:       .equ $e8a017
+RTC_10YEAR:     .equ $e8a019
+RTC_MODE:       .equ $e8a01b
+RTC_TEST:       .equ $e8a01d
+RTC_RESET:      .equ $e8a01f
+
+~RTC_1SEC:     .equ $01
+~RTC_CLKOUT:   .equ $01
+~RTC_10SEC:    .equ $03
+~RTC_ADJUST:   .equ $03
+~RTC_1MIN:     .equ $05
+~RTC_AL1MIN:   .equ $05
+~RTC_10MIN:    .equ $07
+~RTC_AL10MIN:  .equ $07
+~RTC_1HOUR:    .equ $09
+~RTC_AL1HOUR:  .equ $09
+~RTC_10HOUR:   .equ $0b
+~RTC_AL10HOUR: .equ $0b
+~RTC_DAY:      .equ $0d
+~RTC_ALDAY:    .equ $0d
+~RTC_1DAY:     .equ $0f
+~RTC_AL1DAY:   .equ $0f
+~RTC_10DAY:    .equ $11
+~RTC_AL10DAY:  .equ $11
+~RTC_1MON:     .equ $13
+~RTC_10MON:    .equ $15
+~RTC_12_24:    .equ $15
+~RTC_1YEAR:    .equ $17
+~RTC_LEAP:     .equ $17
+~RTC_10YEAR:   .equ $19
+~RTC_MODE:     .equ $1b
+~RTC_TEST:     .equ $1d
+~RTC_RESET:    .equ $1f
+
+PRN_DATA:       .equ $e8c001
+PRN_STR:        .equ $e8c003
+
+SYS_P1:         .equ $e8e001
+SYS_P2:         .equ $e8e003
+SYS_P3:         .equ $e8e005
+SYS_P4:         .equ $e8e007
+SYS_P5:         .equ $e8e009
+SYS_P6:         .equ $e8e00b
+SYS_P7:         .equ $e8e00d
+SYS_P8:         .equ $e8e00f
+
+OPM_REGNO:      .equ $e90001
+OPM_STAT:       .equ $e90003
+OPM_DATA:       .equ $e90003
+
+ADPCM_STAT:     .equ $e92001
+ADPCM_CMD:      .equ $e92001
+ADPCM_DATA:     .equ $e92003
+
+FDC_STAT:       .equ $e94001
+FDC_CMD:        .equ $e94001
+FDC_DATA:       .equ $e94003
+FDC_CMD0:       .equ $e94003
+IOC_DRVSTAT:    .equ $e94005
+IOC_DRVOPT:     .equ $e94005
+IOC_DRVSEL:     .equ $e94007
+
+SASI_DATA:      .equ $e96001
+SASI_STAT:      .equ $e96003
+SASI_SEL_H:     .equ $e96003
+SASI_RESET:     .equ $e96005
+SASI_SEL_L:     .equ $e96007
+
+SPC:            .equ $e96020
+SPC_BDID:       .equ $e96021
+SPC_SCTL:       .equ $e96023
+SPC_SCMD:       .equ $e96025
+SPC_INTS:       .equ $e96029
+SPC_PSNS:       .equ $e9602b
+SPC_SDGC:       .equ $e9602b
+SPC_SSTS:       .equ $e9602d
+SPC_SERR:       .equ $e9602f
+SPC_PCTL:       .equ $e96031
+SPC_MBC:        .equ $e96033
+SPC_DREG:       .equ $e96035
+SPC_TEMP:       .equ $e96037
+SPC_TCH:        .equ $e96039
+SPC_TCM:        .equ $e9603b
+SPC_TCL:        .equ $e9603d
+
+~SPC_BDID: .equ $01
+~SPC_SCTL: .equ $03
+~SPC_SCMD: .equ $05
+~SPC_INTS: .equ $09
+~SPC_PSNS: .equ $0b
+~SPC_SDGC: .equ $0b
+~SPC_SSTS: .equ $0d
+~SPC_SERR: .equ $0f
+~SPC_PCTL: .equ $11
+~SPC_MBC:  .equ $13
+~SPC_DREG: .equ $15
+~SPC_TEMP: .equ $17
+~SPC_TCH:  .equ $19
+~SPC_TCM:  .equ $1b
+~SPC_TCL:  .equ $1d
+
+SPCEX:          .equ $ea0000
+SPCEX_BDID:     .equ $ea0001
+SPCEX_SCTL:     .equ $ea0003
+SPCEX_SCMD:     .equ $ea0005
+SPCEX_INTS:     .equ $ea0009
+SPCEX_PSNS:     .equ $ea000b
+SPCEX_SDGC:     .equ $ea000b
+SPCEX_SSTS:     .equ $ea000d
+SPCEX_SERR:     .equ $ea000f
+SPCEX_PCTL:     .equ $ea0011
+SPCEX_MBC:      .equ $ea0013
+SPCEX_DREG:     .equ $ea0015
+SPCEX_TEMP:     .equ $ea0017
+SPCEX_TCH:      .equ $ea0019
+SPCEX_TCM:      .equ $ea001b
+SPCEX_TCL:      .equ $ea001d
+
+SCC:            .equ $e98000
+SCCB_CMD:       .equ $e98001
+SCCB_DATA:      .equ $e98003
+SCCA_CMD:       .equ $e98005
+SCCA_DATA:      .equ $e98007
+
+JOYSTICK:       .equ $e9a000
+JOYSTICK1:      .equ $e9a001
+JOYSTICK2:      .equ $e9a003
+JOYSTICK_CTRL:  .equ $e9a005
+PD8255CTRL:     .equ $e9a007
+
+IOC:            .equ $e9c000
+IOC_STAT:       .equ $e9c001
+IOC_MASK:       .equ $e9c001
+IOC_VECT:       .equ $e9c003
+
+.ifndef IOCS_ROM
+SCSI_ROM:       .equ $fc0000
+ROM_HUMAN:      .equ $fc0200
+ROM_FLOAT:      .equ $fce000
+ROMDB_INIT:     .equ $fd3800
+ROMDB_ROM:      .equ $fe0000
+IOCS_ROM:       .equ $ff0000
+.endif
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

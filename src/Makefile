@@ -21,26 +21,14 @@ BUSERR = $(OBJ_DIR)/dosbuserr.o
 .PRECIOUS: $(OBJ_DIR)/%.o
 
 
-TARGET = a2arg.x chxdummy.x dbrams.x dos_create_sp.x dos_keyctrl01.x dos_nameck.x dos_open.x \
+TARGET = a2arg.x chxdummy.x colorbar.x dbrams.x \
+         dos_create_sp.x dos_keyctrl01.x dos_nameck.x dos_open.x \
          esc_dsr.x keyflush.x mallocall.x midi_reg.x pt_dbhw.x putmes24.x \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
-         sjis_tbl.x sysport.x
+         sjis_tbl.x sq64k.x sysport.x
 
 all: directories $(TARGET)
 
-a2arg.x:         $(OBJ_DIR)/a2arg.o
-chxdummy.x:      $(OBJ_DIR)/chxdummy.o
-dbrams.x:        $(OBJ_DIR)/dbrams.o
-dos_create_sp.x: $(OBJ_DIR)/dos_create_sp.o
-dos_keyctrl01.x: $(OBJ_DIR)/dos_keyctrl01.o
-dos_open.x:      $(OBJ_DIR)/dos_open.o
-dos_nameck.x:    $(OBJ_DIR)/dos_nameck.o
-esc_dsr.x:       $(OBJ_DIR)/esc_dsr.o
-keyflush.x:      $(OBJ_DIR)/keyflush.o
-mallocall.x:     $(OBJ_DIR)/mallocall.o
-midi_reg.x:      $(OBJ_DIR)/midi_reg.o
-pt_dbhw.x:       $(OBJ_DIR)/pt_dbhw.o
-putmes24.x:      $(OBJ_DIR)/putmes24.o
 si_acc.x:        $(OBJ_DIR)/si_acc.o    $(BUSERR)
 si_emu.x:        $(OBJ_DIR)/si_emu.o    $(BUSERR)
 si_memory.x:     $(OBJ_DIR)/si_memory.o $(BUSERR)
@@ -61,7 +49,10 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: %.s $(OBJ_DIR)
 	$(AS) $(ASFLAGS) -o $@ $<
 
-%.x:
+# cancel default rule
+%.x: %.s
+
+%.x: $(OBJ_DIR)/%.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 sjis_tbl.x: sjis_tbl.c

@@ -1,0 +1,447 @@
+.nlist
+
+# iocswork.mac version 2.0.1
+# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __iocswork_mac__
+        __iocswork_mac__:=1
+
+
+* IOCS Work ----------------------------------- *
+
+.ifndef IOCS_VECTBL
+  IOCS_VECTBL: .equ $0400
+.endif
+
+BITSNS:         .equ $800
+LEDSNS:         .equ $810
+SFTSNS:         .equ $811
+BUFCNT:         .equ $812
+BUFWRT:         .equ $814
+BUFRED:         .equ $818
+KEYBUF:         .equ $81c
+KEYBUF_SIZE:    .equ 64
+KEYBUF_END:     .equ (KEYBUF+KEYBUF_SIZE*2)
+
+RSBUFCNT:       .equ $89c
+RSBUFWRT:       .equ $89e
+RSBUFRED:       .equ $8a2
+RSBUF:          .equ $8a6
+RSBUFSIZ:       .equ 64
+RSBUFEND:       .equ (RSBUF+RSBUFSIZ*2)
+RSMODE:         .equ $926
+RSMODEh:        .equ $926
+RSMODEl:        .equ $927
+RSSISO:         .equ $928
+RSXFLOW:        .equ $929
+
+MSRCVCNT:       .equ $92a
+MSRCVPTR:       .equ $92c
+MSRCVBUF:       .equ $930
+MSCTRLFLG:      .equ $933
+MSSKEYVEC:      .equ $934
+MSCSRVEC:       .equ $938
+
+CRTMOD:         .equ $93c
+GRPAGE:         .equ $93d
+TXLLEN:         .equ $93e
+TXLLEN_LOW:     .equ $940
+TXPAGE:         .equ $942
+TXTADR:         .equ $944
+TXOFST:         .equ $948
+
+SKEY_WIDTH:     .equ 370
+SKEY_HEIGHT:    .equ 150
+SKEYTXADR:      .equ $94c
+SKEYXOFST:      .equ $950
+SKEYYOFST:      .equ $952
+
+TXXMIN:         .equ $954
+TXYMIN:         .equ $956
+TXXMAX:         .equ $958
+TXYMAX:         .equ $95a
+GRADR:          .equ $95c
+GRLLEN:         .equ $960
+GRCOLMAX:       .equ $964
+GRCOL:          .equ $966
+GRXMIN:         .equ $968
+GRYMIN:         .equ $96a
+GRXMAX:         .equ $96c
+GRYMAX:         .equ $96e
+CSXMAX:         .equ $970
+CSYMAX:         .equ $972
+CSRX:           .equ $974
+CSRY:           .equ $976
+
+BEEPADR:        .equ $978
+BEEPLEN:        .equ $97c
+ESCVEC:         .equ $97e
+ESCPTR:         .equ $982
+ESCBUF:         .equ $986
+ESCBUF_END:     .equ $98f
+
+FIRSTBYTE:      .equ $990
+CSRSTAT:        .equ $991
+CSRSWITCH:      .equ $992
+CSRSW:          .equ $993
+TXTCOL:         .equ $994
+TXTCOLSAV:      .equ $995
+CSRXSAVE:       .equ $996
+CSRYSAVE:       .equ $998
+
+USKFONT:        .equ $99a
+USKFONT0:       .equ $99a
+USKFONT1:       .equ $99e
+USKFONT2:       .equ $9a2
+USKFONT3:       .equ $9a6
+USKFONT4:       .equ $9aa
+USKFONT5:       .equ $9ae
+
+MSTINIT:        .equ $9b2
+MSTIMER:        .equ $9b4
+MSTADR:         .equ $9b6
+CSRTINIT:       .equ $9ba
+CSRTIMER:       .equ $9bc
+CSRTADR:        .equ $9be
+FDTINIT:        .equ $9c2
+FDTIMER:        .equ $9c4
+FDTADR:         .equ $9c6
+ALMTINIT:       .equ $9ca
+ALMTIMER:       .equ $9cc
+ALMTADR:        .equ $9ce
+
+OFFTIME:        .equ $9d2
+RUNTIME:        .equ $9d6
+OPM1B_SAVE:     .equ $9da
+*UNUSED_9DB:    .equ $9db
+G_USEMD:        .equ $9dc
+T_USEMD:        .equ $9dd
+ROMDBSW:        .equ $9de
+BOOTWAY:        .equ $9df
+BOOTUNIT:       .equ $9e0
+
+FDMOTOR:        .equ $9e1
+FDMODE:         .equ $9e2
+FDAXSFLAG:      .equ $9e6
+FDCMD:          .equ $9ee
+FDHDUS:         .equ $9ef
+FDCYL:          .equ $9f0
+FDHEAD:         .equ $9f1
+FDCMD2:         .equ $9f2
+FDCMD3:         .equ $9f6
+
+SASI_COMMAND:   .equ $9f8
+SASIFLAG:       .equ $9fe
+
+IOCSNUM:        .equ $a0e
+
+PRT_ABORT:      .equ $a10
+PRT_ISKANJI:    .equ $a11
+PRT_FASTBYTE:   .equ $a12
+PRT_OUTLINE:    .equ $a13
+PRT_OUTCOL:     .equ $a14
+PRTPARA:        .equ $a16
+PRTLINE:        .equ $a78
+PRTWIDTH:       .equ $a79
+
+MS_PAT_SIZE:    .equ (2*2+16*2*2)
+MSTXADR3:       .equ $a7a
+MSTXADR2:       .equ $a7e
+MSVBCHK:        .equ $a82
+MSMVLIM:        .equ $a84
+MSASPEED:       .equ $a86
+*MS???:         .equ $a88
+*MS???:         .equ $a8a
+MSCOLMIN:       .equ $a8c
+MSLINEMIN:      .equ $a8e
+MSCOLMAX:       .equ $a90
+MSLINEMAX:      .equ $a92
+*MS???:         .equ $a94
+*MS???:         .equ $a96
+MSTXLLEN:       .equ $a98
+MSXMIN:         .equ $a9a
+MSYMIN:         .equ $a9c
+MSXMAX:         .equ $a9e
+MSYMAX:         .equ $aa0
+MSCSRSW:        .equ $aa2
+MSCSRPAT:       .equ $aa4
+MSAPATN:        .equ $ac0
+MSASCNT:        .equ $ac2
+MSANIMSW:       .equ $ac4
+MSLEFT:         .equ $ac6
+MSRIGHT:        .equ $ac8
+MSMOVEX:        .equ $aca
+MSMOVEY:        .equ $acc
+MSCSRX:         .equ $ace
+MSCSRY:         .equ $ad0
+MSSAVEX:        .equ $ad2
+MSSAVEY:        .equ $ad4
+MSHOTX:         .equ $ad6
+MSHOTY:         .equ $ad8
+MSCSRWCOL:      .equ $ada
+MSCSRWLINE:     .equ $adc
+MSIOCSJOB:      .equ $ade
+MSREGSAV:       .equ $ae4
+MSVRAM2:        .equ $af0
+MSVRAM3:        .equ $b30
+MSCSRTBL:       .equ $b70
+SKEYX:          .equ $bb0
+SKEYY:          .equ $bb2
+SKEYSAVEX:      .equ $bb4
+SKEYSAVEY:      .equ $bb6
+SKEYCODE:       .equ $bb8
+SKEYADDR:       .equ $bba
+MSSAVESTAT:     .equ $bbe
+MSJOBFLG:       .equ $bbf
+SKEYREPT:       .equ $bc0
+SKEYMOD:        .equ $bc1
+SKEYPHASE:      .equ $bc2
+SKEYPUSHFLG:    .equ $bc3
+MSSKEYJOB:      .equ $bc4
+
+TRAPKEYJOB:     .equ $bc5
+
+DEN_WIDTH:      .equ 184
+DEN_HEIGHT:     .equ 16
+DENPRINT:       .equ $bc6
+DENMODE:        .equ $bc7
+DENRULE:        .equ $bc8
+DENPOINT:       .equ $bc9
+DENCNT:         .equ $bca
+DENRED:         .equ $bcc
+DENBUF:         .equ $bd0
+DENXPOS:        .equ $bfc
+DENYPOS:        .equ $bfe
+DENMEMH:        .equ $c00
+DENMEML:        .equ $c04
+DENANSH:        .equ $c08
+DENANSL:        .equ $c0c
+*DEN???H:       .equ $c10
+*DEN???L:       .equ $c14
+DENFIG:         .equ $c18
+DENERR:         .equ $c1a
+DENNUMBUF:      .equ $c1b
+DENSTRBUF:      .equ $c2b
+*UNUSED_C31:    .equ $c31
+
+PCMMOD:         .equ $c32
+PCMERR:         .equ $c33
+DMA2MOD:        .equ $c34
+DMA2ERR:        .equ $c35
+
+GETFONTBUF:     .equ $c36
+MKFONTBUF:      .equ $c46
+*UNUSED_C8E:    .equ $c8e
+
+FDFLAG:         .equ $c8f
+FDC_RESULT:     .equ $c90
+
+*UNUSED_CB0:    .equ $cb0
+MSRCVDATA:      .equ $cb1
+SASIHD:         .equ $cb4
+RSMASK:         .equ $cb5
+MPUINFO:        .equ $cb6
+MPUCLOCK:       .equ $cb7
+ROMCNT:         .equ $cb8
+RAMCNT:         .equ $cba
+
+MPUTYPE:        .equ $cbc  ;1.b
+FPUEXIST:       .equ $cbd  ;1.b
+MMUEXIST:       .equ $cbe  ;1.b
+RESETBOOT:      .equ $cbf  ;1.b
+SCSISIZE:       .equ $cc0  ;1.b
+*UNUSED_CC1:    .equ $cc1  ;1.b
+SCSICHK:        .equ $cc2  ;1.b
+SCSIFLAG:       .equ $cc3  ;1.b
+
+EXPDA_VEC:      .equ $d00
+FDDON_VEC:      .equ $d04
+SCROLLMOD:      .equ $d08
+SMTSCROLL:      .equ $d0a
+CSRWINKSW:      .equ $d0c
+CSRDRLINE:      .equ $d0e
+CSRLPAT:        .equ $d10
+BEEP_VEC:       .equ $d12
+ESCSUBST_VEC:   .equ $d16
+DRAWMODE:       .equ $d1a
+TXLINEDEC:      .equ $d1c
+
+.ifndef IPL_BUF
+IPL_BUF:        .equ $2000
+IPL_STACK:      .equ $2000
+.endif
+
+.ifndef IOCS_ROM
+SCSI_ROM:       .equ $fc0000
+ROM_HUMAN:      .equ $fc0200
+ROM_FLOAT:      .equ $fce000
+ROMDB_INIT:     .equ $fd3800
+ROMDB_ROM:      .equ $fe0000
+IOCS_ROM:       .equ $ff0000
+.endif
+
+ROM_FONT:       .equ $f00000
+FON_KNJ16:      .equ $f00000
+FON_SML8:       .equ $f3a000
+FON_ANK8:       .equ $f3a800
+FON_SML12:      .equ $f3b800
+FON_ANK12:      .equ $f3d000
+FON_KNJ24:      .equ $f40000
+FON_ANK6_XVI:   .equ $ffd018
+FON_ANK6_030:   .equ $fbf400
+
+
+* FDC ----------------------------------------- *
+
+.offset 0
+FDC_ST0: .ds.b 1
+FDC_ST1: .ds.b 1
+FDC_ST2: .ds.b 1
+FDC_C:   .ds.b 1
+FDC_H:   .ds.b 1
+FDC_R:   .ds.b 1
+FDC_N:   .ds.b 1
+.even
+sizeof_FDC_RESULT:
+.fail $.ne.8
+.text
+
+ST0_IC1: .equ 7
+ST0_IC0: .equ 6
+ST0_SE:  .equ 5
+ST0_EC:  .equ 4
+ST0_NR:  .equ 3
+ST0_HD:  .equ 2
+ST0_US1: .equ 1
+ST0_US0: .equ 0
+
+ST1_EN:  .equ 7
+ST1_DE:  .equ 5
+ST1_OR:  .equ 4
+ST1_ND:  .equ 2
+ST1_NW:  .equ 1
+ST1_MA:  .equ 0
+
+ST2_CM:  .equ 6
+ST2_DD:  .equ 5
+ST2_NC:  .equ 4
+ST2_SH:  .equ 3
+ST2_SN:  .equ 2
+ST2_BC:  .equ 1
+ST2_MD:  .equ 0
+
+ST3_FT:  .equ 7
+ST3_WP:  .equ 6
+ST3_RY:  .equ 5
+ST3_T0:  .equ 4
+ST3_TS:  .equ 3
+ST3_HD:  .equ 2
+ST3_US1: .equ 1
+ST3_US0: .equ 0
+
+FDC_MT: .equ 1<<7
+FDC_MF: .equ 1<<6
+
+
+* Printer ------------------------------------- *
+
+.offset PRTPARA
+PRT_TVRAM:     .ds.l 1
+PRT_Y12:       .ds   1
+PRT_LARGEREST: .ds.l 1
+PRT_Y24:       .ds   1
+PRT_SMALLREST: .ds.l 1
+PRT_Y8:        .ds   1
+PRT_KANJI:     .ds.b 8
+PRT_KANA:      .ds.b 8
+PRT_LF:        .ds.b 4
+PRT_16INCH:    .ds.b 6
+PRT_LFINIT:    .ds.b 6
+PRT_10INCH:    .ds.b 6
+PRT_5INCH:     .ds.b 6
+PRT_1536DOT:   .ds.b 8
+PRT_768DOT:    .ds.b 8
+PRT_18DOT:     .ds.b 8
+PRT_36DOT:     .ds.b 8
+PRT_ORDER:     .ds.b 1
+PRT_HANMARGIN: .ds.b 1
+PRT_ZENMARGIN: .ds.b 1
+PRT_MODE:      .ds.b 1
+.fail $.ne.PRTLINE
+.text
+
+
+* Mouse --------------------------------------- *
+
+.offset 0
+~MSTXADR3:    .ds.l 1
+~MSTXADR2:    .ds.l 1
+~MSVBCHK:     .ds   1
+~MSMVLIM:     .ds   1
+~MSASPEED:    .ds   1
+              .ds   2
+~MSCOLMIN:    .ds   1
+~MSLINEMIN:   .ds   1
+~MSCOLMAX:    .ds   1
+~MSLINEMAX:   .ds   1
+              .ds   2
+~MSTXLLEN:    .ds   1
+~MSXMIN:      .ds   1
+~MSYMIN:      .ds   1
+~MSXMAX:      .ds   1
+~MSYMAX:      .ds   1
+~MSCSRSW:     .ds.b 1
+              .ds.b 1
+~MSCSRPAT:    .ds.l 6+1
+~MSAPATN:     .ds   1
+~MSASCNT:     .ds   1
+~MSANIMSW:    .ds.b 1
+              .ds.b 1
+~MSLEFT:      .ds   1
+~MSRIGHT:     .ds   1
+~MSMOVEX:     .ds   1
+~MSMOVEY:     .ds   1
+~MSCSRX:      .ds   1
+~MSCSRY:      .ds   1
+~MSSAVEX:     .ds   1
+~MSSAVEY:     .ds   1
+~MSHOTX:      .ds   1
+~MSHOTY:      .ds   1
+~MSCSRWCOL:   .ds   1
+~MSCSRWLINE:  .ds   1
+~MSIOCSJOB:   .ds.b 1
+              .ds.b 1
+              .ds.l 1
+~MSREGSAV:
+~MSREGSAV_d1: .ds.l 1
+~MSREGSAV_d2: .ds.l 1
+~MSREGSAV_a1: .ds.l 1
+~MSVRAM2:     .ds.b 64
+~MSVRAM3:     .ds.b 64
+~MSCSRTBL:    .ds.l 16
+~SKEYX:       .ds   1
+~SKEYY:       .ds   1
+~SKEYSAVEX:   .ds   1
+~SKEYSAVEY:   .ds   1
+              .ds   1
+              .ds.l 1
+              .ds.b 1
+~MSJOBFLG:    .ds.b 1
+              .ds.b 4
+~MSSKEYJOB:   .ds.b 1
+              .ds.b 1
+.fail $.ne.$14c
+.text
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

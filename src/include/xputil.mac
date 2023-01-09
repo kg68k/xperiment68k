@@ -1,0 +1,59 @@
+.nlist
+
+# This file is part of Xperiment68k
+# Copyright (C) 2023 TcbnErik
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+.ifndef xputil_mac
+        xputil_mac:=1
+
+.include dosdef.mac
+.include console.mac
+.include doscall.mac
+.include iocscall.mac
+
+
+;グラフィック画面が使用できることを確認する
+;  破壊レジスタ d0-d2
+USE_GVRAM: .macro
+  moveq #0,d1
+  moveq #-1,d2
+  IOCS _TGUSEMD
+  btst d0,#%0110  ;d0=0:未使用 3:破壊
+  beq @skip
+    move #STDERR,-(sp)
+    pea (@s,pc)
+    DOS _FPUTS
+    move #1,(sp)
+    DOS _EXIT2
+    @s: .dc.b 'グラフィック画面は使用中です。',LF,0
+    .even
+  @skip:
+.endm
+
+
+;Graphic Mask マスクリクエスト
+;  破壊レジスタ d0-d2
+GM_MASK_REQUEST: .macro
+  move.l #'gm'<<16+$ff89,d1
+  moveq #-1,d2
+  IOCS _TGUSEMD
+.endm
+
+
+.endif
+
+.list
