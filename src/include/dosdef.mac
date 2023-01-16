@@ -13,6 +13,7 @@
         __dosdef_mac__:=1
 
 .include doscall.mac
+.nlist
 
 
 * Structure ----------------------------------- *
