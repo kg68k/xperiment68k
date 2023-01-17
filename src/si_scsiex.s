@@ -17,9 +17,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-.include macro.mac
-.include console.mac
-.include doscall.mac
+.include include/macro.mac
+.include include/console.mac
+.include include/doscall.mac
 
 .xref DosBusErrByte
 .xref DosBusErrWord
@@ -57,7 +57,7 @@ ROM_NAME_MAX: .equ 63
 
 
 .ifdef TEST
-  .include si_scsiex_test.mac
+  .include include/si_scsiex_test.mac
 .else
   TEST_ONLY: .macro
   .endm

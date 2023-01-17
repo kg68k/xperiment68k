@@ -5,7 +5,7 @@ $(error do not execute make in src directory)
 endif
 
 AS	= has
-ASFLAGS	= -w -i include
+ASFLAGS	= -w
 LD	= hlk
 LD_R	= $(LD) -r
 LDFLAGS	=
@@ -35,7 +35,7 @@ $(OBJ_DIR):
 $(OBJ_DIR)/dosbusfake.o: dosbusfake.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
-$(OBJ_DIR)/si_scsiex%.o: si_scsiex.s  si_scsiex_test.mac
+$(OBJ_DIR)/si_scsiex%.o: si_scsiex.s include/si_scsiex_test.mac
 	$(AS) $(ASFLAGS) -sTEST=$* -o $@ $<
 
 si_scsiex%.x: $(OBJ_DIR)/si_scsiex%.o $(BUSERR)

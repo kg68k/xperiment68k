@@ -16,11 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include macro.mac
-.include doscall.mac
-.include iocscall.mac
+.include include/macro.mac
+.include include/doscall.mac
+.include include/iocscall.mac
 
-.include xputil.mac
+.include include/xputil.mac
 
 
 DEFINE_HEXTABLE: .macro

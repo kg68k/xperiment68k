@@ -7,7 +7,7 @@ endif
 CC	= gcc2
 CFLAGS	= -Wall -O2
 AS	= has
-ASFLAGS	= -w -i include
+ASFLAGS	= -w
 LD	= hlk
 LD_R	= $(LD) -r
 LDFLAGS	=

@@ -17,9 +17,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-.include dosdef.mac
-.include console.mac
-.include doscall.mac
+.include include/dosdef.mac
+.include include/console.mac
+.include include/doscall.mac
 
 
 .cpu 68000

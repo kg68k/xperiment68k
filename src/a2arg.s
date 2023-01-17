@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
+.include include/macro.mac
+.include include/fefunc.mac
+.include include/console.mac
+.include include/doscall.mac
 
 
 HUPAIR_MARK:      .reg '#HUPAIR',0

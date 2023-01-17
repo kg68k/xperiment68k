@@ -17,10 +17,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-.include macro.mac
-.include dosdef.mac
-.include console.mac
-.include doscall.mac
+.include include/macro.mac
+.include include/dosdef.mac
+.include include/console.mac
+.include include/doscall.mac
 
 
 DosBusFake_END::    .equ 0
