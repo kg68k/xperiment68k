@@ -1,7 +1,7 @@
 .title si_scsiex - show information: scsiex board
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,7 @@
 .include include/console.mac
 .include include/doscall.mac
 
-.xref DosBusErrByte
-.xref DosBusErrWord
-.xref DosBusErrLong
+.include include/xputil.mac
 
 
 SCSIEX_LIST: .macro op
@@ -442,6 +440,10 @@ copyRomName_finish:
   moveq #1,d0
   rts
 
+
+  DEFINE_DOSBUSERRBYTE DosBusErrByte
+  DEFINE_DOSBUSERRWORD DosBusErrWord
+  DEFINE_DOSBUSERRLONG DosBusErrLong
 
 
 .end ProgramStart

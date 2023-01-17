@@ -1,7 +1,7 @@
 .title a2arg - print argument/arg0 specified by a2
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

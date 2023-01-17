@@ -1,5 +1,5 @@
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,6 +32,16 @@ TRANSLATE_ROM_ADDRESS: .macro areg
 
 TEST_ONLY: .macro op
   op
+.endm
+
+DEFINE_DOSBUSERRBYTE: .macro label
+  .xref label
+.endm
+DEFINE_DOSBUSERRWORD: .macro label
+  .xref label
+.endm
+DEFINE_DOSBUSERRLONG: .macro label
+  .xref label
 .endm
 
 

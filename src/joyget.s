@@ -23,44 +23,6 @@
 .include include/xputil.mac
 
 
-DEFINE_HEXTABLE: .macro
-  .data
-  .even
-    HexTable: .dc.b '0123456789abcdef'
-  .text
-
-  DEFINE_HEXTABLE: .macro
-  .endm
-.endm
-
-DEFINE_TOHEXSTRING2: .macro
-  .rept 2
-    rol.b #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (HexTable,pc,d1.w),(a0)+
-  .endm
-  rts
-
-  DEFINE_HEXTABLE
-.endm
-
-DEFINE_TOHEXSTRING8: .macro
-  move.l d2,-(sp)
-  moveq #8-1,d2
-  @@:
-    rol.l #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (HexTable,pc,d1.w),(a0)+
-  dbra d2,@b
-  move.l (sp)+,d2
-  rts
-
-  DEFINE_HEXTABLE
-.endm
-
-
 .cpu 68000
 .text
 

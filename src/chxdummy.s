@@ -1,7 +1,7 @@
 .title chxdummy - fill sram before installing ch30*.sys
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 
 .include include/macro.mac
 .include include/console.mac

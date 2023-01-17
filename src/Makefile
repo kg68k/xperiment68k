@@ -14,7 +14,6 @@ LDFLAGS	=
 MKDIR_P	= mkdir -p
 
 OBJ_DIR = o
-BUSERR = $(OBJ_DIR)/dosbuserr.o
 
 
 .PHONY: all directories clean
@@ -28,17 +27,6 @@ TARGET = a2arg.x chxdummy.x colorbar.x dbrams.x \
          sjis_tbl.x sq64k.x sysport.x
 
 all: directories $(TARGET)
-
-si_acc.x:        $(OBJ_DIR)/si_acc.o    $(BUSERR)
-si_emu.x:        $(OBJ_DIR)/si_emu.o    $(BUSERR)
-si_memory.x:     $(OBJ_DIR)/si_memory.o $(BUSERR)
-si_midi.x:       $(OBJ_DIR)/si_midi.o   $(BUSERR)
-si_model.x:      $(OBJ_DIR)/si_model.o  $(BUSERR)
-si_phantomx.x:   $(OBJ_DIR)/si_phantomx.o $(BUSERR)
-si_scsiex.x:     $(OBJ_DIR)/si_scsiex.o $(BUSERR)
-si_sram.x:       $(OBJ_DIR)/si_sram.o   $(BUSERR)
-sysport.x:       $(OBJ_DIR)/sysport.o   $(BUSERR)
-
 
 directories: $(OBJ_DIR)
 

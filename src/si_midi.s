@@ -1,7 +1,7 @@
 .title si_midi - show information: midi board
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 .include include/console.mac
 .include include/doscall.mac
 
-.xref DosBusErrByte
+.include include/xputil.mac
 
 
 MIDI1_EAFA00_BASE: .equ $eafa00
@@ -234,6 +234,9 @@ strMidiori: .dc.b 'midiori',0
 strId1: .dc.b ' (#1)',0
 strId2: .dc.b ' (#2)',0
 .text
+
+
+  DEFINE_DOSBUSERRBYTE DosBusErrByte
 
 
 .end ProgramStart

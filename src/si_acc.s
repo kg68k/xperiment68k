@@ -1,7 +1,7 @@
 .title si_acc - show information: accelerator
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,8 +21,7 @@
 .include include/console.mac
 .include include/doscall.mac
 
-.xref DosBusErrByte
-.xref DosBusErrWord
+.include include/xputil.mac
 
 
 FC_CPU: .equ 7
@@ -434,6 +433,11 @@ copyXellent30:
   STRCPY a1,a0
   subq.l #1,a0
   rts
+
+
+  DEFINE_DOSBUSERRBYTE DosBusErrByte
+  DEFINE_DOSBUSERRWORD DosBusErrWord
+
 
 .data
 xelNameTable:

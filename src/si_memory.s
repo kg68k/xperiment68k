@@ -1,7 +1,7 @@
 .title si_memory - show information: main memory and high memory
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,8 @@
 .include include/doscall.mac
 .include include/iocscall.mac
 
-.xref DosBusErrWord
+.include include/xputil.mac
+
 
 ;IOCSワーク
 IOCS_VECTBL: .equ $400
@@ -369,6 +370,9 @@ hex_table: .dc.b '0123456789abcdef'
 fe_iusing:
   FPACK __IUSING
   rts
+
+
+  DEFINE_DOSBUSERRWORD DosBusErrWord
 
 
 .end ProgramStart

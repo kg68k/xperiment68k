@@ -54,6 +54,105 @@ GM_MASK_REQUEST: .macro
 .endm
 
 
+;指定アドレスを読み込んでバスエラーが発生するか調べる(バイト)
+;  in  a0.l ... アドレス
+;  out d0.b ... 読み込んだデータ
+;      ccr .... Z=1:正常終了 Z=0:バスエラーが発生した
+DEFINE_DOSBUSERRBYTE: .macro label
+label:
+  move #1,-(sp)
+  move.l sp,-(sp)
+  move.l a0,-(sp)
+  DOS _BUS_ERR
+  move.l d0,(sp)
+  moveq #0,d0
+  move.b (8,sp),d0
+  tst.l (sp)+
+  addq.l #10-4,sp
+  rts
+.endm
+
+;指定アドレスを読み込んでバスエラーが発生するか調べる(ワード)
+;  in  a0.l ... アドレス
+;  out d0.w ... 読み込んだデータ
+;      ccr .... Z=1:正常終了 Z=0:バスエラーが発生した
+DEFINE_DOSBUSERRWORD: .macro label
+label:
+  move #2,-(sp)
+  move.l sp,-(sp)
+  move.l a0,-(sp)
+  DOS _BUS_ERR
+  move.l d0,(sp)
+  moveq #0,d0
+  move (8,sp),d0
+  tst.l (sp)+
+  addq.l #10-4,sp
+  rts
+.endm
+
+
+;指定アドレスを読み込んでバスエラーが発生するか調べる(ロングワード)
+;  in  a0.l ... アドレス
+;  out d0.l ... 読み込んだデータ
+;      ccr .... Z=1:正常終了 Z=0:バスエラーが発生した
+DEFINE_DOSBUSERRLONG: .macro label
+label:
+  move #4,-(sp)
+  subq.l #4,sp
+  move.l sp,(sp)
+  move.l a0,-(sp)
+  DOS _BUS_ERR
+  move.l d0,(sp)
+  move.l (4,sp),d0
+  tst.l (sp)+
+  addq.l #10-4,sp
+  rts
+.endm
+
+
+;16進数文字列化テーブル
+DEFINE_HEXTABLE: .macro
+  .data
+  .even
+    HexTable: .dc.b '0123456789abcdef'
+  .text
+
+  DEFINE_HEXTABLE: .macro
+  .endm
+.endm
+
+
+;数値を16進数で文字列化(2桁)
+DEFINE_TOHEXSTRING2: .macro
+  .rept 2
+    rol.b #4,d0
+    moveq #$f,d1
+    and.b d0,d1
+    move.b (HexTable,pc,d1.w),(a0)+
+  .endm
+  rts
+
+  DEFINE_HEXTABLE
+.endm
+
+
+;数値を16進数で文字列化(8桁)
+DEFINE_TOHEXSTRING8: .macro
+  move.l d2,-(sp)
+  moveq #8-1,d2
+  @@:
+    rol.l #4,d0
+    moveq #$f,d1
+    and.b d0,d1
+    move.b (HexTable,pc,d1.w),(a0)+
+  dbra d2,@b
+  move.l (sp)+,d2
+  rts
+
+  DEFINE_HEXTABLE
+.endm
+
+
 .endif
 
 .list

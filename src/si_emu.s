@@ -1,7 +1,7 @@
 .title si_emu - show information: emulator
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,8 +21,7 @@
 .include include/console.mac
 .include include/doscall.mac
 
-.xref DosBusErrByte
-.xref DosBusErrLong
+.include include/xputil.mac
 
 
 SYSPORT_E8E00B_P6: .equ $e8e00b
@@ -290,6 +289,10 @@ versionToString:
   add.b d2,d3
   move.b d3,(a1)+
   rts
+
+
+  DEFINE_DOSBUSERRBYTE DosBusErrByte
+  DEFINE_DOSBUSERRLONG DosBusErrLong
 
 
 .end ProgramStart

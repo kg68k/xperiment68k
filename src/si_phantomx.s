@@ -1,7 +1,7 @@
 .title si_phantomx - show information: PhantomX
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 .include include/console.mac
 .include include/doscall.mac
 
-.xref DosBusErrWord
+.include include/xputil.mac
 
 
 PHANTOMX_EA8000_REG:  .equ $ea8000
@@ -290,6 +290,9 @@ toHexString2:
 
 hexTable: .dc.b '0123456789abcdef'
 .even
+
+
+  DEFINE_DOSBUSERRWORD DosBusErrWord
 
 
 .end ProgramStart

@@ -1,7 +1,7 @@
 .title dos_keyctrl01 - DOS _KEYCTRL (md=0,1) test
 
 # This file is part of Xperiment68k
-# Copyright (C) 2022 TcbnErik
+# Copyright (C) 2023 TcbnErik
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
