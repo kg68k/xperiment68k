@@ -20,6 +20,8 @@
 .include include/console.mac
 .include include/doscall.mac
 
+.include include/xputil.mac
+
 
 MIDI1_EAFA00_BASE: .equ $eafa00
 
@@ -102,28 +104,28 @@ ProgramStart:
 
 
 printReg:
-  moveq #0,d1
-  move.b d0,d1
+  PUSH d1/a0
+  subq.l #4,sp
+  lea (sp),a0
+  bsr ToHexString2
 
   pea (a1)
   DOS _PRINT
   addq.l #4,sp
 
-  clr.l -(sp)
-  move d1,d0
-  lsr.b #4,d0
-  move.b (hex,pc,d0.w),(sp)
-  moveq #$f,d0
-  and.b d1,d0
-  move.b (hex,pc,d0.w),(1,sp)
   pea (sp)
   DOS _PRINT
-  addq.l #8,sp
+  addq.l #4,sp
 
   pea (strCrLf,pc)
   DOS _PRINT
-  addq.l #4,sp
+  addq.l #4+4,sp
+  POP d1/a0
   rts
+
+
+  DEFINE_TOHEXSTRING2 ToHexString2
+
 
 .data
 R00: .dc.b 'R00: $',0
@@ -136,9 +138,7 @@ R64: .dc.b 'R64: $',0
 R74: .dc.b 'R74: $',0
 R96: .dc.b 'R96: $',0
 
-hex: .dc.b '0123456789abcdef'
 strCrLf: .dc.b CR,LF,0
-.text
 
 
 .end ProgramStart

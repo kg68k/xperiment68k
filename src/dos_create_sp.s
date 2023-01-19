@@ -20,6 +20,8 @@
 .include include/console.mac
 .include include/doscall.mac
 
+.include include/xputil.mac
+
 
 .cpu 68000
 .text
@@ -76,7 +78,7 @@ CreateFile:
   addq.l #6,sp
 
   lea (Buffer,pc),a0
-  bsr toHexString
+  bsr ToHexString4_4
 
   pea (Buffer,pc)
   DOS _PRINT
@@ -98,28 +100,11 @@ SkipBlank:
   subq.l #1,a0
   rts
 
-toHexString:
-  bsr toHexString4
-  move.b #'_',(a0)+
-  bsr toHexString4
-  clr.b (a0)
-  rts
 
-toHexString4:
-  moveq #4-1,d2
-  @@:
-    rol.l #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (HexTable,pc,d1.w),(a0)+
-  dbra d2,@b
-  rts
+  DEFINE_TOHEXSTRING4_4 ToHexString4_4
 
 
 .data
-.quad
-
-HexTable: .dc.b '0123456789abcdef'
 
 NoArgMessage: .dc.b 'no filename',CR,LF,0
 FileExistMessage: .dc.b '同名のファイルがすでに存在します。',CR,LF,0

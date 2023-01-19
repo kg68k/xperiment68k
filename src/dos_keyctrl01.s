@@ -21,6 +21,8 @@
 .include include/doscall.mac
 .include include/iocscall.mac
 
+.include include/xputil.mac
+
 
 .cpu 68000
 .text
@@ -114,7 +116,7 @@ PrintCrLf:
 PrintHex:
   PUSH d1/a1
   lea (a0),a1
-  bsr toHexString
+  bsr ToHexString4_4
   IOCS _B_PRINT
   POP d1/a1
   rts
@@ -135,27 +137,10 @@ AnalyzeArgument:
   rts
 
 
-toHexString:
-  bsr toHexString4
-  move.b #'_',(a0)+
-  bsr toHexString4
-  clr.b (a0)
-  rts
-  
-toHexString4:
-  moveq #4-1,d2
-  @@:
-    rol.l #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (hexTable,pc,d1.w),(a0)+
-  dbra d2,@b
-  rts
+  DEFINE_TOHEXSTRING4_4 ToHexString4_4
 
 
 .data
-.even
-hexTable: .dc.b '0123456789abcdef'
 
 strOpt12ToExit: .dc.b 'OPT.1またはOPT.2キー押し下げで終了します。',CR,LF,0
 strCrLf: .dc.b CR,LF,0

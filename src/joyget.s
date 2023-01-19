@@ -109,8 +109,9 @@ stringifyJoyData:
   rts
 
 
-ToHexString2: DEFINE_TOHEXSTRING2
-ToHexString8: DEFINE_TOHEXSTRING8
+  DEFINE_TOHEXSTRING2 ToHexString2
+  DEFINE_TOHEXSTRING8 ToHexString8
+
 
 .data
 

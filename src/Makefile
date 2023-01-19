@@ -34,7 +34,7 @@ $(OBJ_DIR):
 	$(MKDIR_P) $@
 
 
-$(OBJ_DIR)/%.o: %.s $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.s $(OBJ_DIR) include/xputil.mac
 	$(AS) $(ASFLAGS) -o $@ $<
 
 # cancel default rule

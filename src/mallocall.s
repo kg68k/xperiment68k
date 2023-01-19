@@ -20,6 +20,8 @@
 .include include/console.mac
 .include include/doscall.mac
 
+.include include/xputil.mac
+
 
 .cpu 68000
 .text
@@ -204,18 +206,7 @@ PrintCrLf:
   rts
 
 
-ToHexString8:
-  moveq #8-1,d2
-  @@:
-    rol.l #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (HexTable,pc,d1.w),(a0)+
-  dbra d2,@b
-  rts
-
-HexTable: .dc.b '0123456789abcdef'
-.even
+  DEFINE_TOHEXSTRING8 ToHexString8
 
 
 .data

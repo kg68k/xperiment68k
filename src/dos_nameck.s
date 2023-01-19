@@ -19,6 +19,8 @@
 .include include/console.mac
 .include include/doscall.mac
 
+.include include/xputil.mac
+
 
 .offset 0
 NAMECK_DRIVE: .ds.b 2
@@ -117,35 +119,18 @@ PrintCrLf:
 
 PrintD0:
   lea (Buffer,pc),a0
-  bsr ToHexString
+  bsr ToHexString4_4
 
   pea (Buffer,pc)
   DOS _PRINT
   addq.l #4,sp
   rts
 
-ToHexString:
-  bsr ToHexString4
-  move.b #'_',(a0)+
-  bsr ToHexString4
-  clr.b (a0)
-  rts
 
-ToHexString4:
-  moveq #4-1,d2
-  @@:
-    rol.l #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (HexTable,pc,d1.w),(a0)+
-  dbra d2,@b
-  rts
+  DEFINE_TOHEXSTRING4_4 ToHexString4_4
 
 
 .data
-.quad
-
-HexTable: .dc.b '0123456789abcdef'
 
 NoArgMessage: .dc.b 'no filename',CR,LF,0
 ArgMessage: .dc.b 'argument: ',0

@@ -56,7 +56,7 @@ printSysPort:
     lea (buffer,pc),a0
     pea (a0)
     move.b #'$',(a0)+
-    bsr toHexString2
+    bsr ToHexString2
     clr.b (a0)
     DOS _PRINT
     addq.l #4,sp
@@ -67,26 +67,11 @@ printSysPort:
   rts
 
 
-toHexString2:
-  move.l d2,-(sp)
-  moveq #2-1,d2
-  @@:
-    rol.b #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (hexTable,pc,d1.w),(a0)+
-  dbra d2,@b
-  move.l (sp)+,d2
-  rts
-
-
+  DEFINE_TOHEXSTRING8 ToHexString2
   DEFINE_DOSBUSERRBYTE DosBusErrByte
 
 
 .data
-
-.even
-hexTable: .dc.b '0123456789abcdef'
 
 headers:
   .dc.b '$00e8e000   n/a  : ',0

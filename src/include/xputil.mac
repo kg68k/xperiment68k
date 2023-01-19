@@ -110,46 +110,84 @@ label:
 .endm
 
 
-;16進数文字列化テーブル
-DEFINE_HEXTABLE: .macro
-  .data
+;(マクロ内部で使用) 16進数文字列化テーブル
+_DEFINE_HEXTABLE: .macro
   .even
-    HexTable: .dc.b '0123456789abcdef'
-  .text
+  _HexTable: .dc.b '0123456789abcdef'
 
-  DEFINE_HEXTABLE: .macro
+  _DEFINE_HEXTABLE: .macro
   .endm
 .endm
 
 
 ;数値を16進数で文字列化(2桁)
-DEFINE_TOHEXSTRING2: .macro
+DEFINE_TOHEXSTRING2: .macro label
+label:
   .rept 2
     rol.b #4,d0
     moveq #$f,d1
     and.b d0,d1
-    move.b (HexTable,pc,d1.w),(a0)+
+    move.b (_HexTable,pc,d1.w),(a0)+
   .endm
+  clr.b (a0)
   rts
 
-  DEFINE_HEXTABLE
+  _DEFINE_HEXTABLE
+.endm
+
+
+;(マクロ内部で使用) 数値を16進数で文字列化(4桁)
+_DEFINE_TOHEXSTRING4: .macro
+_ToHexString4:
+  move.l d2,-(sp)
+  moveq #4-1,d2
+  @@:
+    rol #4,d0
+    moveq #$f,d1
+    and.b d0,d1
+    move.b (_HexTable,pc,d1.w),(a0)+
+  dbra d2,@b
+  clr.b (a0)
+  move.l (sp)+,d2
+  rts
+
+  _DEFINE_TOHEXSTRING4: .macro
+  .endm
+
+  _DEFINE_HEXTABLE
+.endm
+
+
+;数値を16進数で文字列化(4桁)
+DEFINE_TOHEXSTRING4: .macro label
+label: .equ _ToHexString4
+
+  _DEFINE_TOHEXSTRING4
 .endm
 
 
 ;数値を16進数で文字列化(8桁)
-DEFINE_TOHEXSTRING8: .macro
-  move.l d2,-(sp)
-  moveq #8-1,d2
-  @@:
-    rol.l #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (HexTable,pc,d1.w),(a0)+
-  dbra d2,@b
-  move.l (sp)+,d2
-  rts
+DEFINE_TOHEXSTRING8: .macro label
+label:
+  swap d0
+  bsr _ToHexString4
+  swap d0
+  bra _ToHexString4
 
-  DEFINE_HEXTABLE
+  _DEFINE_TOHEXSTRING4
+.endm
+
+
+;数値を16進数で文字列化(4桁+アンダーバー+4桁)
+DEFINE_TOHEXSTRING4_4: .macro label
+label:
+  swap d0
+  bsr _ToHexString4
+  move.b #'_',(a0)+
+  swap d0
+  bra _ToHexString4
+
+  _DEFINE_TOHEXSTRING4
 .endm
 
 
