@@ -23,7 +23,7 @@
 
 .include include/xputil.mac
 
-
+SYSPORT_E8E001_P1: .equ $e8e001
 SYSPORT_E8E00B_P6: .equ $e8e00b
 SYSPORT_E8E00D_P7: .equ $e8e00d
 
@@ -32,16 +32,17 @@ XEIJ_E9F03C_HFS_MAGIC: .equ $e9f03c
 
 MU_ECC091_COMMAND: .equ $ecc091
 
-EMULATOR_REAL:      .equ 0
-EMULATOR_EX68:      .equ 1
-EMULATOR_WINX68K:   .equ 2
-EMULATOR_WINX68030: .equ 3
-EMULATOR_WINX68KSE: .equ 4
-EMULATOR_WINX68KCE: .equ 5
-EMULATOR_XM6:       .equ 6
-EMULATOR_XM6I:      .equ 7
-EMULATOR_XM6G:      .equ 8
-EMULATOR_XEIJ:      .equ 9
+EMULATOR_REAL::      .equ 0
+EMULATOR_EX68::      .equ 1
+EMULATOR_WINX68K::   .equ 2
+EMULATOR_WINX68030:: .equ 3
+EMULATOR_WINX68KSE:: .equ 4
+EMULATOR_WINX68KCE:: .equ 5
+EMULATOR_XM6::       .equ 6
+EMULATOR_XM6I::      .equ 7
+EMULATOR_XM6G::      .equ 8
+EMULATOR_XEIJ::      .equ 9
+EMULATOR_X68Z::      .equ 10
 .fail EMULATOR_REAL.ne.0
 
 
@@ -87,7 +88,7 @@ strBuf: .ds.b 256
 ;エミュレータの種類を調べる。
 ;  スーパーバイザモードで呼び出すこと。
 ;out d0.hw ... バージョン
-;    d0.w .... 種類(0-9)
+;    d0.w .... 種類(0-10)
 Emulator_GetType::
   PUSH d1/a0
 
@@ -111,12 +112,21 @@ Emulator_GetType::
     beq 8f
   @@:
 
-  ;WINPORTが読めなければ実機
+  ;WINPORTが読めればエミュ確定
   lea (WINPORT_E9F000),a0
-  moveq #EMULATOR_REAL,d1
   bsr DosBusErrByte
-  bne 8f
+  beq 1f
 
+    ;$e8e000.bが%0000_xxxxならX68000 Z(xxxxはコントラスト、実機は$ff)
+    moveq #EMULATOR_X68Z,d1
+    moveq #$f0,d0
+    and.b (SYSPORT_E8E001_P1-1),d0
+    beq 8f
+
+    ;実機
+    moveq #EMULATOR_REAL,d1
+    bra 8f
+1:
   ;EX68
   moveq #EMULATOR_EX68,d1
   tst.b (SYSPORT_E8E00B_P6)
@@ -231,15 +241,13 @@ Emulator_ToString::
   lea (emuNameOffs,pc,d0.w),a1
   move.b (a1),d0
   adda d0,a1
-  STRCPY a1,a0
-  subq.l #1,a0
+  STRCPY a1,a0,-1
 
   clr d0
   swap d0
   beq 9f  ;バージョン番号なし
     lea (version,pc),a1
-    STRCPY a1,a0
-    subq.l #1,a0
+    STRCPY a1,a0,-1
 
     subq.l #8,sp
     lea (sp),a1
@@ -249,14 +257,13 @@ Emulator_ToString::
     bne @f
       addq.l #1,a1  ;十の位が0なら省略する
     @@:
-    STRCPY a1,a0
-    subq.l #1,a0
+    STRCPY a1,a0,-1
     addq.l #8,sp
 9:
   POP d1-d3/a1
   rts
 
-emuNameOffs: .dc.b @f-$,1f-$,2f-$,3f-$,4f-$,5f-$,6f-$,7f-$,8f-$,9f-$
+emuNameOffs: .dc.b @f-$,1f-$,2f-$,3f-$,4f-$,5f-$,6f-$,7f-$,8f-$,9f-$,10f-$
 @@: .dc.b 'real machine',0
 1:  .dc.b 'EX68',0
 2:  .dc.b 'WinX68k',0
@@ -267,6 +274,7 @@ emuNameOffs: .dc.b @f-$,1f-$,2f-$,3f-$,4f-$,5f-$,6f-$,7f-$,8f-$,9f-$
 7:  .dc.b 'XM6i',0
 8:  .dc.b 'XM6 TypeG',0
 9:  .dc.b 'XEiJ',0
+10: .dc.b 'X68000 Z',0
 version: .dc.b ' version ',0
 .even
 
@@ -295,4 +303,4 @@ versionToString:
   DEFINE_DOSBUSERRLONG DosBusErrLong
 
 
-.end ProgramStart
+.end
