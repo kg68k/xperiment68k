@@ -23,7 +23,7 @@ OBJ_DIR = o
 TARGET = a2arg.x chxdummy.x colorbar.x dbrams.x \
          dos_create_sp.x dos_fatchk.x dos_keyctrl01.x dos_nameck.x dos_open.x \
          esc_dsr.x fatchk_bof.x joyget.x keepceil.x keyflush.x \
-         mallocall.x midi_reg.x pt_dbhw.x putmes24.x \
+         mallocall.x midi_reg.x pt_dbhw.x putmes24.x reset68k.r \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
          sjis_tbl.x splimchk.x sq64k.x sysport.x
 
@@ -46,6 +46,9 @@ keepceil.x: $(OBJ_DIR)/keepceil.o
 
 %.x: $(OBJ_DIR)/%.o
 	$(LD) $(LDFLAGS) -o $@ $^
+
+%.r: $(OBJ_DIR)/%.o
+	$(LD_R) $(LDFLAGS) -o $@ $^
 
 sjis_tbl.x: sjis_tbl.c
 	$(CC) $(CFLAGS) -o $@ $^
