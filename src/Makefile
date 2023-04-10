@@ -25,7 +25,7 @@ TARGET = a2arg.x chxdummy.x colorbar.x dbrams.x \
          esc_dsr.x fatchk_bof.x joyget.x keepceil.x keyflush.x \
          mallocall.x midi_reg.x pt_dbhw.x putmes24.x reset68k.r \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
-         sjis_tbl.x splimchk.x sq64k.x sysport.x
+         sjis_tbl.x sp3tx0gr2.x splimchk.x sq64k.x sysport.x
 
 all: directories $(TARGET)
 
