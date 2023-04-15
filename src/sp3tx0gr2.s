@@ -47,11 +47,7 @@ Start:
   USE_GVRAM
   TO_SUPER
 
-  move.l #16<<16+4,-(sp)  ;512x512 256 color
-  DOS _CONCTRL
-  addq.l #4,sp
-  IOCS _G_CLR_ON
-
+  bsr initScreen
   bsr drawText
   bsr drawGraphic
   bsr drawSprite
@@ -77,6 +73,19 @@ AnalyzeArgument:
   8:
     moveq #0,d0
   9:
+  rts
+
+
+initScreen:
+  move.l #16<<16+4,-(sp)  ;512x512 256 color
+  DOS _CONCTRL
+  addq.l #4,sp
+
+  moveq #1,d1
+  move.l #$f83e,d2
+  IOCS _TPALET
+
+  IOCS _G_CLR_ON
   rts
 
 
