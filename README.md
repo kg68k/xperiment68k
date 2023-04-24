@@ -116,6 +116,11 @@ Human68Kの標準では `ESC [{pl};{pc}R` (CPR = Cursor Position Report)
 DOS _FATCHKでバッファの範囲外に書き込んでしまう不具合(Human68k v3.02)を検証するコードです。
 
 
+### has060c4
+HAS060.X v3.09+89で`-c4`オプションを指定すると、`ADDA.W #$8000,An`が`SUBA.W #$8000,An`
+に変更されてしまう挙動を検証するコードです。
+
+
 ### joyget
 `IOCS _JOYGET`によるジョイスティック入力を行い、入力状態を表示します。  
 キーを押すと終了します。
