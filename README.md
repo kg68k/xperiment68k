@@ -121,6 +121,14 @@ HAS060.X v3.09+89で`-c4`オプションを指定すると、`ADDA.W #$8000,An`�
 に変更されてしまう挙動を検証するコードです。
 
 
+### iocs_txfill
+`IOCS _TXFILL`のサンプルです。
+
+
+### iocs_txyline
+`IOCS _TXYLINE`のサンプルです。
+
+
 ### joyget
 `IOCS _JOYGET`によるジョイスティック入力を行い、入力状態を表示します。  
 キーを押すと終了します。

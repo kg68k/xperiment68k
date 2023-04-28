@@ -1,0 +1,214 @@
+.nlist
+
+# iocsdef.mac version 2.0.1
+# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __iocsdef_mac__
+        __iocsdef_mac__:=1
+
+.include iocscall.mac
+
+
+* Structure ----------------------------------- *
+
+.offset 0
+FNT_XL:  .ds   1
+FNT_YL:  .ds   1
+FNT_BUF: .ds.b 72
+sizeof_FNT:
+.fail $.ne.76
+
+.offset 0
+TXBUF_XL: .ds 1
+TXBUF_YL: .ds 1
+TXBUF_DATA:
+sizeof_TXBUF:
+.fail $.ne.4
+
+.offset 0
+CLIP_XS: .ds 1
+CLIP_YS: .ds 1
+CLIP_XE: .ds 1
+CLIP_YE: .ds 1
+sizeof_CLIP:
+.fail $.ne.8
+
+.offset 0
+PATST_OFS_X:  .ds 1
+PATST_OFS_Y:  .ds 1
+PATST_SHADOW: .ds 16
+PATST_PAT:    .ds 16
+sizeof_PATST:
+.fail $.ne.68
+
+.offset 0
+GRBUF_XL:    .ds 1
+GRBUF_YL:    .ds 1
+GRBUF_COLOR: .ds 1
+GRBUF_DATA:
+sizeof_GRBUF:
+.fail $.ne.6
+
+.offset 0
+BITBUF_XL: .ds 1
+BITBUF_YL: .ds 1
+BITBUF_DATA:
+sizeof_BITBUF:
+.fail $.ne.4
+
+.offset 0
+PSET_X:     .ds 1
+PSET_Y:     .ds 1
+PSET_COLOR: .ds 1
+sizeof_PSET:
+.fail $.ne.6
+
+.offset 0
+POINT_X:     .ds 1
+POINT_Y:     .ds 1
+POINT_COLOR: .ds 1
+sizeof_POINT:
+.fail $.ne.6
+
+.offset 0
+LINE_XS:    .ds 1
+LINE_YS:    .ds 1
+LINE_XE:    .ds 1
+LINE_YE:    .ds 1
+LINE_COLOR: .ds 1
+LINE_LINE:  .ds 1
+sizeof_LINE:
+.fail $.ne.12
+
+.offset 0
+BOX_XS:    .ds 1
+BOX_YS:    .ds 1
+BOX_XE:    .ds 1
+BOX_YE:    .ds 1
+BOX_COLOR: .ds 1
+BOX_LINE:  .ds 1
+sizeof_BOX:
+.fail $.ne.12
+
+.offset 0
+FILL_XS:    .ds 1
+FILL_YS:    .ds 1
+FILL_XE:    .ds 1
+FILL_YE:    .ds 1
+FILL_COLOR: .ds 1
+sizeof_FILL:
+.fail $.ne.10
+
+.offset 0
+CIRCLE_X:      .ds 1
+CIRCLE_Y:      .ds 1
+CIRCLE_RADIUS: .ds 1
+CIRCLE_COLOR:  .ds 1
+CIRCLE_START:  .ds 1
+CIRCLE_END:    .ds 1
+CIRCLE_RATIO:  .ds 1
+sizeof_CIRCLE:
+.fail $.ne.14
+
+.offset 0
+PAINT_X:         .ds   1
+PAINT_Y:         .ds   1
+PAINT_COLOR:     .ds   1
+PAINT_BUF_START: .ds.l 1
+PAINT_BUF_END:   .ds.l 1
+sizeof_PAINT:
+.fail $.ne.14
+
+.offset 0
+SYMBOL_X:     .ds   1
+SYMBOL_Y:     .ds   1
+SYMBOL_STR:   .ds.l 1
+SYMBOL_XRATE: .ds.b 1
+SYMBOL_YRATE: .ds.b 1
+SYMBOL_COLOR: .ds   1
+SYMBOL_FONT:  .ds.b 1
+SYMBOL_ANGLE: .ds.b 1
+sizeof_SYMBOL:
+.fail $.ne.14
+
+.offset 0
+GRM_XS:        .ds   1
+GRM_YS:        .ds   1
+GRM_XE:        .ds   1
+GRM_YE:        .ds   1
+GRM_BUF_START: .ds.l 1
+GRM_BUF_END:   .ds.l 1
+sizeof_GRM:
+.fail $.ne.16
+
+.offset 0
+TXXLINE_PLANE: .ds 1
+TXXLINE_XS:    .ds 1
+TXXLINE_YS:    .ds 1
+TXXLINE_XL:    .ds 1
+TXXLINE_LINE:  .ds 1
+sizeof_TXXLINE:
+.fail $.ne.10
+
+.offset 0
+TXYLINE_PLANE: .ds 1
+TXYLINE_XS:    .ds 1
+TXYLINE_YS:    .ds 1
+TXYLINE_YL:    .ds 1
+TXYLINE_LINE:  .ds 1
+sizeof_TXYLINE:
+.fail $.ne.10
+
+.offset 0
+TXLINE_PLANE: .ds 1
+TXLINE_XS:    .ds 1
+TXLINE_YS:    .ds 1
+TXLINE_XL:    .ds 1
+TXLINE_YL:    .ds 1
+TXLINE_LINE:  .ds 1
+sizeof_TXLINE:
+.fail $.ne.12
+
+.offset 0
+TXBOX_PLANE: .ds 1
+TXBOX_XS:    .ds 1
+TXBOX_YS:    .ds 1
+TXBOX_XL     .ds 1
+TXBOX_YL     .ds 1
+TXBOX_LINE:  .ds 1
+sizeof_TXBOX:
+.fail $.ne.12
+
+.offset 0
+TXFILL_PLANE: .ds 1
+TXFILL_XS:    .ds 1
+TXFILL_YS:    .ds 1
+TXFILL_XL:    .ds 1
+TXFILL_YL:    .ds 1
+TXFILL_LINE:  .ds 1
+sizeof_TXFILL:
+.fail $.ne.12
+
+.offset 0
+TXREV_PLANE: .ds 1
+TXREV_XS:    .ds 1
+TXREV_YS:    .ds 1
+TXREV_XL:    .ds 1
+TXREV_YL:    .ds 1
+sizeof_TXREV:
+.fail $.ne.10
+
+.text
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list
