@@ -113,7 +113,16 @@ Human68Kの標準では `ESC [{pl};{pc}R` (CPR = Cursor Position Report)
 
 
 ### fatchk_bof
-DOS _FATCHKでバッファの範囲外に書き込んでしまう不具合(Human68k v3.02)を検証するコードです。
+`DOS _FATCHK`でバッファの範囲外に書き込んでしまう不具合(Human68k v3.02)を検証するコードです。
+
+
+### fntsize
+コマンドライン引数で指定した文字(省略時は半角スペース)について、
+`IOCS _FNTADR`、`IOCS _FNTGET`の結果を一覧表示します。  
+フォントサイズは未定義の値も含め各サイズを指定します。
+
+`_FNTADR`でd2.b = 0～5、`_FNTGET`でd1.hw = 1～5のサイズを指定した場合、
+IOCS環境(ROMまたはIOCS.Xのバージョン)によって結果が異なります。
 
 
 ### has060c4
