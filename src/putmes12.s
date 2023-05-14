@@ -1,4 +1,4 @@
-.title putmes24 - draw text with 24dot font
+.title putmes12 - draw text with 12dot font
 
 # This file is part of Xperiment68k
 # Copyright (C) 2023 TcbnErik
@@ -35,11 +35,11 @@ CONSOLE_FONT_HEIGHT: .equ 1<<CONSOLE_LINE_TO_TEXTLINE_SHIFT
 DOT_TO_BYTE_SHIFT: .equ 3
 DOTS_PER_BYTE:     .equ 1<<DOT_TO_BYTE_SHIFT
 
-FONT_HEIGHT:     .equ 24
-FONT_WIDTH_HALF: .equ 12
+FONT_HEIGHT:     .equ 12
+FONT_WIDTH_HALF: .equ 6
 FONT_WIDTH_FULL: .equ FONT_WIDTH_HALF*2
 
-FNTGET_BUF_SIZE: .equ 4+FONT_WIDTH_FULL/DOTS_PER_BYTE*FONT_HEIGHT
+FNTGET_BUF_SIZE: .equ 4+(FONT_WIDTH_FULL+(DOTS_PER_BYTE-1))/DOTS_PER_BYTE*FONT_HEIGHT
 
 
 .cpu 68000
@@ -52,7 +52,7 @@ Start:
   beq @f
     lea (a2),a0
   @@:
-  bsr Putmes24
+  bsr Putmes12
   DOS _EXIT
 
 getArgument:
@@ -69,7 +69,7 @@ getArgument:
   rts
 
 
-Putmes24:
+Putmes12:
   PUSH d7/a2
   lea (CompositeBuffer,pc),a1
   bsr getBitmap
@@ -89,17 +89,15 @@ Putmes24:
   rts
 
 
-;24ドットフォントを表示するのに必要なコンソール行数
+;12ドットフォントを表示するのに必要なコンソール行数
 REQUIRED_LINES: .equ (FONT_HEIGHT+CONSOLE_FONT_HEIGHT-1)/CONSOLE_FONT_HEIGHT
 ;上下に余るテキスト行数
 MARGIN_TEXTLINE: .equ (REQUIRED_LINES*CONSOLE_FONT_HEIGHT-FONT_HEIGHT)/2
 
 AllocateTextVram:
   PUSH d2
-  moveq #REQUIRED_LINES-1,d1
-  @@:
-    IOCS _B_DOWN_S
-  dbra d1,@b
+  IOCS _B_DOWN_S
+  .fail REQUIRED_LINES.ne.1
 
   moveq #-1,d1
   moveq #-1,d2
@@ -216,18 +214,80 @@ compositeFont:
   move.l (a0)+,d0
   subq #1,d0  ;height-1
 
-  cmpi #24,(-4,a0)
-  beq compositeFont24
-  bra compositeFont12
+  cmpi #12,(-4,a0)
+  beq compositeFont12
+  bra compositeFont6
 
-;半角(12x24ドット)
+;半角(6x12ドット)
+compositeFont6:
+  ;d1.w = 0,2,4,6 なのでそのままインデックスとして使う
+  move (@f,pc,d1.w),d1
+  jmp (@f,pc,d1.w)
+
+@@:
+  .dc compositeFontFC-@b
+  .dc compositeFont3F-@b
+  .dc compositeFont0FC0-@b
+  .dc compositeFont03F0-@b
+
+;バイト境界から6ドット %ABCD_EF00
+compositeFontFC:
+  @@:
+    move.b (a0)+,(a1)
+    lea (BYTES_PER_TEXTLINE,a1),a1
+  dbra d0,@b
+  rts
+
+;バイト境界+2から6ドット %xxAB_CDEF
+compositeFont3F:
+  @@:
+    move.b (a0)+,d1
+    lsr.b #2,d1
+    or.b d1,(a1)
+    lea (BYTES_PER_TEXTLINE,a1),a1
+  dbra d0,@b
+  rts
+
+;バイト境界+4から6ドット %xxxx_ABCD_EF00_0000
+compositeFont0FC0:
+  @@:
+    moveq #0,d1
+    move.b (a0)+,d1
+    ror #4,d1  ;%EF00_0000_0000_ABCD
+    or.b d1,(a1)+
+    move d1,-(sp)
+    move.b (sp)+,(a1)+
+    lea (BYTES_PER_TEXTLINE-2,a1),a1
+  dbra d0,@b
+  rts
+
+;バイト境界+6から6ドット %xxxx_xxAB_CDEF_0000
+compositeFont03F0:
+  @@:
+    moveq #0,d1
+    move.b (a0)+,d1
+    ror #6,d1  ;%CDEF_0000_0000_00AB
+    or.b d1,(a1)+
+    move  d1,-(sp)
+    move.b (sp)+,(a1)+
+    lea (BYTES_PER_TEXTLINE-2,a1),a1
+  dbra d0,@b
+  rts
+
+;全角(12x12ドット)
 compositeFont12:
-  tst d1
-  bne compositeFont0PPP
-  bra compositeFontPPP0
+  ;d1.w = 0,2,4,6 なのでそのままインデックスとして使う
+  move (@f,pc,d1.w),d1
+  jmp (@f,pc,d1.w)
 
-;バイト境界から12ドット
-compositeFontPPP0:
+@@:
+  .dc compositeFontFFF0-@b
+  .dc compositeFont3FFC-@b
+  .dc compositeFont0FFF-@b
+  .dc compositeFont03FFC0-@b
+
+;バイト境界から12ドット %ABCD_EFGH_IJKL_0000
+compositeFontFFF0:
   @@:
     move.b (a0)+,(a1)+
     move.b (a0)+,(a1)+
@@ -235,61 +295,54 @@ compositeFontPPP0:
   dbra d0,@b
   rts
 
-;バイト境界+4から12ドット
-compositeFont0PPP:
+;バイト境界+2から12ドット %xxAB_CDEF_GHIJ_KL00
+compositeFont3FFC:
   @@:
-    move.b (a0)+,-(sp)
-    move (sp)+,d1
-    move.b (a0)+,d1
-    lsr #4,d1  ;0PPP
-    rol #8,d1
+    move.b (a0),d1
+    lsr.b #2,d1  ;%00AB_CDEF
     or.b d1,(a1)+
-    rol #8,d1
+    move (a0)+,d1
+    lsr #2,d1  ;%00AB_CDEF_GHIJ_KL00
     move.b d1,(a1)+
     lea (BYTES_PER_TEXTLINE-2,a1),a1
   dbra d0,@b
   rts
 
-;全角(24x24ドット)
-compositeFont24:
-  tst d1
-  bne compositeFont0PPPPPP0
-  bra compositeFontPPPPPP
-
-;バイト境界から24ドット
-compositeFontPPPPPP:
+;バイト境界+4から12ドット %xxxx_ABCD_EFGH_IJKL
+compositeFont0FFF:
   @@:
-    move.b (a0)+,(a1)+
-    move.b (a0)+,(a1)+
-    move.b (a0)+,(a1)+
+    move.b (a0),d1
+    lsr.b #4,d1  ;%0000_ABCD
+    or.b d1,(a1)+
+    move (a0)+,d1
+    lsr #4,d1  ;%0000ABCD_EFGH_IJKL
+    move.b d1,(a1)+
+    lea (BYTES_PER_TEXTLINE-2,a1),a1
+  dbra d0,@b
+  rts
+
+;バイト境界+6から12ドット %xxxx_xxAB_CDEF_GHIJ_KL00_0000
+compositeFont03FFC0:
+  @@:
+    moveq #0,d1
+    move (a0)+,d1
+    lsl.l #2,d1  ;%0000_0000_0000_00AB_CDEF_GHIJ_KL00_0000
+    swap d1
+    or.b d1,(a1)+
+    swap d1
+    move d1,-(sp)
+    move.b (sp)+,(a1)+
+    move.b d1,(a1)+
     lea (BYTES_PER_TEXTLINE-3,a1),a1
   dbra d0,@b
   rts
 
-;バイト境界+4から24ドット
-compositeFont0PPPPPP0:
-  @@:
-    moveq #0,d1
-    move.b (a0)+,d1
-    swap d1
-    move.b (a0)+,-(sp)
-    move (sp)+,d1
-    move.b (a0)+,d1
-    lsl.l #4,d1  ;0PPP_PPP0
-    rol.l #8,d1
-    or.b d1,(a1)+
-    .rept 3
-      rol.l #8,d1
-      move.b d1,(a1)+
-    .endm
-    lea (BYTES_PER_TEXTLINE-4,a1),a1
-  dbra d0,@b
-  rts
 
+.data
 
 Usage:
-  .dc.b 'putmes24: 24ドットフォントで文字列を表示します。'
-  .dc.b ' A0ｲ',$80,'ｱ',$f0,'X',$f2,'X'
+  .dc.b 'putmes12: 12ドットフォントで文字列を表示します。'
+  .dc.b ' AaZz0-9ｲﾛﾊ',$80,'ｱ',$80,'ﾝ',$f0,'X',$f2,'X'
   .dc.b ' (',$81,$7f,')'  ;不正な文字コード
   .dc.b 0
 
