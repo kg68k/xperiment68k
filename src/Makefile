@@ -39,7 +39,7 @@ $(OBJ_DIR):
 
 
 $(OBJ_DIR)/has060c4.o: has060c4.s
-	$(HAS060) $(ASFLAGS) -c4 -o $@ $<
+	$(HAS060) $(ASFLAGS) -y -c4 -o $@ $<
 
 $(OBJ_DIR)/%.o: %.s $(OBJ_DIR) include/xputil.mac
 	$(AS) $(ASFLAGS) -o $@ $<

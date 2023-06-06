@@ -118,7 +118,7 @@ Human68Kの標準では `ESC [{pl};{pc}R` (CPR = Cursor Position Report)
 
 
 ### fatchk_bof
-`DOS _FATCHK`でバッファの範囲外に書き込んでしまう不具合(Human68k v3.02)を検証するコードです。
+`DOS _FATCHK`でバッファの範囲外に書き込んでしまう不具合(Human68k v3.02)を検証します。
 
 
 ### fntsize
@@ -131,8 +131,9 @@ IOCS環境(ROMまたはIOCS.Xのバージョン)によって結果が異なり�
 
 
 ### has060c4
-HAS060.X v3.09+89で`-c4`オプションを指定すると、`ADDA.W #$8000,An`が`SUBA.W #$8000,An`
-に変更されてしまう挙動を検証するコードです。
+HAS060.X v3.09+89で`-c4`オプションを指定すると一部の命令で不適切な置換が行われる挙動を検証します。
+* `ADDA.W #$8000,An` -> `SUBA.W #$8000,An` (演算結果が異なる)
+* `SUBA.W #$8000,An` -> `LEA ($8000,An),An` (演算結果が異なる)
 
 
 ### iocs_txfill
