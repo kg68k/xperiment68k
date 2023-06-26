@@ -21,7 +21,7 @@ OBJ_DIR = o
 .PRECIOUS: $(OBJ_DIR)/%.o
 
 
-TARGET = a2arg.x adpcmotchk.x chxdummy.x colorbar.x con_scroll.x dbrams.x \
+TARGET = a2arg.x adpcmotchk.x bitsns.x chxdummy.x colorbar.x con_scroll.x dbrams.x \
          dos_create_sp.x dos_fatchk.x dos_keyctrl01.x dos_nameck.x dos_open.x \
          esc_dsr.x fatchk_bof.x fntsize.x has060c4.x \
          iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
