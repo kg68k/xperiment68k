@@ -238,7 +238,7 @@ printScanCode:
 
 .data
 
-Notice: .dc.b 'マウスボタン押し下げで終了します。',CR,LF,0
+Notice: .dc.b 'マウス左ボタンで終了、右ボタンでキーボード判別コマンドを送信します。',CR,LF,0
 ReqIdentifyCompact: .dc.b 'キーボード判別コマンド($47)を送信しました。',CR,LF,0
 CrLf: .dc.b CR,LF,0
 
