@@ -365,7 +365,7 @@ KEYLIST: .macro macroName
   macroName key71,'CTRL'
   macroName key72,'OPT.1'
   macroName key73,'OPT.2'
-  macroName key74,'$74'
+  macroName key74,'Num'
   macroName key75,'$75'
   macroName key76,'$76'
   macroName key77,'$77'
