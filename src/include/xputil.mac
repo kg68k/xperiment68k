@@ -191,6 +191,44 @@ label:
 .endm
 
 
+;IOCSのキーバッファを空にする
+DEFINE_FLUSHIOCSKEY: .macro label
+  @loop:
+    IOCS _B_KEYINP
+label:
+    IOCS _B_KEYSNS
+    tst.l d0
+    bne @loop
+  rts
+.endm
+
+;Human68kのキーバッファを空にする
+DEFINE_FLUSHDOSKEY: .macro label
+label:
+  move.l #(.low._INPOUT)<<16+$ff,-(sp)
+  DOS _KFLUSH
+  addq.l #4,sp
+  rts
+.endm
+
+
+;文字列を表示する(標準出力への出力)
+DOS_PRINT: .macro ea
+  pea ea
+  DOS _PRINT
+  addq.l #4,sp
+.endm
+
+
+;空白文字を飛ばす
+SKIP_SPACE: .macro an
+  @loop:
+    cmpi.b #' ',(an)+
+  beq @loop
+  subq.l #1,an
+.endm
+
+
 .endif
 
 .list

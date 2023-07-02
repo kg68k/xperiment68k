@@ -1,0 +1,107 @@
+.title skeyset - call IOCS _SKEYSET and show IOCS _KEYINP result
+
+# This file is part of Xperiment68k
+# Copyright (C) 2023 TcbnErik
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+.include include/macro.mac
+.include include/fefunc.mac
+.include include/doscall.mac
+.include include/iocscall.mac
+
+.include include/xputil.mac
+
+
+.cpu 68000
+.text
+
+ProgramStart:
+  lea (1,a2),a0
+  bsr getArgument
+  move.l d0,d7
+  bmi  printUsage
+
+  bsr FlushIocsKey
+
+  move.l d7,d1
+  IOCS _SKEYSET
+
+  bsr printInkey
+
+  bsr FlushIocsKey
+  bsr FlushDosKey
+  DOS _EXIT
+
+
+printInkey:
+  IOCS _B_KEYSNS
+  tst.l d0
+  bne @f
+    DOS_PRINT (NoInputKey,pc)
+    bra 9f
+  @@:
+    IOCS _B_KEYINP
+    lea (Buffer,pc),a0
+    bsr ToHexString4
+    DOS_PRINT (Buffer,pc)
+    DOS_PRINT (NewLine,pc)
+9:
+  rts
+
+
+printUsage:
+  DOS_PRINT (Usage,pc)
+  move #1,-(sp)
+  DOS _EXIT2
+
+
+getArgument:
+  SKIP_SPACE a0
+  FPACK __STOH
+  bcs @f
+  tst.l d0
+  beq @f
+  cmpi.l #$ff,d0
+  bls 9f
+  @@:
+    moveq #-1,d0
+9:
+  rts
+
+
+  DEFINE_FLUSHIOCSKEY FlushIocsKey
+  DEFINE_FLUSHDOSKEY FlushDosKey
+
+  DEFINE_TOHEXSTRING4 ToHexString4
+
+
+.data
+
+Usage:
+  .dc.b 'skeyset <scancode>',CR,LF
+  .dc.b 0
+
+NoInputKey: .dc.b 'no input key',CR,LF,0
+
+NewLine: .dc.b CR,LF,0
+
+
+.bss
+.even
+
+Buffer: .ds.b 128
+
+
+.end ProgramStart
