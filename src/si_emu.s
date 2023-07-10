@@ -17,11 +17,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-.include include/macro.mac
-.include include/console.mac
-.include include/doscall.mac
+.include macro.mac
+.include console.mac
+.include doscall.mac
 
-.include include/xputil.mac
+.include xputil.mac
 
 SYSPORT_E8E001_P1: .equ $e8e001
 SYSPORT_E8E00B_P6: .equ $e8e00b

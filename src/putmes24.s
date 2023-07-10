@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include include/macro.mac
-.include include/console.mac
-.include include/iocscall.mac
-.include include/doscall.mac
+.include macro.mac
+.include console.mac
+.include iocscall.mac
+.include doscall.mac
 
 
 TVRAM: .equ $00e00000

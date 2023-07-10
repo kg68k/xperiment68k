@@ -25,6 +25,13 @@ X68000上でビルドする際には、UTF-8からShift_JISへの変換が必要
 ファイルを適当なツールで適宜Shift_JISに変換してから`make`を実行してください。  
 UTF-8のままでは正しくビルドできませんので注意してください。
 
+### 必要環境
+* Human68k version 3.02
+* GNU make 3.79 human68k-1.4 以降
+* HAS060.X version 3.09+91 以降(必須)
+* HLK evolution version 3.01+16 以降
+* gcc2
+
 
 ## Description
 
@@ -147,12 +154,6 @@ Human68Kの標準では `ESC [{pl};{pc}R` (CPR = Cursor Position Report)
 
 `_FNTADR`でd2.b = 0～5、`_FNTGET`でd1.hw = 1～5のサイズを指定した場合、
 IOCS環境(ROMまたはIOCS.Xのバージョン)によって結果が異なります。
-
-
-### has060c4
-HAS060.X v3.09+89で`-c4`オプションを指定すると一部の命令で不適切な置換が行われる挙動を検証します。
-* `ADDA.W #$8000,An` -> `SUBA.W #$8000,An` (演算結果が異なる)
-* `SUBA.W #$8000,An` -> `LEA ($8000,An),An` (演算結果が異なる)
 
 
 ### iocs_txfill

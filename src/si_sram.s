@@ -17,12 +17,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-.include include/macro.mac
-.include include/fefunc.mac
-.include include/console.mac
-.include include/doscall.mac
+.include macro.mac
+.include fefunc.mac
+.include console.mac
+.include doscall.mac
 
-.include include/xputil.mac
+.include xputil.mac
 
 
 SRAM_ED0000_START:     .equ $ed0000

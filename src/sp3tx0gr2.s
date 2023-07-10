@@ -16,13 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include include/macro.mac
-.include include/dosdef.mac
-.include include/console.mac
-.include include/doscall.mac
-.include include/iocscall.mac
+.include macro.mac
+.include dosdef.mac
+.include console.mac
+.include doscall.mac
+.include iocscall.mac
 
-.include include/xputil.mac
+.include xputil.mac
 
 
 VC_R1: .equ $00e82500

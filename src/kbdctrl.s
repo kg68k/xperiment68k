@@ -16,13 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include include/iomap.mac
-.include include/macro.mac
-.include include/fefunc.mac
-.include include/doscall.mac
-.include include/iocscall.mac
+.include iomap.mac
+.include macro.mac
+.include fefunc.mac
+.include doscall.mac
+.include iocscall.mac
 
-.include include/xputil.mac
+.include xputil.mac
 
 
 .cpu 68000

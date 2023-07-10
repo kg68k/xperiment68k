@@ -18,13 +18,13 @@
 
 ;ref. http://elm-chan.org/docs/vits/test.html
 
-.include include/iomap.mac
-.include include/macro.mac
-.include include/doscall.mac
-.include include/iocscall.mac
-.include include/iocswork.mac
+.include iomap.mac
+.include macro.mac
+.include doscall.mac
+.include iocscall.mac
+.include iocswork.mac
 
-.include include/xputil.mac
+.include xputil.mac
 
 CRTMOD_512x512_64K_31kHz: .equ 12
 CRTMOD_768x512_16_31kHz:  .equ 16
