@@ -59,7 +59,7 @@ adpcmAot:
   bsr PrintA0
   move d7,d0
   bsr PrintD0w
-  bsr PrintNewLine
+  bsr PrintCrLf
 
   POP d2/d7
   rts
@@ -89,7 +89,7 @@ adpcmLot:
   bsr PrintA0
   move.l (6,a1),d0  ;next table
   bsr PrintD0l
-  bsr PrintNewLine
+  bsr PrintCrLf
 
   moveq #0<<8+0,d1
   IOCS _ADPCMLOT
@@ -103,7 +103,7 @@ adpcmLot:
   bsr PrintA0
   move.l d7,d0
   bsr PrintD0l
-  bsr PrintNewLine
+  bsr PrintCrLf
 
   POP d7
   rts
@@ -132,8 +132,8 @@ PrintA0:
   addq.l #4,sp
   rts
 
-PrintNewLine:
-  pea (NewLine,pc)
+PrintCrLf:
+  pea (CrLf,pc)
   DOS _PRINT
   addq.l #4,sp
   rts
@@ -187,7 +187,7 @@ LatIs: .dc.b 'LinkArrayChainTable = $',0
 CommaDollar: .dc.b ', $',0
 BarIs: .dc.b 'BAR = $',0
 
-NewLine: .dc.b CR,LF,0
+CrLf: .dc.b CR,LF,0
 
 
 .bss

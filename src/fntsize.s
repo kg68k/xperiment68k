@@ -60,7 +60,7 @@ ProgramStart:
     move.l d7,d1
     bsr fntget
 
-    lea (NewLine,pc),a1
+    lea (CrLf,pc),a1
     STRCPY a1,a0
 
     pea (Buffer,pc)
@@ -158,7 +158,7 @@ title: .dc.b '    ┌─ _FNTADR ─┐┌ _FNTGET ┐',CR,LF
        .dc.b 'size  Xdot Xb-1 Yd-1   Xdot Ydot',CR,LF
        .dc.b 0
 
-NewLine: .dc.b CR,LF,0
+CrLf: .dc.b CR,LF,0
 
 
 .bss

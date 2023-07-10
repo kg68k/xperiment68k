@@ -56,7 +56,7 @@ printInkey:
     lea (Buffer,pc),a0
     bsr ToHexString4
     DOS_PRINT (Buffer,pc)
-    DOS_PRINT (NewLine,pc)
+    DOS_PRINT (CrLf,pc)
 9:
   rts
 
@@ -95,7 +95,7 @@ Usage:
 
 NoInputKey: .dc.b 'no input key',CR,LF,0
 
-NewLine: .dc.b CR,LF,0
+CrLf: .dc.b CR,LF,0
 
 
 .bss

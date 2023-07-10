@@ -47,7 +47,7 @@ ProgramStart:
   bsr PrintA0
   move.l d7,d0
   bsr PrintD0l
-  bsr PrintNewLine
+  bsr PrintCrLf
 
   move.l d7,d0
   bmi @f
@@ -82,8 +82,8 @@ PrintA0:
   addq.l #4,sp
   rts
 
-PrintNewLine:
-  pea (NewLine,pc)
+PrintCrLf:
+  pea (CrLf,pc)
   DOS _PRINT
   addq.l #4,sp
   rts
@@ -110,7 +110,7 @@ PrintFatChkData:
   bsr PrintA0
   move (a2)+,d0  ;drive number
   bsr PrintD0w
-  bsr PrintNewLine
+  bsr PrintCrLf
 
   bra 8f
   1:
@@ -123,7 +123,7 @@ PrintFatChkData:
     move.l (a2)+,d0  ;sector length
     bsr ToHexString$4_4
 
-    lea (NewLine,pc),a1
+    lea (CrLf,pc),a1
     STRCPY a1,a0
     lea (Buffer,pc),a0
     bsr PrintA0
@@ -153,9 +153,9 @@ ToHexString$4_4:
 
 .data
 
-NoArgMessage: .dc.b 'no filename',13,10,0
+NoArgMessage: .dc.b 'no filename',CR,LF,0
 ResultMessage: .dc.b 'result: $',0
-NewLine: .dc.b 13,10,0
+CrLf: .dc.b CR,LF,0
 
 DriveMessage: .dc.b 'drive: $',0
 

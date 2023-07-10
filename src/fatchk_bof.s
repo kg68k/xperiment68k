@@ -63,7 +63,7 @@ Fatchk:
   bsr PrintA0
   move.l d2,d0
   bsr PrintD0l
-  bsr PrintNewLine
+  bsr PrintCrLf
 
   move d2,-(sp)
   pea (FatChkBuf,pc)
@@ -77,7 +77,7 @@ Fatchk:
   bsr PrintA0
   move.l d1,d0
   bsr PrintD0l
-  bsr PrintNewLine
+  bsr PrintCrLf
 
   moveq #FATCHK_BUF_SIZE,d0
   lea (FatChkBuf,pc),a0
@@ -93,8 +93,8 @@ PrintA0:
   addq.l #4,sp
   rts
 
-PrintNewLine:
-  pea (NewLine,pc)
+PrintCrLf:
+  pea (CrLf,pc)
   DOS _PRINT
   addq.l #4,sp
   rts
@@ -126,7 +126,7 @@ DumpMemory:
 
   lea (Buffer,pc),a0
   bsr PrintA0
-  bsr PrintNewLine
+  bsr PrintCrLf
 
   POP d2/a2
   rts
@@ -138,7 +138,7 @@ DumpMemory:
 
 LengthMessage: .dc.b 'length = ',0
 ResultMessage: .dc.b 'result: $',0
-NewLine: .dc.b 13,10,0
+CrLf: .dc.b CR,LF,0
 
 
 .bss
