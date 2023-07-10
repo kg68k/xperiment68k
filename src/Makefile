@@ -27,7 +27,7 @@ TARGET = a2arg.x adpcmotchk.x bitsns.x chxdummy.x colorbar.x con_scroll.x dbrams
          joyget.x kbdctrl.x keepceil.x keyflush.x keyscan.x mallocall.x midi_reg.x \
          pt_7e.x pt_dbhw.x putmes12.x putmes24.x reset68k.r \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
-         sjis_tbl.x skeyset.x sp3tx0gr2.x splimchk.x sq64k.x sysport.x
+         sjis_tbl.x skeyset.x sp3tx0gr2.x splimchk.x sq64k.x sysport.x zerounit.sys
 
 all: directories $(TARGET)
 
@@ -50,6 +50,9 @@ sjis_tbl.x: sjis_tbl.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.x: $(OBJ_DIR)/%.o
+	$(LD) $(LDFLAGS) -o $@ $^
+
+%.sys: $(OBJ_DIR)/%.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 %.r: $(OBJ_DIR)/%.o
