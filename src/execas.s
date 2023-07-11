@@ -28,6 +28,17 @@ PSP_EXE_PATH: .equ $80
 PSP_EXE_NAME: .equ $c4
 sizeof_PSP: .equ $100
 
+NAMECK_DRIVE:  .equ  0
+NAMECK_PATH:   .equ  2
+NAMECK_NAME:   .equ 67
+NAMECK_EXT:    .equ 86
+sizeof_NAMECK: .equ 91
+
+HUPAIR_MARK_OFFSET: .equ 2
+HUPAIR_MARK_1:      .equ '#HUP'
+HUPAIR_MARK_2:      .equ 'AIR'<<8
+sizeof_HUPAIR_MARK: .equ 8
+
 
 .cpu 68000
 .text
@@ -62,9 +73,23 @@ ProgramStart:
     bra makeError
   @@:
 
-  lea (fileBuffer,pc),a0
-  andi.b #$df,(a0)  ;ドライブ名を大文字化
+  lea (nameckBuffer,pc),a2
+  pea (a2)
+  pea (fileBuffer,pc)
+  DOS _NAMECK
+  addq.l #8,sp
+  tst.l d0
+  bpl @f
+    lea (nameckError,pc),a0
+    bra makeError
+  @@:
+
   lea (TargetPath,pc),a1
+  lea (NAMECK_DRIVE,a2),a0
+  STRCPY a0,a1,-1
+  lea (NAMECK_NAME,a2),a0
+  STRCPY a0,a1,-1
+  lea (NAMECK_EXT,a2),a0
   STRCPY a0,a1
 
   move a1,d0
@@ -120,6 +145,7 @@ makeError:
 Usage: .dc.b 'usage: execas 実行ファイル名 > 新ファイル名.r',CR,LF,0
 
 notFoundError: .dc.b 'execas: not found: ',0
+nameckError:   .dc.b 'execas: nameck error: ',0
 writeError:    .dc.b 'execas: write error: ',0
 .even
 
@@ -129,7 +155,7 @@ writeError:    .dc.b 'execas: write error: ',0
 RuntimeStart:
   bra.s @f
     .dc.b '#HUPAIR',0
-    .dc.b 'execas 1.0.0',0
+    .dc.b 'execas 1.0.1',0
     .dc.b 'License: GNU GPL v3 or later.',0
     .even
   @@:
@@ -151,15 +177,17 @@ RuntimeStart:
     bra error
   @@:
 
-  lea (2,a4),a1
-  cmpi.l #'#HUP',(a1)+
-  bne 1f
-  cmpi.l #'AIR'<<8,(a1)+
-  beq @f
-  1:
-    bsr execDummy
-    lea (NoHupairError,pc),a0
-    bra error
+  lea (HUPAIR_MARK_OFFSET+sizeof_HUPAIR_MARK,a4),a2
+  cmpa.l a1,a2
+  bhi notHupair  ;プログラム領域をはみ出るのでHUPAIR準拠表示はない
+    cmpi.l #HUPAIR_MARK_2,-(a2)
+    bne notHupair
+    cmpi.l #HUPAIR_MARK_1,-(a2)
+    beq @f
+    notHupair:
+      bsr execDummy
+      lea (NoHupairError,pc),a0
+      bra error
   @@:
 
   move #PSP_EXE_PATH,d0
@@ -253,6 +281,7 @@ RuntimeEnd:
 
 .even
 fileBuffer:    .ds.b 256
+nameckBuffer:
 cmdlineBuffer: .ds.b 256
 
 
