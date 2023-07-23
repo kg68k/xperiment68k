@@ -1,4 +1,4 @@
-.title dos_create_sp - DOS _CREATE special mode
+.title dos_newfile - DOS _NEWFILE
 
 # This file is part of Xperiment68k
 # Copyright (C) 2023 TcbnErik
@@ -32,49 +32,22 @@ ProgramStart:
   tst.b (a0)
   beq NoArgError
 
-  bsr OpenFile  ;既存ファイルを上書きしないよう確認する
-  beq FileExistError
-
-  lea (a0),a2
   moveq #1<<ATR_ARC,d0
-  bsr CreateFile
-
-  lea (a2),a0
-  move #$8000+1<<ATR_ARC,d0
-  bsr CreateFile
+  bsr NewfileFile
 
   DOS _EXIT
 
 
-FileExistError:
-  pea (FileExistMessage,pc)
-  bra @f
 NoArgError:
-  pea (NoArgMessage,pc)
-@@:
-  DOS _PRINT
+  DOS_PRINT (NoArgMessage,pc)
   move #1,-(sp)
   DOS _EXIT2
 
 
-OpenFile:
-  move #ROPEN,-(sp)
-  pea (a0)
-  DOS _OPEN
-  addq.l #6,sp
-  tst.l d0
-  bmi @f
-    move d0,-(sp)
-    DOS _CLOSE
-    addq.l #2,sp
-    moveq #0,d0
-@@:
-  rts
-
-CreateFile:
+NewfileFile:
   move d0,-(sp)
   pea (a0)
-  DOS _CREATE
+  DOS _NEWFILE
   addq.l #6,sp
 
   lea (Buffer,pc),a0
@@ -105,7 +78,6 @@ SkipBlank:
 .data
 
 NoArgMessage: .dc.b 'no filename',CR,LF,0
-FileExistMessage: .dc.b '同名のファイルがすでに存在します。',CR,LF,0
 CrLf: .dc.b CR,LF,0
 
 
