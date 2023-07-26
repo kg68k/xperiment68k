@@ -220,12 +220,12 @@ DOS_PRINT: .macro ea
 .endm
 
 
-;空白文字を飛ばす
+;空白文字を飛ばし、文字列が終端したかどうかを調べる
 SKIP_SPACE: .macro an
   @loop:
     cmpi.b #' ',(an)+
   beq @loop
-  subq.l #1,an
+  tst.b -(an)
 .endm
 
 

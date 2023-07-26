@@ -31,8 +31,7 @@ FATCHK_BUF_SIZE: .equ $fffe
 
 ProgramStart:
   lea (1,a2),a0
-  bsr SkipBlank
-  tst.b (a0)
+  SKIP_SPACE a0
   beq NoArgError
 
   move #FATCHK_BUF_SIZE,-(sp)
@@ -61,19 +60,6 @@ NoArgError:
   bsr PrintA0
   move #1,-(sp)
   DOS _EXIT2
-
-
-SkipBlank:
-  @@:
-    move.b (a0)+,d0
-    beq @f
-    cmpi.b #' ',d0
-    beq @b
-    cmpi.b #TAB,d0
-    beq @b
-  @@:
-  subq.l #1,a0
-  rts
 
 
 PrintA0:

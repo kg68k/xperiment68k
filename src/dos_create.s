@@ -28,8 +28,7 @@
 
 ProgramStart:
   lea (1,a2),a0
-  bsr SkipBlank
-  tst.b (a0)
+  SKIP_SPACE a0
   beq NoArgError
 
   moveq #1<<ATR_ARC,d0
@@ -56,19 +55,6 @@ CreateFile:
 
   DOS_PRINT (Buffer,pc)
   DOS_PRINT (CrLf,pc)
-  rts
-
-
-SkipBlank:
-  @@:
-    move.b (a0)+,d0
-    beq 9f
-    cmpi.b #' ',d0
-    beq @b
-    cmpi.b #9,d0
-    beq @b
-  9:
-  subq.l #1,a0
   rts
 
 

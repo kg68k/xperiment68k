@@ -60,7 +60,6 @@ OutputKeyboardControl:
 
 getArgument:
   SKIP_SPACE a0
-  tst.b (a0)
   beq @f
   FPACK __STOH
   bcs @f

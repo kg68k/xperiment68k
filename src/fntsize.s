@@ -126,7 +126,7 @@ fntget:
 
 
 getArgument:
-  bsr skipBlank
+  SKIP_SPACE a0
   moveq #0,d0
   move.b (a0)+,d0
   beq @f
@@ -137,18 +137,6 @@ getArgument:
       lsl #8,d0
       move.b (a0)+,d0
   @@:
-  rts
-
-skipBlank:
-@@:
-  move.b (a0)+,d0
-  beq @f
-  cmpi.b #SPACE,d0
-  beq @b
-  cmpi.b #TAB,d0
-  beq @b
-@@:
-  subq.l #1,a0
   rts
 
 

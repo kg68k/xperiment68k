@@ -36,8 +36,7 @@ sizeof_NAMECK:
 
 ProgramStart:
   lea (1,a2),a0
-  bsr SkipBlank
-  tst.b (a0)
+  SKIP_SPACE a0
   beq NoArgError
 
   pea (ArgMessage,pc)
@@ -96,19 +95,6 @@ PrintNameckSub:
   DOS _PRINT
   addq.l #8,sp
   bra PrintCrLf
-
-
-SkipBlank:
-  @@:
-    move.b (a0)+,d0
-    beq 9f
-    cmpi.b #' ',d0
-    beq @b
-    cmpi.b #9,d0
-    beq @b
-  9:
-  subq.l #1,a0
-  rts
 
 
 PrintCrLf:

@@ -21,6 +21,8 @@
 .include iocscall.mac
 .include doscall.mac
 
+.include xputil.mac
+
 
 TVRAM: .equ $00e00000
 CRTC_R21: .equ $00e8002a
@@ -46,27 +48,14 @@ FNTGET_BUF_SIZE: .equ 4+FONT_WIDTH_FULL/DOTS_PER_BYTE*FONT_HEIGHT
 .text
 
 Start:
-  bsr getArgument
   lea (Usage,pc),a0
-  tst.b (a2)
+  addq.l #1,a2
+  SKIP_SPACE a2
   beq @f
     lea (a2),a0
   @@:
   bsr Putmes24
   DOS _EXIT
-
-getArgument:
-  addq.l #1,a2
-  @@:
-    move.b (a2)+,d0
-    beq @f
-    cmpi.b #' ',d0
-    beq @b
-    cmpi.b #TAB,d0
-    beq @b
-  @@:
-  subq.l #1,a2
-  rts
 
 
 Putmes24:

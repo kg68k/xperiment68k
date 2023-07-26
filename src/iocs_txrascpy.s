@@ -100,19 +100,6 @@ error:
   DOS _EXIT2
 
 
-skipBlank:
-@@:
-  move.b (a0)+,d0
-  beq @f
-  cmpi.b #SPACE,d0
-  beq @b
-  cmpi.b #TAB,d0
-  beq @b
-@@:
-  subq.l #1,a0
-  rts
-
-
 ;文字列を数値化する
 ;in a0.l = 文字列
 ;out d0.l = 1: 成功, 0:数字がない -1:数値の指定が不正
@@ -120,7 +107,7 @@ skipBlank:
 ;    a0.l = 数値の末尾+1
 getValue:
   moveq #0,d1
-  bsr skipBlank
+  SKIP_SPACE a0
   move.b (a0),d0
   bne @f
     moveq #0,d0

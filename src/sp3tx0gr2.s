@@ -41,6 +41,7 @@ SP_HEIGHT: .equ 16
 .text
 
 Start:
+  lea (1,a2),a0
   bsr AnalyzeArgument
   move.l d0,d7  ;option
 
@@ -59,15 +60,8 @@ Start:
 
 
 AnalyzeArgument:
-  addq.l #1,a2
-  @@:
-    move.b (a2)+,d0
-    beq 8f
-    cmpi.b #' ',d0
-    beq @b
-    cmpi.b #TAB,d0
-    beq @b
-
+  SKIP_SPACE a0
+  beq 8f
     moveq #1,d0
     bra 9f
   8:

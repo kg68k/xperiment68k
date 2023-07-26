@@ -91,8 +91,7 @@ PrintUsage:
 GetArgument:
   moveq #0,d1  ;-dまたは-xで指定したタイムスタンプ 省略時0
 1:
-  bsr SkipBlank
-  tst.b (a0)
+  SKIP_SPACE a0
   beq 8f  ;ファイル名なし
   cmpi.b #'-',(a0)
   bne 7f  ;ファイル名あり
@@ -101,8 +100,7 @@ GetArgument:
   move.b (a0)+,d0
   cmpi.b #'d',d0
   bne @f
-    bsr SkipBlank  ;-d<decimal>
-    tst.b (a0)
+    SKIP_SPACE a0  ;-d<decimal>
     beq 8f
     FPACK __STOL
     bcs 8f
@@ -111,8 +109,7 @@ GetArgument:
   @@:
   cmpi.b #'x',d0
   bne 8f
-    bsr SkipBlank  ;-x<hex>
-    tst.b (a0)
+    SKIP_SPACE a0  ;-x<hex>
     beq 8f
     FPACK __STOH
     bcs 8f
@@ -124,19 +121,6 @@ GetArgument:
 8:
   moveq #-1,d0
 9:
-  rts
-
-
-SkipBlank:
-  @@:
-    move.b (a0)+,d0
-    beq 9f
-    cmpi.b #' ',d0
-    beq @b
-    cmpi.b #9,d0
-    beq @b
-  9:
-  subq.l #1,a0
   rts
 
 

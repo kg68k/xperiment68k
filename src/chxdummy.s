@@ -20,6 +20,8 @@
 .include console.mac
 .include doscall.mac
 
+.include xputil.mac
+
 
 SYSTEM_PORT7_E8E00D: .equ $e8e00d
 
@@ -37,8 +39,8 @@ MARGIN: .equ $20  ;for chxinst.x 0.2.8
 .text
 
 ProgramStart:
-  bsr GetFilenameFromCommandLine
-  move.l a0,d0
+  lea (1,a2),a0
+  SKIP_SPACE a0
   beq NoFilename
 
   bsr GetFileSize
@@ -152,22 +154,6 @@ Sram_DisableWrite:
   move.b #$00,(SYSTEM_PORT7_E8E00D)
   rts
 
-
-GetFilenameFromCommandLine:
-  suba.l a0,a0
-  addq.l #1,a2
-  @@:
-    move.b (a2)+,d0
-    beq 9f
-    cmpi.b #SPACE,d0
-    beq @b
-    cmpi.b #TAB,d0
-    beq @b
-
-    subq.l #1,a2
-    move.l a2,a0  ;filename
-9:
-  rts
 
 GetFileSize:
   clr -(sp)
