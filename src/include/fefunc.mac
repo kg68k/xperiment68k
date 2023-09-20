@@ -1,7 +1,7 @@
 .nlist
 
-# fefunc.mac version 2.0.0
-# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+# fefunc.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+# Last-modified: 2023-09-20
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright

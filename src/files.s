@@ -19,24 +19,9 @@
 .include dosdef.mac
 .include console.mac
 .include doscall.mac
+.include filesys.mac
 
 .include xputil.mac
-
-.offset 0
-FILES_SchAtr:   .ds.b 1
-FILES_SchDrv:   .ds.b 1
-FILES_SchSec:   .ds.l 1
-FILES_SchRest:  .ds   1
-FILES_SchOffs:  .ds   1
-FILES_SchName:  .ds.b 8
-FILES_SchExt:   .ds.b 3
-FILES_FileAtr:  .ds.b 1
-FILES_Time:     .ds   1
-FILES_Date:     .ds   1
-FILES_FileSize: .ds.l 1
-FILES_FileName: .ds.b 23
-.even
-sizeof_FILES:
 
 
 .cpu 68000
@@ -70,7 +55,7 @@ ProgramStart:
     move.l d0,(sp)+
   bpl filesLoop
 
-  moveq #-2,d1  ;_NFILESの「ファイルが見つからない」エラーは正常終了として扱う
+  moveq #DOSE_NOENT,d1  ;_NFILESの「ファイルが見つからない」エラーは正常終了として扱う
   cmp.l d1,d0
   beq @f
     bsr nfilesError

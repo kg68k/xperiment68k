@@ -41,9 +41,7 @@ ProgramStart:
     moveq #SPACE,d6
   @@:
 
-  pea (title,pc)
-  DOS _PRINT
-  addq.l #4,sp
+  DOS_PRINT (title,pc)
 
   moveq #MIN_SIZE,d7
   @@:
@@ -63,9 +61,7 @@ ProgramStart:
     lea (CrLf,pc),a1
     STRCPY a1,a0
 
-    pea (Buffer,pc)
-    DOS _PRINT
-    addq.l #4,sp
+    DOS_PRINT (Buffer,pc)
 
     addq #1,d7
   cmpi #MAX_SIZE,d7

@@ -1,0 +1,143 @@
+.nlist
+
+# filesys.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+# Last-modified: 2023-09-20
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __filesys_mac__
+        __filesys_mac__:=1
+
+
+* Drive --------------------------------------- *
+
+.ifndef DRIVE_MAX
+DRIVE_MAX: .equ 26
+.endif
+
+* File Attribute ------------------------------ *
+
+FILEATR_EXEC:      .equ 7  ;execd
+FILEATR_LINK:      .equ 6  ;lndrv
+FILEATR_ARCHIVE:   .equ 5
+FILEATR_DIRECTORY: .equ 4
+FILEATR_VOLUME:    .equ 3
+FILEATR_SYSTEM:    .equ 2
+FILEATR_HIDDEN:    .equ 1
+FILEATR_READONLY:  .equ 0
+
+* File Handle --------------------------------- *
+
+.ifndef STDIN
+STDIN:  .equ 0
+STDOUT: .equ 1
+STDERR: .equ 2
+STDAUX: .equ 3
+STDPRN: .equ 4
+.endif
+
+STD_FILEHANDLE_NUM: .equ 5
+MAX_FILEHANDLE_NUM: .equ 96
+
+* File Open Mode ------------------------------ *
+
+OPENMODE_READ:       .equ 0
+OPENMODE_WRITE:      .equ 1
+OPENMODE_READ_WRITE: .equ 2
+
+* Seek Mode ----------------------------------- *
+
+SEEKMODE_SET:     .equ 0
+SEEKMODE_CURRENT: .equ 1
+SEEKMODE_END:     .equ 2
+
+* Drive Assign Mode --------------------------- *
+
+ASSIGNMODE_REAL_DRIVE:    .equ $40
+ASSIGNMODE_VIRTUAL_DRIVE: .equ $50
+ASSIGNMODE_VIRTUAL_DIR:   .equ $60
+
+* File Control Block -------------------------- *
+
+FCB_CACHE_NUM: .equ 7
+
+.offset 0
+FCB_Link:      .ds.b 1
+FCB_DevAtr:    .ds.b 1
+FCB_Dpb:       .ds.l 1
+FCB_FilePtr:   .ds.l 1
+FCB_Share:     .ds.l 1
+FCB_AxsMode:   .ds.b 1
+FCB_DirEnt:    .ds.b 1
+FCB_CluSector: .ds.b 1
+               .even
+FCB_Cluster:   .ds   1
+FCB_Sector:    .ds.l 1
+FCB_IOBuf:     .ds.l 1
+FCB_DirSecotr: .ds.l 1
+FCB_LastPtr:   .ds.l 1
+FCB_FileName1: .ds.b 8
+FCB_Ext:       .ds.b 3
+FCB_FileAtr:   .ds.b 1
+FCB_FileName2: .ds.b 10
+FCB_LastTime:  .ds   1
+FCB_LastDate:  .ds   1
+FCB_Fat:       .ds   1
+FCB_FileSize:  .ds.l 1
+FCB_FatCache:  .ds.l FCB_CACHE_NUM
+sizeof_FCB:
+.fail $.ne.96
+
+* FILES buffer -------------------------------- *
+
+.offset 0
+FILES_SchAtr:   .ds.b 1
+FILES_SchDrv:   .ds.b 1
+FILES_SchSec:   .ds.l 1
+FILES_SchRest:  .ds   1
+FILES_SchOffs:  .ds   1
+FILES_SchName:  .ds.b 8
+FILES_SchExt:   .ds.b 3
+FILES_FileAtr:  .ds.b 1
+FILES_Time:     .ds   1
+FILES_Date:     .ds   1
+FILES_FileSize: .ds.l 1
+FILES_FileName: .ds.b 23
+sizeof_FILES:
+.fail $.ne.53
+FILES_Path:     .ds.b 88  ;only extended mode
+sizeof_FILES_EX:
+.fail $.ne.141
+
+* NAMESTS buffer ------------------------------ *
+
+.offset 0
+NAMESTS_Wild:  .ds.b 1
+NAMESTS_Drive: .ds.b 1
+NAMESTS_Path:  .ds.b 65
+NAMESTS_Name1: .ds.b 8
+NAMESTS_Ext:   .ds.b 3
+NAMESTS_Name2: .ds.b 10
+sizeof_NAMESTS:
+.fail $.ne.88
+
+* NAMECK buffer ------------------------------- *
+
+.offset 0
+NAMECK_Drive: .ds.b 2
+NAMECK_Path:  .ds.b 65
+NAMECK_Name:  .ds.b 19
+NAMECK_Ext:   .ds.b 5
+sizeof_NAMECK:
+.fail $.ne.91
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

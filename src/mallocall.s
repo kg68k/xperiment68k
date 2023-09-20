@@ -19,6 +19,7 @@
 .include macro.mac
 .include console.mac
 .include doscall.mac
+.include process.mac
 
 .include xputil.mac
 
@@ -40,7 +41,7 @@ ProgramStart:
   btst #OPTION_SHRINK,d7
   beq 1f
     suba.l a0,a1
-    lea (-16,a1),a1  ;メモリ管理ポインタを除いたサイズ
+    lea (-sizeof_MEMBLK,a1),a1  ;メモリ管理ポインタを除いたサイズ
     move.l a1,d0
     bsr SetBlock
     bra @f
@@ -61,7 +62,7 @@ ProgramStart:
     bmi @f
 
     movea.l d0,a0
-    lea (-16,a0),a0  ;メモリ管理ポインタ
+    lea (-sizeof_MEMBLK,a0),a0  ;メモリ管理ポインタ
     bsr PrintMemoryBlock
     bsr PrintCrLf
     bra @b
@@ -120,7 +121,7 @@ SetBlockMax:
 ;メモリブロックのサイズを変更する
 SetBlock:
   move.l d0,-(sp)
-  pea (16,a0)
+  pea (sizeof_MEMBLK,a0)
   btst #OPTION_SETBLOCK2,d7
   beq @f
     DOS _SETBLOCK2
@@ -173,36 +174,28 @@ PrintMemoryBlock:
   move.b #' ',(a0)+
 
   move.b #'(',(a0)+
-  move.l (8,a1),d0
+  move.l (MEMBLK_End,a1),d0
   sub.l a1,d0
-  subi.l #16,d0  ;メモリ管理ポインタを除いたサイズ
+  subi.l #sizeof_MEMBLK,d0  ;メモリ管理ポインタを除いたサイズ
   bsr ToHexString8
   move.b #')',(a0)+
   clr.b (a0)
 
-  pea (Buffer,pc)
-  DOS _PRINT
-  addq.l #4,sp
+  DOS_PRINT (Buffer,pc)
   rts
 
 
 ;自分自身のプロセスの実行ファイル名を表示する
 ;in a0.l プロセス管理ポインタ
 PrintProcessFilename:
-  pea (Space,pc)
-  DOS _PRINT
-  pea ($80,a0)  ;パス名
-  DOS _PRINT
-  pea ($c4,a0)  ;ファイル名
-  DOS _PRINT
-  lea (12,sp),sp
+  DOS_PRINT (Space,pc)
+  DOS_PRINT (PSP_Drive,a0)
+  DOS_PRINT (PSP_Filename,a0)
   rts
 
 
 PrintCrLf:
-  pea (CrLf,pc)
-  DOS _PRINT
-  addq.l #4,sp
+  DOS_PRINT (CrLf,pc)
   rts
 
 

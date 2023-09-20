@@ -19,6 +19,7 @@
 .include macro.mac
 .include console.mac
 .include doscall.mac
+.include process.mac
 
 .include xputil.mac
 
@@ -30,7 +31,7 @@ FATCHK_BUF_SIZE: .equ 16
 .text
 
 ProgramStart:
-  lea ($c4,a0),a5  ;"fatchk_bof.x" in PSP
+  lea (PSP_Filename,a0),a5  ;"fatchk_bof.x" in PSP
 
   moveq #0,d0
   lea (a5),a0

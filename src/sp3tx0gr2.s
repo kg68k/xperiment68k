@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+.include iomap.mac
 .include macro.mac
 .include dosdef.mac
 .include console.mac
@@ -24,9 +25,6 @@
 
 .include xputil.mac
 
-
-VC_R1: .equ $00e82500
-VC_R2: .equ $00e82600
 
 SCREEN_WIDTH:  .equ 512
 SCREEN_HEIGHT: .equ 512

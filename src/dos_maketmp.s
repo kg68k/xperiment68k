@@ -20,6 +20,7 @@
 .include dosdef.mac
 .include console.mac
 .include doscall.mac
+.include filesys.mac
 
 .include xputil.mac
 
@@ -35,7 +36,7 @@ ProgramStart:
   lea (Filename,pc),a1
   STRCPY a0,a1
 
-  move #1<<ATR_ARC,-(sp)
+  move #1<<FILEATR_ARCHIVE,-(sp)
   pea (Filename,pc)
   DOS _MAKETMP
   addq.l #6,sp
@@ -50,7 +51,7 @@ ProgramStart:
 
 PrintUsage:
   DOS_PRINT (Usage,pc)
-  move #1,-(sp)
+  move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 

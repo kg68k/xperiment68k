@@ -1,0 +1,95 @@
+.nlist
+
+# process.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+# Last-modified: 2023-09-20
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __process_mac__
+        __process_mac__:=1
+
+
+* Memory Block -------------------------------- *
+
+MEMBLK_TYPE_SUB:    .equ $fd
+MEMBLK_TYPE_MEMDRV: .equ $fe
+MEMBLK_TYPE_KEEP:   .equ $ff
+
+.offset 0
+MEMBLK_Previous: .ds.l 1
+MEMBLK_Parent:   .ds.l 1
+MEMBLK_End:      .ds.l 1
+MEMBLK_Next:     .ds.l 1
+sizeof_MEMBLK:
+.fail $.ne.16
+
+* Program Segment Prefix ---------------------- *
+
+.offset 0
+               .ds.b sizeof_MEMBLK
+PSP_Env:       .ds.l 1
+PSP_Exit:      .ds.l 1
+PSP_CtrlC:     .ds.l 1
+PSP_Error:     .ds.l 1
+PSP_CmdLine:   .ds.l 1
+PSP_FileUse:   .ds.b 12
+PSP_BSS:       .ds.l 1
+PSP_Heap:      .ds.l 1
+PSP_Stack:     .ds.l 1
+PSP_PareUSP:   .ds.l 1
+PSP_PareSSP:   .ds.l 1
+PSP_PareSR:    .ds   1
+PSP_AbortSR:   .ds   1
+PSP_AbortSSP:  .ds.l 1
+PSP_Trap10:    .ds.l 1
+PSP_Trap11:    .ds.l 1
+PSP_Trap12:    .ds.l 1
+PSP_Trap13:    .ds.l 1
+PSP_Trap14:    .ds.l 1
+PSP_ShellFlag: .ds.l 1
+PSP_ModuleNo:  .ds.b 1
+               .ds.b 3
+PSP_Child:     .ds.l 1
+               .ds.l 5
+PSP_Drive:     .ds.b 2
+PSP_Path:      .ds.b 66
+PSP_Filename:  .ds.b 24
+               .ds.l 9
+sizeof_PSP:
+.fail $.ne.$100
+
+* Back Ground Process (Thread) ---------------- *
+
+BG_WAITFLAG_SLEEP:   .equ $ff
+BG_WAITFLAG_SUSPEND: .equ $fe
+
+.offset 0
+BG_NextThread: .ds.l 1
+BG_WaitFlag:   .ds.b 1
+BG_Count:      .ds.b 1
+BG_CountMax:   .ds.b 1
+BG_DosCmd:     .ds.b 1
+BG_Psp:        .ds.l 1
+BG_Usp:        .ds.l 1
+BG_Regs        .ds.l 15
+BG_Sr:         .ds   1
+BG_Pc:         .ds.l 1
+BG_Ssp:        .ds.l 1
+BG_InDosFlag:  .ds.w 1
+BG_InDosPtr:   .ds.l 1
+BG_Buffer:     .ds.l 1
+BG_Name:       .ds.b 16
+BG_WaitTime:   .ds.l 1
+sizeof_BG:
+.fail $.ne.116
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

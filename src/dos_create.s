@@ -19,6 +19,7 @@
 .include dosdef.mac
 .include console.mac
 .include doscall.mac
+.include filesys.mac
 
 .include xputil.mac
 
@@ -31,7 +32,7 @@ ProgramStart:
   SKIP_SPACE a0
   beq NoArgError
 
-  moveq #1<<ATR_ARC,d0
+  moveq #1<<FILEATR_ARCHIVE,d0
   bsr CreateFile
 
   DOS _EXIT
@@ -39,7 +40,7 @@ ProgramStart:
 
 NoArgError:
   DOS_PRINT (NoArgMessage,pc)
-  move #1,-(sp)
+  move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 

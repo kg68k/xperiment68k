@@ -20,6 +20,7 @@
 .include fefunc.mac
 .include console.mac
 .include doscall.mac
+.include filesys.mac
 
 .include xputil.mac
 
@@ -36,10 +37,10 @@ ProgramStart:
   bmi PrintUsage
   move.l d1,d7
 
-  moveq #ROPEN,d0  ;取得時は読み込みオープン
+  moveq #OPENMODE_READ,d0  ;取得時は読み込みオープン
   tst.l d7
   beq @f
-    moveq #WOPEN,d0  ;設定時は書き込みオープン
+    moveq #OPENMODE_WRITE,d0  ;設定時は書き込みオープン
   @@:
   move d0,-(sp)
   pea (a0)
@@ -58,7 +59,7 @@ ProgramStart:
   addq.l #6,sp
   bsr PrintResult
 
-  moveq #0,d0
+  moveq #EXIT_SUCCESS,d0
 9:
   move d0,-(sp)
   DOS _EXIT2
@@ -84,7 +85,7 @@ PrintResult:
 
 PrintUsage:
   DOS_PRINT (UsageMessage,pc)
-  move #1,-(sp)
+  move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 

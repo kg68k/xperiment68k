@@ -1,0 +1,81 @@
+.nlist
+
+# sram.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+# Last-modified: 2023-09-20
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+.ifndef __sram_mac__
+        __sram_mac__:=1
+
+
+* SRAM Address -------------------------------- *
+
+SRAM:           .equ $ed0000
+SRAM_END:       .equ $ed3fff
+SRAM_SIZE:      .equ 16*1024
+
+SRAM_16KB_END:  .equ $ed4000
+SRAM_32KB_END:  .equ $ed8000
+SRAM_64KB_END:  .equ $ee0000
+
+SRAM_CHECKID:   .equ $ed0000
+SRAM_MEMSIZE:   .equ $ed0008
+SRAM_ROMBOOT:   .equ $ed000c
+SRAM_SRAMBOOT:  .equ $ed0010
+SRAM_OFFTIME:   .equ $ed0014
+SRAM_BOOT:      .equ $ed0018
+SRAM_RS232C:    .equ $ed001a
+SRAM_LED:       .equ $ed001c
+SRAM_CRTMOD:    .equ $ed001d
+SRAM_ALARM_CMD: .equ $ed001e
+SRAM_ALARM_TIM: .equ $ed0022
+SRAM_ALARM:     .equ $ed0026
+SRAM_OPT2:      .equ $ed0027
+SRAM_CONTRAST:  .equ $ed0028
+SRAM_EJECT:     .equ $ed0029
+SRAM_TVCTRL:    .equ $ed002a
+SRAM_JISAIU:    .equ $ed002b
+SRAM_DENFONT:   .equ $ed002c
+SRAM_USEMODE:   .equ $ed002d
+SRAM_TEXTPAL:   .equ $ed002e
+SRAM_TEXTPAL0:  .equ $ed002e
+SRAM_TEXTPAL1:  .equ $ed0030
+SRAM_TEXTPAL2:  .equ $ed0032
+SRAM_TEXTPAL3:  .equ $ed0034
+SRAM_TEXTPAL4:  .equ $ed0036
+SRAM_TEXTPAL8:  .equ $ed0038
+SRAM_KEYDLY:    .equ $ed003a
+SRAM_KEYREP:    .equ $ed003b
+SRAM_WAITPRN:   .equ $ed003c
+SRAM_MINUTE:    .equ $ed0040
+SRAM_OFFTIMES:  .equ $ed0044
+SRAM_ROMFAT:    .equ $ed0048
+SRAM_ROMBPB:    .equ $ed004c
+SRAM_ROMDB:     .equ $ed0058
+SRAM_XCHG:      .equ $ed0059
+SRAM_HD:        .equ $ed005a
+*SRAM_RESERVE1: .equ $ed005b
+SRAM_SCSIFLAG:  .equ $ed006f
+SRAM_SCSIMODE:  .equ $ed0070
+SRAM_SASIHD:    .equ $ed0071
+SRAM_SXFLAG:    .equ $ed0072
+SRAM_SXINFO:    .equ $ed0074
+*SRAM_RESERVE2: .equ $ed007f
+SRAM_CACHE:     .equ $ed0090
+SRAM_OPMPLAY:   .equ $ed0091
+SRAM_MEMWAIT10: .equ $ed0092
+SRAM_MEMWAIT16: .equ $ed0092
+*SRAM_RESERVE3: .equ $ed0094
+SRAM_PROG:      .equ $ed0100
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

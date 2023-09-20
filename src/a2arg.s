@@ -95,8 +95,7 @@ printArg0:
   lea (strArg0,pc),a0
   bsr print
   lea (1,a2),a0
-  STREND a0
-  addq.l #1,a0
+  STREND a0,+1
   bsr print
   bsr printCrLf
   rts

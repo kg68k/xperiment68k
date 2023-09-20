@@ -20,19 +20,11 @@
 .include dosdef.mac
 .include console.mac
 .include doscall.mac
+.include filesys.mac
+.include process.mac
 
 .include xputil.mac
 
-
-PSP_EXE_PATH: .equ $80
-PSP_EXE_NAME: .equ $c4
-sizeof_PSP: .equ $100
-
-NAMECK_DRIVE:  .equ  0
-NAMECK_PATH:   .equ  2
-NAMECK_NAME:   .equ 67
-NAMECK_EXT:    .equ 86
-sizeof_NAMECK: .equ 91
 
 HUPAIR_MARK_OFFSET: .equ 2
 HUPAIR_MARK_1:      .equ '#HUP'
@@ -85,11 +77,11 @@ ProgramStart:
   @@:
 
   lea (TargetPath,pc),a1
-  lea (NAMECK_DRIVE,a2),a0
+  lea (NAMECK_Drive,a2),a0
   STRCPY a0,a1,-1
-  lea (NAMECK_NAME,a2),a0
+  lea (NAMECK_Name,a2),a0
   STRCPY a0,a1,-1
-  lea (NAMECK_EXT,a2),a0
+  lea (NAMECK_Ext,a2),a0
   STRCPY a0,a1
 
   move a1,d0
@@ -159,7 +151,7 @@ RuntimeStart:
     .dc.b 'License: GNU GPL v3 or later.',0
     .even
   @@:
-  lea (16,a0),a0
+  lea (sizeof_MEMBLK,a0),a0
   suba.l a0,a1
   movem.l a0-a1,-(sp)
   DOS _SETBLOCK
@@ -190,10 +182,10 @@ RuntimeStart:
       bra error
   @@:
 
-  move #PSP_EXE_PATH,d0
+  move #PSP_Drive,d0
   bsr comparePspString
   bne @f
-    move #PSP_EXE_NAME,d0
+    move #PSP_Filename,d0
     bsr comparePspString
     bne @f
       bsr execDummy
@@ -201,9 +193,9 @@ RuntimeStart:
       bra error
   @@:
 
-  move #PSP_EXE_PATH,d0
+  move #PSP_Drive,d0
   bsr copyPspString
-  move #PSP_EXE_NAME,d0
+  move #PSP_Filename,d0
   bsr copyPspString
 
 exec:

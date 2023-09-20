@@ -63,8 +63,7 @@ printAllEnv:
   @@:
     DOS_PRINT (a0)
     DOS_PRINT (CrLf,pc)
-    STREND a0
-    addq.l #1,a0
+    STREND a0,+1
   1:
   tst.b (a0)
   bne @b

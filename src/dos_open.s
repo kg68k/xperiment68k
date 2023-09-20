@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+.include dosdef.mac
 .include console.mac
 .include doscall.mac
 
@@ -30,11 +31,8 @@ ProgramStart:
   SKIP_SPACE a0
   beq NoArgError
 
-  pea (ArgMessage,pc)
-  DOS _PRINT
-  pea (a0)
-  DOS _PRINT
-  addq.l #8,sp
+  DOS_PRINT (ArgMessage,pc)
+  DOS_PRINT (a0)
   bsr PrintCrLf
 
   clr -(sp)
@@ -43,9 +41,7 @@ ProgramStart:
   addq.l #6,sp
   move.l d0,d7
 
-  pea (ResultMessage,pc)
-  DOS _PRINT
-  addq.l #4,sp
+  DOS_PRINT (ResultMessage,pc)
   move.l d7,d0
   bsr PrintD0
   bsr PrintCrLf
@@ -53,16 +49,13 @@ ProgramStart:
   DOS _EXIT
 
 NoArgError:
-  pea (NoArgMessage,pc)
-  DOS _PRINT
-  move #1,-(sp)
+  DOS_PRINT (NoArgMessage,pc)
+  move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 
 PrintCrLf:
-  pea (CrLf,pc)
-  DOS _PRINT
-  addq.l #4,sp
+  DOS_PRINT (CrLf,pc)
   rts
 
 PrintD0:

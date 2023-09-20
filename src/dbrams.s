@@ -21,13 +21,10 @@
 .include console.mac
 .include doscall.mac
 .include iocscall.mac
+.include iocswork.mac
 
 
 MOVEL_IMM_D0: .equ $203C  ;move.l #imm,d0 のオペコード
-
-IOCS_0CB8_ROM_COUNT: .equ $cb8
-IOCS_0CBA_RAM_COUNT: .equ $cba
-
 
 .offset 0
 DBRAMS_ERROR_NONE: .ds.b 1
@@ -53,7 +50,7 @@ ProgramStart:
     bsr print
     bra 9f
 @@:
-  move.l d1,(IOCS_0CB8_ROM_COUNT)
+  move.l d1,(ROMCNT)
   bsr printValue
 9:
   DOS _EXIT

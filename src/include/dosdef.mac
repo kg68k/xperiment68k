@@ -1,7 +1,7 @@
 .nlist
 
-# dosdef.mac version 2.0.0
-# RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+# dosdef.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+# Last-modified: 2023-09-20
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
@@ -107,12 +107,15 @@ DOSE_EXISTFILE: .equ -80
 EXIT_SUCCESS: .equ 0
 EXIT_FAILURE: .equ 1
 
+.ifndef STDIN
 STDIN:  .equ 0
 STDOUT: .equ 1
 STDERR: .equ 2
 STDAUX: .equ 3
 STDPRN: .equ 4
+.endif
 
+.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 ATR_EXEC: .equ 7
 ATR_LINK: .equ 6
 ATR_ARC:  .equ 5
@@ -130,20 +133,27 @@ VOLUME:    .equ 3
 SYSTEM:    .equ 2
 HIDDEN:    .equ 1
 READONLY:  .equ 0
+.endif
 
+.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 READRV: .equ $40
 VIRDRV: .equ $50
 VIRDIR: .equ $60
+.endif
 
+.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 ROPEN:  .equ 0
 WOPEN:  .equ 1
 RWOPEN: .equ 2
 *COPEN: .equ 3
 *DOPEN: .equ 4
+.endif
 
+.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 SEEK_SET: .equ 0
 SEEK_CUR: .equ 1
 SEEK_END: .equ 2
+.endif
 
 EXEC_LOADEXEC: .equ 0
 EXEC_LOAD:     .equ 1
@@ -159,7 +169,10 @@ THREAD_ISBUSY: .equ $ffff
 
 INPUT_MAX: .equ 256
 ENV_MAX:   .equ 256
+
+.ifndef DRIVE_MAX
 DRIVE_MAX: .equ 26
+.endif
 
 MB_2DD10:   .equ $e0
 MB_1D9:     .equ $e5

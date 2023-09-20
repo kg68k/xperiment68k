@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+.include sram.mac
+.include iomap.mac
 .include macro.mac
 .include console.mac
 .include doscall.mac
@@ -23,15 +25,7 @@
 .include xputil.mac
 
 
-SYSTEM_PORT7_E8E00D: .equ $e8e00d
-
-SRAM_ED0010_SRAM_BOOT_ADDR: .equ $ed0010
-SRAM_ED0018_BOOT_DEVICE:    .equ $ed0018
-SRAM_ED002D_SRAM_USEMODE:   .equ $ed002d
-SRAM_ED0100_PROGRAM_START:  .equ $ed0100
-SRAM_ED4000_END_PLUS1:      .equ $ed4000
-
-SRAM_MAX_PROGRAM_SIZE: .equ SRAM_ED4000_END_PLUS1-SRAM_ED0100_PROGRAM_START
+SRAM_MAX_PROGRAM_SIZE: .equ SRAM_16KB_END-SRAM_PROG
 
 MARGIN: .equ $20  ;for chxinst.x 0.2.8
 
@@ -63,8 +57,8 @@ ProgramStart:
   DOS _SUPER
   addq.l #4,sp
 
-  lea (SRAM_ED0100_PROGRAM_START),a5
-  tst.b (SRAM_ED002D_SRAM_USEMODE)
+  lea (SRAM_PROG),a5
+  tst.b (SRAM_USEMODE)
   bne SramAlreadyUsed
 
   bsr Sram_EnableWrite
@@ -89,7 +83,7 @@ ProgramStart:
   dbra d1,@b
 
   ;空き領域を$0000_0000で埋める
-  move.l #SRAM_ED4000_END_PLUS1,d1
+  move.l #SRAM_16KB_END,d1
   sub.l a1,d1
   lsr.l #2,d1
   moveq #$00,d0
@@ -99,9 +93,9 @@ ProgramStart:
   1:
   dbra d1,@b
 
-  move.l a5,(SRAM_ED0010_SRAM_BOOT_ADDR)
-  move #$b000,(SRAM_ED0018_BOOT_DEVICE)  ;SRAM起動
-  move.b #2,(SRAM_ED002D_SRAM_USEMODE)   ;プログラムで使用
+  move.l a5,(SRAM_SRAMBOOT)
+  move #$b000,(SRAM_BOOT)   ;SRAM起動
+  move.b #2,(SRAM_USEMODE)  ;プログラムで使用
   bsr Sram_DisableWrite
 
   pea (DoneMsg,pc)
@@ -147,11 +141,11 @@ sizeof_SramDummyProgram: equ SramDummyProgram_End-SramDummyProgram
 
 
 Sram_EnableWrite:
-  move.b #$31,(SYSTEM_PORT7_E8E00D)
+  move.b #$31,(SYS_P7)
   rts
 
 Sram_DisableWrite:
-  move.b #$00,(SYSTEM_PORT7_E8E00D)
+  move.b #$00,(SYS_P7)
   rts
 
 

@@ -19,6 +19,7 @@
 .include dosdef.mac
 .include console.mac
 .include doscall.mac
+.include filesys.mac
 
 .include xputil.mac
 
@@ -35,11 +36,11 @@ ProgramStart:
   beq FileExistError
 
   lea (a0),a2
-  moveq #1<<ATR_ARC,d0
+  moveq #1<<FILEATR_ARCHIVE,d0
   bsr CreateFile
 
   lea (a2),a0
-  move #$8000+1<<ATR_ARC,d0
+  move #1<<FILEATR_ARCHIVE+$8000,d0
   bsr CreateFile
 
   DOS _EXIT
@@ -52,12 +53,12 @@ NoArgError:
   pea (NoArgMessage,pc)
 @@:
   DOS _PRINT
-  move #1,-(sp)
+  move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 
 OpenFile:
-  move #ROPEN,-(sp)
+  move #OPENMODE_READ,-(sp)
   pea (a0)
   DOS _OPEN
   addq.l #6,sp
