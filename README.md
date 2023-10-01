@@ -217,6 +217,10 @@ gunzip.rから実行された`C:\dir\gzip.x`からは自分自身が`D:\folder\g
 `FPACK __FCVT`の動作テストです。
 
 
+### fe_stoh_test
+`FPACK __STOH`の動作テストです。
+
+
 ### files
 コマンドライン引数で指定したファイル名を`DOS _FILES`と`DOS _NFILES`で検索し、
 見つかったファイル名を全て表示します。
