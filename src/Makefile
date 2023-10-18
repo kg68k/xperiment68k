@@ -24,7 +24,7 @@ TARGET = a2arg.x adpcmotchk.x bitsns.x chxdummy.x colorbar.x con_scroll.x dbrams
          dos_create.x dos_create_sp.x dos_curdir.x dos_fatchk.x dos_filedate.x dos_keyctrl01.x \
          dos_maketmp.x dos_nameck.x dos_newfile.x dos_open.x \
          dumpenv.x dumpstdin.x \
-         entryceil.x esc_dsr.x execas.x fatchk_bof.x \
+         entryceil.x env_sbo.x esc_dsr.x execas.x fatchk_bof.x \
          fe_fcvt_test.x fe_stoh_test.x \
          files.x fntget.x fntsize.x \
          iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
