@@ -1,12 +1,12 @@
 .nlist
 
-# filesys.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-# Last-modified: 2023-09-20
-#
-# Copying and distribution of this file, with or without modification,
-# are permitted in any medium without royalty provided the copyright
-# notice and this notice are preserved.  This file is offered as-is,
-# without any warranty.
+;filesys.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+;Last-modified: 2023-11-26
+;
+;Copying and distribution of this file, with or without modification,
+;are permitted in any medium without royalty provided the copyright
+;notice and this notice are preserved.  This file is offered as-is,
+;without any warranty.
 
 
 .ifndef __filesys_mac__
@@ -115,23 +115,33 @@ sizeof_FILES_EX:
 
 * NAMESTS buffer ------------------------------ *
 
+sizeof_NAMESTS_Path:  .equ 65
+sizeof_NAMESTS_Name1: .equ 8
+sizeof_NAMESTS_Ext:   .equ 3
+sizeof_NAMESTS_Name2: .equ 10
+
 .offset 0
 NAMESTS_Wild:  .ds.b 1
 NAMESTS_Drive: .ds.b 1
-NAMESTS_Path:  .ds.b 65
-NAMESTS_Name1: .ds.b 8
-NAMESTS_Ext:   .ds.b 3
-NAMESTS_Name2: .ds.b 10
+NAMESTS_Path:  .ds.b sizeof_NAMESTS_Path
+NAMESTS_Name1: .ds.b sizeof_NAMESTS_Name1
+NAMESTS_Ext:   .ds.b sizeof_NAMESTS_Ext
+NAMESTS_Name2: .ds.b sizeof_NAMESTS_Name2
 sizeof_NAMESTS:
 .fail $.ne.88
 
 * NAMECK buffer ------------------------------- *
 
+sizeof_NAMECK_Drive: .equ 2
+sizeof_NAMECK_Path:  .equ 65
+sizeof_NAMECK_Name:  .equ 19
+sizeof_NAMECK_Ext:   .equ 5
+
 .offset 0
-NAMECK_Drive: .ds.b 2
-NAMECK_Path:  .ds.b 65
-NAMECK_Name:  .ds.b 19
-NAMECK_Ext:   .ds.b 5
+NAMECK_Drive: .ds.b sizeof_NAMECK_Drive
+NAMECK_Path:  .ds.b sizeof_NAMECK_Path
+NAMECK_Name:  .ds.b sizeof_NAMECK_Name
+NAMECK_Ext:   .ds.b sizeof_NAMECK_Ext
 sizeof_NAMECK:
 .fail $.ne.91
 
