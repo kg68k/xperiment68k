@@ -85,7 +85,7 @@ askExecute:
   clr.l -(sp)  ;0=no 1=yes
 
   lea (Buffer,pc),a0
-  move #255<<8+0,(a0)
+  move #8<<8+0,(a0)
   pea (a0)
   move #.low._GETS,-(sp)
   DOS _KFLUSH
