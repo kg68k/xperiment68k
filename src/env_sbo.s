@@ -153,8 +153,11 @@ DosSetEnvMessage: .dc.b 'DOS _SETENV ',0
 
 PromptMessage:
   .dc.b 'スタック破壊の実験を行います。',CR,LF
+  .dc.b CR,LF
   .dc.b 'プログラムが終了しないためリセットする必要があります。',CR,LF
   .dc.b 'コピーバックのディスクキャッシュなどはあらかじめ解除してください。',CR,LF
+  .dc.b '実験用に用意したシステムでのみ実行してください。',CR,LF
+  .dc.b '※普段使っているシステムでは実行しないこと！',CR,LF
   .dc.b CR,LF
   .dc.b '実行してよろしいですか？(yes/no):',0
 
