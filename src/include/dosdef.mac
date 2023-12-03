@@ -1,7 +1,7 @@
 .nlist
 
 ;dosdef.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2023-11-26
+;Last-modified: 2023-12-04
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -155,12 +155,28 @@ SEEK_CUR: .equ 1
 SEEK_END: .equ 2
 .endif
 
+;DOS _EXEC file type
+EXECFILETYPE_AUTO: .equ $00
+EXECFILETYPE_R:    .equ $01
+EXECFILETYPE_Z:    .equ $02
+EXECFILETYPE_X:    .equ $03
+
+;DOS _EXEC mode
+EXECMODE_LOADEXEC: .equ 0
+EXECMODE_LOAD:     .equ 1
+EXECMODE_PATHCHK:  .equ 2
+EXECMODE_LOADONLY: .equ 3
+EXECMODE_EXECONLY: .equ 4
+EXECMODE_BINDNO:   .equ 5
+
+.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 EXEC_LOADEXEC: .equ 0
 EXEC_LOAD:     .equ 1
 EXEC_PATHCHK:  .equ 2
 EXEC_DEVLOAD:  .equ 3
 EXEC_EXEC:     .equ 4
 EXEC_BINDNO:   .equ 5
+.endif
 
 THREAD_KILL:   .equ $fff9
 THREAD_WAKEUP: .equ $fffb

@@ -1,7 +1,7 @@
 .nlist
 
 ;filesys.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2023-11-26
+;Last-modified: 2023-12-04
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -56,6 +56,10 @@ SEEKMODE_CURRENT: .equ 1
 SEEKMODE_END:     .equ 2
 
 * Drive Assign Mode --------------------------- *
+
+ASSIGNMD_GET:     .equ 0
+ASSIGNMD_MAKE:    .equ 1
+ASSIGNMD_RELEASE: .equ 4
 
 ASSIGNMODE_REAL_DRIVE:    .equ $40
 ASSIGNMODE_VIRTUAL_DRIVE: .equ $50
