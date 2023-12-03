@@ -29,7 +29,7 @@ TARGET = a2arg.x adpcmotchk.x bitsns.x chxdummy.x colorbar.x con_scroll.x dbrams
          files.x fntget.x fntsize.x \
          iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
          joyget.x kbdctrl.x keepceil.x keyflush.x keyscan.x mallocall.x midi_reg.x \
-         namests_bof.x \
+         nameck_bof.x namests_bof.x ns_sbo.x \
          pt_7e.x pt_dbhw.x putmes12.x putmes24.x reset68k.r \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
          sjis_tbl.x skeyset.x sp3tx0gr2.x splimchk.x sq64k.x sysport.x \
