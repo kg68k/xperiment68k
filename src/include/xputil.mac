@@ -229,6 +229,18 @@ SKIP_SPACE: .macro an
 .endm
 
 
+;MPUが68000か調べる
+;in dn ... 使用するデータレジスタ
+;out dn.l ... dn=0:68000-68010  dn=1:68020-68060
+;    ccr
+IS_MPU_68000: .macro dn
+  @movq: moveq #1,dn
+  .cpu 68020
+  and.b (@movq-1,pc,dn.l*2),dn
+  .cpu 68000
+.endm
+
+
 .endif
 
 .list
