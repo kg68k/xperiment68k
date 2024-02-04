@@ -1,0 +1,138 @@
+.nlist
+
+;vector.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+;Last-modified: 2023-11-26
+;
+;Copying and distribution of this file, with or without modification,
+;are permitted in any medium without royalty provided the copyright
+;notice and this notice are preserved.  This file is offered as-is,
+;without any warranty.
+
+
+.ifndef __vector_mac__
+        __vector_mac__:=1
+
+
+* Vector Number ------------------------------- *
+
+RESET_SSP_VEC:  .equ $00
+RESET_PC_VEC:   .equ $01
+BUSERR_VEC:     .equ $02
+ADRERR_VEC:     .equ $03
+ILLEGAL_VEC:    .equ $04
+DIV0_VEC:       .equ $05
+CHK_VEC:        .equ $06
+TRAPV_VEC:      .equ $07
+PRIV_VEC:       .equ $08
+TRACE_VEC:      .equ $09
+ALINE_VEC:      .equ $0a
+FLINE_VEC:      .equ $0b
+*
+FPU_PROT_VEC:   .equ $0d
+FPU_FMT_VEC:    .equ $0e
+UNINIT_VEC:     .equ $0f
+*
+SPURIOUS_VEC:   .equ $18
+LEVEL1_VEC:     .equ $19
+LEVEL2_VEC:     .equ $1a
+LEVEL3_VEC:     .equ $1b
+LEVEL4_VEC:     .equ $1c
+LEVEL5_VEC:     .equ $1d
+LEVEL6_VEC:     .equ $1e
+LEVEL7_VEC:     .equ $1f
+NMI_VEC:        .equ $1f
+TRAP0_VEC:      .equ $20
+TRAP1_VEC:      .equ $21
+TRAP2_VEC:      .equ $22
+TRAP3_VEC:      .equ $23
+TRAP4_VEC:      .equ $24
+TRAP5_VEC:      .equ $25
+TRAP6_VEC:      .equ $26
+TRAP7_VEC:      .equ $27
+TRAP8_VEC:      .equ $28
+TRAP9_VEC:      .equ $29
+TRAP10_VEC:     .equ $2a
+TRAP11_VEC:     .equ $2b
+TRAP12_VEC:     .equ $2c
+TRAP13_VEC:     .equ $2d
+TRAP14_VEC:     .equ $2e
+TRAP15_VEC:     .equ $2f
+FPU_BSUN_VEC:   .equ $30
+FPU_INEX_VEC:   .equ $31
+FPU_DZ_VEC:     .equ $32
+FPU_UNFL_VEC:   .equ $33
+FPU_OPERR_VEC:  .equ $34
+FPU_OVFL_VEC:   .equ $35
+FPU_SNAN_VEC:   .equ $36
+FPU_UNSUPP_VEC: .equ $37
+MMU_CONFIG_VEC: .equ $38
+MMU_ILLOP_VEC:  .equ $39
+MMU_ACSLEV_VEC: .equ $3a
+*
+UNEA_VEC:       .equ $3c
+UNINT_VEC:      .equ $3d
+*
+
+RTC1HZ_VEC:     .equ $40
+EXPOFF_VEC:     .equ $41
+FRONTSW_VEC:    .equ $42
+OPMINT_VEC:     .equ $43
+TIMERD_VEC:     .equ $44
+TIMERC_VEC:     .equ $45
+VDISP_VEC:      .equ $46
+RTCCLK_VEC:     .equ $47
+TIMERB_VEC:     .equ $48
+UT_ERR_VEC:     .equ $49
+UT_EMP_VEC:     .equ $4a
+UR_ERR_VEC:     .equ $4b
+UR_FUL_VEC:     .equ $4c
+TIMERA_VEC:     .equ $4d
+CRTCRAS_VEC:    .equ $4e
+HSYNC_VEC:      .equ $4f
+SCCB_EMP0_VEC:  .equ $50
+SCCB_EMP1_VEC:  .equ $51
+SCCB_ST0_VEC:   .equ $52
+SCCB_ST1_VEC:   .equ $53
+SCCB_RX0_VEC:   .equ $54
+SCCB_RX1_VEC:   .equ $55
+SCCB_SP0_VEC:   .equ $56
+SCCB_SP1_VEC:   .equ $57
+SCCA_EMP0_VEC:  .equ $58
+SCCA_EMP1_VEC:  .equ $59
+SCCA_ST0_VEC:   .equ $5a
+SCCA_ST1_VEC:   .equ $5b
+SCCA_RX0_VEC:   .equ $5c
+SCCA_RX1_VEC:   .equ $5d
+SCCA_SP0_VEC:   .equ $5e
+SCCA_SP1_VEC:   .equ $5f
+FDCSTAT_VEC:    .equ $60
+FDCINSEJ_VEC:   .equ $61
+HDCSTAT_VEC:    .equ $62
+PRNREADY_VEC:   .equ $63
+DMA0END_VEC:    .equ $64
+DMA0ERR_VEC:    .equ $65
+DMA1END_VEC:    .equ $66
+DMA1ERR_VEC:    .equ $67
+DMA2END_VEC:    .equ $68
+DMA2ERR_VEC:    .equ $69
+DMA3END_VEC:    .equ $6a
+DMA3ERR_VEC:    .equ $6b
+SCSIIN_VEC:     .equ $6c
+*
+SCSIEX_VEC:     .equ $f6
+*
+
+.ifndef IOCS_VECTBL
+  IOCS_VECTBL: .equ $0400
+.endif
+
+.ifndef DOS_VECTBL
+  DOS_VECTBL: .equ $1800
+.endif
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list
