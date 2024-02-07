@@ -23,8 +23,8 @@ OBJ_DIR = o
 TARGET = a2arg.x adpcmotchk.x \
          beep_adpcmout.x beep_mpcm.x beep_zmsc3.x bitsns.x \
          chxdummy.x colorbar.x con_scroll.x dbrams.x \
-         dos_create.x dos_create_sp.x dos_curdir.x dos_fatchk.x dos_filedate.x dos_keyctrl01.x \
-         dos_maketmp.x dos_nameck.x dos_namests.x dos_newfile.x dos_open.x \
+         dos_create.x dos_create_sp.x dos_curdir.x dos_fatchk.x dos_filedate.x dos_inpout.x \
+         dos_keyctrl01.x dos_maketmp.x dos_nameck.x dos_namests.x dos_newfile.x dos_open.x \
          dumpenv.x dumpstdin.x \
          entryceil.x env_sbo.x esc_dsr.x execas.x fatchk_bof.x \
          fe_fcvt_test.x fe_stoh_test.x \
