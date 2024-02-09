@@ -1,7 +1,7 @@
 .title si_emu - show information: emulator
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ SYSPORT_E8E00D_P7: .equ $e8e00d
 
 WINPORT_E9F000:        .equ $e9f000
 XEIJ_E9F03C_HFS_MAGIC: .equ $e9f03c
+PHANTOMX_EA8000_REG:   .equ $ea8000
 
 MU_ECC091_COMMAND: .equ $ecc091
 
@@ -112,10 +113,15 @@ Emulator_GetType::
     beq 8f
   @@:
 
+  ;PhantomXでWINPORTが有効なケースを考慮し、先に調べる
+  lea (PHANTOMX_EA8000_REG),a0
+  bsr DosBusErrWord
+  beq 1f  ;PhantomXなので実機
+
   ;WINPORTが読めればエミュ確定
   lea (WINPORT_E9F000),a0
   bsr DosBusErrByte
-  beq 1f
+  beq 2f
 
     ;$e8e000.bが%0000_xxxxならX68000 Z(xxxxはコントラスト、実機は$ff)
     moveq #EMULATOR_X68Z,d1
@@ -124,9 +130,10 @@ Emulator_GetType::
     beq 8f
 
     ;実機
+    1:
     moveq #EMULATOR_REAL,d1
     bra 8f
-1:
+  2:
   ;EX68
   moveq #EMULATOR_EX68,d1
   tst.b (SYSPORT_E8E00B_P6)
@@ -300,6 +307,7 @@ versionToString:
 
 
   DEFINE_DOSBUSERRBYTE DosBusErrByte
+  DEFINE_DOSBUSERRWORD DosBusErrWord
   DEFINE_DOSBUSERRLONG DosBusErrLong
 
 
