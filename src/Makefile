@@ -36,7 +36,7 @@ TARGET = a2arg.x adpcmotchk.x \
          mallocall.x midi_reg.x mpcm_echcnt.x \
          nameck_bof.x namests_bof.x ns_sbo.x \
          pathchk.x pathlenfix.x pt_7e.x pt_dbhw.x putmes12.x putmes24.x \
-         reset68k.r \
+         reset68k.r run68_dos_test.x \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
          sjis_tbl.x skeyset.x sp3tx0gr2.x splimchk.x sq64k.x sysport.x \
          tokikoe.x zerounit.sys
