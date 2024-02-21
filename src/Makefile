@@ -25,7 +25,7 @@ TARGET = a2arg.x adpcmotchk.x \
          chxdummy.x colorbar.x con_scroll.x datetime.x dbrams.x \
          dos_create.x dos_create_sp.x dos_curdir.x \
          dos_fatchk.x dos_fgets.x dos_filedate.x \
-         dos_inpout.x \
+         dos_getenv.x dos_inpout.x \
          dos_keyctrl01.x dos_maketmp.x dos_nameck.x dos_namests.x dos_newfile.x dos_open.x \
          dumpenv.x dumpstdin.x \
          entryceil.x env_sbo.x esc_dsr.x execas.x fatchk_bof.x \
