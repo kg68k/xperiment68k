@@ -31,6 +31,7 @@ TARGET = a2arg.x adpcmotchk.x \
          entryceil.x env_sbo.x esc_dsr.x execas.x fatchk_bof.x \
          fe_fcvt_test.x fe_stoh_test.x \
          files.x fntget.x fntsize.x \
+         getassign.x \
          iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
          joyget.x kbdctrl.x keepceil.x keyflush.x keyscan.x \
          mallocall.x midi_reg.x mpcm_echcnt.x \
