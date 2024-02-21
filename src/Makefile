@@ -22,7 +22,7 @@ OBJ_DIR = o
 
 TARGET = a2arg.x adpcmotchk.x \
          beep_adpcmout.x beep_mpcm.x beep_zmsc3.x bitsns.x \
-         chxdummy.x colorbar.x con_scroll.x dbrams.x \
+         chxdummy.x colorbar.x con_scroll.x datetime.x dbrams.x \
          dos_create.x dos_create_sp.x dos_curdir.x \
          dos_fatchk.x dos_fgets.x dos_filedate.x \
          dos_inpout.x \

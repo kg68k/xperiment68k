@@ -103,6 +103,11 @@ chxinst ch30_omake.sys
 なにかキーを押すと次のモードに進みます。
 
 
+### datetime
+現在の日時をIOCSで取得し、BCD形式と文字列形式で表示します。  
+文字列形式については`IOCS _DATEASC`にある4種類がそれぞれ表示されます。
+
+
 ### dbrams
 IOCSワーク$cb8、$cbaの値を再計測します。  
 MPU 68000、IOCS ROM version 1.1、1.2、1.3、1.6(XEiJ)専用です。
