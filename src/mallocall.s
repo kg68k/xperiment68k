@@ -1,7 +1,7 @@
 .title mallocall - malloc all
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -31,6 +31,9 @@ OPTION_SHRINK:    .equ 0
 OPTION_EXPAND:    .equ 1
 OPTION_SETBLOCK2: .equ 2
 OPTION_MALLOC3:   .equ 3
+
+MALLOC_MASK:  .equ $00ffffff
+MALLOC3_MASK: .equ $7fffffff
 
 
 ProgramStart:
@@ -110,10 +113,10 @@ AnalyzeArgument:
 SetBlockMax:
   moveq #-1,d0
   bsr SetBlock
-  andi.l #$0fff_ffff,d0
+  andi.l #MALLOC3_MASK,d0
   btst #OPTION_SETBLOCK2,d7
   bne @f
-    andi.l #$00ff_ffff,d0
+    andi.l #MALLOC_MASK,d0
   @@:
   bra SetBlock
 
@@ -137,10 +140,10 @@ SetBlock:
 MallocMax:
   moveq #-1,d0
   bsr Malloc
-  andi.l #$0fff_ffff,d0
+  andi.l #MALLOC3_MASK,d0
   btst #OPTION_MALLOC3,d7
   bne @f
-    andi.l #$00ff_ffff,d0
+    andi.l #MALLOC_MASK,d0
   @@:
   bra Malloc
 
