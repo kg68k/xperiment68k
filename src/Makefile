@@ -41,7 +41,9 @@ TARGET = a2arg.x adpcmotchk.x \
          reset68k.r run68_dos_test.x \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
          sjis_tbl.x skeyset.x sp3tx0gr2.x splimchk.x sq64k.x sysport.x \
-         tokikoe.x zerounit.sys
+         tokikoe.x \
+         vdispst_time.x \
+         zerounit.sys
 
 all: directories $(TARGET)
 
