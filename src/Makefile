@@ -32,7 +32,7 @@ TARGET = a2arg.x adpcmotchk.x \
          fe_fcvt_test.x fe_stoh_test.x \
          files.x fntget.x fntsize.x \
          getassign.x \
-         iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
+         incdir_test.x iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
          joyget.x kbdctrl.x keepceil.x keyflush.x keyscan.x \
          mallocall.x malloc_ba_exec.x midi_reg.x mpcm_echcnt.x \
          nameck_bof.x namests_bof.x ns_sbo.x \
