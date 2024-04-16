@@ -20,7 +20,7 @@ OBJ_DIR = o
 .PRECIOUS: $(OBJ_DIR)/%.o
 
 
-TARGET = a2arg.x adpcmotchk.x \
+TARGET = a2arg.x a2arg_nh.x adpcmotchk.x \
          beep_adpcmout.x beep_mpcm.x beep_zmsc3.x bitsns.x \
          chxdummy.x colorbar.x con_scroll.x datetime.x dbrams.x \
          dos_create.x dos_create_sp.x dos_curdir.x \
