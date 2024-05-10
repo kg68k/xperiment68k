@@ -1,4 +1,4 @@
-.title defchr_869f - modify SJIS:869f font
+.title defchr_7621 - modify JIS:$7621(SJIS:$eb9f) font
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2024 TcbnErik
@@ -22,7 +22,7 @@
 
 .include xputil.mac
 
-CHAR_CODE: .equ $869f
+CHAR_CODE: .equ $7621
 
 
 .cpu 68000
@@ -44,7 +44,7 @@ Start:
 
 .data
 
-ModifyMessage: .dc.b 'SJIS:869fのフォントを書き換えました。',CR,LF,0
+ModifyMessage: .dc.b 'JIS:$7621(SJIS:$eb9f)のフォントを書き換えました。',CR,LF,0
 
 
 .bss
