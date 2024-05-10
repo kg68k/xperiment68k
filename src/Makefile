@@ -4,12 +4,17 @@ ifeq ($(notdir $(CURDIR)),src)
 $(error do not execute make in src directory)
 endif
 
+ifndef LD
+LD = hlk
+endif
+ifeq ($(findstring hlkx,$(LD)),hlkx)
+USE_HLKX = true
+endif
+
 CC	= gcc2
 CFLAGS	= -Wall -O2
 AS	= has060
 ASFLAGS	= -w -i./include
-LD	= hlk
-LD_R	= $(LD) -r
 LDFLAGS	=
 MKDIR_P	= mkdir -p
 
@@ -20,7 +25,8 @@ OBJ_DIR = o
 .PRECIOUS: $(OBJ_DIR)/%.o
 
 
-TARGET = a2arg.x a2arg_nh.x adpcmotchk.x \
+ALLTARGET = \
+         a2arg.x a2arg_nh.x adpcmotchk.x \
          beep_adpcmout.x beep_mpcm.x beep_zmsc3.x bitsns.x buserr_2w.x \
          chxdummy.x colorbar.x con_scroll.x datetime.x dbrams.x \
          dos_create.x dos_create_sp.x dos_curdir.x \
@@ -46,6 +52,13 @@ TARGET = a2arg.x a2arg_nh.x adpcmotchk.x \
          vdispst_time.x \
          zerounit.sys
 
+ifndef USE_HLKX
+DO_NOT_BUILD = entryceil.x keepceil.x reset68k.r uskfontadr.x
+$(warning LD=hlkx is required to build the following targets: $(DO_NOT_BUILD))
+endif
+TARGET = $(filter-out $(DO_NOT_BUILD),$(ALLTARGET))
+
+
 all: directories $(TARGET)
 
 directories: $(OBJ_DIR)
@@ -60,26 +73,28 @@ $(OBJ_DIR)/%.o: %.s $(OBJ_DIR) include/xputil.mac
 # cancel default rule
 %.x: %.s
 
+ifdef USE_HLKX
 entryceil.x: $(OBJ_DIR)/entryceil.o
 	$(LD) $(LDFLAGS) -g2 -o $@ $^
 
 keepceil.x: $(OBJ_DIR)/keepceil.o
 	$(LD) $(LDFLAGS) -g2 -o $@ $^
 
-sjis_tbl.x: sjis_tbl.c
-	$(CC) $(CFLAGS) -o $@ $^
-
 uskfontadr.x: $(OBJ_DIR)/uskfontadr.o
 	$(LD) $(LDFLAGS) -b0x6800 -o $@ $^
+
+%.r: $(OBJ_DIR)/%.o
+	$(LD) $(LDFLAGS) -r -o $@ $^
+endif
+
+sjis_tbl.x: sjis_tbl.c
+	$(CC) $(CFLAGS) -o $@ $^
 
 %.x: $(OBJ_DIR)/%.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 %.sys: $(OBJ_DIR)/%.o
 	$(LD) $(LDFLAGS) -o $@ $^
-
-%.r: $(OBJ_DIR)/%.o
-	$(LD_R) $(LDFLAGS) -o $@ $^
 
 
 clean:

@@ -29,9 +29,12 @@ UTF-8のままでは正しくビルドできませんので注意してくださ
 
 ### 必要環境
 * Human68k version 3.02
-* GNU make 3.79 human68k-1.4 以降
-* HAS060.X version 3.09+91 以降(必須)
-* HLK evolution version 3.01+16 以降
+* [GNU make](https://github.com/kg68k/gnu-make-human68k) 3.79 human68k-1.4 以降
+* [HAS060.X](http://retropc.net/x68000/software/develop/as/has060/) version 3.09+91 以降
+  * 作者は[HAS060X.X](https://github.com/kg68k/has060xx)をhas060.xにリネームして使っています。
+* [HLKX](https://github.com/kg68k/hlkx) 1.0.0 以降
+  * 環境変数`LD=hlkx`を設定するか、make 実行時のコマンドラインオプションで指定してください。
+  * 指定しない場合はHLKが使用されますが、一部のファイルがビルドされません。
 * gcc2
 
 
