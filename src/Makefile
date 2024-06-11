@@ -41,7 +41,7 @@ ALLTARGET = \
          getassign.x \
          incdir_test.x iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
          joyget.x kbdctrl.x keepceil.x keyflush.x keyscan.x \
-         mallocall.x malloc_ba_exec.x midi_reg.x mpcm_echcnt.x \
+         mallocall.x malloc_ba_exec.x midi_reg.x movem_aipi.x mpcm_echcnt.x \
          nameck_bof.x namests_bof.x ns_sbo.x \
          openedfiles.x openkeep.x \
          pathchk.x pathlenfix.x pt_7e.x pt_dbhw.x putmes12.x putmes24.x \
