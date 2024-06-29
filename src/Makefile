@@ -35,7 +35,8 @@ ALLTARGET = \
          dos_getenv.x dos_inpout.x \
          dos_keyctrl01.x dos_maketmp.x dos_nameck.x dos_namests.x dos_newfile.x dos_open.x \
          dumpenv.x dumpstdin.x \
-         entryceil.x env_sbo.x esc_dsr.x exchr_hex.x execas.x fatchk_bof.x \
+         entryceil.x env_sbo.x esc_dsr.x exchr_hex.x execas.x existsdir.x \
+         fatchk_bof.x \
          fe_fcvt_test.x fe_stoh_test.x \
          files.x fntget.x fntsize.x \
          getassign.x \
