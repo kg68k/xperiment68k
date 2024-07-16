@@ -1,7 +1,7 @@
 .title dos_nameck - DOS _NAMECK
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -27,16 +27,15 @@
 .text
 
 ProgramStart:
-  lea (1,a2),a0
+  addq.l #1,a2
   SKIP_SPACE a0
-  beq NoArgError
 
   DOS_PRINT (ArgMessage,pc)
-  DOS_PRINT (a0)
+  DOS_PRINT (a2)
   bsr PrintCrLf
 
   pea (NameckBuffer,pc)
-  pea (a0)
+  pea (a2)
   DOS _NAMECK
   addq.l #8,sp
 
@@ -54,11 +53,6 @@ ProgramStart:
   @@:
 
   DOS _EXIT
-
-NoArgError:
-  DOS_PRINT (NoArgMessage,pc)
-  move #EXIT_FAILURE,-(sp)
-  DOS _EXIT2
 
 
 PrintNameck:
@@ -97,7 +91,6 @@ PrintD0:
 
 .data
 
-NoArgMessage: .dc.b 'no filename',CR,LF,0
 ArgMessage: .dc.b 'argument: ',0
 ResultMessage: .dc.b 'result: $',0
 CrLf: .dc.b CR,LF,0

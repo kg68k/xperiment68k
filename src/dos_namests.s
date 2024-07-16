@@ -1,7 +1,7 @@
 .title dos_namests - DOS _NAMESTS
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -28,16 +28,15 @@
 .text
 
 ProgramStart:
-  lea (1,a2),a0
-  SKIP_SPACE a0
-  beq NoArgError
+  addq.l #1,a2
+  SKIP_SPACE a2
 
   DOS_PRINT (ArgMessage,pc)
-  DOS_PRINT (a0)
+  DOS_PRINT (a2)
   bsr PrintCrLf
 
   pea (NamestsBuffer,pc)
-  pea (a0)
+  pea (a2)
   DOS _NAMESTS
   addq.l #8,sp
 
@@ -55,11 +54,6 @@ ProgramStart:
   @@:
 
   DOS _EXIT
-
-NoArgError:
-  DOS_PRINT (NoArgMessage,pc)
-  move #EXIT_FAILURE,-(sp)
-  DOS _EXIT2
 
 
 PrintNamests:
@@ -131,8 +125,6 @@ PrintD0:
 
 
 .data
-
-NoArgMessage: .dc.b 'no filename',CR,LF,0
 
 ArgMessage:    .dc.b 'argument: ',0
 ResultMessage: .dc.b 'result:   $',0
