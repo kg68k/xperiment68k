@@ -69,7 +69,7 @@ Putmes12:
   move d7,d0
   addq #DOTS_PER_BYTE-1,d0
   lsr #DOT_TO_BYTE_SHIFT,d0  ;横幅バイト数
-  moveq #FONT_HEIGHT-1,d1    ;ライン数
+  moveq #FONT_HEIGHT,d1      ;ライン数
   lea (CompositeBuffer,pc),a0
   bsr putBitmap
 
