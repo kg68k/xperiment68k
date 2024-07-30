@@ -1,7 +1,7 @@
 .nlist
 
 ;dosdef.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2023-12-04
+;Last-modified: 2024-07-31
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -190,6 +190,7 @@ ENV_MAX:   .equ 256
 DRIVE_MAX: .equ 26
 .endif
 
+.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 MB_2DD10:   .equ $e0
 MB_1D9:     .equ $e5
 MB_2D9:     .equ $e6
@@ -212,6 +213,7 @@ MB_2DD8:    .equ $fb
 MB_2DD9:    .equ $fc
 MB_2HC:     .equ $fd
 MB_2HD:     .equ $fe
+.endif
 
 
 * User Macro ---------------------------------- *
@@ -236,8 +238,9 @@ TO_USER2: .macro
 .endm
 
 
-* End of File --------------------------------- *
-
+.text
 .endif
+
+* End of File --------------------------------- *
 
 .list

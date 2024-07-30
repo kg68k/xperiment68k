@@ -1,7 +1,7 @@
 .nlist
 
 ;doscall.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2023-11-26
+;Last-modified: 2024-02-08
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -58,8 +58,8 @@ _KNJCTRL:       .equ    $ff22
 _CONCTRL:       .equ    $ff23
 _KEYCTRL:       .equ    $ff24
 _INTVCS:        .equ    $ff25
-_MAKEPSP:       .equ    $ff26
-_PSPSET:        .equ    $ff26  ;=_MAKEPSP
+_PSPSET:        .equ    $ff26
+_MAKEPSP:       .equ    $ff26  ;for compatibility
 _GETTIM2:       .equ    $ff27
 _SETTIM2:       .equ    $ff28
 _NAMESTS:       .equ    $ff29
@@ -101,10 +101,10 @@ _WAIT:          .equ    $ff4d
 _FILES:         .equ    $ff4e
 _NFILES:        .equ    $ff4f
 
-_V2_SETPSP:     .equ    $ff50
-_V2_SETPDB:     .equ    $ff50  ;=_V2_SETPSP
-_V2_GETPSP:     .equ    $ff51
-_V2_GETPDB:     .equ    $ff51  ;=_V2_GETPSP
+_V2_SETPDB:     .equ    $ff50
+_V2_SETPSP:     .equ    $ff50  ;for compatibility
+_V2_GETPDB:     .equ    $ff51
+_V2_GETPSP:     .equ    $ff51  ;for compatibility
 _V2_SETENV:     .equ    $ff52
 _V2_GETENV:     .equ    $ff53
 _V2_VERIFYG:    .equ    $ff54
@@ -127,16 +127,16 @@ _V2_S_MALLOC2:  .equ    $ff63
 
 _V2_FFLUSH_SET: .equ    $ff7a
 _V2_OS_PATCH:   .equ    $ff7b
-_V2_GETFCB:     .equ    $ff7c
-_V2_GET_FCB_ADR:.equ    $ff7c  ;=_V2_GETFCB
+_V2_GET_FCB_ADR:.equ    $ff7c
+_V2_GETFCB:     .equ    $ff7c  ;for compatibility
 _V2_S_MALLOC:   .equ    $ff7d
 _V2_S_MFREE:    .equ    $ff7e
 _V2_S_PROCESS:  .equ    $ff7f
 
-_SETPSP:        .equ    $ff80
-_SETPDB:        .equ    $ff80  ;=_SETPSP
-_GETPSP:        .equ    $ff81
-_GETPDB:        .equ    $ff81  ;=_GETPSP
+_SETPDB:        .equ    $ff80
+_SETPSP:        .equ    $ff80  ;for compatibility
+_GETPDB:        .equ    $ff81
+_GETPSP:        .equ    $ff81  ;for compatibility
 _SETENV:        .equ    $ff82
 _GETENV:        .equ    $ff83
 _VERIFYG:       .equ    $ff84
@@ -159,8 +159,8 @@ _S_MALLOC2:     .equ    $ff93
 
 _FFLUSH_SET:    .equ    $ffaa
 _OS_PATCH:      .equ    $ffab
-_GETFCB:        .equ    $ffac
-_GET_FCB_ADR:   .equ    $ffac  ;=_GETFCB
+_GET_FCB_ADR:   .equ    $ffac
+_GETFCB:        .equ    $ffac  ;for compatibility
 _S_MALLOC:      .equ    $ffad
 _S_MFREE:       .equ    $ffae
 _S_PROCESS:     .equ    $ffaf
@@ -208,7 +208,7 @@ _OPEN_PR:       .equ    $fff8
 _KILL_PR:       .equ    $fff9
 _GET_PR:        .equ    $fffa
 _SUSPEND_PR:    .equ    $fffb
-_SUSPEND:       .equ    $fffb  ;=_SUSPEND_PR
+_SUSPEND:       .equ    $fffb  ;for compatibility
 _SLEEP_PR:      .equ    $fffc
 _SEND_PR:       .equ    $fffd
 _TIME_PR:       .equ    $fffe

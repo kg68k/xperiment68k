@@ -1,7 +1,7 @@
 .nlist
 
 ;filesys.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2023-12-04
+;Last-modified: 2024-07-31
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -98,6 +98,11 @@ sizeof_FCB:
 
 * FILES buffer -------------------------------- *
 
+sizeof_FILES_EX_Path:  .equ 65
+sizeof_FILES_EX_Name1: .equ 8
+sizeof_FILES_EX_Ext:   .equ 3
+sizeof_FILES_EX_Name2: .equ 10
+
 .offset 0
 FILES_SchAtr:   .ds.b 1
 FILES_SchDrv:   .ds.b 1
@@ -113,7 +118,14 @@ FILES_FileSize: .ds.l 1
 FILES_FileName: .ds.b 23
 sizeof_FILES:
 .fail $.ne.53
-FILES_Path:     .ds.b 88  ;only extended mode
+.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
+FILES_Path:
+.endif
+FILES_EX_Drive: .ds.b 2
+FILES_EX_Path:  .ds.b sizeof_FILES_EX_Path
+FILES_EX_Name1: .ds.b sizeof_FILES_EX_Name1
+FILES_EX_Ext:   .ds.b sizeof_FILES_EX_Ext
+FILES_EX_Name2: .ds.b sizeof_FILES_EX_Name2
 sizeof_FILES_EX:
 .fail $.ne.141
 
@@ -150,8 +162,9 @@ sizeof_NAMECK:
 .fail $.ne.91
 
 
-* End of File --------------------------------- *
-
+.text
 .endif
+
+* End of File --------------------------------- *
 
 .list
