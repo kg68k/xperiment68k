@@ -27,7 +27,7 @@ OBJ_DIR = o
 
 ALLTARGET = \
          a2arg.x a2arg_nh.x adpcmotchk.x \
-         beep_adpcmout.x beep_mpcm.x beep_zmsc3.x bitsns.x buserr_2w.x \
+         beep_adpcmout.x beep_mpcm.x beep_zmsc3.x bitsns.x bkeyinpd3.x buserr_2w.x \
          chxdummy.x closerewindatr.x colorbar.x con_scroll.x \
          datetime.x dbrams.x defchr_7621.x \
          dos_create.x dos_create_sp.x dos_curdir.x \
@@ -35,12 +35,13 @@ ALLTARGET = \
          dos_getenv.x dos_inpout.x \
          dos_keyctrl01.x dos_maketmp.x dos_nameck.x dos_namests.x dos_newfile.x dos_open.x \
          dumpenv.x dumpstdin.x \
-         entryceil.x env_sbo.x esc_dsr.x exchr_hex.x execas.x existsdir.x \
+         entryceil.x env_sbo.x esc_dsr.x exchr_hex.x execas.x exfiles.x existsdir.x \
          fatchk_bof.x \
          fe_fcvt_test.x fe_stoh_test.x \
          files.x fntget.x fntsize.x \
          getassign.x \
          incdir_test.x iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
+         ioctrl12.x ioctrl13.x \
          joyget.x kbdctrl.x keepceil.x keyflush.x keyscan.x \
          mallocall.x malloc_ba_exec.x midi_reg.x movem_aipi.x mpcm_echcnt.x \
          nameck_bof.x namests_bof.x newvol.x ns_sbo.x \
