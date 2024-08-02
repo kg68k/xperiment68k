@@ -1,7 +1,7 @@
 .title joyget - show IOCS _JOYGET result
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -77,8 +77,7 @@ printJoyData:
   lea (CrLf,pc),a1
   STRCPY a1,a0
 
-  lea (Buffer,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (Buffer,pc)
 
   addq.l #4,sp
   rts

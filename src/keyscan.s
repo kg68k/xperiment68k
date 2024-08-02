@@ -1,7 +1,7 @@
 .title keyscan - show keyboard scan code
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -36,8 +36,7 @@ USART_BUF_SIZE: .equ 16
 .text
 
 Start:
-  lea (Notice,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (Notice,pc)
 
   bsr UsartInitBuffer
   bsr UsartHook
@@ -55,8 +54,7 @@ mainLoop:
       bsr printScanCode
       move.l (sp)+,d0
       bsr printKeyName
-      lea (CrLf,pc),a1
-      IOCS _B_PRINT
+      IOCS_B_PRINT (CrLf,pc)
     @@:
     IOCS _MS_GETDT
     tst.b d0
@@ -81,8 +79,7 @@ requestIdentifyCompact:
   moveq #$47,d0
   bsr UsertSendData
 
-  lea (ReqIdentifyCompact,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (ReqIdentifyCompact,pc)
   rts
 
 
@@ -229,8 +226,7 @@ printScanCode:
   bsr ToHexString2
   move.b #' ',(a0)+
   clr.b (a0)
-  lea (Buffer,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (Buffer,pc)
   rts
 
   DEFINE_TOHEXSTRING2 ToHexString2

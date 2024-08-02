@@ -1,7 +1,7 @@
 .title dos_keyctrl01 - DOS _KEYCTRL (md=0,1) test
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -31,8 +31,7 @@ Start:
   bsr AnalyzeArgument
   move.l d0,d7  ;'0' or '1'
 
-  lea (strOpt12ToExit,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (strOpt12ToExit,pc)
 
   moveq #-1,d5
   moveq #0,d6
@@ -105,12 +104,7 @@ PrintKeyCode:
   move.l d1,d0
   bsr PrintHex
 
-  bsr PrintCrLf
-  rts
-
-PrintCrLf:
-  lea (strCrLf,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (strCrLf,pc)
   rts
 
 PrintHex:

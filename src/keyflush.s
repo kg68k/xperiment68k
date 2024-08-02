@@ -1,7 +1,7 @@
 .title keyflush - key flush test
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 .include doscall.mac
 .include iocscall.mac
 
+.include xputil.mac
+
 
 .cpu 68000
 .text
@@ -28,8 +30,7 @@ Start:
   bsr AnalyzeArgument
   move.l d0,d7  ;option
 
-  lea (strShiftToExit,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (strShiftToExit,pc)
 loop:
   DOS _CHANGE_PR
 

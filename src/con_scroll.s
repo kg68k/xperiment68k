@@ -1,7 +1,7 @@
 .title con_scroll - console scroll test
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -19,6 +19,9 @@
 .include console.mac
 .include doscall.mac
 .include iocscall.mac
+
+.include xputil.mac
+
 
 .cpu 68000
 .text
@@ -62,8 +65,7 @@ Scroll:
   moveq #0,d1
   moveq #15,d2
   IOCS _B_LOCATE
-  movea.l a0,a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (a0)
   @@:
     bsr ScrollUp
     bsr ScrollDown

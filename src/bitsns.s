@@ -1,7 +1,7 @@
 .title bitsns - show IOCS _BITSNS result
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -30,8 +30,7 @@ KEYCODE_GROUP_NUM: .equ $f
 .text
 
 Start:
-  lea (Notice,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (Notice,pc)
 
   lea (BitsnsBuffer0,pc),a2
   lea (BitsnsBuffer1,pc),a3
@@ -40,8 +39,7 @@ Start:
   bsr readBitsns
   lea (a2),a0
   bsr printBitsns
-  lea (CrLf,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (CrLf,pc)
 
   loop:
     DOS _CHANGE_PR
@@ -104,14 +102,12 @@ readBitsns:
 printBitsnsWithChange:
   PUSH a0-a1
   bsr printBitsns
-  lea (Space,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (Space,pc)
   POP a0-a1
 
   bsr printKeyChange
 
-  lea (CrLf,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (CrLf,pc)
   rts
 
 printKeyChange:
@@ -180,8 +176,7 @@ printBitsns:
   dbra d7,1b
   clr.b -(a0)
 
-  lea (Buffer,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (Buffer,pc)
   POP d6-d7
   rts
 

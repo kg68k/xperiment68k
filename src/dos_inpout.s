@@ -92,8 +92,7 @@ OutputMode:
   bne 1b
 
   ;ファイルへのリダイレクト時に指定コードだけが保存されるように、IOCSで改行を表示する
-  lea (CrLf,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (CrLf,pc)
   rts
 
 

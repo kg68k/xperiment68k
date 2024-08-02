@@ -1,7 +1,7 @@
 .title esc_dsr - show response of escape sequence DSR
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -21,13 +21,14 @@
 .include doscall.mac
 .include iocscall.mac
 
+.include xputil.mac
+
 
 .cpu 68000
 .text
 
 ProgramStart:
-  lea (strDsr,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (strDsr,pc)
 
   lea (Buffer,pc),a0
   move #(BufferEnd-Buffer)-2,d1
@@ -52,8 +53,7 @@ ProgramStart:
   move.b (a0)+,d1
   bne 1b
 
-  lea (strCrLf,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (strCrLf,pc)
 
   DOS _EXIT
 

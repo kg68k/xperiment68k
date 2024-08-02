@@ -1,7 +1,7 @@
 .title env_sbo - DOS _GETENV/_SETENV stack buffer overflow PoC
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -117,8 +117,7 @@ containsZeroByte:
 .quad
   nop  ;直後のアドレスの下位8ビットが$00になるのを回避する
 Occured:
-  lea (OccuredMessage,pc),a1
-  IOCS _B_PRINT
+  IOCS_B_PRINT (OccuredMessage,pc)
   @@:
     nop  ;無限ループ
   bra @b
