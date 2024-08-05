@@ -27,7 +27,9 @@ OBJ_DIR = o
 
 ALLTARGET = \
          a2arg.x a2arg_nh.x adpcmotchk.x \
-         beep_adpcmout.x beep_mpcm.x beep_zmsc3.x bitsns.x bkeyinpd3.x buserr_2w.x \
+         beep_adpcmout.x beep_mpcm.x beep_zmsc3.x \
+         bgexec.x bgexecd.x bgkill.x bglivingdead.x bgthreadid.x bgwakeup.x bgzombie.x \
+         bitsns.x bkeyinpd3.x buserr_2w.x \
          chxdummy.x closerewindatr.x colorbar.x con_scroll.x \
          datetime.x dbrams.x defchr_7621.x \
          dos_create.x dos_create_sp.x dos_curdir.x \
@@ -43,6 +45,7 @@ ALLTARGET = \
          incdir_test.x iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
          ioctrl12.x ioctrl13.x \
          joyget.x kbdctrl.x keepceil.x keyflush.x keyscan.x \
+         lineage.x \
          mallocall.x malloc_ba_exec.x midi_reg.x movem_aipi.x mpcm_echcnt.x \
          nameck_bof.x namests_bof.x newvol.x ns_sbo.x \
          openedfiles.x openkeep.x \
