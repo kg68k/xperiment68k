@@ -51,7 +51,7 @@ ALLTARGET = \
          nameck_bof.x namests_bof.x newvol.x ns_sbo.x \
          openedfiles.x openkeep.x \
          pathchk.x pathlenfix.x pt_7e.x pt_dbhw.x pt_usk.x putmes12.x putmes24.x \
-         reset68k.r rewind.x run68_dos_test.x \
+         reset68k.r rewind.x run68_dos_test.x runwaitchk.x \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
          sjis_tbl.x skeyset.x sp3tx0gr2.x splimchk.x sq64k.x sram_memsize.x sysport.x \
          tokikoe.x \
