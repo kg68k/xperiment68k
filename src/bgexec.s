@@ -62,7 +62,8 @@ ProgramStart:
   lea (FileBuffer,pc),a3
   STREND a3,+1
   lea (CmdlineBuffer,pc),a0
-  STRCPY a0,a3
+  move.b (a0)+,(a3)+  ;コマンドライン文字数(0～255)
+  STRCPY a0,a3        ;コマンドライン文字列
   lea (FileBuffer,pc),a0
   suba.l a0,a3  ;ファイル名+コマンドラインの長さ(それぞれ終端NUL文字含む)
 
