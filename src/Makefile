@@ -28,7 +28,8 @@ OBJ_DIR = o
 ALLTARGET = \
          a2arg.x a2arg_nh.x adpcmotchk.x \
          beep_adpcmout.x beep_mpcm.x beep_zmsc3.x \
-         bgexec.x bgexecd.x bgkill.x bglivingdead.x bgthreadid.x bgwakeup.x bgzombie.x \
+         bg1pr2th.x bgexec.x bgexecd.x bgkill.x bglivingdead.x bgsprocd.x bgsprocess.x \
+         bgthreadid.x bgwakeup.x bgzombie.x \
          bitsns.x bkeyinpd3.x buserr_2w.x \
          chxdummy.x closerewindatr.x colorbar.x con_scroll.x \
          datetime.x dbrams.x defchr_7621.x \
