@@ -124,9 +124,9 @@ _DEFINE_HEXTABLE: .macro
 .endm
 
 
-;数値を16進数で文字列化(2桁)
-DEFINE_TOHEXSTRING2: .macro label
-label:
+;(マクロ内部で使用) 数値を16進数で文字列化(2桁)
+_DEFINE_TOHEXSTRING2: .macro
+_ToHexString2:
   .rept 2
     rol.b #4,d0
     moveq #$f,d1
@@ -136,37 +136,18 @@ label:
   clr.b (a0)
   rts
 
-  _DEFINE_HEXTABLE
-.endm
-
-
-;(マクロ内部で使用) 数値を16進数で文字列化(4桁)
-_DEFINE_TOHEXSTRING4: .macro
-_ToHexString4:
-  move.l d2,-(sp)
-  moveq #4-1,d2
-  @@:
-    rol #4,d0
-    moveq #$f,d1
-    and.b d0,d1
-    move.b (_HexTable,pc,d1.w),(a0)+
-  dbra d2,@b
-  clr.b (a0)
-  move.l (sp)+,d2
-  rts
-
-  _DEFINE_TOHEXSTRING4: .macro
+  _DEFINE_TOHEXSTRING2: .macro
   .endm
 
   _DEFINE_HEXTABLE
 .endm
 
 
-;数値を16進数で文字列化(4桁)
-DEFINE_TOHEXSTRING4: .macro label
-label: .equ _ToHexString4
+;数値を16進数で文字列化(2桁)
+DEFINE_TOHEXSTRING2: .macro label
+label: .equ _ToHexString2
 
-  _DEFINE_TOHEXSTRING4
+  _DEFINE_TOHEXSTRING2
 .endm
 
 
@@ -182,16 +163,146 @@ label:
 .endm
 
 
-;数値を16進数で文字列化(4桁+アンダーバー+4桁)
-DEFINE_TOHEXSTRING4_4: .macro label
-label:
+;(マクロ内部で使用) 数値を16進数で文字列化(4桁+アンダーバー+4桁)
+_DEFINE_TOHEXSTRING4_4: .macro
+_ToHexString4_4:
   swap d0
   bsr _ToHexString4
   move.b #'_',(a0)+
   swap d0
   bra _ToHexString4
 
+  _DEFINE_TOHEXSTRING4_4: .macro
+  .endm
+
   _DEFINE_TOHEXSTRING4
+.endm
+
+
+;(マクロ内部で使用) 数値を16進数で文字列化(4桁)
+_DEFINE_TOHEXSTRING4: .macro
+_ToHexString4:
+  movem.l d1-d2,-(sp)
+  moveq #4-1,d2
+  @@:
+    rol #4,d0
+    moveq #$f,d1
+    and.b d0,d1
+    move.b (_HexTable,pc,d1.w),(a0)+
+  dbra d2,@b
+  clr.b (a0)
+  movem.l (sp)+,d1-d2
+  rts
+
+  _DEFINE_TOHEXSTRING4: .macro
+  .endm
+
+  _DEFINE_HEXTABLE
+.endm
+
+
+;数値を16進数で文字列化($+4桁)
+DEFINE_TOHEXSTRING$4: .macro label
+label:
+  move.b #'$',(a0)+
+  bra _ToHexString4
+
+  _DEFINE_TOHEXSTRING4
+.endm
+
+
+;数値を16進数で文字列化(4桁)
+DEFINE_TOHEXSTRING4: .macro label
+label: .equ _ToHexString4
+
+  _DEFINE_TOHEXSTRING4
+.endm
+
+
+;数値を16進数で文字列化($+4桁+アンダーバー+4桁)
+DEFINE_TOHEXSTRING$4_4: .macro label
+label:
+  move.b #'$',(a0)+
+  bra _ToHexString4_4
+
+  _DEFINE_TOHEXSTRING4_4
+.endm
+
+
+;数値を16進数で文字列化(4桁+アンダーバー+4桁)
+DEFINE_TOHEXSTRING4_4: .macro label
+label: .equ _ToHexString4_4
+
+  _DEFINE_TOHEXSTRING4_4
+.endm
+
+
+;数値を16進数で表示($+2桁)
+DEFINE_PRINT$2: .macro label
+label:
+  move.l a0,-(sp)
+  link a6,#-8
+  lea (sp),a0
+  move.b #'$',(a0)+
+  bsr _ToHexString2
+  DOS_PRINT (sp)
+  unlk a6
+  movea.l (sp)+,a0
+  rts
+
+  _DEFINE_TOHEXSTRING2
+.endm
+
+
+;数値を16進数で表示($+4桁)
+DEFINE_PRINT$4: .macro label
+label:
+  move.l a0,-(sp)
+  link a6,#-8
+  lea (sp),a0
+  move.b #'$',(a0)+
+  bsr _ToHexString4
+  DOS_PRINT (sp)
+  unlk a6
+  movea.l (sp)+,a0
+  rts
+
+  _DEFINE_TOHEXSTRING4
+.endm
+
+
+;数値を16進数で表示($+4桁+アンダーバー+4桁)
+DEFINE_PRINT$4_4: .macro label
+label:
+  move.l a0,-(sp)
+  link a6,#-16
+  lea (sp),a0
+  move.b #'$',(a0)+
+  bsr _ToHexString4_4
+  DOS_PRINT (sp)
+  unlk a6
+  movea.l (sp)+,a0
+  rts
+
+  _DEFINE_TOHEXSTRING4_4
+.endm
+
+
+;数値を16進数で表示(ヘッダ+$+4桁+アンダーバー+4桁)
+DEFINE_PRINTD0$4_4: .macro label
+label:
+  move.l a0,-(sp)
+  link a6,#-24
+  lea (sp),a0
+  move.l #'d0.l',(a0)+
+  move.l #' = $',(a0)+
+  bsr _ToHexString4_4
+  DOS_PRINT (sp)
+  unlk a6
+  movea.l (sp)+,a0
+  rts
+
+  _DEFINE_TOHEXSTRING4_4
 .endm
 
 
@@ -221,6 +332,15 @@ DOS_PRINT: .macro ea
   pea ea
   DOS _PRINT
   addq.l #4,sp
+.endm
+
+
+;改行を表示する(標準出力への出力)
+DOS_PRINT_CRLF: .macro
+  move.l #CR<<24+LF<<16,-(sp)
+  pea (sp)
+  DOS _PRINT
+  addq.l #8,sp
 .endm
 
 

@@ -79,10 +79,7 @@ exec:
   DOS _EXEC
   lea (14,sp),sp
 
-  move.l d0,d1
-  DOS_PRINT (Result,pc)
-  move.l d1,d0
-  bsr PrintD0
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
   rts
 
@@ -92,7 +89,7 @@ malloc:
   DOS _MALLOC
   move.l d0,(sp)
 
-  bsr PrintD0
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
 
   tst.l (sp)
@@ -103,30 +100,19 @@ malloc:
   rts
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 Usage: .dc.b 'usage: malloc_ba_exec <command...>',CR,LF,0
 PathchkErrorMessage: .dc.b 'pathchk error',CR,LF,0
 
-Result: .dc.b 'result = ',0
 Space: .dc.b ' ',0
 CrLf: .dc.b CR,LF,0
 
 
 .bss
 .even
-Buffer: .ds.b 256
 
 Cmdline: .ds.b 256
 Execfile: .ds.b 256

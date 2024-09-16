@@ -80,8 +80,8 @@ ProgramStart:
   @@:
   DOS_PRINT (SetSubMemoryMessage,pc)
   move.l d7,d0
-  bsr PrintD0Hex
-  DOS_PRINT (CrLf,pc)
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -89,8 +89,8 @@ ProgramStart:
 error2:
   DOS_PRINT (a0)
   move.l d7,d0
-  bsr PrintD0Hex
-  DOS_PRINT (CrLf,pc)
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -119,17 +119,7 @@ GetPr:
   rts
 
 
-PrintD0Hex:
-  link a6,#-16
-  lea (sp),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS_PRINT (sp)
-  addq.l #4,sp
-  unlk a6
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
@@ -137,12 +127,10 @@ PrintD0Hex:
 Usage: .dc.b 'bgsprocess thread_name',CR,LF,0
 
 ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
-MallocErrorMessage:   .dc.b 'DOS _MALLOC エラー: d0.l = ',0
-GetPrErrorMessage:    .dc.b 'DOS _GET_PR エラー: d0.l = ',0
-SProcessErrorMessage: .dc.b 'DOS _S_PROCESS エラー: d0.l = ',0
-SetSubMemoryMessage:  .dc.b 'サブのメモリ管理を設定しました: d0.l = ',0
-
-CrLf: .dc.b CR,LF,0
+MallocErrorMessage:   .dc.b 'DOS _MALLOC エラー: ',0
+GetPrErrorMessage:    .dc.b 'DOS _GET_PR エラー: ',0
+SProcessErrorMessage: .dc.b 'DOS _S_PROCESS エラー: ',0
+SetSubMemoryMessage:  .dc.b 'サブのメモリ管理を設定しました: ',0
 
 
 .bss

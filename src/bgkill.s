@@ -57,8 +57,8 @@ ProgramStart:
     bra error2
   @@:
 
-  clr.l -(sp)
-  pea (Buffer,pc)
+  clr.l -(sp)  ;バイト数
+  pea (sp)     ;バッファ(バイト数が0なのでダミー)
   move #THREAD_KILL,-(sp)
   move d7,-(sp)
   move d6,-(sp)
@@ -75,8 +75,8 @@ ProgramStart:
 
 error2:
   move.l d7,d0
-  bsr PrintD0Hex
-  DOS_PRINT (CrLf,pc)
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -102,16 +102,7 @@ GetPr:
   rts
 
 
-PrintD0Hex:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
@@ -119,16 +110,13 @@ PrintD0Hex:
 Usage: .dc.b 'usage: bgkill thread_name',CR,LF,0
 
 ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
-GetPrErrorMessage: .dc.b 'DOS _GET_PR エラー: d0.l = ',0
-SendPrErrorMessage: .dc.b 'DOS _SEND_PR エラー: d0.l = ',0
-
-CrLf: .dc.b CR,LF,0
+GetPrErrorMessage: .dc.b 'DOS _GET_PR エラー: ',0
+SendPrErrorMessage: .dc.b 'DOS _SEND_PR エラー: ',0
 
 
 .bss
 .quad
 
-Buffer: .ds.b 128
 BgBuffer: .ds.b sizeof_BG
 
 

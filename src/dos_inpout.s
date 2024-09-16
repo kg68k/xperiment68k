@@ -62,7 +62,7 @@ InputMode:
     2:
       moveq #0,d6
     3:
-    bsr PrintD0Hex
+    bsr Print$4_4
 
     cmpi.b #$fe,d7
     bne @f
@@ -70,7 +70,7 @@ InputMode:
       move #$ff,-(sp)  ;先読みだけだと新しい入力が得られないので
       DOS _INPOUT      ;入力して返り値を表示する
       addq.l #2,sp
-      bsr PrintD0Hex
+      bsr Print$4_4
     @@:
     DOS_PRINT (CrLf,pc)
   cmpi #$03,d5  ;Ctrl+Cが入力されたら終了する
@@ -122,16 +122,7 @@ AnalyzeArgument:
   rts
 
 
-PrintD0Hex:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
@@ -139,12 +130,6 @@ PrintD0Hex:
 UsageMessage: .dc.b 'usage: dos_inpout <-ff | -fe | string...>',CR,LF,0
 Comma: .dc.b ', ',0
 CrLf: .dc.b CR,LF,0
-
-
-.bss
-.quad
-
-Buffer: .ds.b 64
 
 
 .end ProgramStart

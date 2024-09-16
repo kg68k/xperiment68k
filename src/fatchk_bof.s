@@ -1,7 +1,7 @@
 .title fatchk_bof - DOS _FATCHK buffer overflow PoC
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -60,11 +60,10 @@ Fatchk:
     move d0,(a0)+
   dbra d1,@b
 
-  lea (LengthMessage,pc),a0
-  bsr PrintA0
+  DOS_PRINT (LengthMessage,pc)
   move.l d2,d0
-  bsr PrintD0l
-  bsr PrintCrLf
+  bsr Print$4_4
+  DOS_PRINT (CrLf,pc)
 
   move d2,-(sp)
   pea (FatChkBuf,pc)
@@ -72,13 +71,9 @@ Fatchk:
   pea (a1)
   DOS _FATCHK
   lea (10,sp),sp
-  move.l d0,d1
 
-  lea (ResultMessage,pc),a0
-  bsr PrintA0
-  move.l d1,d0
-  bsr PrintD0l
-  bsr PrintCrLf
+  bsr PrintD0$4_4
+  DOS_PRINT (CrLf,pc)
 
   moveq #FATCHK_BUF_SIZE,d0
   lea (FatChkBuf,pc),a0
@@ -88,24 +83,11 @@ Fatchk:
   rts
 
 
-PrintA0:
-  pea (a0)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-PrintCrLf:
-  pea (CrLf,pc)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
 PrintD0l:
   lea (Buffer,pc),a0
   bsr ToHexString4_4
 
-  lea (Buffer,pc),a0
-  bsr PrintA0
+  DOS_PRINT (Buffer,pc)
   rts
 
   DEFINE_TOHEXSTRING4_4 ToHexString4_4
@@ -125,20 +107,21 @@ DumpMemory:
   dbra d2,@b
   clr.b -(a0)
 
-  lea (Buffer,pc),a0
-  bsr PrintA0
-  bsr PrintCrLf
+  DOS_PRINT (Buffer,pc)
+  DOS_PRINT (CrLf,pc)
 
   POP d2/a2
   rts
 
+
   DEFINE_TOHEXSTRING4 ToHexString4
+  DEFINE_PRINT$4_4 Print$4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 LengthMessage: .dc.b 'length = ',0
-ResultMessage: .dc.b 'result: $',0
 CrLf: .dc.b CR,LF,0
 
 

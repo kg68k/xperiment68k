@@ -48,23 +48,14 @@ ProgramStart:
   DOS _EXIT
 
 error:
-  bsr PrintD0
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
 error2:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data

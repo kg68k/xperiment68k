@@ -32,7 +32,7 @@ ProgramStart:
 
   DOS_PRINT (ArgMessage,pc)
   DOS_PRINT (a2)
-  bsr PrintCrLf
+  DOS_PRINT (CrLf,pc)
 
   pea (NameckBuffer,pc)
   pea (a2)
@@ -41,10 +41,9 @@ ProgramStart:
 
   move.l d0,d7
 
-  DOS_PRINT (ResultMessage,pc)
   move.l d7,d0
-  bsr PrintD0
-  bsr PrintCrLf
+  bsr PrintD0$4_4
+  DOS_PRINT (CrLf,pc)
 
   tst.l d7
   bmi @f
@@ -71,28 +70,16 @@ PrintNameck:
 PrintNameckSub:
   DOS_PRINT (a2)
   DOS_PRINT (a1)
-  bra PrintCrLf
-
-
-PrintCrLf:
   DOS_PRINT (CrLf,pc)
   rts
 
-PrintD0:
-  lea (Buffer,pc),a0
-  bsr ToHexString4_4
 
-  DOS_PRINT (Buffer,pc)
-  rts
-
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
-ArgMessage: .dc.b 'argument: ',0
-ResultMessage: .dc.b 'result: $',0
+ArgMessage: .dc.b 'Argument: ',0
 CrLf: .dc.b CR,LF,0
 
 PathMessage: .dc.b 'Path: ',0
@@ -103,10 +90,7 @@ ExtMessage:  .dc.b 'Ext:  ',0
 .bss
 .quad
 
-Buffer: .ds.b 64
-
 NameckBuffer: .ds.b sizeof_NAMECK
-.even
 
 
 .end ProgramStart

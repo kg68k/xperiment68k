@@ -91,24 +91,15 @@ PrintDateTimeBCD:
   move.l d0,-(sp)
   DOS_PRINT (BcdMessage,pc)
   move.l (sp)+,d0
-  bsr PrintD0
+  bsr Print$4_4
   DOS_PRINT (Space,pc)
   move.l (sp)+,d0
-  bsr PrintD0
+  bsr Print$4_4
   DOS_PRINT (CrLf,pc)
   rts
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .data

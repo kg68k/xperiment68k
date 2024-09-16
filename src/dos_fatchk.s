@@ -1,7 +1,7 @@
 .title dos_fatchk - DOS _FATCHK
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
+.include dosdef.mac
 .include console.mac
 .include doscall.mac
 
@@ -42,11 +43,8 @@ ProgramStart:
   lea (10,sp),sp
   move.l d0,d7
 
-  lea (ResultMessage,pc),a0
-  bsr PrintA0
-  move.l d7,d0
-  bsr PrintD0l
-  bsr PrintCrLf
+  bsr PrintD0$4_4
+  DOS_PRINT (CrLf,pc)
 
   move.l d7,d0
   bmi @f
@@ -56,33 +54,9 @@ ProgramStart:
   DOS _EXIT
 
 NoArgError:
-  lea (NoArgMessage,pc),a0
-  bsr PrintA0
-  move #1,-(sp)
+  DOS_PRINT (NoArgMessage,pc)
+  move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
-
-
-PrintA0:
-  pea (a0)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-PrintCrLf:
-  pea (CrLf,pc)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-PrintD0l:
-  lea (Buffer,pc),a0
-  bsr ToHexString4_4
-
-  lea (Buffer,pc),a0
-  bsr PrintA0
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
 
 
 PrintFatChkData:
@@ -92,11 +66,10 @@ PrintFatChkData:
   subq.l #2,d2
   bcs 9f
 
-  lea (DriveMessage,pc),a0
-  bsr PrintA0
+  DOS_PRINT (DriveMessage,pc)
   move (a2)+,d0  ;drive number
-  bsr PrintD0w
-  bsr PrintCrLf
+  bsr Print$4
+  DOS_PRINT (CrLf,pc)
 
   bra 8f
   1:
@@ -111,8 +84,7 @@ PrintFatChkData:
 
     lea (CrLf,pc),a1
     STRCPY a1,a0
-    lea (Buffer,pc),a0
-    bsr PrintA0
+    DOS_PRINT (Buffer,pc)
   8:
   subq.l #4+4,d2
   bcc 1b
@@ -121,29 +93,17 @@ PrintFatChkData:
   rts
 
 
-PrintD0w:
-  lea (Buffer,pc),a0
-  bsr ToHexString4
-
-  lea (Buffer,pc),a0
-  bsr PrintA0
-  rts
-
-  DEFINE_TOHEXSTRING4 ToHexString4
-
-ToHexString$4_4:
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  rts
+  DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
+  DEFINE_PRINT$4 Print$4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 NoArgMessage: .dc.b 'no filename',CR,LF,0
-ResultMessage: .dc.b 'result: $',0
 CrLf: .dc.b CR,LF,0
 
-DriveMessage: .dc.b 'drive: $',0
+DriveMessage: .dc.b 'drive = ',0
 
 
 .bss

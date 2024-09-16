@@ -63,11 +63,8 @@ ProgramStart:
     DOS _GETENV
   @@:
   lea (12,sp),sp
-  move.l d0,d1
 
-  DOS_PRINT (ResultMessage,pc)
-  move.l d1,d0
-  bsr PrintD0l
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
 9:
   DOS _EXIT
@@ -123,13 +120,7 @@ Occured:
   bra @b
 
 
-PrintD0l:
-  lea (Buffer,pc),a0
-  bsr ToHexString8
-  DOS_PRINT (Buffer,pc)
-  rts
-
-  DEFINE_TOHEXSTRING8 ToHexString8
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data

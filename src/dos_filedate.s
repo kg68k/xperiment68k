@@ -1,7 +1,7 @@
 .title dos_filedate - DOS _FILEDATE
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -49,38 +49,30 @@ ProgramStart:
   move.l d0,d6
   bpl @f
     lea (OpenErrMessage,pc),a0
-    bsr PrintError
-    moveq #EXIT_FAILURE,d0
-    bra 9f
+    bra error
   @@:
   move.l d7,-(sp)
   move d6,-(sp)
   DOS _FILEDATE
   addq.l #6,sp
-  bsr PrintResult
+  tst.l d0
+  bmi error2
 
-  moveq #EXIT_SUCCESS,d0
-9:
-  move d0,-(sp)
-  DOS _EXIT2
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
+  DOS _EXIT
 
 
-PrintError:
+error:
   move.l d0,-(sp)
   DOS_PRINT (a0)
   move.l (sp)+,d0
-  bsr PrintResult
-  rts
+error2:
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
 
-
-PrintResult:
-  lea (Buffer,pc),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-
-  DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
-  rts
+  move #EXIT_FAILURE,-(sp)
+  DOS _EXIT2
 
 
 PrintUsage:
@@ -125,26 +117,18 @@ GetArgument:
   rts
 
 
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 UsageMessage:
   .dc.b 'usage: dos_filedate [option] <filename>',CR,LF
-  .dc.b '  -s<hex>      set filedate',CR,LF
   .dc.b '  -d<decimal>  set filedate',CR,LF
+  .dc.b '  -x<hex>      set filedate',CR,LF
   .dc.b 0
 
 OpenErrMessage:.dc.b 'file open error: ',0
-
-CrLf: .dc.b CR,LF,0
-
-
-.bss
-.quad
-
-Buffer: .ds.b 64
 
 
 .end ProgramStart

@@ -31,35 +31,26 @@ ProgramStart:
   move.l #$deadbeef,d3
   DOS_PRINT (StartupMesssage,pc)
   move.l d3,d0
-  bsr PrintD0Hex
-  DOS_PRINT (CrLf,pc)
+  bsr Print$4_4
+  DOS_PRINT_CRLF
   @@:
     IOCS _B_KEYINP
     move.l d0,d7
     DOS_PRINT (ResultD0,pc)
     move.l d7,d0
-    bsr PrintD0Hex
+    bsr Print$4_4
 
     DOS_PRINT (ResultD3,pc)
     move.l d3,d0
-    bsr PrintD0Hex
-    DOS_PRINT (CrLf,pc)
+    bsr Print$4_4
+    DOS_PRINT_CRLF
   cmpi.b #$1b,d7
   bne @b
 
   DOS _EXIT
 
 
-PrintD0Hex:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
@@ -67,13 +58,6 @@ PrintD0Hex:
 StartupMesssage: .dc.b 'ESCキーで終了します。d3 = ',0
 ResultD0: .dc.b 'd0 = ',0
 ResultD3: .dc.b ', d3 = ',0
-CrLf: .dc.b CR,LF,0
-
-
-.bss
-.quad
-
-Buffer: .ds.b 64
 
 
 .end ProgramStart

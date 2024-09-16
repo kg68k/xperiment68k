@@ -88,7 +88,8 @@ MainLoop:
     movea.l a6,a1
     Z_MUSIC ZM_SE_ADPCM1
 
-    bsr PrintResult
+    bsr Print$4_4
+    DOS_PRINT_CRLF
   loopNext:
   move.l d5,d0
   bsr getPlayChannel
@@ -206,15 +207,7 @@ IsValidBeepData:
   rts
 
 
-PrintResult:
-  lea (Buffer,pc),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
@@ -228,12 +221,6 @@ Usage:
 
 NoZmsc3Message: .dc.b 'ZMSC3.Xが組み込まれていません。',CR,LF,0
 InvalidBeepDataMessage: .dc.b 'BEEP音データが登録されていません。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
-
-
-.bss
-Buffer: .ds.b 64
 
 
 .end ProgramStart

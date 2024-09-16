@@ -31,7 +31,7 @@ Start:
 
   DOS_PRINT (BeforeMessage,pc)
   move.l a0,d0
-  bsr PrintD0
+  bsr Print$4_4
   DOS_PRINT (CrLf,pc)
 
   move.l #1,(a0)
@@ -41,29 +41,19 @@ Start:
 
   DOS_PRINT (AfterMessage,pc)
   move.l a0,d0
-  bsr PrintD0
+  bsr Print$4_4
   DOS_PRINT (CrLf,pc)
 
   DOS _EXIT
 
 
-PrintD0:
-  move.l a0,-(sp)
-  lea (Buffer,pc),a0
-  pea (a0)
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  movea.l (sp)+,a0
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
 
-BeforeMessage: .dc.b 'before: $',0
-AfterMessage:  .dc.b 'after:  $',0
+BeforeMessage: .dc.b 'before: ',0
+AfterMessage:  .dc.b 'after:  ',0
 CrLf: .dc.b CR,LF,0
 
 

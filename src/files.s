@@ -1,7 +1,7 @@
 .title files - DOS _FILES/_NFILES
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -29,9 +29,7 @@
 
 ProgramStart:
   lea (1,a2),a0
-  bsr SkipBlank
-
-  tst.b (a0)
+  SKIP_SPACE a0
   bne @f
     lea (DefaultFindPath,pc),a0
   @@:
@@ -68,45 +66,24 @@ filesError:
   move.l d0,-(sp)
   DOS_PRINT (FilesError,pc)
   move.l (sp)+,d0
-  bsr PrintResult
+  bsr PrintD0$4_4
   rts
 
 nfilesError:
   move.l d0,-(sp)
   DOS_PRINT (NfilesError,pc)
   move.l (sp)+,d0
-  bsr PrintResult
+  bsr PrintD0$4_4
   rts
 
 
 PrintFilesResult:
   DOS_PRINT (FILES_FileName,a0)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
-PrintResult:
-  lea (Buffer,pc),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-
-  DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
-  rts
-
-
-SkipBlank:
-  @@:
-    move.b (a0)+,d0
-    beq 9f
-    cmpi.b #' ',d0
-    beq @b
-  9:
-  subq.l #1,a0
-  rts
-
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
@@ -115,15 +92,11 @@ DefaultFindPath: .dc.b '*.*',0
 
 FilesError:  .dc.b 'DOS _FILES error: ',0
 NfilesError: .dc.b 'DOS _NFILES error: ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss
-.quad
-
-Buffer: .ds.b 128
-
 .even
+
 FilesBuffer: .ds.b sizeof_FILES
 
 

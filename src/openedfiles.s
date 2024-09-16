@@ -62,14 +62,14 @@ showFile:
     bra showFileDone  ;オープンされていない
   @@:
   move d3,d0  ;ファイルハンドルを表示する
-  bsr PrintD0B
+  bsr Print$2
   DOS_PRINT (Colon,pc)
 
   lea (a3),a0  ;FCB内のファイル名を表示する
   lea (Buffer,pc),a1
   bsr copyFilename
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 showFileDone:
   moveq #0,d0
 showFileEnd:
@@ -127,22 +127,12 @@ copyFilename:
   rts
 
 
-PrintD0B:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString2
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING2 ToHexString2
+  DEFINE_PRINT$2 Print$2
 
 
 .data
 
 Colon: .dc.b ': ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

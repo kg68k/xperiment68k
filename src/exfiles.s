@@ -33,6 +33,10 @@ ProgramStart:
     lea (DefaultFindPath,pc),a2
   @@:
 
+  DOS_PRINT (Argument,pc)
+  DOS_PRINT (a2)
+  DOS_PRINT (CrLf,pc)
+
   move #$00ff,-(sp)
   pea (a2)
   pea (FilesBuffer,pc)
@@ -41,13 +45,7 @@ ProgramStart:
   lea (10,sp),sp
   move.l d0,d7
 
-  DOS_PRINT (Argument,pc)
-  DOS_PRINT (a2)
-  DOS_PRINT (CrLf,pc)
-
-  DOS_PRINT (Result,pc)
-  move.l d7,d0
-  bsr PrintD0
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
 
   DOS_PRINT (FilesFound,pc)
@@ -61,15 +59,6 @@ ProgramStart:
   bsr PrintExfilesData
 
   DOS _EXIT
-
-
-PrintD0:
-  lea (Buffer,pc),a0
-  bsr ToHexString4_4
-  DOS_PRINT (Buffer,pc)
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
 
 
 PrintExfilesData:
@@ -108,12 +97,14 @@ PrintNamestsSub:
   rts
 
 
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
+
+
 .data
 
 DefaultFindPath: .dc.b '*.*',0
 
 Argument: .dc.b 'Argument = ',0
-Result:   .dc.b 'Result = $',0
 FilesFound: .dc.b 'Found = ',0
 CrLf: .dc.b CR,LF,0
 
@@ -124,11 +115,8 @@ ExfilesName2: .dc.b 'Name2 = ',0
 
 
 .bss
-.quad
-
-Buffer: .ds.b 128
-
 .even
+
 FilesBuffer: .ds.b sizeof_FILES_EX+1
 
 

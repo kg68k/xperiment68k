@@ -163,7 +163,11 @@ ProgramStart:
   DOS _OPEN_PR
   lea (28,sp),sp
   move.l d0,d7  ;スレッドID
-  bmi OpenPrError
+  bpl @f
+    bsr PrintOpenPrError
+    move #EXIT_FAILURE,-(sp)
+    DOS _EXIT2
+  @@:
 
   clr.l -(sp)  ;SLEEP_TIME
   pea (PrcctrlBuffer2,pc)
@@ -175,14 +179,11 @@ ProgramStart:
   pea (BgThreadName2,pc)
   DOS _OPEN_PR
   lea (28,sp),sp
-  move.l d0,d7  ;スレッドID
+  move.l d0,d6  ;スレッドID
   bpl @f
     ;ここでDOS _EXIT2で終了すると一つ目のスレッドが残ってしまうので
     ;エラー表示だけして常駐終了する。
-    DOS_PRINT (OpenPrErrorMessage,pc)
-    move.l d7,d0
-    bsr PrintD0Hex
-    DOS_PRINT (CrLf,pc)
+    bsr PrintOpenPrError
   @@:
 
   DOS_PRINT (KeepPrMessage,pc)
@@ -192,31 +193,21 @@ ProgramStart:
   DOS _KEEPPR
 
 
-OpenPrError:
+PrintOpenPrError:
+  move.l d0,-(sp)
   DOS_PRINT (OpenPrErrorMessage,pc)
-  move.l d7,d0
-  bsr PrintD0Hex
+  move.l (sp)+,d0
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
-
-  move #EXIT_FAILURE,-(sp)
-  DOS _EXIT2
-
-
-PrintD0Hex:
-  link a6,#-16
-  lea (sp),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS_PRINT (sp)
-  addq.l #4,sp
-  unlk a6
   rts
+
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 KeepPrMessage: .dc.b '常駐しました。',CR,LF,0
-OpenPrErrorMessage: .dc.b 'DOS _OPEN_PR エラー: d0.l = ',0
+OpenPrErrorMessage: .dc.b 'DOS _OPEN_PR エラー: ',0
 
 
 .bss

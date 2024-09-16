@@ -41,7 +41,7 @@ Start:
 
   DOS_PRINT (ModifyMessage1,pc)
   move.l d6,d0
-  bsr PrintD0
+  bsr Print$4_4
   DOS_PRINT (ModifyMessage2,pc)
   move.l d6,d0
   pea (WriteMainMemorySize,pc)
@@ -81,36 +81,20 @@ GetMeinMemorySize:
 PrintMainMemorySize:
   DOS_PRINT (MemorySizeMessage,pc)
   bsr GetMeinMemorySize
-  bsr PrintD0
-  DOS_PRINT (CrLf,pc)
+  bsr Print$4_4
+  DOS_PRINT_CRLF
   rts
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
 
-MemorySizeMessage: .dc.b '現在のメインメモリ容量($00ed0008): $',0
-ModifyMessage1: .dc.b 'メインメモリ容量を$',0
+MemorySizeMessage: .dc.b '現在のメインメモリ容量($00ed0008): ',0
+ModifyMessage1: .dc.b 'メインメモリ容量を',0
 ModifyMessage2: .dc.b 'に書き換えます。',CR,LF,0
 RestoreMessage: .dc.b 'メインメモリ容量を元に戻します。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
-
-
-.bss
-.quad
-
-Buffer: .ds.b 64
 
 
 .end

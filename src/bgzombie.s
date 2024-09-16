@@ -160,12 +160,7 @@ ProgramStart:
   move.l d0,d7  ;スレッドID
   bpl @f
     DOS_PRINT (OpenPrErrorMessage,pc)
-    move.l d7,d0
-    bsr PrintD0Hex
-    DOS_PRINT (CrLf,pc)
-
-    move #EXIT_FAILURE,-(sp)
-    DOS _EXIT2
+    bra error
   @@:
   DOS_PRINT (KeepPrMessage,pc)
 
@@ -186,30 +181,21 @@ OptionC:
   DOS _EXIT
 
 
-error2:
-  move.l d7,d0
-  bsr PrintD0Hex
-  DOS_PRINT (CrLf,pc)
 error:
+  move.l d7,d0
+  bsr PrintD0$4_4
+  DOS_PRINT (CrLf,pc)
+
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 
-PrintD0Hex:
-  link a6,#-16
-  lea (sp),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS_PRINT (sp)
-  addq.l #4,sp
-  unlk a6
-  rts
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
-PathchkErrorMessage: .dc.b 'DOS _EXEC (pathchk) エラー: d0.l = ',0
-OpenPrErrorMessage: .dc.b 'DOS _OPEN_PR エラー: d0.l = ',0
+OpenPrErrorMessage: .dc.b 'DOS _OPEN_PR エラー: ',0
 
 KeepPrMessage: .dc.b '常駐しました。',CR,LF,0
 

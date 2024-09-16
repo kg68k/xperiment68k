@@ -115,22 +115,13 @@ error:
 PrintResult:
   move.l d0,-(sp)
   DOS_PRINT (a0)
-  DOS_PRINT (Result,pc)
   move.l (sp)+,d0
-  bsr PrintD0
-  DOS_PRINT (CrLf,pc)
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
   rts
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
@@ -142,18 +133,13 @@ NamestsMessage: .dc.b 'DOS _NAMESTS: ',0
 FilesMessage1: .dc.b 'DOS _FILES (atr=$01ff): ',0
 FilesMessage2: .dc.b 'DOS _FILES (atr=$0010): ',0
 
-Result: .dc.b 'result = $',0
-
 ExistsMessage:     .dc.b 'ディレクトリが存在します。',CR,LF,0
 NotExistsMessage:  .dc.b 'ディレクトリは存在しません。',CR,LF,0
 OtherErrorMessage: .dc.b 'ディレクトリは存在しません(その他のエラー)。',CR,LF,0
 
-CrLf: .dc.b CR,LF,0
-
 
 .bss
-
-Buffer: .ds.b 64
+.even
 
 NamestsBuffer: .ds.b sizeof_NAMESTS
 FilesBuffer:  .ds.b sizeof_FILES

@@ -53,7 +53,7 @@ Start:
   lea (DosSeekMessage,pc),a0
   bmi error
 
-  bsr PrintFileAttribute  ;現在のファイル属性を表示
+  bsr GetAndPrintFileAttribute  ;現在のファイル属性を表示
   bmi chmodError
   move.l d0,d6
 
@@ -67,7 +67,7 @@ Start:
   tst.l d0
   bmi chmodError
 
-  bsr PrintFileAttribute  ;変更後のファイル属性を表示
+  bsr GetAndPrintFileAttribute  ;変更後のファイル属性を表示
   bmi chmodError
 
   ;ファイルクローズ時にディレクトリエントリの更新が行われるように
@@ -88,7 +88,7 @@ Start:
   lea (DosCloseMessage,pc),a0
   bmi error
 
-  bsr PrintFileAttribute  ;クローズ直後のファイル属性を表示
+  bsr GetAndPrintFileAttribute  ;クローズ直後のファイル属性を表示
   bmi chmodError
 
   DOS _EXIT
@@ -99,68 +99,63 @@ chmodError:
 error:
   move.l d0,-(sp)
   DOS_PRINT (a0)
-  DOS_PRINT (Result,pc)
   move.l (sp)+,d0
-  bsr PrintD0
-  DOS_PRINT (CrLf,pc)
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 
-PrintFileAttribute:
+GetAndPrintFileAttribute:
   move #-1,-(sp)
   pea (a2)
   DOS _CHMOD
   addq.l #6,sp
-  tst.l d0
-  bmi 9f
-    move.l d0,-(sp)
+  move.l d0,-(sp)
+  bmi @f
     DOS_PRINT (FileAttributeMessage,pc)
-
     move.l (sp),d0
-    lea (Buffer,pc),a0
-    lea (FileAttributes,pc),a1
-    moveq #8-1,d2
-    1:
-      moveq #'_',d1
-      add.b d0,d0
-      bcc @f
-        move.b (a1),d1
-      @@:
-      addq.l #1,a1
-      move.b d1,(a0)+
-    dbra d2,1b
-    clr.b (a0)
-
-    DOS_PRINT (Buffer,pc)
-    DOS_PRINT (CrLf,pc)
-    move.l (sp)+,d0
-  9:
+    bsr PrintFileAttribute
+    DOS_PRINT_CRLF
+  @@:
+  move.l (sp)+,d0
   rts
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
+PrintFileAttribute:
+  link a6,#-12
+  lea (sp),a0
+  lea (FileAttributes,pc),a1
+  moveq #8-1,d2
+  1:
+    moveq #'_',d1
+    add.b d0,d0
+    bcc @f
+      move.b (a1),d1
+    @@:
+    addq.l #1,a1
+    move.b d1,(a0)+
+  dbra d2,1b
+  clr.b (a0)
+
+  DOS_PRINT (sp)
+  unlk a6
   rts
 
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 Usage: .dc.b 'usage: closerewindatr <file>',CR,LF,0
 
-DosOpenMessage: .dc.b 'DOS _OPEN: ',0
-DosSeekMessage: .dc.b 'DOS _SEEK: ',0
-DosChmodMessage: .dc.b 'DOS _CHMOD: ',0
-DosFputcMessage: .dc.b 'DOS _FPUTC: ',0
-DosCloseMessage: .dc.b 'DOS _CLOSE: ',0
-Result: .dc.b 'result = $',0
+DosOpenMessage: .dc.b 'DOS _OPEN エラー: ',0
+DosSeekMessage: .dc.b 'DOS _SEEK エラー: ',0
+DosChmodMessage: .dc.b 'DOS _CHMOD エラー: ',0
+DosFputcMessage: .dc.b 'DOS _FPUTC エラー: ',0
+DosCloseMessage: .dc.b 'DOS _CLOSE エラー: ',0
 
 FileAttributeMessage: .dc.b 'ファイル属性 = ',0
 FileAttributes: .dc.b 'XLADVSHR'
@@ -169,13 +164,6 @@ OpenMessage: .dc.b 'ファイルをオープンします。',CR,LF,0
 ReverseRMessage: .dc.b '読み込み専用属性を変更します。',CR,LF,0
 WriteMessage: .dc.b 'ファイルに書き込みを行います。',CR,LF,0
 CloseMessage: .dc.b 'ファイルをクローズします。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
-
-
-.bss
-
-Buffer: .ds.b 64
 
 
 .end

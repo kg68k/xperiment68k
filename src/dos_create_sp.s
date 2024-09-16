@@ -1,7 +1,7 @@
 .title dos_create_sp - DOS _CREATE special mode
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -77,29 +77,18 @@ CreateFile:
   DOS _CREATE
   addq.l #6,sp
 
-  lea (Buffer,pc),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-
-  DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  bsr Print$4_4
+  DOS_PRINT_CRLF
   rts
 
 
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
 
 NoArgMessage: .dc.b 'no filename',CR,LF,0
 FileExistMessage: .dc.b '同名のファイルがすでに存在します。',CR,LF,0
-CrLf: .dc.b CR,LF,0
-
-
-.bss
-.quad
-
-Buffer: .ds.b 64
 
 
 .end ProgramStart

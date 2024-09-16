@@ -1,7 +1,7 @@
 .title fe_stoh_test - FPACK __STOH test
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -78,7 +78,7 @@ testStoh:
     FPACK __STOH
     move sr,d2
     lea (a0),a2
-    bsr PrintD0  ;変換結果
+    bsr Print$4_4  ;変換結果
 
     DOS_PRINT (Mes3,pc)
     DOS_PRINT (a2)  ;続きの文字列
@@ -117,21 +117,13 @@ PrintCcr:
   rts
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
 
 Mes1: .dc.b 'stoh("',0
-Mes2: .dc.b '") -> $',0
+Mes2: .dc.b '") -> ',0
 Mes3: .dc.b ', a0="',0
 Mes4: .dc.b '", ccr=',0
 

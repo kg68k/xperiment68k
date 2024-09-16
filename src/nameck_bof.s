@@ -1,7 +1,7 @@
 .title nameck_bof - DOS _NAMECK buffer overflow PoC
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ ProgramStart:
   bsr PrintCwd
   DOS_PRINT (ArgMessage,pc)
   DOS_PRINT (a2)
-  bsr PrintCrLf
+  DOS_PRINT (CrLf,pc)
 
   lea (NameckBuffer,pc),a0
   bsr InitNameckBuffer
@@ -49,10 +49,8 @@ ProgramStart:
   addq.l #8,sp
   move.l d0,d7
 
-  DOS_PRINT (ResultMessage,pc)
-  move.l d7,d0
-  bsr PrintD0
-  bsr PrintCrLf
+  bsr PrintD0$4_4
+  DOS_PRINT (CrLf,pc)
 
   tst.l d7
   bmi @f
@@ -126,7 +124,7 @@ DumpByte:
     dbra d2,1b
     clr.b -(a0)
     DOS_PRINT (Buffer,pc)
-    bsr PrintCrLf
+    DOS_PRINT (CrLf,pc)
 
     add d4,d3
   sub d4,d5
@@ -145,7 +143,7 @@ PrintCwd:
   bmi @f
     DOS_PRINT (CwdMessage,pc)
     DOS_PRINT (Buffer,pc)
-    bsr PrintCrLf
+    DOS_PRINT (CrLf,pc)
   @@:
   rts
 
@@ -166,28 +164,18 @@ PrintNameck:
 PrintNameckSub:
   DOS_PRINT (a2)
   DOS_PRINT (a1)
-  bra PrintCrLf
-
-PrintCrLf:
   DOS_PRINT (CrLf,pc)
   rts
 
-PrintD0:
-  lea (Buffer,pc),a0
-  bsr ToHexString4_4
 
-  DOS_PRINT (Buffer,pc)
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
   DEFINE_TOHEXSTRING2 ToHexString2
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
-CwdMessage:    .dc.b 'cwd:      ',0
-ArgMessage:    .dc.b 'argument: ',0
-ResultMessage: .dc.b 'result:   $',0
+CwdMessage:    .dc.b 'Cwd:      ',0
+ArgMessage:    .dc.b 'Argument: ',0
 CrLf: .dc.b CR,LF,0
 
 PathMessage: .dc.b 'Path: ',0

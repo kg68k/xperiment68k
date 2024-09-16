@@ -42,7 +42,7 @@ ProgramStart:
   bpl @f
     DOS_PRINT (FileOpenErrorMessage,pc)
     move.l d7,d0
-    bsr PrintD0
+    bsr PrintD0$4_4
     DOS_PRINT (CrLf,pc)
     bra error
   @@:
@@ -52,7 +52,7 @@ ProgramStart:
   DOS _SEEK
   addq.l #8,sp
 
-  bsr PrintD0
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
 
   DOS _EXIT
@@ -62,15 +62,7 @@ error:
   DOS _EXIT2
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
@@ -79,12 +71,6 @@ UsageMessage: .dc.b 'usage: rewind <filename>',CR,LF,0
 FileOpenErrorMessage: .dc.b 'file open error: ',0
 
 CrLf: .dc.b CR,LF,0
-
-
-.bss
-.quad
-
-Buffer: .ds.b 64
 
 
 .end ProgramStart

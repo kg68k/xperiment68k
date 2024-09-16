@@ -1,7 +1,7 @@
 .title sysport - print system port
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -53,21 +53,13 @@ printSysPort:
     addq.l #4,sp
     bra 9f
   @@:
-    lea (buffer,pc),a0
-    pea (a0)
-    move.b #'$',(a0)+
-    bsr ToHexString2
-    clr.b (a0)
-    DOS _PRINT
-    addq.l #4,sp
+    bsr Print$2
 9:
-  pea (crlf,pc)
-  DOS _PRINT
-  addq.l #4,sp
+  DOS_PRINT_CRLF
   rts
 
 
-  DEFINE_TOHEXSTRING8 ToHexString2
+  DEFINE_PRINT$2 Print$2
   DEFINE_DOSBUSERRBYTE DosBusErrByte
 
 
@@ -92,12 +84,6 @@ headers:
   .dc.b '$00e8e00f #8(  w): ',0
 
 strBusErr: .dc.b 'bus error',0
-crlf: .dc.b CR,LF,0
 
-
-.bss
-
-.even
-buffer: .ds.b 16
 
 .end

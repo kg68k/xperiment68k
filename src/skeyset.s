@@ -1,7 +1,7 @@
 .title skeyset - call IOCS _SKEYSET and show IOCS _KEYINP result
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -53,9 +53,7 @@ printInkey:
     bra 9f
   @@:
     IOCS _B_KEYINP
-    lea (Buffer,pc),a0
-    bsr ToHexString4
-    DOS_PRINT (Buffer,pc)
+    bsr Print$4
     DOS_PRINT (CrLf,pc)
 9:
   rts
@@ -84,7 +82,7 @@ getArgument:
   DEFINE_FLUSHIOCSKEY FlushIocsKey
   DEFINE_FLUSHDOSKEY FlushDosKey
 
-  DEFINE_TOHEXSTRING4 ToHexString4
+  DEFINE_PRINT$4 Print$4
 
 
 .data

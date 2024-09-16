@@ -49,10 +49,7 @@ Start:
   DOS _IOCTRL
   lea (10,sp),sp
 
-  move.l d0,-(sp)
-  DOS_PRINT (Result,pc)
-  move.l (sp)+,d0
-  bsr PrintD0
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
 
   moveq #16,d0
@@ -65,15 +62,6 @@ Start:
 PrintUsage:
   DOS_PRINT (Usage,pc)
   DOS _EXIT
-
-
-PrintD0:
-  lea (Buffer,pc),a0
-  bsr ToHexString4_4
-  DOS_PRINT (Buffer,pc)
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
 
 
 DumpMemory:
@@ -96,13 +84,14 @@ DumpMemory:
   POP d2/a2
   rts
 
+
   DEFINE_TOHEXSTRING4 ToHexString4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 Usage: .dc.b 'usage: ioctrl13 [d:]',CR,LF,0
-Result: .dc.b 'result = $',0
 CrLf: .dc.b CR,LF,0
 
 

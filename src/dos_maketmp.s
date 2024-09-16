@@ -1,7 +1,7 @@
 .title dos_maketmp - DOS _MAKETMP
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -41,10 +41,10 @@ ProgramStart:
   DOS _MAKETMP
   addq.l #6,sp
 
-  bsr PrintResult
+  bsr PrintD0$4_4
   DOS_PRINT (Comma,pc)
   DOS_PRINT (Filename,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -55,29 +55,19 @@ PrintUsage:
   DOS _EXIT2
 
 
-PrintResult:
-  lea (Buffer,pc),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS_PRINT (Buffer,pc)
-  rts
-
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 Usage: .dc.b 'usage: dos_maketmp filename',CR,LF,0
 Comma: .dc.b ', ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss
 .quad
 
 Filename: .ds.b 256
-Buffer: .ds.b 64
 
 
 .end ProgramStart

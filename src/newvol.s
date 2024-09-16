@@ -38,43 +38,19 @@ Start:
   pea (a2)
   DOS _NEWFILE
   addq.l #6,sp
-  move.l d0,d7
-  bsr PrintResult
+
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
 
-PrintResult:
-  move.l d0,-(sp)
-  DOS_PRINT (a0)
-  DOS_PRINT (Result,pc)
-  move.l (sp)+,d0
-  bsr PrintD0
-  DOS_PRINT (CrLf,pc)
-  rts
-
-
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 Usage: .dc.b 'usage: newvol <name>',CR,LF,0
-Result: .dc.b 'result = $',0
-CrLf: .dc.b CR,LF,0
-
-
-.bss
-
-Buffer: .ds.b 64
 
 
 .end

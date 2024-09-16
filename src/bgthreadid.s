@@ -39,8 +39,8 @@ ProgramStart:
     moveq #-1,d0  ;バッファで指定した名前のIDを得る
   @@:
   bsr GetPr
-  bsr PrintD0Hex
-  DOS_PRINT (CrLf,pc)
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -72,28 +72,17 @@ GetPr:
   rts
 
 
-PrintD0Hex:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
-CrLf: .dc.b CR,LF,0
 
 
 .bss
 .quad
 
-Buffer: .ds.b 128
 BgBuffer: .ds.b sizeof_BG
 
 

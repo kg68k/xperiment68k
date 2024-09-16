@@ -274,30 +274,22 @@ ProgramStart:
 error:
   DOS_PRINT (a0)
   move.l d7,d0
-  bsr PrintD0Hex
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 
-PrintD0Hex:
-  link a6,#-16
-  lea (sp),a0
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS_PRINT (sp)
-  addq.l #4,sp
-  unlk a6
-  rts
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
 KeepPrMessage: .dc.b '常駐しました。',CR,LF,0
-MallocErrorMessage:   .dc.b 'DOS _MALLOC エラー: d0.l = ',0
-OpenPrErrorMessage:   .dc.b 'DOS _OPEN_PR エラー: d0.l = ',0
-SProcessErrorMessage: .dc.b 'DOS _S_PROCESS エラー: d0.l = ',0
+MallocErrorMessage:   .dc.b 'DOS _MALLOC エラー: ',0
+OpenPrErrorMessage:   .dc.b 'DOS _OPEN_PR エラー: ',0
+SProcessErrorMessage: .dc.b 'DOS _S_PROCESS エラー: ',0
 
 
 .bss

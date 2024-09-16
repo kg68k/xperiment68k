@@ -4,21 +4,19 @@ ifeq ($(notdir $(CURDIR)),src)
 $(error do not execute make in src directory)
 endif
 
-ifndef LD
-LD = hlk
-endif
+CC = gcc2
+CFLAGS = -Wall -O2
+AS = has060
+ASFLAGS = -w -i./include
+LD ?= hlk
+LDFLAGS =
+MKDIR_P = mkdir -p
+
+OBJ_DIR = o
+
 ifeq ($(findstring hlkx,$(LD)),hlkx)
 USE_HLKX = true
 endif
-
-CC	= gcc2
-CFLAGS	= -Wall -O2
-AS	= has060
-ASFLAGS	= -w -i./include
-LDFLAGS	=
-MKDIR_P	= mkdir -p
-
-OBJ_DIR = o
 
 
 .PHONY: all directories clean

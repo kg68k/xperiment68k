@@ -30,34 +30,25 @@ ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
 
-  pea (Buffer2,pc)
+  pea (Buffer,pc)
   pea (a0)
   move #ASSIGNMD_GET,-(sp)
   DOS _ASSIGN
   lea (10,sp),sp
   move.l d0,d7
 
-  bsr PrintD0
+  bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
 
   tst.l d7
   bmi @f
-    DOS_PRINT (Buffer2,pc)
+    DOS_PRINT (Buffer,pc)
     DOS_PRINT (CrLf,pc)
   @@:
   DOS _EXIT
 
 
-PrintD0:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
@@ -68,8 +59,7 @@ CrLf: .dc.b CR,LF,0
 .bss
 .even
 
-Buffer:  .ds.b 256
-Buffer2: .ds.b 256
+Buffer: .ds.b 256
 
 
 .end ProgramStart

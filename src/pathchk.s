@@ -1,7 +1,7 @@
 .title pathchk - DOS _EXEC (md=2)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2024 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -41,49 +41,35 @@ Start:
   lea (14,sp),sp
   move.l d0,d7
 
-  lea (Buffer,pc),a0
-  bsr ToHexString4_4
-  lea (Result,pc),a0
-  lea (Buffer,pc),a1
-  bsr printLine
+  bsr PrintD0$4_4
+  DOS_PRINT (CrLf,pc)
 
   tst.l d7
   bmi @f
-    lea (File,pc),a0
-    lea (FileBuffer,pc),a1
-    bsr printLine
+    DOS_PRINT (File,pc)
+    DOS_PRINT (FileBuffer,pc)
+    DOS_PRINT (CrLf,pc)
 
-    moveq #0,d0
+    DOS_PRINT (CmdlineLen,pc)
     move.b (CmdlineBuffer,pc),d0
-    lea (Buffer,pc),a0
-    bsr ToHexString2
-    lea (CmdlineLen,pc),a0
-    lea (Buffer,pc),a1
-    bsr printLine
+    bsr Print$2
+    DOS_PRINT (CrLf,pc)
 
-    lea (CmdlineStr,pc),a0
-    lea (CmdlineBuffer+1,pc),a1
-    bsr printLine
+    DOS_PRINT (CmdlineStr,pc)
+    DOS_PRINT (CmdlineBuffer+1,pc)
+    DOS_PRINT (CrLf,pc)
   @@:
   DOS _EXIT
 
 
-printLine:
-  DOS_PRINT (a0)
-  DOS_PRINT (a1)
-  DOS_PRINT (CrLf,pc)
-  rts
-
-
-  DEFINE_TOHEXSTRING2 ToHexString2
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINT$2 Print$2
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
-Result:  .dc.b 'result: $',0
-File:    .dc.b 'file: ',0
-CmdlineLen: .dc.b 'cmdline length: $',0
+File: .dc.b 'file: ',0
+CmdlineLen: .dc.b 'cmdline length: ',0
 CmdlineStr: .dc.b 'cmdline string: ',0
 
 CrLf: .dc.b CR,LF,0
@@ -91,8 +77,6 @@ CrLf: .dc.b CR,LF,0
 
 .bss
 .even
-
-Buffer: .ds.b 64
 
 FileBuffer: .ds.b 256
 CmdlineBuffer: .ds.b 256

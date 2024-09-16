@@ -113,8 +113,8 @@ ProgramStart:
 
 error2:
   move.l d7,d0
-  bsr PrintD0Hex
-  DOS_PRINT (CrLf,pc)
+  bsr PrintD0$4_4
+  DOS_PRINT_CRLF
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -155,21 +155,12 @@ FindMemoryBlock:
   rts
 
 
-PrintD0Hex:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.b #'$',(a0)+
-  bsr ToHexString4_4
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
-OpenPrErrorMessage: .dc.b 'DOS _OPEN_PR エラー: d0.l = ',0
+OpenPrErrorMessage: .dc.b 'DOS _OPEN_PR エラー: ',0
 
 WaitThreadDone: .dc.b 'BGスレッドのタスク終了を待ちます。',CR,LF,0
 WaitThreadKill: .dc.b 'BGスレッドの自己削除を待ちます。',CR,LF,0
@@ -178,13 +169,9 @@ ThreadKillDone: .dc.b 'BGスレッドが削除されました。',CR,LF,0
 MemoryBlockNotFound: .dc.b '自分自身のプロセスのメモリブロックが見つかりませんでした。',CR,LF,0
 MemoryBlockFound     .dc.b '自分自身のプロセスのメモリブロックが見つかりました。',CR,LF,0
 
-CrLf: .dc.b CR,LF,0
-
 
 .bss
 .quad
-
-Buffer: .ds.b 128
 
 BgBuffer: .ds.b sizeof_BG
 
