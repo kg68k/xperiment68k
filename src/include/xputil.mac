@@ -306,6 +306,35 @@ label:
 .endm
 
 
+;CCRを文字列形式で表示(d0.bで指定、ccr=XNZVC)
+DEFINE_PRINTCCR: .macro label
+label:
+  PUSH d1/a0-a1
+  link a6,#-12
+  lea (sp),a0
+  move.l #'ccr=',(a0)+
+  lea (@CcrChars,pc),a1
+  lsl.b #3,d0  ;%xnzv_c000
+  move.b (a1)+,d1
+  1:
+    add.b d0,d0
+    bcs @f
+      moveq #'_',d1
+    @@:
+    move.b d1,(a0)+
+  move.b (a1)+,d1
+  bne 1b
+  clr.b (a0)
+  DOS_PRINT (sp)
+  unlk a6
+  POP d1/a0-a1
+  rts
+
+  @CcrChars: .dc.b 'XNZVC',0
+  .even
+.endm
+
+
 ;IOCSのキーバッファを空にする
 DEFINE_FLUSHIOCSKEY: .macro label
   @loop:

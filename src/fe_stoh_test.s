@@ -98,26 +98,8 @@ testStoh:
   rts
 
 
-PrintCcr:
-  lea (Buffer,pc),a0
-  pea (a0)
-  move.l #'XNZV',(a0)
-  move #'C'<<8,(4,a0)
-  lsl.b #7-CCR_X,d0  ;%XNZV_C000
-  moveq #5-1,d1
-  1:
-    add.b d0,d0
-    bcs @f
-      move.b #'_',(a0)
-    @@:
-    addq.l #1,a0
-  dbra d1,1b
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-
   DEFINE_PRINT$4_4 Print$4_4
+  DEFINE_PRINTCCR PrintCcr
 
 
 .data
@@ -125,7 +107,7 @@ PrintCcr:
 Mes1: .dc.b 'stoh("',0
 Mes2: .dc.b '") -> ',0
 Mes3: .dc.b ', a0="',0
-Mes4: .dc.b '", ccr=',0
+Mes4: .dc.b '", ',0
 
 CrLf: .dc.b CR,LF,0
 
@@ -156,12 +138,6 @@ TestCase:
   TC '123456789'  ;オーバーフロー
 
   TC_END
-
-
-.bss
-
-.even
-Buffer: .ds.b 1024
 
 
 .end ProgramStart
