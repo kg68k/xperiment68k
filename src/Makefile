@@ -39,7 +39,7 @@ ALLTARGET = \
          dumpenv.x dumpstdin.x \
          entryceil.x env_sbo.x esc_dsr.x exchr_hex.x execas.x exfiles.x existsdir.x \
          fatchk_bof.x \
-         fe_fcvt_test.x fe_stoh_test.x \
+         fe_fcvt_test.x fe_power_test.x fe_stoh_test.x \
          files.x fntget.x fntsize.x \
          getassign.x \
          incdir_test.x iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
