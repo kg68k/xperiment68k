@@ -76,6 +76,22 @@ label:
   rts
 .endm
 
+;指定アドレスに書き込んでバスエラーが発生するか調べる(バイト)
+;  in  d0.b ... 書き込むデータ
+;      a0.l ... アドレス
+;  out ccr .... Z=1:正常終了 Z=0:バスエラーが発生した
+DEFINE_DOSBUSERRBYTE_WRITE: .macro label
+label:
+  move.b d0,-(sp)
+  move #1,-(sp)
+  move.l a0,-(sp)
+  pea (6,sp)
+  DOS _BUS_ERR
+  addq.l #(10+2)-4,sp
+  move.l d0,(sp)+
+  rts
+.endm
+
 ;指定アドレスを読み込んでバスエラーが発生するか調べる(ワード)
 ;  in  a0.l ... アドレス
 ;  out d0.w ... 読み込んだデータ
