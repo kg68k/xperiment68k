@@ -24,7 +24,7 @@ endif
 
 
 ALLTARGET = \
-         a2arg.x a2arg_nh.x adpcmotchk.x \
+         a2arg.x a2arg_nh.x adpcmotchk.x appendbytes.x \
          beep_adpcmout.x beep_mpcm.x beep_zmsc3.x \
          bg1pr2th.x bgexec.x bgexecd.x bgkill.x bglivingdead.x bgsprocd.x bgsprocess.x \
          bgthreadid.x bgwakeup.x bgzombie.x \
