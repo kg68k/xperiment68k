@@ -122,7 +122,8 @@ FillBuffer:
     move.b d0,(a0)+
   .endm
   move.l -(a0),d0
-  lsr.l #2,d1
+  addq.l #4-1,d1
+  lsr.l #2,d1  ;ロングワード数(端数切り上げ)
   beq 1f
     subq #1,d1
     @@:
