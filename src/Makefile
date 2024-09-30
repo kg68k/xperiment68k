@@ -35,7 +35,7 @@ ALLTARGET = \
          dos_fatchk.x dos_fgetc.x dos_fgets.x dos_filedate.x \
          dos_getenv.x dos_inpout.x \
          dos_keyctrl01.x dos_maketmp.x dos_mkdir.x \
-         dos_nameck.x dos_namests.x dos_newfile.x dos_open.x \
+         dos_nameck.x dos_namests.x dos_newfile.x dos_open.x dos_setenv.x \
          dumpenv.x dumpstdin.x \
          entryceil.x env_sbo.x esc_dsr.x exchr_hex.x execas.x exfiles.x existsdir.x \
          fatchk_bof.x \

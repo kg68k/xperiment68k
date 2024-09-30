@@ -1,4 +1,4 @@
-.title dos_getenv - DOS _GETENV
+.title dos_setenv - DOS _SETENV
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2024 TcbnErik
@@ -28,18 +28,27 @@
 
 ProgramStart:
   lea (1,a2),a0
-  SKIP_SPACE a0  ;空文字列も許容する
+  SKIP_SPACE a0
+  beq PrintUsage
 
-  pea (Buffer,pc)
-  clr.l -(sp)
+  lea (Buffer,pc),a1  ;空の変数名、値も許容する(値がからの場合は変数削除)
+  @@:
+    move.b (a0)+,d0
+    beq PrintUsage
+    cmpi.b #'=',d0
+    beq @f
+    move.b d0,(a1)+
+    bra @b
+  @@:
+  clr.b (a1)  ;変数名終了、a0が値
+
   pea (a0)
-  DOS _GETENV
+  clr.l -(sp)
+  pea (Buffer,pc)
+  DOS _SETENV
   addq.l #12-4,sp
   move.l d0,(sp)+
   bmi error
-
-  DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
 
   DOS _EXIT
 
@@ -49,12 +58,17 @@ error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
+PrintUsage:
+  DOS_PRINT (Usage,pc)
+  DOS _EXIT
+
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
+Usage: .dc.b 'usage: dos_setenv name=value',CR,LF,0
 CrLf: .dc.b CR,LF,0
 
 
