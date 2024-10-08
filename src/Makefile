@@ -45,7 +45,7 @@ ALLTARGET = \
          incdir_test.x iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
          ioctrl12.x ioctrl13.x \
          isemu_rtc.x \
-         joyget.x kbdctrl.x keepceil.x keyflush.x keyscan.x \
+         joyget.x kbdctrl.x keepceil.x keepcmem.x keyflush.x keyscan.x \
          lineage.x \
          mallocall.x malloc_ba_exec.x midi_reg.x movem_aipi.x mpcm_echcnt.x \
          nameck_bof.x namests_bof.x newvol.x ns_sbo.x \
