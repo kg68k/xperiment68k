@@ -1,7 +1,7 @@
 .nlist
 
 ;dosdef.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2024-07-31
+;Last-modified: 2024-10-06
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -115,7 +115,7 @@ STDAUX: .equ 3
 STDPRN: .equ 4
 .endif
 
-.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
+.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
 ATR_EXEC: .equ 7
 ATR_LINK: .equ 6
 ATR_ARC:  .equ 5
@@ -135,13 +135,13 @@ HIDDEN:    .equ 1
 READONLY:  .equ 0
 .endif
 
-.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
+.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
 READRV: .equ $40
 VIRDRV: .equ $50
 VIRDIR: .equ $60
 .endif
 
-.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
+.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
 ROPEN:  .equ 0
 WOPEN:  .equ 1
 RWOPEN: .equ 2
@@ -149,7 +149,7 @@ RWOPEN: .equ 2
 *DOPEN: .equ 4
 .endif
 
-.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
+.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
 SEEK_SET: .equ 0
 SEEK_CUR: .equ 1
 SEEK_END: .equ 2
@@ -169,7 +169,7 @@ EXECMODE_LOADONLY: .equ 3
 EXECMODE_EXECONLY: .equ 4
 EXECMODE_BINDNO:   .equ 5
 
-.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
+.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
 EXEC_LOADEXEC: .equ 0
 EXEC_LOAD:     .equ 1
 EXEC_PATHCHK:  .equ 2
@@ -190,7 +190,7 @@ ENV_MAX:   .equ 256
 DRIVE_MAX: .equ 26
 .endif
 
-.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
+.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
 MB_2DD10:   .equ $e0
 MB_1D9:     .equ $e5
 MB_2D9:     .equ $e6

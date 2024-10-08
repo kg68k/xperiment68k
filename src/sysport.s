@@ -35,9 +35,7 @@ Start:
     lea (a3),a1
     bsr printSysPort
     addq.l #1,a2
-    STRLEN a3,d0
-    addq.l #1,d0
-    adda.l d0,a3
+    STREND a3,+1
   dbra d7,@b
   DOS _EXIT
 
