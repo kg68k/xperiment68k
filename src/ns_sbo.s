@@ -305,7 +305,7 @@ DosExec3:
 DosExec5:
   pea (BoundFilename,pc)  ;検索ファイル名の展開処理ではスタックを破壊しないので、なんでもよい
   pea (LongDirectory,pc)
-  move #EXEC_BINDNO,-(sp)
+  move #EXECMODE_BINDNO,-(sp)
   DOS _EXEC
   lea (10,sp),sp
   rts

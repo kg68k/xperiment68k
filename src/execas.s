@@ -56,7 +56,7 @@ ProgramStart:
   clr.l -(sp)
   pea (cmdlineBuffer,pc)
   pea (fileBuffer,pc)
-  move #EXEC_PATHCHK,-(sp)
+  move #EXECMODE_PATHCHK,-(sp)
   DOS _EXEC
   lea (14,sp),sp
   tst.l d0
@@ -160,7 +160,7 @@ RuntimeStart:
   clr.l -(sp)
   pea (a2)
   pea (TargetPath,pc)
-  move #EXEC_LOAD,-(sp)
+  move #EXECMODE_LOAD,-(sp)
   DOS _EXEC
   lea (14,sp),sp
   tst.l d0
@@ -212,7 +212,7 @@ execDummy:
   lea (dummyEntry,pc),a4
 execOnly:
   pea (a4)
-  move #EXEC_EXEC,-(sp)
+  move #EXECMODE_EXECONLY,-(sp)
   DOS _EXEC
   addq.l #6,sp
   rts
