@@ -1,7 +1,7 @@
 .nlist
 
 ;macro.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2024-10-06
+;Last-modified: 2024-10-12
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -65,7 +65,7 @@ STRCPY: .macro src,dst,rewind
     move.b (src)+,(dst)+
   bne @loop
   .if argc>=3
-    subq.l #-rewind,dst
+    subq.l #-(rewind),dst
   .endif
 .endm
 
@@ -76,10 +76,10 @@ STREND: .macro areg,offset
   bne @loop
   .if argc<=1
     subq.l #1,areg
-  .elif offset<=0
-    subq.l #1-offset,areg
-  .elif offset>=2
-    addq.l #offset-1,areg
+  .elif (offset)<=0
+    subq.l #1-(offset),areg
+  .elif (offset)>=2
+    addq.l #(offset)-1,areg
   .endif
 .endm
 
