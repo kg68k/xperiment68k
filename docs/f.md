@@ -1,30 +1,31 @@
 # F
 
-### fatchk_bof
+## fatchk_bof
 `DOS _FATCHK`でバッファの範囲外に書き込んでしまう不具合(Human68k v3.02)を検証します。
 
 
-### fe_fcvt_test
+## fe_fcvt_test
 `FPACK __FCVT`の動作テストです。
 
 
-### fe_power_test
+## fe_power_test
 `FPACK __POWER`の動作テストです。  
 FLOAT4.X version 1.02ではバスエラーが発生します。
 
 
-### fe_stoh_test
+## fe_stoh_test
 `FPACK __STOH`の動作テストです。
 
 
-### files
+
+## files
 コマンドライン引数で指定したファイル名を`DOS _FILES`と`DOS _NFILES`で検索し、
 見つかったファイル名をすべて表示します。
 
 ファイル名は`DOS _FILES`にそのまま渡されるもので、パス名やワイルドカードも指定できます。
 
 
-### fntget
+## fntget
 コマンドライン引数で指定した文字のフォントを拡大してテキストとして表示します。  
 文字の代わりに、2桁または4桁の16進数による文字コードで指定することもできます。
 
@@ -34,7 +35,7 @@ FLOAT4.X version 1.02ではバスエラーが発生します。
 - `-12` ... 半角12×24、全角24×24。
 
 
-### fntsize
+## fntsize
 コマンドライン引数で指定した文字(省略時は半角スペース)について、
 `IOCS _FNTADR`、`IOCS _FNTGET`の結果を一覧表示します。  
 フォントサイズは未定義の値も含め各サイズを指定します。

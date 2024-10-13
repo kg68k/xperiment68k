@@ -1,6 +1,6 @@
 # I
 
-### incdir_test
+## incdir_test
 STUDIO KAMADAさんで解説されているHuman68kの
 「[サブディレクトリ内のファイルが増えたときファイルなどが壊れることがある](https://stdkmd.net/bugsx68k/#human_subdir)」
 不具合について、再現手順の(2)～(6)を実行します。  
@@ -15,20 +15,20 @@ STUDIO KAMADAさんで解説されているHuman68kの
 > ※普段使っているシステムでは実行しないこと！
 
 
-### iocs_ontime
+## iocs_ontime
 `IOCS _ONTIME`で取得した起動後の経過時間(1/100秒単位)を表示します。  
 なにかコマンドライン引数を指定すると経過日数を表示します。
 
 
-### iocs_txfill
+## iocs_txfill
 `IOCS _TXFILL`のサンプルです。
 
 
-### iocs_txyline
+## iocs_txyline
 `IOCS _TXYLINE`のサンプルです。
 
 
-### iocs_txrascpy
+## iocs_txrascpy
 `IOCS _TXRASCPY`によるラスタコピーを行います。  
 使用法: iocs_txrascpy コピー元 コピー先 ラスタ数 移動方向(0:下,-1:上) テキストプレーン  
 移動方向、テキストプレーンは省略できます(省略時は0:下、%0011となります)。
@@ -42,7 +42,7 @@ IOCS.XやHIOCS.Xを組み込んでいるとコンソールのスクロールに�
 (HIOCS PLUS version 1.10+16.17以降など)。
 
 
-### ioctrl12
+## ioctrl12
 コマンドライン引数で指定したファイルを読み込みオープンし、`DOS _IOCTRL (MD=12, F_CODE=0)`
 でファイルの特殊コントロールを行います。  
 ファイル名を省略した場合は標準入力(ファイルハンドル0)に対して実行します。
@@ -52,11 +52,11 @@ Human68k version 3.02ではキャラクタデバイスが特殊IOコントロー
 実行するとアドレスエラー等が発生する場合があります。
 
 
-### ioctrl13
+## ioctrl13
 コマンドライン引数で指定したドライブ(省略時はカレントドライブ)に対して
 `DOS _IOCTRL (MD=13, F_CODE=0)`でドライブの特殊コントロールを行います。
 
 
-### isemu_rtc
+## isemu_rtc
 RTCの挙動の違いを利用して、実行環境が実機かエミュレータかを判別します。
 エミュレータはバージョン検出ポートとWINDRVを無効にしたXM6gが対象です。
