@@ -71,7 +71,6 @@ UTF-8のままでは正しくビルドできませんので注意してくださ
   * [datetime](docs/d.md#datetime) ... IOCSで日時を取得、表示
   * [dbrams](docs/d.md#dbrams) ... IOCSワーク`$cb8`、`$cba`の値を再計測
   * [defchr_7621](docs/d.md#defchr_7621) ... `IOCS _DEFCHR`の動作検証
-  * [dos_create](docs/d.md#dos_create) ... `DOS _CREATE`でファイルを作成
   * [dos_create_sp](docs/d.md#dos_create_sp) ... `DOS _CREATE`の特殊モードでファイルを作成
   * [dos_curdir](docs/d.md#dos_curdir) ... `DOS _CURDIR`でカレントディレクトリを取得
   * [dos_fatchk](docs/d.md#dos_fatchk) ... `DOS _FATCHK`でファイルのセクタを取得
@@ -85,8 +84,6 @@ UTF-8のままでは正しくビルドできませんので注意してくださ
   * [dos_mkdir](docs/d.md#dos_mkdir) ... `DOS _MKDIR`でディレクトリを作成
   * [dos_nameck](docs/d.md#dos_nameck) ... `DOS _NAMECK`でパス名を展開
   * [dos_namests](docs/d.md#dos_namests) ... `DOS _NAMESTS`でパス名を展開
-  * [dos_newfile](docs/d.md#dos_newfile) ... `DOS _NEWFILE`でファイルを作成
-  * [dos_open](docs/d.md#dos_open) ... `DOS _OPEN`でファイルを開く
   * [dos_setenv](docs/d.md#dos_setenv) ... `DOS _SETENV`で環境変数を設定
   * [dumpenv](docs/d.md#dumpenv) ... 環境変数をすべて表示
   * [dumpstdin](docs/d.md#dumpstdin) ... `DOS _READ`で標準入力から読み込み
@@ -103,6 +100,7 @@ UTF-8のままでは正しくビルドできませんので注意してくださ
   * [fe_fcvt_test](docs/f.md#fe_fcvt_test) ... `FPACK __FCVT`の動作テスト
   * [fe_power_test](docs/f.md#fe_power_test) ... `FPACK __POWER`の動作テスト
   * [fe_stoh_test](docs/f.md#fe_stoh_test) ... `FPACK __STOH`の動作テスト
+  * [fileopen](docs/f.md#fileopen) ... 各種の方法によるファイル作成、オープン
   * [files](docs/f.md#files) ... `DOS _FILES`と`DOS _NFILES`によるエントリの列挙
   * [fntget](docs/f.md#fntget) ... フォントを拡大してテキストとして表示
   * [fntsize](docs/f.md#fntsize) ... `IOCS _FNTADR`、`IOCS _FNTGET`の結果を一覧表示
