@@ -42,7 +42,7 @@ Human68Kの標準では`ESC [{pl};{pc}R`(CPR = Cursor Position Report)
 が入力されますが、FEPによっては対応していません。
 
 
-## pseudoexc
+## exception
 コマンドライン引数で指定した例外を発生させ、例外処理を呼び出します。  
 
 `-p`オプションを指定すると、スタックに例外発生時と同じデータを積んでから
