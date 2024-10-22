@@ -91,6 +91,7 @@ UTF-8のままでは正しくビルドできませんので注意してくださ
   * [entryceil](docs/e.md#entryceil) ... 上位メモリから起動する。HUPAIR準拠表示の判別コードの検証用
   * [env_sbo](docs/e.md#env_sbo) ... `DOS _GETENV`、`DOS _SETENV`のバッファオーバーフローの動作検証
   * [esc_dsr](docs/e.md#esc_dsr) ... エスケープシーケンス`ESC [6n`で入力されたキーを表示
+  * [exception](docs/e.md#exception) ... 例外を発生させて例外処理を呼び出す
   * [exchr_hex](docs/e.md#exchr_hex) ... 拡張外字処理を有効にして常駐終了
   * [execas](docs/e.md#execas) ... 「ファイルを別名で実行するR形式実行ファイル」を作成
   * [exfiles](docs/e.md#exfiles) ... `DOS _FILES`の拡張モードでエントリを検索
