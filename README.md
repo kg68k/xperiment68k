@@ -7,37 +7,6 @@
 長いファイル名を使用しているため、TwentyOne +Tなどのファイル名を21文字認識する環境が必要です。
 
 
-## Build
-PCやネット上での取り扱いを用意にするために、src/内のファイルはUTF-8で記述されています。  
-X68000上でビルドする際には、UTF-8からShift_JISへの変換が必要です。
-
-### u8tosjを使用する方法
-
-あらかじめ、[u8tosj](https://github.com/kg68k/u8tosj)をビルドしてインストールしておいてください。
-
-トップディレクトリで`make`を実行してください。以下の処理が行われます。
-1. build/ディレクトリの作成。
-2. src/内の各ファイルをShift_JISに変換してbuild/へ保存。
-
-次に、カレントディレクトリをbuild/に変更し、`make`を実行してください。  
-実行ファイルが作成されます。
-
-### u8tosjを使用しない方法
-
-ファイルを適当なツールで適宜Shift_JISに変換してから`make`を実行してください。  
-UTF-8のままでは正しくビルドできませんので注意してください。
-
-### 必要環境
-* Human68k version 3.02
-* [GNU make](https://github.com/kg68k/gnu-make-human68k) 3.79 human68k-1.4 以降
-* [HAS060.X](http://retropc.net/x68000/software/develop/as/has060/) version 3.09+91 以降
-  * 作者は[HAS060X.X](https://github.com/kg68k/has060xx)をhas060.xにリネームして使っています。
-* [HLKX](https://github.com/kg68k/hlkx) 1.1.0 以降
-  * 環境変数`LD=hlkx`を設定するか、make 実行時のコマンドラインオプションで指定してください。
-  * 指定しない場合はHLKが使用されますが、一部のファイルがビルドされません。
-* gcc2
-
-
 ## Description
 
 * [A](docs/a.md)
@@ -67,6 +36,7 @@ UTF-8のままでは正しくビルドできませんので注意してくださ
   * [closerewindatr](docs/c.md#closerewindatr) ... `DOS _CLOSE`時のファイル属性巻き戻りの動作検証
   * [colorbar](docs/c.md#colorbar) ... カラーバーのような画像を描画
   * [con_scroll](docs/c.md#con_scroll) ... コンソール画面のスクロールのテスト
+  * [crampedexec](docs/c.md#crampedexec) ... 空きメモリ容量を指定してファイルを実行する
 * [D](docs/d.md)
   * [datetime](docs/d.md#datetime) ... IOCSで日時を取得、表示
   * [dbrams](docs/d.md#dbrams) ... IOCSワーク`$cb8`、`$cba`の値を再計測
@@ -179,6 +149,52 @@ UTF-8のままでは正しくビルドできませんので注意してくださ
   * [vdispst_time](docs/v.md#vdispst_time) ... `IOCS _VDISPST`による割り込みが発生するまでの時間を計測
 * [Z](docs/z.md)
   * [zerounit.sys](docs/z.md#zerounitsys) ... ブロックデバイスのユニット数=0の動作検証
+
+
+## シビアなメモリ状況を構築するプログラムについて
+一般に、常駐検査を行うプログラムやプログラム本体の後にバッファを確保するプログラムでは
+メモリを読み書きする前にメモリブロックの大きさを確認しなければなりません。
+それを怠ると、メモリブロックが期待より小さな場合にメモリブロックの範囲外を読み書きしてしまい、
+他のメモリブロックの内容の破壊、バスエラーによる停止、プログラムの暴走などの問題が生じます。
+
+[crampedexec](docs/c.md#crampedexec)、[keepceil](docs/k.md#keepceil)、[keepcmem](docs/k.md#keepcmem)
+などのコードはそのようなプログラムの動作を検証するための補助として、意図的に「小さなメモリブロック」
+を作り出します。
+
+より確実に検証するためには、メインメモリ容量を11MB以下にしてください。
+メインメモリが12MBだとメモリブロックの範囲外がGVRAMになるため、
+スーパーバイザモードになっているとバスエラーが発生せず読み書きできてしまうためです。
+
+
+## Build
+PCやネット上での取り扱いを用意にするために、src/内のファイルはUTF-8で記述されています。  
+X68000上でビルドする際には、UTF-8からShift_JISへの変換が必要です。
+
+### u8tosjを使用する方法
+
+あらかじめ、[u8tosj](https://github.com/kg68k/u8tosj)をビルドしてインストールしておいてください。
+
+トップディレクトリで`make`を実行してください。以下の処理が行われます。
+1. build/ディレクトリの作成。
+2. src/内の各ファイルをShift_JISに変換してbuild/へ保存。
+
+次に、カレントディレクトリをbuild/に変更し、`make`を実行してください。  
+実行ファイルが作成されます。
+
+### u8tosjを使用しない方法
+
+ファイルを適当なツールで適宜Shift_JISに変換してから`make`を実行してください。  
+UTF-8のままでは正しくビルドできませんので注意してください。
+
+### 必要環境
+* Human68k version 3.02
+* [GNU make](https://github.com/kg68k/gnu-make-human68k) 3.79 human68k-1.4 以降
+* [HAS060.X](http://retropc.net/x68000/software/develop/as/has060/) version 3.09+91 以降
+  * 作者は[HAS060X.X](https://github.com/kg68k/has060xx)をhas060.xにリネームして使っています。
+* [HLKX](https://github.com/kg68k/hlkx) 1.1.0 以降
+  * 環境変数`LD=hlkx`を設定するか、make 実行時のコマンドラインオプションで指定してください。
+  * 指定しない場合はHLKが使用されますが、一部のファイルがビルドされません。
+* gcc2
 
 
 ## License
