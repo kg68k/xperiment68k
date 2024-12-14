@@ -15,9 +15,47 @@ STUDIO KAMADAさんで解説されているHuman68kの
 > ※普段使っているシステムでは実行しないこと！
 
 
+## iocs_datebcd
+コマンドライン引数で指定したバイナリ形式の日付データ(16進数、省略時は現在日)を、
+`IOCS _DATEBCD`でBCD形式に変換して表示します。
+
+
+## iocs_datebin
+コマンドライン引数で指定したBCD形式の日付データ(16進数、省略時は現在日)を、
+`IOCS _DATEBIN`でバイナリ形式に変換して表示します。
+
+
+## iocs_dateget
+`IOCS _DATEGET`で日付を取得して表示します。
+
+
+## iocs_dateset
+コマンドライン引数で指定したBCD形式の日付データ(16進数)を、`IOCS _DATESET`でRTCに設定します。
+戻り値は常に0になります。
+
+
 ## iocs_ontime
 `IOCS _ONTIME`で取得した起動後の経過時間(1/100秒単位)を表示します。  
 なにかコマンドライン引数を指定すると経過日数を表示します。
+
+
+## iocs_timebcd
+コマンドライン引数で指定したバイナリ形式の時刻データ(16進数、省略時は現在時)を、
+`IOCS _TIMEBCD`でBCD形式に変換して表示します。
+
+
+## iocs_timebin
+コマンドライン引数で指定したBCD形式の時刻データ(16進数、省略時は現在時)を、
+`IOCS _TIMEBIN`でバイナリ形式に変換して表示します。
+
+
+## iocs_timeget
+`IOCS _TIMEGET`で時刻を取得して表示します。
+
+
+## iocs_timeset
+コマンドライン引数で指定したBCD形式の時刻データ(16進数)を、`IOCS _TIMESET`でRTCに設定します。
+戻り値は常に0になります。
 
 
 ## iocs_txfill

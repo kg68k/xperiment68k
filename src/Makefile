@@ -41,8 +41,10 @@ ALLTARGET = \
          fe_fcvt_test.x fe_power_test.x fe_stoh_test.x \
          fileopen.x files.x fntget.x fntsize.x \
          getassign.x \
-         incdir_test.x iocs_ontime.x iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
-         ioctrl12.x ioctrl13.x \
+         incdir_test.x \
+         iocs_datebcd.x iocs_datebin.x iocs_dateget.x iocs_dateset.x iocs_ontime.x \
+         iocs_timebcd.x iocs_timebin.x iocs_timeget.x iocs_timeset.x \
+         iocs_txfill.x iocs_txyline.x iocs_txrascpy.x ioctrl12.x ioctrl13.x \
          isemu_rtc.x \
          joyget.x kbdctrl.x keepceil.x keepcmem.x keyflush.x keyscan.x \
          lineage.x \

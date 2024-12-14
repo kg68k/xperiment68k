@@ -79,7 +79,15 @@
   * [getassign](docs/g.md#getassign) ... `DOS _ASSIGN (MD=0)`でドライブの割り当て状態を取得
 * [I](docs/i.md)
   * [incdir_test](docs/i.md#incdir_test) ... サブディレクトリ拡張時のディスク破壊の再現補助
+  * [iocs_datebcd](docs/i.md#iocs_datebcd) ... `IOCS _DATEBCD`で日付データのバイナリ→BCD変換
+  * [iocs_datebin](docs/i.md#iocs_datebin) ... `IOCS _DATEBIN`で日付データのBCD→バイナリ変換
+  * [iocs_dateget](docs/i.md#iocs_dateget) ... `IOCS _DATEGET`で日付を取得
+  * [iocs_dateset](docs/i.md#iocs_dateset) ... `IOCS _DATESET`で日付を設定
   * [iocs_ontime](docs/i.md#iocs_ontime) ... `IOCS _ONTIME`で起動後の経過時間を取得
+  * [iocs_timebcd](docs/i.md#iocs_timebcd) ... `IOCS _TIMEBCD`で時刻データのバイナリ→BCD変換
+  * [iocs_timebin](docs/i.md#iocs_timebin) ... `IOCS _TIMEBIN`で時刻データのBCD→バイナリ変換
+  * [iocs_timeget](docs/i.md#iocs_timeget) ... `IOCS _TIMEGET`で時刻を取得
+  * [iocs_timeset](docs/i.md#iocs_timeset) ... `IOCS _TIMESET`で時刻を設定
   * [iocs_txfill](docs/i.md#iocs_txfill) ... `IOCS _TXFILL`のサンプル
   * [iocs_txrascpy](docs/i.md#iocs_txrascpy) ... `IOCS _TXYLINE`のサンプル
   * [iocs_txyline](docs/i.md#iocs_txyline) ... `IOCS _TXRASCPY`でラスタコピーを行う
