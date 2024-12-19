@@ -47,14 +47,20 @@
   * [dos_fgetc](docs/d.md#dos_fgetc) ... `DOS _FGETC`でファイルから文字入力
   * [dos_fgets](docs/d.md#dos_fgets) ... `DOS _FGETS`でファイルから行入力
   * [dos_filedate](docs/d.md#dos_filedate) ... `DOS _FILEDATE`でファイルのタイムスタンプを取得または設定
+  * [dos_getdate](docs/d.md#dos_getdate) ... `DOS _GETDATE`で日付を取得
   * [dos_getenv](docs/d.md#dos_getenv) ... `DOS _GETENV`で環境変数を取得
+  * [dos_gettim2](docs/d.md#dos_gettim2) ... `DOS _GETTIM2`で時刻を取得(ロングワード)
+  * [dos_gettime](docs/d.md#dos_gettime) ... `DOS _GETTIME`で時刻を取得
   * [dos_inpout](docs/d.md#dos_inpout) ... `DOS _INPOUT`による文字入力または文字出力
   * [dos_keyctrl01](docs/d.md#dos_keyctrl01) ... `DOS _KEYCTRL`によるキー入力
   * [dos_maketmp](docs/d.md#dos_maketmp) ... `DOS _MAKETMP`でテンポラリファイルを作成
   * [dos_mkdir](docs/d.md#dos_mkdir) ... `DOS _MKDIR`でディレクトリを作成
   * [dos_nameck](docs/d.md#dos_nameck) ... `DOS _NAMECK`でパス名を展開
   * [dos_namests](docs/d.md#dos_namests) ... `DOS _NAMESTS`でパス名を展開
+  * [dos_setdate](docs/d.md#dos_setdate) ... `DOS _SETDATE`で日付を設定
   * [dos_setenv](docs/d.md#dos_setenv) ... `DOS _SETENV`で環境変数を設定
+  * [dos_setitm2](docs/d.md#dos_setitm2) ... `DOS _SETITM2`で時刻を設定(ロングワード)
+  * [dos_settime](docs/d.md#dos_settime) ... `DOS _SETTIME`で時刻を設定
   * [dumpenv](docs/d.md#dumpenv) ... 環境変数をすべて表示
   * [dumpstdin](docs/d.md#dumpstdin) ... `DOS _READ`で標準入力から読み込み
 * [E](docs/e.md)
