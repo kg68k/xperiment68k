@@ -16,6 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+.include macro.mac
 .include fefunc.mac
 .include console.mac
 .include doscall.mac
@@ -27,28 +28,102 @@
 .text
 
 ProgramStart:
-  moveq #0,d7  ;秒数を表示する
-  lea (1,a2),a0
-  SKIP_SPACE a0
-  beq @f
-    moveq #1,d7  ;日数を表示する
-  @@:
-
-  IOCS _ONTIME
-  tst.l d7
-  beq @f
-    move.l d1,d0
-  @@:
   lea (Buffer,pc),a0
-  FPACK __LTOS
 
+  addq.l #1,a2
+  SKIP_SPACE a2
+  beq 1f
+    bsr PrintOntimeDHMS
+    bra @f
+  1:
+    bsr PrintOntimeHex
+  @@:
+
+  lea (CrLf,pc),a1
+  STRCPY a1,a0
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
-
   DOS _EXIT
 
 
+PrintOntimeHex:
+  IOCS _ONTIME
+  move.l d1,d3
+
+  lea (strD0,pc),a1
+  STRCPY a1,a0,-1
+  bsr ToHexString$4_4
+
+  move.l d3,d0
+  lea (strD1,pc),a1
+  STRCPY a1,a0,-1
+  bsr ToHexString$4_4
+  rts
+
+
+PrintOntimeDHMS:
+  IOCS _ONTIME
+  move.l d0,d3
+
+  moveq #0,d0
+  move d1,d0  ;日数
+  FPACK __LTOS
+  lea (strDays,pc),a1
+  STRCPY a1,a0,-1
+
+  move.l d3,d0
+  moveq #100,d1
+  FPACK __IDIV
+  move.l d1,d7  ;1/100秒(0...99)
+
+  moveq #60,d1
+  FPACK __IDIV
+  move.l d1,d6  ;秒数(0...59)
+
+  FPACK __IDIV
+  move.l d1,d5  ;分数(0...59)
+
+  ;d0.w = 時間(0...23)
+  bsr ToDecimalString02
+  lea (strHours,pc),a1
+  STRCPY a1,a0,-1
+
+  move.l d5,d0
+  bsr ToDecimalString02
+  lea (strMinutes,pc),a1
+  STRCPY a1,a0,-1
+
+  move.l d6,d0
+  bsr ToDecimalString02
+  lea (strSeconds,pc),a1
+  STRCPY a1,a0,-1
+
+  move.l d7,d0
+  bsr ToDecimalString02
+  rts
+
+
+ToDecimalString02:
+  divu #10,d0
+  addi.l #'0'<<16+'0',d0
+  move.b d0,(a0)+
+  swap d0
+  move.b d0,(a0)+
+  clr.b (a0)
+  rts
+
+
+  DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
+
+
 .data
+
+strD0: .dc.b 'd0.l = ',0
+strD1: .dc.b ', d1.l = ',0
+
+strDays:    .dc.b 'd ',0
+strHours:   .dc.b ':',0
+strMinutes: .dc.b ':',0
+strSeconds: .dc.b '"',0
 
 CrLf: .dc.b CR,LF,0
 
