@@ -163,6 +163,7 @@
   * [vdispst_time](docs/v.md#vdispst_time) ... `IOCS _VDISPST`による割り込みが発生するまでの時間を計測
 * [Z](docs/z.md)
   * [zerounit.sys](docs/z.md#zerounitsys) ... ブロックデバイスのユニット数=0の動作検証
+  * [zmsc2_oddopm](docs/z.md#zmsc2_oddopm) ... 奇数アドレスにあるZ-MUSIC v2のZMDデータをOPMデバイスに書き込む
 
 
 ## シビアなメモリ状況を構築するプログラムについて
