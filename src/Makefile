@@ -58,7 +58,7 @@ ALLTARGET = \
          tokikoe.x \
          uskcg24.x uskfontadr.x uskhw_hex.x \
          vdispst_time.x \
-         zerounit.sys zmsc2_oddopm.x
+         zerounit.sys zmsc2_gettrktbl.x zmsc2_mstat.x zmsc2_oddopm.x
 
 ifndef USE_HLKX
 DO_NOT_BUILD = entryceil.x keepceil.x reset68k.r uskfontadr.x
