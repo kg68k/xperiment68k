@@ -155,6 +155,7 @@
   * [sysport](docs/s.md#sysport) ... システムポート領域の値の表示
 * [T](docs/t.md)
   * [tokikoe](docs/t.md#tokikoe) ... テキスト画面に特定のメッセージを描画
+  * [tpalreset](docs/t.md#tpalreset) ... テキストパレットをシステム設定値に戻す
 * [U](docs/u.md)
   * [uskcg24](docs/u.md#uskcg24) ... ユーザー定義外字の文字表をテキスト画面に描画
   * [uskfontadr](docs/u.md#uskfontadr) ... 外字フォントデータのアドレスを表示
