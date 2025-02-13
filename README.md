@@ -149,6 +149,7 @@
   * [sjis_tbl](docs/s.md#sjis_tbl) ... Shift_JISの2バイト文字の文字表を表示
   * [skeyset](docs/s.md#skeyset) ... `IOCS _SKEYSET`によりキー入力を発生し、`IOCS _B_KEYINP`で取得
   * [sp3tx0gr2](docs/s.md#sp3tx0gr2) ... 画面間プライオリティを特殊な値に設定。エミュレータの検証用
+  * [spchecker](docs/s.md#spchecker) ... スプライトを市松模様に表示
   * [splimchk](docs/s.md#splimchk) ... スプライトの表示限界の検証用
   * [sq64k](docs/s.md#sq64k) ... 画面モードを768×512、65536色に変更
   * [sram_memsize](docs/s.md#sram_memsize) ... SRAMのメインメモリ容量を書き換える。エミュレータの検証用
