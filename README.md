@@ -101,6 +101,7 @@
   * [ioctrl13](docs/i.md#ioctrl13) ... `DOS _IOCTRL (MD=13, F_CODE=0)`によるドライブの特殊コントロール
   * [isemu_rtc](docs/i.md#isemu_rtc) ... RTCの挙動の違いを利用したエミュレータ判別
 * [J](docs/j.md)
+  * [jfp_stat](docs/j.md#jfp_stat) ... 日本語FPの各状態を表示
   * [joyget](docs/j.md#joyget) ... `IOCS _JOYGET`によるジョイスティック入力
 * [K](docs/k.md)
   * [kbdctrl](docs/k.md#kbdctrl) ... キーボード制御コマンドコードをキーボードに送信
