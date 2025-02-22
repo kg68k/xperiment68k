@@ -61,6 +61,7 @@
   * [dos_setenv](docs/d.md#dos_setenv) ... `DOS _SETENV`で環境変数を設定
   * [dos_setitm2](docs/d.md#dos_setitm2) ... `DOS _SETITM2`で時刻を設定(ロングワード)
   * [dos_settime](docs/d.md#dos_settime) ... `DOS _SETTIME`で時刻を設定
+  * [dos_vernum](docs/d.md#dos_vernum) ... `DOS _VERNUM`でHuman68kのバージョンを取得
   * [dumpenv](docs/d.md#dumpenv) ... 環境変数をすべて表示
   * [dumpstdin](docs/d.md#dumpstdin) ... `DOS _READ`で標準入力から読み込み
 * [E](docs/e.md)
