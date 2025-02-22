@@ -1,7 +1,7 @@
 .nlist
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -110,7 +110,6 @@ label:
   rts
 .endm
 
-
 ;指定アドレスを読み込んでバスエラーが発生するか調べる(ロングワード)
 ;  in  a0.l ... アドレス
 ;  out d0.l ... 読み込んだデータ
@@ -217,6 +216,21 @@ _ToHexString4:
 .endm
 
 
+;(マクロ内部で使用) 数値を16進数で文字列化(8桁)
+_DEFINE_TOHEXSTRING8: .macro
+_ToHexString8:
+  swap d0
+  bsr _ToHexString4
+  swap d0
+  bra _ToHexString4
+
+  _DEFINE_TOHEXSTRING8: .macro
+  .endm
+
+  _DEFINE_TOHEXSTRING4
+.endm
+
+
 ;数値を16進数で文字列化($+4桁)
 DEFINE_TOHEXSTRING$4: .macro label
 label:
@@ -319,6 +333,23 @@ label:
   rts
 
   _DEFINE_TOHEXSTRING4_4
+.endm
+
+
+;数値を16進数で表示($+8桁)
+DEFINE_PRINT$8: .macro label
+label:
+  move.l a0,-(sp)
+  link a6,#-12
+  lea (sp),a0
+  move.b #'$',(a0)+
+  bsr _ToHexString8
+  DOS_PRINT (sp)
+  unlk a6
+  movea.l (sp)+,a0
+  rts
+
+  _DEFINE_TOHEXSTRING8
 .endm
 
 

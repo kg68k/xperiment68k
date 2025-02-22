@@ -64,6 +64,7 @@
   * [dos_vernum](docs/d.md#dos_vernum) ... `DOS _VERNUM`でHuman68kのバージョンを取得
   * [dumpenv](docs/d.md#dumpenv) ... 環境変数をすべて表示
   * [dumpstdin](docs/d.md#dumpstdin) ... `DOS _READ`で標準入力から読み込み
+  * [dumpstupreg](docs/d.md#dumpstupreg) ... 起動時のレジスタ内容を表示
 * [E](docs/e.md)
   * [entryceil](docs/e.md#entryceil) ... 上位メモリから起動する。HUPAIR準拠表示の判別コードの検証用
   * [env_sbo](docs/e.md#env_sbo) ... `DOS _GETENV`、`DOS _SETENV`のバッファオーバーフローの動作検証
