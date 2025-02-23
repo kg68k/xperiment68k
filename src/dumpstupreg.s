@@ -26,7 +26,10 @@
 .text
 
 ProgramStart:
+  ;move from srを実行するまでsr/ccrの値を変化させないこと
   movem.l d0-d7/a0-a7,(RegValues)
+  movem (MoveFromSr,pc),d6  ;命令が書き換わるかの検出用に保存しておく
+  MoveFromSr: move sr,d7
 
   lea (strDataRegs,pc),a0
   lea (DataRegValues,pc),a1
@@ -35,6 +38,16 @@ ProgramStart:
   lea (strAddrRegs,pc),a0
   lea (AddrRegValues,pc),a1
   bsr PrintRegisters
+
+  lea (strSr,pc),a0
+  cmp (MoveFromSr,pc),d6
+  beq @f
+    lea (strCcr,pc),a0  ;move sr,d7がmove ccr,d7に書き換わっていた(68010以上)
+  @@:
+  DOS_PRINT (a0)
+  move d7,d0
+  bsr Print$4
+  DOS_PRINT (CrLf,pc)
 
   DOS _EXIT
 
@@ -53,6 +66,7 @@ PrintRegisters:
   rts
 
 
+  DEFINE_PRINT$4 Print$4
   DEFINE_PRINT$8 Print$8
 
 
@@ -60,6 +74,8 @@ PrintRegisters:
 
 strDataRegs: .dc.b 'd0-d7: ',0
 strAddrRegs: .dc.b 'a0-a7: ',0
+strSr:  .dc.b 'sr: ',0
+strCcr: .dc.b 'ccr: ',0
 Comma: .dc.b ', ',0
 
 CrLf: .dc.b CR,LF,0
