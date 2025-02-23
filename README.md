@@ -160,6 +160,7 @@
 * [T](docs/t.md)
   * [tokikoe](docs/t.md#tokikoe) ... テキスト画面に特定のメッセージを描画
   * [tpalreset](docs/t.md#tpalreset) ... テキストパレットをシステム設定値に戻す
+  * [trap15trace](docs/t.md#trap15trace) ... トレース実行に対応した`trap #15`処理ルーチン
 * [U](docs/u.md)
   * [uskcg24](docs/u.md#uskcg24) ... ユーザー定義外字の文字表をテキスト画面に描画
   * [uskfontadr](docs/u.md#uskfontadr) ... 外字フォントデータのアドレスを表示
