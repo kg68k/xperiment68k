@@ -55,6 +55,16 @@ MPU 68000、IOCS ROM version 1.1、1.2、1.3、1.6(XEiJ)専用です。
 - `-x<hex>` ... 16進数で指定したタイムスタンプを設定します。
 
 
+## dos_getc
+`DOS _GETC`で標準入力から文字入力し、文字コードを表示します。  
+ブレークチェックが行われます。
+
+
+## dos_getchar
+`DOS _GETCHAR`で標準入力から文字入力し、文字コードを表示します。  
+入力された文字は標準出力にエコーバックされます。
+
+
 ## dos_getdate
 `DOS _GETDATE`で日付を取得して表示します。
 
@@ -63,12 +73,20 @@ MPU 68000、IOCS ROM version 1.1、1.2、1.3、1.6(XEiJ)専用です。
 コマンドライン引数で指定した環境変数を`DOS _GETENV`で取得し、結果を表示します。
 
 
+## dos_gets
+`DOS _GETS`で標準入力から文字列入力し、結果を表示します。
+
+
 ## dos_gettim2
 `DOS _GETTIM2`で時刻を取得して表示します。秒の値は1秒単位です。
 
 
 ## dos_gettime
 `DOS _GETTIME`で時刻を取得して表示します。秒の値は2秒単位です。
+
+
+## dos_inkey
+`DOS _INKEY`で標準入力から文字入力し、文字コードを表示します。  
 
 
 ## dos_inpout
@@ -115,6 +133,10 @@ ASK68K 組み込み時は入力待ちをするなど、FEP組み込み状態に�
 ## dos_namests
 コマンドライン引数で指定したファイル名(パス名)を`DOS _NAMESTS`で展開し、
 戻り値と展開結果を表示します。
+
+
+## dos_putchar
+コマンドライン引数で指定した文字列を`DOS _PUTCHAR`で標準出力に出力します。
 
 
 ## dos_setdate

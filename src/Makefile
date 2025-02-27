@@ -32,8 +32,9 @@ ALLTARGET = \
          chxdummy.x closerewindatr.x colorbar.x con_scroll.x crampedexec.x \
          datetime.x dbrams.x defchr_7621.x \
          dos_create_sp.x dos_curdir.x dos_fatchk.x dos_fgetc.x dos_fgets.x dos_filedate.x \
-         dos_getdate.x dos_getenv.x dos_gettim2.x dos_gettime.x dos_inpout.x dos_keyctrl01.x \
-         dos_maketmp.x dos_mkdir.x dos_nameck.x dos_namests.x \
+         dos_getc.x dos_getchar.x dos_getdate.x dos_getenv.x dos_gets.x dos_gettim2.x dos_gettime.x \
+         dos_inkey.x dos_inpout.x dos_keyctrl01.x dos_maketmp.x dos_mkdir.x \
+         dos_nameck.x dos_namests.x dos_putchar.x \
          dos_setdate.x dos_setenv.x dos_settim2.x dos_settime.x dos_vernum.x \
          dumpenv.x dumpstdin.x dumpstupreg.x \
          entryceil.x env_sbo.x esc_dsr.x exception.x exchr_hex.x execas.x exfiles.x existsdir.x \
