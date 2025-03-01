@@ -20,7 +20,6 @@
 .include fefunc.mac
 .include console.mac
 .include doscall.mac
-.include doscall.mac
 .include iocscall.mac
 
 .include xputil.mac
