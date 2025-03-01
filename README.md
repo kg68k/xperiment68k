@@ -41,6 +41,7 @@
   * [datetime](docs/d.md#datetime) ... IOCSで日時を取得、表示
   * [dbrams](docs/d.md#dbrams) ... IOCSワーク`$cb8`、`$cba`の値を再計測
   * [defchr_7621](docs/d.md#defchr_7621) ... `IOCS _DEFCHR`の動作検証
+  * [dos_conctrl](docs/d.md#dos_conctrl) ... `DOS _CONCTRL`でコンソール制御・直接出力
   * [dos_create_sp](docs/d.md#dos_create_sp) ... `DOS _CREATE`の特殊モードでファイルを作成
   * [dos_curdir](docs/d.md#dos_curdir) ... `DOS _CURDIR`でカレントディレクトリを取得
   * [dos_fatchk](docs/d.md#dos_fatchk) ... `DOS _FATCHK`でファイルのセクタを取得
