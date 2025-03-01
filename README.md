@@ -92,6 +92,7 @@
   * [getassign](docs/g.md#getassign) ... `DOS _ASSIGN (MD=0)`でドライブの割り当て状態を取得
 * [I](docs/i.md)
   * [incdir_test](docs/i.md#incdir_test) ... サブディレクトリ拡張時のディスク破壊の再現補助
+  * [iocs_b_clr_st](docs/i.md#iocs_b_clr_st) ... `IOCS _B_CLR_ST`で画面の複数行を消去
   * [iocs_datebcd](docs/i.md#iocs_datebcd) ... `IOCS _DATEBCD`で日付データのバイナリ→BCD変換
   * [iocs_datebin](docs/i.md#iocs_datebin) ... `IOCS _DATEBIN`で日付データのBCD→バイナリ変換
   * [iocs_dateget](docs/i.md#iocs_dateget) ... `IOCS _DATEGET`で日付を取得
