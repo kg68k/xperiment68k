@@ -83,10 +83,19 @@ ParseUint16:
 
 ;MD=0 1バイトの文字を表示する
 Md0:
-  SKIP_SPACE a0  ;引数省略時はCODE=0
   moveq #0,d0
-  move.b (a0)+,d0
-
+  SKIP_SPACE a0  ;引数省略時はCODE=0
+  beq @f
+    move.b (a0)+,d0
+    move.b d0,d1
+    lsr #5,d1
+    btst d1,#%10010000
+    beq @f
+      move.b (a0)+,d1
+      beq @f
+        lsl #8,d0  ;2バイト文字
+        move.b d1,d0
+  @@:
   move d0,-(sp)
   move d7,-(sp)
   DOS _CONCTRL
