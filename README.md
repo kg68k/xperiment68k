@@ -30,6 +30,7 @@
   * [bgzombie](docs/b.md#bgzombie) ... `DOS _KILL_PR`の動作検証
   * [bitsns](docs/b.md#bitsns) ... `IOCS _BITSNS`でキーの押し下げ状態を表示
   * [bkeyinpd3](docs/b.md#bkeyinpd3) ... `IOCS _B_EKYINP`の動作検証(`d3`レジスタ破壊)
+  * [bputmes_cur](docs/b.md#bputmes_cur) ... `IOCS _B_PUTMES`のカーソル描画残留の動作検証
   * [buserr_2w](docs/b.md#buserr_2w) ... バスエラーを発生させる。エミュレータの検証用
 * [C](docs/c.md)
   * [chxdummy](docs/c.md#chxdummy) ... ch30inst.x、chxinst.xの共存インストール機能の動作検証
