@@ -20,6 +20,8 @@
 .include doscall.mac
 .include process.mac
 
+.include xputil.mac
+
 
 .cpu 68000
 .text
@@ -27,10 +29,46 @@
 ProgramStart:
   movea.l (MEMBLK_End,a0),sp  ;メモリブロックの末尾をスタックとして使う
 
+  lea (ConctrlCuron,pc),a3  ;引数省略時は MD=17
+  addq.l #1,a2
+  SKIP_SPACE a2
+  beq @f
+    move.b (a2)+,d0
+    cmpi.b #'c',d0
+    beq @f
+    cmpi.b #'f',d0
+    bne 1f
+      lea (ConctrlFnkmod,pc),a3
+      bra @f
+    1:
+    cmpi.b #'w',d0
+    bne 1f
+      lea (ConctrlWidth,pc),a3
+      bra @f
+    1:
+  @@:
+
+  jmp (a3)  ;スタックに何も積まないようにするため、jsrは不可
+
+
+ConctrlFnkmod:
+  move #-1,-(sp)
+  move #14,-(sp)
+  DOS _CONCTRL
+  addq.l #4,sp
+  DOS _EXIT
+
+ConctrlWidth:
+  move #-1,-(sp)
+  move #16,-(sp)
+  DOS _CONCTRL
+  addq.l #4,sp
+  DOS _EXIT
+
+ConctrlCuron:
   move #17,-(sp)
   DOS _CONCTRL
   addq.l #2,sp
-
   DOS _EXIT
 
 
