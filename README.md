@@ -167,6 +167,7 @@
   * [splimchk](docs/s.md#splimchk) ... スプライトの表示限界の検証用
   * [sq64k](docs/s.md#sq64k) ... 画面モードを768×512、65536色に変更
   * [sram_memsize](docs/s.md#sram_memsize) ... SRAMのメインメモリ容量を書き換える。エミュレータの検証用
+  * [super_time](docs/s.md#super_time) ... `IOCS _B_SUPER`、`DOS _SUPER`、`DOS _SUPER_JSR`のベンチマーク
   * [sysport](docs/s.md#sysport) ... システムポート領域の値の表示
 * [T](docs/t.md)
   * [tokikoe](docs/t.md#tokikoe) ... テキスト画面に特定のメッセージを描画
