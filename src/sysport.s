@@ -1,7 +1,7 @@
 .title sysport - print system port
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ printSysPort:
   @@:
     bsr Print$2
 9:
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
   rts
 
 
@@ -82,6 +82,8 @@ headers:
   .dc.b '$00e8e00f #8(  w): ',0
 
 strBusErr: .dc.b 'bus error',0
+
+CrLf: .dc.b CR,LF,0
 
 
 .end

@@ -1,7 +1,7 @@
 .title dos_mkdir - DOS _MKDIR
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -34,12 +34,17 @@ Start:
   DOS _MKDIR
   addq.l #4,sp
   bsr PrintD0$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
 
   DOS _EXIT 
 
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
+
+
+.data
+
+CrLf: .dc.b CR,LF,0
 
 
 .end

@@ -1,7 +1,7 @@
 .title beep_mpcm - play beep with MPCM M_EFCT_OUT($10xx)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ MainLoop:
     trap #1  ;MPCMファンクションコール呼び出し
 
     bsr Print$4_4
-    DOS_PRINT_CRLF
+    DOS_PRINT (CrLf,pc)
   loopNext:
   bsr getPlayChannel
   bpl loop
@@ -179,6 +179,8 @@ Usage:
 
 NoMpcmMessage: .dc.b 'MPCMが組み込まれていません。',CR,LF,0
 InvalidBeepDataMessage: .dc.b 'BEEP音データが登録されていません。',CR,LF,0
+
+CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

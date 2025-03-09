@@ -1,7 +1,7 @@
 .title dos_maketmp - DOS _MAKETMP
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ ProgramStart:
   bsr PrintD0$4_4
   DOS_PRINT (Comma,pc)
   DOS_PRINT (Filename,pc)
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
 
   DOS _EXIT
 
@@ -62,6 +62,8 @@ PrintUsage:
 
 Usage: .dc.b 'usage: dos_maketmp filename',CR,LF,0
 Comma: .dc.b ', ',0
+
+CrLf: .dc.b CR,LF,0
 
 
 .bss

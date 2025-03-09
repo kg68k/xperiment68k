@@ -1,7 +1,7 @@
 .title sram_memsize - verify writing the main memory size in SRAM ($00ed0008)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ PrintMainMemorySize:
   DOS_PRINT (MemorySizeMessage,pc)
   bsr GetMeinMemorySize
   bsr Print$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
   rts
 
 
@@ -95,6 +95,8 @@ MemorySizeMessage: .dc.b '現在のメインメモリ容量($00ed0008): ',0
 ModifyMessage1: .dc.b 'メインメモリ容量を',0
 ModifyMessage2: .dc.b 'に書き換えます。',CR,LF,0
 RestoreMessage: .dc.b 'メインメモリ容量を元に戻します。',CR,LF,0
+
+CrLf: .dc.b CR,LF,0
 
 
 .end

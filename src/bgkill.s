@@ -1,7 +1,7 @@
 .title bgkill - send _KILL_PR request to thread
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -76,7 +76,7 @@ ProgramStart:
 error2:
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -112,6 +112,8 @@ Usage: .dc.b 'usage: bgkill thread_name',CR,LF,0
 ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
 GetPrErrorMessage: .dc.b 'DOS _GET_PR エラー: ',0
 SendPrErrorMessage: .dc.b 'DOS _SEND_PR エラー: ',0
+
+CrLf: .dc.b CR,LF,0
 
 
 .bss

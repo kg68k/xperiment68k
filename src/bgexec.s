@@ -1,7 +1,7 @@
 .title bgexec - execute file in bgexecd
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -128,7 +128,7 @@ retry:
 error2:
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -166,6 +166,8 @@ PathchkErrorMessage: .dc.b 'DOS _EXEC (pathchk) エラー: ',0
 GetPrErrorMessage: .dc.b 'DOS _GET_PR エラー: ',0
 SendPrErrorMessage: .dc.b 'DOS _SEND_PR エラー: ',0
 
+CrLf: .dc.b CR,LF,0
+
 
 .bss
 .quad
@@ -175,7 +177,6 @@ BgBuffer: .ds.b sizeof_BG
 ;ファイル名の後ろにコマンドラインを詰めるので、順番を変えないこと
 FileBuffer: .ds.b 256
 CmdlineBuffer: .ds.b 256
-
 
 
 .end ProgramStart

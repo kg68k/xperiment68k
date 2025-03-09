@@ -1,7 +1,7 @@
 .title dos_fgets - DOS _FGETS
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -72,7 +72,7 @@ ProgramStart:
         IOCS _B_PUTC
       @@:
       DOS_PRINT (2,a3)
-      DOS_PRINT_CRLF
+      DOS_PRINT (CrLf,pc)
     bra loop
   9:
   cmpi.l #-1,d0
@@ -82,12 +82,17 @@ exit:
 
 error:
   bsr PrintD0$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
+
+
+.data
+
+CrLf: .dc.b CR,LF,0
 
 
 .bss

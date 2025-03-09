@@ -1,7 +1,7 @@
 .title existsdir - check if directory exists
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -117,7 +117,7 @@ PrintResult:
   DOS_PRINT (a0)
   move.l (sp)+,d0
   bsr PrintD0$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
   rts
 
 
@@ -136,6 +136,8 @@ FilesMessage2: .dc.b 'DOS _FILES (atr=$0010): ',0
 ExistsMessage:     .dc.b 'ディレクトリが存在します。',CR,LF,0
 NotExistsMessage:  .dc.b 'ディレクトリは存在しません。',CR,LF,0
 OtherErrorMessage: .dc.b 'ディレクトリは存在しません(その他のエラー)。',CR,LF,0
+
+CrLf: .dc.b CR,LF,0
 
 
 .bss

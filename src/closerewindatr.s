@@ -1,7 +1,7 @@
 .title closerewindatr - DOS _CLOSE rewinds the file attribute
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -101,7 +101,7 @@ error:
   DOS_PRINT (a0)
   move.l (sp)+,d0
   bsr PrintD0$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -117,7 +117,7 @@ GetAndPrintFileAttribute:
     DOS_PRINT (FileAttributeMessage,pc)
     move.l (sp),d0
     bsr PrintFileAttribute
-    DOS_PRINT_CRLF
+    DOS_PRINT (CrLf,pc)
   @@:
   move.l (sp)+,d0
   rts
@@ -164,6 +164,8 @@ OpenMessage: .dc.b 'ファイルをオープンします。',CR,LF,0
 ReverseRMessage: .dc.b '読み込み専用属性を変更します。',CR,LF,0
 WriteMessage: .dc.b 'ファイルに書き込みを行います。',CR,LF,0
 CloseMessage: .dc.b 'ファイルをクローズします。',CR,LF,0
+
+CrLf: .dc.b CR,LF,0
 
 
 .end

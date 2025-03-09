@@ -411,15 +411,6 @@ DOS_PRINT: .macro ea
 .endm
 
 
-;改行を表示する(標準出力への出力)
-DOS_PRINT_CRLF: .macro
-  move.l #CR<<24+LF<<16,-(sp)
-  pea (sp)
-  DOS _PRINT
-  addq.l #8,sp
-.endm
-
-
 ;文字列を表示する(IOCS)
 IOCS_B_PRINT: .macro ea
   lea ea,a1

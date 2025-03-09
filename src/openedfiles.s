@@ -1,7 +1,7 @@
 .title openedfiles - show opened files
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ showFile:
   lea (Buffer,pc),a1
   bsr copyFilename
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
 showFileDone:
   moveq #0,d0
 showFileEnd:
@@ -134,11 +134,13 @@ copyFilename:
 
 Colon: .dc.b ': ',0
 
+CrLf: .dc.b CR,LF,0
+
 
 .bss
 .even
 
-Buffer:  .ds.b 256
+Buffer: .ds.b 256
 
 
 .end ProgramStart

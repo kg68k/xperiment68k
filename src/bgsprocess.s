@@ -1,7 +1,7 @@
 .title bgsprocess - set sub memory with `DOS _S_PROCESS`
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ ProgramStart:
   DOS_PRINT (SetSubMemoryMessage,pc)
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
 
   DOS _EXIT
 
@@ -90,7 +90,7 @@ error2:
   DOS_PRINT (a0)
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -131,6 +131,8 @@ MallocErrorMessage:   .dc.b 'DOS _MALLOC エラー: ',0
 GetPrErrorMessage:    .dc.b 'DOS _GET_PR エラー: ',0
 SProcessErrorMessage: .dc.b 'DOS _S_PROCESS エラー: ',0
 SetSubMemoryMessage:  .dc.b 'サブのメモリ管理を設定しました: ',0
+
+CrLf: .dc.b CR,LF,0
 
 
 .bss

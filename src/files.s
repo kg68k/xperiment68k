@@ -1,7 +1,7 @@
 .title files - DOS _FILES/_NFILES
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -79,7 +79,7 @@ nfilesError:
 
 PrintFilesResult:
   DOS_PRINT (FILES_FileName,a0)
-  DOS_PRINT_CRLF
+  DOS_PRINT (CrLf,pc)
   rts
 
 
@@ -92,6 +92,8 @@ DefaultFindPath: .dc.b '*.*',0
 
 FilesError:  .dc.b 'DOS _FILES error: ',0
 NfilesError: .dc.b 'DOS _NFILES error: ',0
+
+CrLf: .dc.b CR,LF,0
 
 
 .bss
