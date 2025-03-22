@@ -28,6 +28,7 @@
   * [bgthreadid](docs/b.md#bgthreadid) ... スレッドIDを表示
   * [bgwakeup](docs/b.md#bgwakeup) ... スレッドに強制スリープ解除コマンドを送信
   * [bgzombie](docs/b.md#bgzombie) ... `DOS _KILL_PR`の動作検証
+  * [bindno](docs/b.md#bindno) ... `DOS _EXEC (MD=5;bindno)`でモジュール番号を取得
   * [bitsns](docs/b.md#bitsns) ... `IOCS _BITSNS`でキーの押し下げ状態を表示
   * [bkeyinpd3](docs/b.md#bkeyinpd3) ... `IOCS _B_EKYINP`の動作検証(`d3`レジスタ破壊)
   * [bputmes_cur](docs/b.md#bputmes_cur) ... `IOCS _B_PUTMES`のカーソル描画残留の動作検証

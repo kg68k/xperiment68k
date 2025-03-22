@@ -28,7 +28,7 @@ ALLTARGET = \
          beep_adpcmout.x beep_mpcm.x beep_zmsc3.x \
          bg1pr2th.x bgexec.x bgexecd.x bgkill.x bglivingdead.x bgsprocd.x bgsprocess.x \
          bgthreadid.x bgwakeup.x bgzombie.x \
-         bitsns.x bkeyinpd3.x bputmes_cur.x buserr_2w.x \
+         bindno.x bitsns.x bkeyinpd3.x bputmes_cur.x buserr_2w.x \
          chxdummy.x closerewindatr.x colorbar.x conctrl_so.x con_scroll.x crampedexec.x \
          datetime.x dbrams.x defchr_7621.x \
          dos_conctrl.x dos_create_sp.x dos_curdir.x dos_fatchk.x dos_fgetc.x dos_fgets.x dos_filedate.x \
