@@ -50,7 +50,7 @@ ALLTARGET = \
          isemu_rtc.x \
          jfp_stat.x joyget.x \
          kbdctrl.x keepceil.x keepcmem.x keyflush.x keyscan.x \
-         lineage.x \
+         lineage.x loadonly.x \
          mallocall.x malloc_ba_exec.x midi_reg.x movem_aipi.x mpcm_echcnt.x \
          nameck_bof.x namests_bof.x newvol.x ns_sbo.x \
          openedfiles.x openkeep.x \

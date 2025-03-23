@@ -125,6 +125,7 @@
   * [keyscan](docs/k.md#keyscan) ... キーボードから受信したスキャンコードを表示
 * [L](docs/l.md)
   * [lineage](docs/l.md#lineage) ... 自分自身と祖先のメモリ管理ポインタを表示
+  * [loadonly](docs/l.md#loadonly) ... `DOS _EXEC (MD=3;loadonly)`で実行ファイルをロード
 * [M](docs/m.md)
   * [mallocall](docs/m.md#mallocall) ... メモリブロックを可能な限り確保
   * [malloc_ba_exec](docs/m.md#malloc_ba_exec) ... `DOS _EXEC`の前後でメモリを確保
