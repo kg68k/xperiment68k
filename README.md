@@ -97,6 +97,7 @@
 * [I](docs/i.md)
   * [incdir_test](docs/i.md#incdir_test) ... サブディレクトリ拡張時のディスク破壊の再現補助
   * [iocs_b_clr_st](docs/i.md#iocs_b_clr_st) ... `IOCS _B_CLR_ST`で画面の複数行を消去
+  * [iocs_b_conmod](docs/i.md#iocs_b_conmod) ... `IOCS _B_CONMOD`でカーソルとスクロールを設定
   * [iocs_b_del](docs/i.md#iocs_b_del) ... `IOCS _B_DEL`で画面の複数行を削除
   * [iocs_b_ins](docs/i.md#iocs_b_ins) ... `IOCS _B_INS`で画面に複数行を挿入
   * [iocs_datebcd](docs/i.md#iocs_datebcd) ... `IOCS _DATEBCD`で日付データのバイナリ→BCD変換
