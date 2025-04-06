@@ -29,7 +29,7 @@ ALLTARGET = \
          bg1pr2th.x bgexec.x bgexecd.x bgkill.x bglivingdead.x bgsprocd.x bgsprocess.x \
          bgthreadid.x bgwakeup.x bgzombie.x \
          bindno.x bitsns.x bkeyinpd3.x bputmes_cur.x buserr_2w.x \
-         chxdummy.x closerewindatr.x colorbar.x conctrl_so.x con_scroll.x crampedexec.x \
+         chxdummy.x closerewindatr.x colorbar.x colorgradient.x conctrl_so.x con_scroll.x crampedexec.x \
          datetime.x dbrams.x defchr_7621.x \
          dos_conctrl.x dos_create_sp.x dos_curdir.x dos_fatchk.x dos_fgetc.x dos_fgets.x dos_filedate.x \
          dos_getc.x dos_getchar.x dos_getdate.x dos_getenv.x dos_gets.x dos_gettim2.x dos_gettime.x \

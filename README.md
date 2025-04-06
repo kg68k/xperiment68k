@@ -37,6 +37,7 @@
   * [chxdummy](docs/c.md#chxdummy) ... ch30inst.x、chxinst.xの共存インストール機能の動作検証
   * [closerewindatr](docs/c.md#closerewindatr) ... `DOS _CLOSE`時のファイル属性巻き戻りの動作検証
   * [colorbar](docs/c.md#colorbar) ... カラーバーのような画像を描画
+  * [colorgradient](docs/c.md#colorgradient) ... カラーグラデーションの画像を描画
   * [conctrl_so](docs/c.md#conctrl_so) ... `DOS _CONCTRL`のスタックオーバーランの動作検証
   * [con_scroll](docs/c.md#con_scroll) ... コンソール画面のスクロールのテスト
   * [crampedexec](docs/c.md#crampedexec) ... 空きメモリ容量を指定してファイルを実行する
