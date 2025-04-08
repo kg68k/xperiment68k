@@ -31,6 +31,11 @@ ProgramStart:
   movem (MoveFromSr,pc),d6  ;命令が書き換わるかの検出用に保存しておく
   MoveFromSr: move sr,d7
 
+  pea (GetSsp,pc)
+  DOS _SUPER_JSR
+  addq.l #4,sp
+  move.l d0,d5
+
   lea (strDataRegs,pc),a0
   lea (DataRegValues,pc),a1
   bsr PrintRegisters
@@ -38,6 +43,11 @@ ProgramStart:
   lea (strAddrRegs,pc),a0
   lea (AddrRegValues,pc),a1
   bsr PrintRegisters
+
+  DOS_PRINT (strSsp,pc)
+  move.l d5,d0
+  bsr Print$8
+  DOS_PRINT (CrLf,pc)
 
   lea (strSr,pc),a0
   cmp (MoveFromSr,pc),d6
@@ -50,6 +60,11 @@ ProgramStart:
   DOS_PRINT (CrLf,pc)
 
   DOS _EXIT
+
+
+GetSsp:
+  move.l sp,d0
+  rts
 
 
 PrintRegisters:
@@ -74,6 +89,7 @@ PrintRegisters:
 
 strDataRegs: .dc.b 'd0-d7: ',0
 strAddrRegs: .dc.b 'a0-a7: ',0
+strSsp: .dc.b 'ssp (approximate): ',0
 strSr:  .dc.b 'sr: ',0
 strCcr: .dc.b 'ccr: ',0
 Comma: .dc.b ', ',0
