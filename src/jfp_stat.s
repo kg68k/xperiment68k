@@ -16,6 +16,8 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+.include macro.mac
+.include fefunc.mac
 .include console.mac
 .include doscall.mac
 
@@ -48,11 +50,14 @@ TBL_LIST:
 .text
 
 ProgramStart:
-  addq.l #1,a2
-  SKIP_SPACE a2
+  lea (1,a2),a0
+  bsr AnalyzeArgument
+  move.l d1,d7  ;hex
+  tst d0
   beq @f
-    bsr WaitReturnKey  ;引数があればキー入力待ち
+    bsr WaitReturnKey  ;-k指定時はキー入力を待つ
   @@:
+
   moveq #FP_GET_FP_VERSION,d0
   lea (strFpVersion,pc),a0
   bsr GetAndPrintVersion
@@ -90,9 +95,11 @@ PrintFpEnabled:
   DOS_PRINT (strFpMode,pc)
 
   pea (FP_GET_LOCK_MODE)
+  or.l d7,(sp)
   DOS _KNJCTRL
   move.l d0,(sp)
   pea (FP_SET_LOCK_MODE)
+  or.l d7,(sp)
   DOS _KNJCTRL
   addq.l #8,sp
 
@@ -119,6 +126,7 @@ WaitReturnKey:
 
 GetAndPrintVersion:
   move.l d0,-(sp)
+  or.l d7,(sp)
   DOS_PRINT (a0)
   DOS _KNJCTRL
   addq.l #4,sp
@@ -134,6 +142,7 @@ GetAndPrintMode:
   moveq #0,d0
   move.b (TBL_FUNC_NO,a0),d0
   move.l d0,-(sp)
+  or.l d7,(sp)
   DOS _KNJCTRL
   addq.l #4,sp
 
@@ -156,10 +165,55 @@ GetAndPrintMode:
   rts
 
 
+AnalyzeArgument:
+  PUSH d6-d7
+  moveq #0,d6  ;-k
+  moveq #0,d7  ;hex
+  1:
+    SKIP_SPACE a0
+    beq 9f
+    cmpi.b #'-',(a0)
+    bne @f
+      cmpi.b #'k',(1,a0)
+      bne PrintUsage
+        addq.l #2,a0
+        moveq #1,d6  ;-k
+        bra 1b
+    @@:
+    FPACK __STOH
+    bcs NumberError
+    move.l d0,d7  ;hex
+    bra 1b
+  9:
+  move.l d7,d1
+  move.l d6,d0
+  POP d6-d7
+  rts
+
+
+PrintUsage:
+  DOS_PRINT (strUsage,pc)
+  DOS _EXIT
+
+NumberError:
+  DOS_PRINT (strNumberError,pc)
+  DOS _EXIT
+
+
   DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
+
+strUsage:
+  .dc.b 'usage: jfp_stat [-k] [hex]',CR,LF
+  .dc.b '  -k ... 起動時にRETURNキー入力を待つ',CR,LF
+  .dc.b '  hex ... ファンクションコール番号にORする値',CR,LF
+  .dc.b 0
+
+strNumberError:
+  .dc.b '数値の指定が正しくありません。',CR,LF,0
+
 
 strTypeReturnKey: .dc.b 'RETURNキーを押してください。',CR,LF,0
 
