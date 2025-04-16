@@ -63,6 +63,7 @@
   * [dos_inpout](docs/d.md#dos_inpout) ... `DOS _INPOUT`による文字入力または文字出力
   * [dos_keyctrl01](docs/d.md#dos_keyctrl01) ... `DOS _KEYCTRL`によるキー入力
   * [dos_maketmp](docs/d.md#dos_maketmp) ... `DOS _MAKETMP`でテンポラリファイルを作成
+  * [dos_malloc2](docs/d.md#dos_malloc2) ... `DOS _MALLOC2`または`_S_MALLOC`でメモリを確保
   * [dos_mkdir](docs/d.md#dos_mkdir) ... `DOS _MKDIR`でディレクトリを作成
   * [dos_nameck](docs/d.md#dos_nameck) ... `DOS _NAMECK`でパス名を展開
   * [dos_namests](docs/d.md#dos_namests) ... `DOS _NAMESTS`でパス名を展開
