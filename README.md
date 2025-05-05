@@ -155,6 +155,7 @@
 * [R](docs/r.md)
   * [reset68k](docs/r.md#reset68k) ... `trap #10`命令によるソフトウェアリセット
   * [rewind](docs/r.md#rewind) ... `DOS _SEEK (mode=2, offset=-1)`によるファイルシークの動作検証
+  * [rtc_reg](docs/r.md#rtc_reg) ... RTC(RP5C15)のレジスタの値を表示
   * [run68_dos_test](docs/r.md#run68_dos_test) ... run68の`-f`オプションの動作確認用
   * [runwaitchk](docs/r.md#runwaitchk) ... メモリを読み込むループの実行時間を計測
 * [S](docs/s.md)
