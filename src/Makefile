@@ -41,7 +41,7 @@ ALLTARGET = \
          fatchk_bof.x \
          fe_fcvt_test.x fe_power_test.x fe_stoh_test.x \
          fileopen.x files.x fntget.x fntsize.x \
-         getassign.x \
+         gaiji_ttl.x getassign.x \
          incdir_test.x \
          iocs_b_clr_st.x iocs_b_conmod.x iocs_b_del.x iocs_b_ins.x \
          iocs_datebcd.x iocs_datebin.x iocs_dateget.x iocs_dateset.x iocs_ontime.x \

@@ -96,6 +96,7 @@
   * [fntget](docs/f.md#fntget) ... フォントを拡大してテキストとして表示
   * [fntsize](docs/f.md#fntsize) ... `IOCS _FNTADR`、`IOCS _FNTGET`の結果を一覧表示
 * [G](docs/g.md)
+  * [gaiji_ttl](docs/g.md#gaiji_ttl) ... 外字でタイトルを表示するデモンストレーション
   * [getassign](docs/g.md#getassign) ... `DOS _ASSIGN (MD=0)`でドライブの割り当て状態を取得
 * [I](docs/i.md)
   * [incdir_test](docs/i.md#incdir_test) ... サブディレクトリ拡張時のディスク破壊の再現補助
