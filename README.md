@@ -177,6 +177,7 @@
   * [sram_memsize](docs/s.md#sram_memsize) ... SRAMのメインメモリ容量を書き換える。エミュレータの検証用
   * [super_time](docs/s.md#super_time) ... `IOCS _B_SUPER`、`DOS _SUPER`、`DOS _SUPER_JSR`のベンチマーク
   * [sysport](docs/s.md#sysport) ... システムポート領域の値の表示
+  * [sysstack_exec](docs/s.md#sysstack_exec) ... システムスタックを確保してファイルを実行
 * [T](docs/t.md)
   * [tokikoe](docs/t.md#tokikoe) ... テキスト画面に特定のメッセージを描画
   * [tpalreset](docs/t.md#tpalreset) ... テキストパレットをシステム設定値に戻す

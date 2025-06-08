@@ -58,7 +58,7 @@ ALLTARGET = \
          reset68k.r rewind.x rtc_reg.x run68_dos_test.x runwaitchk.x \
          si_acc.x si_emu.x si_memory.x si_midi.x si_model.x si_phantomx.x si_scsiex.x si_sram.x \
          sjis_tbl.x skeyset.x sp3tx0gr2.x spchecker.x splimchk.x sq64k.x sram_memsize.x \
-         super_time.x sysport.x \
+         super_time.x sysport.x sysstack_exec.x \
          tokikoe.x tpalreset.x trap15trace.x \
          uskcg24.x uskfontadr.x uskhw_hex.x \
          vdispst_time.x \
