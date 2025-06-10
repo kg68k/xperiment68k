@@ -40,7 +40,7 @@ ALLTARGET = \
          entryceil.x env_sbo.x esc_dsr.x exception.x exchr_hex.x execas.x exfiles.x existsdir.x \
          fatchk_bof.x \
          fe_fcvt_test.x fe_power_test.x fe_stoh_test.x \
-         fileopen.x files.x fntget.x fntsize.x \
+         fileopen.x fileopengp.x files.x fntget.x fntsize.x \
          gaiji_ttl.x getassign.x \
          incdir_test.x \
          iocs_b_clr_st.x iocs_b_conmod.x iocs_b_del.x iocs_b_ins.x \
