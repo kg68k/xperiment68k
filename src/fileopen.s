@@ -1,7 +1,7 @@
 .title fileopen - open file
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include dosdef.mac
 .include console.mac
 .include doscall.mac
 .include filesys.mac
@@ -30,11 +29,8 @@
 ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
-  bne @f
-    DOS_PRINT (strUsage,pc)
-    DOS _EXIT
-  @@:
-  lea (a2),a4  ;コマンド
+  beq PrintUsage
+  lea (a2),a4  ;オープンコマンド
 
   bsr SkipCommand
   lea (a2),a5  ;ファイル名(空文字列を許容する)
@@ -49,11 +45,16 @@ ProgramStart:
     cmpi.b #' ',d0
     beq @f
       lea (a5),a0
-      bsr DoCommand
+      bsr DoOpenCommand
     tst.l d0
     beq @b
   @@:
   DOS _EXIT
+
+
+PrintUsage:
+ DOS_PRINT (strUsage,pc)
+ DOS _EXIT
 
 
 SkipCommand:
@@ -70,15 +71,17 @@ SkipCommand:
   rts
 
 
-DoCommand:
-  lea (CommandTable,pc),a1
+DoOpenCommand:
+  lea (OpenCommandTable,pc),a1
   @@:
     movem (a1)+,d1-d3  ;コマンド文字、処理ルーチン、表示文字列
     cmp.b d0,d1
     beq @f
       tst (a1)
-      beq 8f
-    bra @b
+      bne @b
+        DOS_PRINT (strUnknownCommand,pc)
+        moveq #-1,d0
+        bra 9f
   @@:
   subq.l #6,a1
   DOS_PRINT (a1,d3.l)
@@ -89,31 +92,28 @@ DoCommand:
   DOS_PRINT (strCrLf,pc)
 
   moveq #0,d0
-  bra 9f
-8:
-  DOS_PRINT (strUnknownCommand,pc)
-  moveq #-1,d0
 9:
   rts
 
 
-CommandTable:
-  .dc 'c',Command_c-*,strDosCreate-*
-  .dc 'f',Command_f-*,strDosCreateFast-*
-  .dc 'n',Command_n-*,strDosNewfile-*
-  .dc 'r',Command_r-*,strDosOpenRead-*
-  .dc 'w',Command_w-*,strDosOpenWrite-*
-  .dc 'a',Command_a-*,strDosOpenReadWrite-*
+OpenCommandTable:
+  .dc 'c',OpenCommand_c-*,strDosCreate-*
+  .dc 'f',OpenCommand_f-*,strDosCreateFast-*
+  .dc 'n',OpenCommand_n-*,strDosNewfile-*
+  .dc 'r',OpenCommand_r-*,strDosOpenRead-*
+  .dc 'w',OpenCommand_w-*,strDosOpenWrite-*
+  .dc 'a',OpenCommand_a-*,strDosOpenReadWrite-*
+  .dc 0
 
 
-Command_c:
+OpenCommand_c:
   move d0,-(sp)
   pea (a0)
   DOS _CREATE
   addq.l #6,sp
   rts
 
-Command_f:
+OpenCommand_f:
   move d0,-(sp)
   tas (sp)  ;ATR.wの最上位ビットを%1にする
   pea (a0)
@@ -121,28 +121,28 @@ Command_f:
   addq.l #6,sp
   rts
 
-Command_n:
+OpenCommand_n:
   move d0,-(sp)
   pea (a0)
   DOS _NEWFILE
   addq.l #6,sp
   rts
 
-Command_r:
+OpenCommand_r:
   move #OPENMODE_READ,-(sp)
   pea (a0)
   DOS _OPEN
   addq.l #6,sp
   rts
 
-Command_w:
+OpenCommand_w:
   move #OPENMODE_WRITE,-(sp)
   pea (a0)
   DOS _OPEN
   addq.l #6,sp
   rts
 
-Command_a:
+OpenCommand_a:
   move #OPENMODE_READ_WRITE,-(sp)
   pea (a0)
   DOS _OPEN
@@ -156,8 +156,8 @@ Command_a:
 .data
 
 strUsage:
-  .dc.b 'usage: fileopen <Command...> <filename>',CR,LF
-  .dc.b 'Command:',CR,LF
+  .dc.b 'usage: fileopen <OpenCommand...> <filename>',CR,LF
+  .dc.b 'OpenCommand:',CR,LF
   .dc.b '  c ... DOS _CREATE',CR,LF
   .dc.b '  f ... DOS _CREATE (fast mode)',CR,LF
   .dc.b '  n ... DOS _NEWFILE',CR,LF
