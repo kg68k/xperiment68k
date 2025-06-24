@@ -91,8 +91,7 @@
   * [fe_fcvt_test](docs/f.md#fe_fcvt_test) ... `FPACK __FCVT`の動作テスト
   * [fe_power_test](docs/f.md#fe_power_test) ... `FPACK __POWER`の動作テスト
   * [fe_stoh_test](docs/f.md#fe_stoh_test) ... `FPACK __STOH`の動作テスト
-  * [fileopen](docs/f.md#fileopen) ... 各種の方法によるファイル作成、オープン
-  * [fileopengp](docs/f.md#fileopengp) ... 各種の方法によるファイル作成、オープンと入出力
+  * [fileop](docs/f.md#fileop) ... ファイルの作成、オープンと入出力
   * [files](docs/f.md#files) ... `DOS _FILES`と`DOS _NFILES`によるエントリの列挙
   * [fntget](docs/f.md#fntget) ... フォントを拡大してテキストとして表示
   * [fntsize](docs/f.md#fntsize) ... `IOCS _FNTADR`、`IOCS _FNTGET`の結果を一覧表示
