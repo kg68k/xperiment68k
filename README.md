@@ -49,6 +49,7 @@
   * [dos_conctrl](docs/d.md#dos_conctrl) ... `DOS _CONCTRL`でコンソール制御・直接出力
   * [dos_create_sp](docs/d.md#dos_create_sp) ... `DOS _CREATE`の特殊モードでファイルを作成
   * [dos_curdir](docs/d.md#dos_curdir) ... `DOS _CURDIR`でカレントディレクトリを取得
+  * [dos_exit2](docs/d.md#dos_exit2) ... `DOS _EXIT2`で指定した終了コードで終了
   * [dos_fatchk](docs/d.md#dos_fatchk) ... `DOS _FATCHK`でファイルのセクタを取得
   * [dos_fgetc](docs/d.md#dos_fgetc) ... `DOS _FGETC`でファイルから文字入力
   * [dos_fgets](docs/d.md#dos_fgets) ... `DOS _FGETS`でファイルから行入力
@@ -74,6 +75,7 @@
   * [dos_setitm2](docs/d.md#dos_setitm2) ... `DOS _SETITM2`で時刻を設定(ロングワード)
   * [dos_settime](docs/d.md#dos_settime) ... `DOS _SETTIME`で時刻を設定
   * [dos_vernum](docs/d.md#dos_vernum) ... `DOS _VERNUM`でHuman68kのバージョンを取得
+  * [dos_wait](docs/d.md#dos_wait) ... `DOS _WAIT`で終了したプロセスの終了コードを取得
   * [dumpenv](docs/d.md#dumpenv) ... 環境変数をすべて表示
   * [dumpstdin](docs/d.md#dumpstdin) ... `DOS _READ`で標準入力から読み込み
   * [dumpstupreg](docs/d.md#dumpstupreg) ... 起動時のレジスタ内容を表示
