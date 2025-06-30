@@ -21,6 +21,7 @@
   * [bg1pr2th](docs/b.md#bg1pr2th) ... 2個のスレッドを作成して常駐終了
   * [bgexec](docs/b.md#bgexec) ... 指定コマンドの実行指示をbgexecdスレッドに送信
   * [bgexecd](docs/b.md#bgexecd) ... 常駐終了し、指定されたコマンドをバックグラウンドで実行
+  * [bggetpr](docs/b.md#bggetpr) ... `DOS _GET_PR`でスレッド情報を取得
   * [bgkill](docs/b.md#bgkill) ... スレッドに終了要求コマンドを送信
   * [bglivingdead](docs/b.md#bglivingdead) ... `DOS _KILL_PR`の動作検証
   * [bgsprocd](docs/b.md#bgsprocd) ... bgexecdとほぼ同じだがサブのメモリ管理を設定する
