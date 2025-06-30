@@ -39,8 +39,11 @@ ProgramStart:
     moveq #-1,d0  ;バッファで指定した名前のIDを得る
   @@:
   bsr GetPr
-  bsr PrintD0$4_4
+  move.l d0,d7
+  bsr Print$8
   DOS_PRINT (CrLf,pc)
+  tst.l d7
+  bmi error
 
   DOS _EXIT
 
@@ -72,7 +75,7 @@ GetPr:
   rts
 
 
-  DEFINE_PRINTD0$4_4 PrintD0$4_4
+  DEFINE_PRINT$8 Print$8
 
 
 .data
