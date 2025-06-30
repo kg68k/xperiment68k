@@ -1,7 +1,7 @@
 .nlist
 
 ;process.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2023-11-26
+;Last-modified: 2025-07-01
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -67,6 +67,7 @@ sizeof_PSP:
 BG_WAITFLAG_SLEEP:   .equ $ff
 BG_WAITFLAG_SUSPEND: .equ $fe
 
+.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 .offset 0
 BG_NextThread: .ds.l 1
 BG_WaitFlag:   .ds.b 1
@@ -86,6 +87,32 @@ BG_Name:       .ds.b 16
 BG_WaitTime:   .ds.l 1
 sizeof_BG:
 .fail $.ne.116
+.endif
+
+.offset 0
+PRCPTR_next_ptr:    .ds.l 1
+PRCPTR_wait_flg:    .ds.b 1
+PRCPTR_counter:     .ds.b 1
+PRCPTR_max_counter: .ds.b 1
+PRCPTR_doscmd:      .ds.b 1
+PRCPTR_psp_id:      .ds.l 1
+PRCPTR_usp_reg:     .ds.l 1
+PRCPTR_d_reg:       .ds.l 8
+PRCPTR_a_reg:       .ds.l 7
+PRCPTR_sr_reg:      .ds   1
+PRCPTR_pc_reg:      .ds.l 1
+PRCPTR_ssp_reg:     .ds.l 1
+PRCPTR_indosf:      .ds.w 1
+PRCPTR_indosp:      .ds.l 1
+PRCPTR_buf_ptr:     .ds.l 1
+PRCPTR_name:        .ds.b 16
+PRCPTR_wait_time:   .ds.l 1
+sizeof_PRCPTR:
+.fail $.ne.116
+PRCPTR_memory_head: .ds.l 1
+PRCPTR_memory_tail: .ds.l 1
+sizeof_IntlPRCPTR:
+.fail $.ne.124
 
 
 * End of File --------------------------------- *

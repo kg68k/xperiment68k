@@ -83,7 +83,7 @@ error:
 
 
 SetThreadName:
-  lea (BgBuffer+BG_Name,pc),a1
+  lea (PrcptrBuffer+PRCPTR_name,pc),a1
   moveq #16-1,d0
   @@:
     move.b (a0)+,(a1)+
@@ -95,7 +95,7 @@ SetThreadName:
 
 
 GetPr:
-  pea (BgBuffer,pc)
+  pea (PrcptrBuffer,pc)
   move d0,-(sp)
   DOS _GET_PR
   addq.l #6,sp
@@ -119,7 +119,7 @@ CrLf: .dc.b CR,LF,0
 .bss
 .quad
 
-BgBuffer: .ds.b sizeof_BG
+PrcptrBuffer: .ds.b sizeof_PRCPTR
 
 
 .end ProgramStart
