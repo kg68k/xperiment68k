@@ -1,7 +1,7 @@
 .nlist
 
 ;macro.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2024-11-05
+;Last-modified: 2025-01-20
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -103,6 +103,18 @@ STRLEN: .macro areg,dreg,offset
   .endif
   exg dreg,areg
   sub.l areg,dreg
+.endm
+
+;areg is clobbered
+STRLEN_CLOB: .macro areg,dreg
+  .sizem sz,argc
+  .fail argc.ne.2
+  move.l areg,dreg
+  @loop:
+    tst.b (areg)+
+  bne @loop
+  sub.l areg,dreg
+  not.l dreg
 .endm
 
 

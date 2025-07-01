@@ -1,7 +1,7 @@
 .nlist
 
 ;process.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2025-07-01
+;Last-modified: 2025-07-02
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -67,6 +67,13 @@ sizeof_PSP:
 BG_WAITFLAG_SLEEP:   .equ $ff
 BG_WAITFLAG_SUSPEND: .equ $fe
 
+.ifndef THREAD_ISBUSY
+THREAD_KILL:   .equ $fff9
+THREAD_WAKEUP: .equ $fffb
+THREAD_SLEEP:  .equ $fffc
+THREAD_ISBUSY: .equ $ffff
+.endif
+
 .ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 .offset 0
 BG_NextThread: .ds.l 1
@@ -88,6 +95,16 @@ BG_WaitTime:   .ds.l 1
 sizeof_BG:
 .fail $.ne.116
 .endif
+
+.offset 0
+PRCCTRL_length:  .ds.l 1
+PRCCTRL_buf_ptr: .ds.l 1
+PRCCTRL_command: .ds   1
+PRCCTRL_your_id: .ds   1
+.ifndef sizeof_PRCCTRL
+sizeof_PRCCTRL:
+.endif
+.fail $.ne.12
 
 .offset 0
 PRCPTR_next_ptr:    .ds.l 1
