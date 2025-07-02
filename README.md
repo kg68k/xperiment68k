@@ -24,8 +24,10 @@
   * [bggetpr](docs/b.md#bggetpr) ... `DOS _GET_PR`でスレッド情報を取得
   * [bgkill](docs/b.md#bgkill) ... スレッドに終了要求コマンドを送信
   * [bglivingdead](docs/b.md#bglivingdead) ... `DOS _KILL_PR`の動作検証
+  * [bgsleeppr](docs/b.md#bgsleeppr) ... `DOS _SLEEP_PR`でスレッドをスリープする
   * [bgsprocd](docs/b.md#bgsprocd) ... bgexecdとほぼ同じだがサブのメモリ管理を設定する
   * [bgsprocess](docs/b.md#bgsprocess) ... スレッドに対しサブのメモリ管理を設定
+  * [bgsuspendpr](docs/b.md#bgsuspendpr) ... `DOS _SUSPEND_PR`でスレッドを強制スリープさせる
   * [bgthreadid](docs/b.md#bgthreadid) ... スレッドIDを表示
   * [bgwakeup](docs/b.md#bgwakeup) ... スレッドに強制スリープ解除コマンドを送信
   * [bgzombie](docs/b.md#bgzombie) ... `DOS _KILL_PR`の動作検証
