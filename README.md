@@ -19,6 +19,7 @@
   * [beep_mpcm](docs/b.md#beep_mpcm) ... システムビープ音をMPCMで効果音として再生
   * [beep_zmsc3](docs/b.md#beep_zmsc3) ... システムビープ音をZMSC3.Xで効果音として再生
   * [bg1pr2th](docs/b.md#bg1pr2th) ... 2個のスレッドを作成して常駐終了
+  * [bgchangeprc](docs/b.md#bgchangeprc) ... 常駐してスレッド切り替え回数を表示
   * [bgexec](docs/b.md#bgexec) ... 指定コマンドの実行指示をbgexecdスレッドに送信
   * [bgexecd](docs/b.md#bgexecd) ... 常駐終了し、指定されたコマンドをバックグラウンドで実行
   * [bggetpr](docs/b.md#bggetpr) ... `DOS _GET_PR`でスレッド情報を取得
