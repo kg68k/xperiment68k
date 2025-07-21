@@ -1,0 +1,135 @@
+.nlist
+
+;opmdrv.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
+;Last-modified: 2025-07-22
+;
+;Copying and distribution of this file, with or without modification,
+;are permitted in any medium without royalty provided the copyright
+;notice and this notice are preserved.  This file is offered as-is,
+;without any warranty.
+
+
+.ifndef __opmdrv_mac__
+        __opmdrv_mac__:=1
+
+
+* Macro --------------------------------------- *
+
+OPM: .macro callno
+  moveq #callno,d1
+  moveq #$f0,d0
+  trap #15
+.endm
+
+
+* OPMDRV.X function call number --------------- *
+
+_M_INIT:        .equ    $00
+_M_ALLOC:       .equ    $01
+_M_ASSIGN:      .equ    $02
+_M_VGET:        .equ    $03
+_M_VSET:        .equ    $04
+_M_TEMPO:       .equ    $05
+_M_TRK:         .equ    $06
+_M_FREE:        .equ    $07
+_M_PLAY:        .equ    $08
+_M_STAT:        .equ    $09
+_M_STOP:        .equ    $0a
+_M_CONT:        .equ    $0b
+_M_ATOI:        .equ    $0c
+_M_INTON:       .equ    $0d
+_M_INTOFF:      .equ    $0e
+_M_BUFSET:      .equ    $0f
+
+
+* OPMDRV2.X function call number -------------- *
+
+;$00-$0f OPMDRV.X compatible
+
+_MD_INIT:       .equ    $10
+_MD_WRT:        .equ    $11
+_MD_ON:         .equ    $12
+_MD_OFF:        .equ    $13
+_MD_REGR:       .equ    $14
+_MD_REGW:       .equ    $15
+_MD_STAT:       .equ    $16
+
+
+* OPMDRV3.X function call number -------------- *
+
+;$00-$0e OPMDRV.X compatible
+
+_M_USE:         .equ    $0f
+_M_CHAN:        .equ    $10
+_M_PROG:        .equ    $11
+_M_VOL:         .equ    $12
+_M_PAN:         .equ    $13
+_M_VEL:         .equ    $14
+_M_TRNS:        .equ    $15
+_M_CTRL:        .equ    $16
+_M_DUMPOFF:     .equ    $17
+_M_ANTOFF:      .equ    $18
+_M_DIROUT:      .equ    $19
+_M_ENABLE:      .equ    $1a
+_M_NTON:        .equ    $1b
+_M_NTOFF:       .equ    $1c
+_M_INT_EN:      .equ    $1d
+_M_INT_DI:      .equ    $1e
+_M_INTCALL:     .equ    $1f
+_M_SYNC:        .equ    $20
+_M_METER:       .equ    $21
+_M_CLICK:       .equ    $22
+_M_RECINT:      .equ    $23
+_M_RECSET:      .equ    $24
+_M_RECSTA:      .equ    $25
+_M_RECSTP:      .equ    $26
+_M_RECLEN:      .equ    $27
+_M_THRU:        .equ    $28
+_M_SNDSET:      .equ    $29
+_M_PCMSET:      .equ    $2a
+_M_SYSCH:       .equ    $2b
+_M_IFCHK:       .equ    $2c
+_M_TRKGET:      .equ    $2d
+_M_CHGET:       .equ    $2e
+_M_FREEA:       .equ    $2f
+_M_OUT:         .equ    $30
+_M_IN:          .equ    $31
+_M_MEAS:        .equ    $32
+_M_YCOM:        .equ    $33
+_M_START:       .equ    $34
+_M_END:         .equ    $35
+_M_MODSNS:      .equ    $36
+;_M_NOP_37:     .equ    $37
+_M_PCMREC:      .equ    $38
+_M_PCMGET:      .equ    $39
+_M_PCMLEN:      .equ    $3a
+_M_PCMBSY:      .equ    $3b
+_M_PCMON:       .equ    $3c
+_M_CTRLRES:     .equ    $3d
+_M_OPMREG:      .equ    $3e
+_M_MDREG:       .equ    $3f
+_M_TNMSET:      .equ    $40
+_M_TNMGET:      .equ    $41
+_M_PNMSET:      .equ    $42
+_M_PNMGET:      .equ    $43
+_M_MSTVOL:      .equ    $44
+_M_BEND:        .equ    $45
+_M_MOD:         .equ    $46
+_M_OPMEXC:      .equ    $47
+_M_OPMLFQ:      .equ    $48
+_M_PGMFLT:      .equ    $49
+_M_VOLFLT:      .equ    $4a
+_M_PANFLT:      .equ    $4b
+_M_VERSION:     .equ    $5e
+_M_RELEASE:     .equ    $5f
+_M_ADPCMOUT:    .equ    $60
+_M_ADPCMINP:    .equ    $61
+_M_ADPCMSNS:    .equ    $66
+_M_ADPCMMOD:    .equ    $67
+
+
+.endif
+
+* End of File --------------------------------- *
+
+.list

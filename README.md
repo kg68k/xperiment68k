@@ -152,6 +152,7 @@
 * [O](docs/o.md)
   * [openedfiles](docs/o.md#openedfiles) ... オープン中のファイルの一覧表示
   * [openkeep](docs/o.md#openkeep) ... ファイルを開いたまま常駐終了する。`DOS _KEEPPR`の動作検証
+  * [opmdrvtype](docs/o.md#opmdrvtype) ... 組み込まれているOPMDRV\*.Xの種類を表示
 * [P](docs/p.md)
   * [pathchk](docs/p.md#pathchk) ... `DOS _EXEC (MD=2;pathchk)`で実行ファイルを検索
   * [pathlenfix](docs/p.md#pathlenfix) ... Human68kにパッチをあててディレクトリ名の最大長を拡張
