@@ -1,7 +1,7 @@
 .nlist
 
-;dosdef.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2025-07-02
+;dosdef.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
+;Last-Modified: 2025-07-24
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -119,46 +119,6 @@ STDAUX: .equ 3
 STDPRN: .equ 4
 .endif
 
-.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
-ATR_EXEC: .equ 7
-ATR_LINK: .equ 6
-ATR_ARC:  .equ 5
-ATR_DIR:  .equ 4
-ATR_VOL:  .equ 3
-ATR_SYS:  .equ 2
-ATR_HID:  .equ 1
-ATR_READ: .equ 0
-
-EXEC:      .equ 7
-SYMLINK:   .equ 6
-ARCHIVE:   .equ 5
-DIRECTORY: .equ 4
-VOLUME:    .equ 3
-SYSTEM:    .equ 2
-HIDDEN:    .equ 1
-READONLY:  .equ 0
-.endif
-
-.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
-READRV: .equ $40
-VIRDRV: .equ $50
-VIRDIR: .equ $60
-.endif
-
-.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
-ROPEN:  .equ 0
-WOPEN:  .equ 1
-RWOPEN: .equ 2
-*COPEN: .equ 3
-*DOPEN: .equ 4
-.endif
-
-.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
-SEEK_SET: .equ 0
-SEEK_CUR: .equ 1
-SEEK_END: .equ 2
-.endif
-
 ;DOS _EXEC file type
 EXECFILETYPE_AUTO: .equ $00
 EXECFILETYPE_R:    .equ $01
@@ -172,15 +132,6 @@ EXECMODE_PATHCHK:  .equ 2
 EXECMODE_LOADONLY: .equ 3
 EXECMODE_EXECONLY: .equ 4
 EXECMODE_BINDNO:   .equ 5
-
-.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
-EXEC_LOADEXEC: .equ 0
-EXEC_LOAD:     .equ 1
-EXEC_PATHCHK:  .equ 2
-EXEC_DEVLOAD:  .equ 3
-EXEC_EXEC:     .equ 4
-EXEC_BINDNO:   .equ 5
-.endif
 
 .ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
 .ifndef THREAD_ISBUSY
@@ -196,31 +147,6 @@ ENV_MAX:   .equ 256
 
 .ifndef DRIVE_MAX
 DRIVE_MAX: .equ 26
-.endif
-
-.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
-MB_2DD10:   .equ $e0
-MB_1D9:     .equ $e5
-MB_2D9:     .equ $e6
-MB_1D8:     .equ $e7
-MB_2D8:     .equ $e8
-MB_2HT:     .equ $ea
-MB_2HS:     .equ $eb
-MB_2HDE:    .equ $ec
-MB_1DD9:    .equ $ee
-MB_1DD8:    .equ $ef
-
-MB_DAT:     .equ $f4
-MB_CDROM:   .equ $f5
-MB_MO:      .equ $f6
-MB_HD:      .equ $f7
-MB_SASI:    .equ $f8
-MB_RAMDISK: .equ $f9
-MB_2HQ:     .equ $fa
-MB_2DD8:    .equ $fb
-MB_2DD9:    .equ $fc
-MB_2HC:     .equ $fd
-MB_2HD:     .equ $fe
 .endif
 
 

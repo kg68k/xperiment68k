@@ -1,7 +1,7 @@
 .nlist
 
-;filesys.mac - RUKA assembler macro for X680x0/Human68k(v3) by TcbnErik
-;Last-modified: 2024-10-06
+;filesys.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
+;Last-Modified: 2025-07-24
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -118,9 +118,6 @@ FILES_FileSize: .ds.l 1
 FILES_FileName: .ds.b 23
 sizeof_FILES:
 .fail $.ne.53
-.ifdef __RUKA_ENABLE_OBSOLETE_MACRO__
-FILES_Path:
-.endif
 FILES_EX_Drive: .ds.b 2
 FILES_EX_Path:  .ds.b sizeof_FILES_EX_Path
 FILES_EX_Name1: .ds.b sizeof_FILES_EX_Name1
