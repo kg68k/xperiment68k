@@ -173,6 +173,7 @@
   * [si_memory](docs/s.md#si_memory) ... メインメモリとハイメモリの情報を表示
   * [si_midi](docs/s.md#si_midi) ... MIDIボードの種類を表示
   * [si_model](docs/s.md#si_model) ... 本体の機種名を表示
+  * [si_mpuclk](docs/s.md#si_mpuclk) ... MPUクロック数を表示
   * [si_phantomx](docs/s.md#si_phantomx) ... PhantomXの情報を表示
   * [si_scsiex](docs/s.md#si_scsiex) ... SCSIボードの機種名を表示
   * [si_sram](docs/s.md#si_sram) ... SRAMの容量と使用状況を表示

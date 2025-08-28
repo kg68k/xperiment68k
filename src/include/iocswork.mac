@@ -1,7 +1,7 @@
 .nlist
 
 ;iocswork.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-07-24
+;Last-Modified: 2025-08-27
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -237,8 +237,8 @@ DMA2ERR:        .equ $c35
 
 GETFONTBUF:     .equ $c36
 MKFONTBUF:      .equ $c46
-*UNUSED_C8E:    .equ $c8e
 
+*UNUSED_C8E:    .equ $c8e
 FDFLAG:         .equ $c8f
 FDC_RESULT:     .equ $c90
 
@@ -271,6 +271,9 @@ BEEP_VEC:       .equ $d12
 ESCSUBST_VEC:   .equ $d16
 DRAWMODE:       .equ $d1a
 TXLINEDEC:      .equ $d1c
+
+ROMCNT_U32:     .equ $d20  ;1.l XEiJ IPLROM 1.6
+RAMCNT_U32:     .equ $d24  ;1.l XEiJ IPLROM 1.6
 
 .ifndef IPL_BUF
 IPL_BUF:        .equ $2000
