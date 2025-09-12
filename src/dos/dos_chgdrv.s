@@ -36,11 +36,11 @@ ProgramStart:
   1:
     moveq #$20,d0
     or.b (a2),d0
-    subi.b #'a',d0
-    cmpi.b #'z'-'a',d0  ;0=A: 1=B: ... 25=Z:
+    subi.b #'a',d0  ;0=A: 1=B: ... 25=Z:
+    cmpi.b #'z'-'a',d0
     bhi PrintUsage
   @@:
-  move d7,-(sp)
+  move d0,-(sp)
   DOS _CHGDRV
   addq.l #2,sp
 
