@@ -31,7 +31,7 @@ ProgramStart:
   SKIP_SPACE a2
   beq @f
     moveq #$20,d0
-    or.b (a0),d0
+    or.b (a2),d0
     subi.b #'a',d0
     cmpi.b #'z'-'a',d0
     bhi @f
