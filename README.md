@@ -44,9 +44,11 @@
   * [tpalreset](docs/console.md#tpalreset) ... テキストパレットをシステム設定値に戻す
 * [DOS CALL](docs/dos.md)
   * [dos_chdir](docs/dos.md#dos_chdir) ... `DOS _CHDIR`でカレントディレクトリを変更
+  * [dos_chgdrv](docs/dos.md#dos_chgdrv) ... `DOS _CHGDRV`でカレントドライブを変更
   * [dos_conctrl](docs/dos.md#dos_conctrl) ... `DOS _CONCTRL`でコンソール制御・直接出力
   * [dos_create_sp](docs/dos.md#dos_create_sp) ... `DOS _CREATE`の特殊モードでファイルを作成
   * [dos_curdir](docs/dos.md#dos_curdir) ... `DOS _CURDIR`でカレントディレクトリを取得
+  * [dos_curdrv](docs/dos.md#dos_curdrv) ... `DOS _CURDRV`でカレントドライブを取得
   * [dos_exit2](docs/dos.md#dos_exit2) ... `DOS _EXIT2`で指定した終了コードで終了
   * [dos_fatchk](docs/dos.md#dos_fatchk) ... `DOS _FATCHK`でファイルのセクタを取得
   * [dos_fgetc](docs/dos.md#dos_fgetc) ... `DOS _FGETC`でファイルから文字入力
