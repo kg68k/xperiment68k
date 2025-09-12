@@ -26,16 +26,19 @@
 .text
 
 ProgramStart:
-  moveq #0,d7  ;ドライブ名省略時はカレントドライブ
   addq.l #1,a2
   SKIP_SPACE a2
-  beq @f
+  beq PrintUsage
+  cmpi.b #'@',(a2)
+  bne 1f
+    moveq #-1,d0  ;DOS _CHGDRV が必ずエラーになる値
+    bra @f
+  1:
     moveq #$20,d0
     or.b (a2),d0
     subi.b #'a',d0
-    cmpi.b #'z'-'a',d0
-    bhi @f
-      move.b d0,d7
+    cmpi.b #'z'-'a',d0  ;0=A: 1=B: ... 25=Z:
+    bhi PrintUsage
   @@:
   move d7,-(sp)
   DOS _CHGDRV
@@ -46,10 +49,17 @@ ProgramStart:
   DOS _EXIT
 
 
+PrintUsage:
+  DOS_PRINT (strUsage,pc)
+  DOS _EXIT
+
+
   DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
+
+strUsage: .dc.b 'usage: dos_chgdrv <drive or @>',CR,LF,0
 
 CrLf: .dc.b CR,LF,0
 
