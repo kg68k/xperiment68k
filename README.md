@@ -43,6 +43,7 @@
   * [putmes24](docs/console.md#putmes24) ... 文字列をテキスト画面に24ドットフォントで描画
   * [tpalreset](docs/console.md#tpalreset) ... テキストパレットをシステム設定値に戻す
 * [DOS CALL](docs/dos.md)
+  * [dos_chdir](docs/dos.md#dos_chdir) ... `DOS _CHDIR`でカレントディレクトリを変更
   * [dos_conctrl](docs/dos.md#dos_conctrl) ... `DOS _CONCTRL`でコンソール制御・直接出力
   * [dos_create_sp](docs/dos.md#dos_create_sp) ... `DOS _CREATE`の特殊モードでファイルを作成
   * [dos_curdir](docs/dos.md#dos_curdir) ... `DOS _CURDIR`でカレントディレクトリを取得
