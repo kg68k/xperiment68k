@@ -153,6 +153,10 @@
   * [trap15trace](docs/misc.md#trap15trace) ... トレース実行に対応した`trap #15`処理ルーチン
   * [vdispst_time](docs/misc.md#vdispst_time) ... `IOCS _VDISPST`による割り込みが発生するまでの時間を計測
 * [OPMDRV\*.X](docs/opmdrv.md)
+  * [m_alloc](docs/opmdrv.md#m_alloc) ... `OPM _M_ALLOC`でトラックバッファ確保
+  * [m_free](docs/opmdrv.md#m_free) ... `OPM _M_FREE`でトラックバッファの残りバイト数を取得
+  * [m_init](docs/opmdrv.md#m_init) ... `OPM _M_INIT`でトラックバッファ初期化
+  * [m_trk](docs/opmdrv.md#m_trk.) ... `OPM _M_TRK`でトラックへMMLを書き込む
   * [opmdrvtype](docs/opmdrv.md#opmdrvtype) ... 組み込まれているOPMDRV\*.Xの種類を表示
 * [Proof of Concept](docs/poc.md)
   * [bglivingdead](docs/poc.md#bglivingdead) ... `DOS _KILL_PR`の動作検証
