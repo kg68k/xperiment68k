@@ -1,10 +1,9 @@
 # Xperiment68k
+
 実験的なコードとかいろいろ。
 
 無保証です。  
 十分なテストを行っていないので、不具合があるかもしれません。
-
-長いファイル名を使用しているため、TwentyOne +Tなどのファイル名を21文字認識する環境が必要です。
 
 
 ## Description
@@ -212,6 +211,7 @@
 
 
 ## 特殊なメモリ状況を構築するプログラムについて
+
 一般に、常駐検査を行うプログラムやプログラム本体の後にバッファを確保するプログラムでは
 メモリを読み書きする前にメモリブロックの大きさを確認しなければなりません。
 それを怠ると、メモリブロックが期待より小さな場合にメモリブロックの範囲外を読み書きしてしまい、
@@ -227,11 +227,15 @@
 
 
 ## Build
+
 PCやネット上での取り扱いを用意にするために、src/内のファイルはUTF-8で記述されています。  
-X68000上でビルドする際には、UTF-8からShift_JISへの変換が必要です。
+X680x0上でビルドする際には、UTF-8からShift_JISへの変換が必要です。
 
 ### 必要環境
+
 * Human68k version 3.02
+* TwentyOne +T
+  * 長いファイル名を使用しているため、ファイル名を21文字認識する環境が必要です。
 * [GNU make](https://github.com/kg68k/gnu-make-human68k) 3.79 human68k-1.4 以降
 * [HAS060.X](http://retropc.net/x68000/software/develop/as/has060/) version 3.09+91 以降
   * 作者は[HAS060X.X](https://github.com/kg68k/has060xx)をhas060.xにリネームして使っています。
@@ -239,23 +243,34 @@ X68000上でビルドする際には、UTF-8からShift_JISへの変換が必要
 * gcc2
   * 一部の実行ファイルを作成するのに必要ですが、[gcc1p](https://github.com/kg68k/gcc1p)
     でも構いません(src/common.mkを適宜書き換えてください)。
+* 文字コード変換ツール(src2build推奨)
 
+### src2buildを使用する場合
+
+必要ツール: [src2build](https://github.com/kg68k/src2build)
+
+srcディレクトリのある場所で以下のコマンドを実行します。
+```
+src2build src
+make -C build
+```
 
 ### u8tosjを使用する方法
 
-あらかじめ、[u8tosj](https://github.com/kg68k/u8tosj)をビルドしてインストールしておいてください。
+必要ツール: [u8tosj](https://github.com/kg68k/u8tosj)
 
-トップディレクトリで`make`を実行してください。以下の処理が行われます。
-1. build/ディレクトリの作成。
-2. src/内の各ファイルをShift_JISに変換してbuild/へ保存。
+srcディレクトリのある場所で以下のコマンドを実行します。
+```
+make
+make -C build
+```
 
-次に、カレントディレクトリをbuild/に変更し、`make`を実行してください。  
-実行ファイルが作成されます。
+### その他の方法
 
-### u8tosjを使用しない方法
+src/内のファイルを適当なツールで適宜Shift_JISに変換してbuild/ディレクトリに置き、
+build/内で`make`を実行してください。  
+UTF-8のままでは正しくビルドできません。
 
-ファイルを適当なツールで適宜Shift_JISに変換してから`make`を実行してください。  
-UTF-8のままでは正しくビルドできませんので注意してください。
 
 ## License
 GNU General Public License version 3 or later.
