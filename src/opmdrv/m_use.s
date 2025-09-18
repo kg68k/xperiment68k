@@ -1,4 +1,4 @@
-.title m_alloc - OPM _M_ALLOC
+.title m_use - OPM _M_USE
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2025 TcbnErik
@@ -27,35 +27,37 @@
 .text
 
 ProgramStart:
+  moveq #-1,d2  ;省略時は-1=全トラック合計
+
   lea (1,a2),a0
   SKIP_SPACE a0
-  beq PrintUsage
-  bsr GetUint16Value
-  move d0,d2  ;トラック番号
-  swap d2
-
-  SKIP_SPACE a0
-  bsr GetUint16Value
-  move d0,d2  ;バッファサイズ
-
-  OPM _M_ALLOC
+  beq @f
+    bsr GetIntOrUint32Value
+    move.l d0,d2  ;トラック番号
+  @@:
+  OPM _M_USE
   bsr Print$4_4
   DOS_PRINT (strCrLf,pc)
 
   DOS _EXIT
 
 
-GetUint16Value:
+GetIntOrUint32Value:
+  cmpi.b #'-',(a0)
+  bne GetUint32Value
+
+  addq.l #1,a0
   FPACK __STOL
   bcs NumberError
-  cmpi.l #$0001_0000,d0
-  bcc NumberError
+  neg.l d0  ;(0以外のとき)ccrC=1になるので、成功時は忘れずにccrC=0にする
+  bpl NumberError
+  tst.l d0  ;ccrC=0
   rts
 
-
-PrintUsage:
-  DOS_PRINT (strUsage,pc)
-  DOS _EXIT
+GetUint32Value:
+  FPACK __STOL
+  bcs NumberError
+  rts
 
 NumberError:
   DOS_PRINT (strNumberError,pc)
@@ -66,9 +68,6 @@ NumberError:
 
 
 .data
-
-strUsage:
-  .dc.b 'usage: m_alloc <track_no> <size>',CR,LF,0
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0

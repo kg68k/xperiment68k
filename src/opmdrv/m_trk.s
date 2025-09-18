@@ -1,4 +1,4 @@
-.title m_init - OPM _M_TRK
+.title m_trk - OPM _M_TRK
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2025 TcbnErik
@@ -39,7 +39,7 @@ ProgramStart:
 
   OPM _M_TRK
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT (strCrLf,pc)
 
   DOS _EXIT
 
@@ -64,7 +64,7 @@ strUsage:
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0
 
-CrLf: .dc.b CR,LF,0
+strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

@@ -1,4 +1,4 @@
-.title m_alloc - OPM _M_ALLOC
+.title m_version - OPM _M_VERSION
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2025 TcbnErik
@@ -16,8 +16,8 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
 .include opmdrv.mac
+.include console.mac
 .include doscall.mac
 
 .include xputil.mac
@@ -27,51 +27,17 @@
 .text
 
 ProgramStart:
-  lea (1,a2),a0
-  SKIP_SPACE a0
-  beq PrintUsage
-  bsr GetUint16Value
-  move d0,d2  ;トラック番号
-  swap d2
-
-  SKIP_SPACE a0
-  bsr GetUint16Value
-  move d0,d2  ;バッファサイズ
-
-  OPM _M_ALLOC
-  bsr Print$4_4
+  OPM _M_VERSION
+  bsr Print$8
   DOS_PRINT (strCrLf,pc)
 
   DOS _EXIT
 
 
-GetUint16Value:
-  FPACK __STOL
-  bcs NumberError
-  cmpi.l #$0001_0000,d0
-  bcc NumberError
-  rts
-
-
-PrintUsage:
-  DOS_PRINT (strUsage,pc)
-  DOS _EXIT
-
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
-
-
-  DEFINE_PRINT$4_4 Print$4_4
+  DEFINE_PRINT$8 Print$8
 
 
 .data
-
-strUsage:
-  .dc.b 'usage: m_alloc <track_no> <size>',CR,LF,0
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
 
 strCrLf: .dc.b CR,LF,0
 

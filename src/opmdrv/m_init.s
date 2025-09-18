@@ -34,7 +34,7 @@ ProgramStart:
   @@:
   OPM _M_INIT
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT (strCrLf,pc)
 
   DOS _EXIT
 
@@ -44,7 +44,7 @@ ProgramStart:
 
 .data
 
-CrLf: .dc.b CR,LF,0
+strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

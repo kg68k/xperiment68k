@@ -1,4 +1,4 @@
-.title m_alloc - OPM _M_ALLOC
+.title m_assign - OPM _M_ASSIGN
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2025 TcbnErik
@@ -31,14 +31,14 @@ ProgramStart:
   SKIP_SPACE a0
   beq PrintUsage
   bsr GetUint16Value
-  move d0,d2  ;トラック番号
+  move d0,d2  ;チャンネル番号
   swap d2
 
   SKIP_SPACE a0
   bsr GetUint16Value
-  move d0,d2  ;バッファサイズ
+  move d0,d2  ;トラック番号
 
-  OPM _M_ALLOC
+  OPM _M_ASSIGN
   bsr Print$4_4
   DOS_PRINT (strCrLf,pc)
 
@@ -68,7 +68,7 @@ NumberError:
 .data
 
 strUsage:
-  .dc.b 'usage: m_alloc <track_no> <size>',CR,LF,0
+  .dc.b 'usage: m_assign <channel_no> <track_no>',CR,LF,0
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0
