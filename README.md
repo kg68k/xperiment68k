@@ -152,12 +152,16 @@
   * [trap15trace](docs/misc.md#trap15trace) ... トレース実行に対応した`trap #15`処理ルーチン
   * [vdispst_time](docs/misc.md#vdispst_time) ... `IOCS _VDISPST`による割り込みが発生するまでの時間を計測
 * [OPMDRV\*.X](docs/opmdrv.md)
+  * [md_on](docs/opmdrv.md#md_on) ... `OPM _MD_ON`でMIDIチャンネル出力許可
+  * [md_off](docs/opmdrv.md#md_off) ... `OPM _MD_OFF`でMIDIチャンネル出力禁止
+  * [md_stat](docs/opmdrv.md#md_stat) ... `OPM _MD_STAT`でMIDIチャンネル出力許可・禁止状態を得る
   * [m_alloc](docs/opmdrv.md#m_alloc) ... `OPM _M_ALLOC`でトラックバッファ確保
   * [m_assign](docs/opmdrv.md#m_assign) ... `OPM _M_ASSIGN`でチャンネルにトラック番号を割り当て
   * [m_atoi](docs/opmdrv.md#m_atoi) ... `OPM _M_ATOI`でトラックバッファの先頭アドレス取得
   * [m_cont](docs/opmdrv.md#m_cont) ... `OPM _M_CONT`で演奏を再開
   * [m_free](docs/opmdrv.md#m_free) ... `OPM _M_FREE`でトラックバッファの残りバイト数を取得
   * [m_freea](docs/opmdrv.md#m_freea) ... `OPM _M_FREEA`でトラックバッファの全バイト数を取得
+  * [m_ifchk](docs/opmdrv.md#m_ifchk) ... `OPM _M_IFCHK`でMIDIインターフェイスの有無を検出
   * [m_init](docs/opmdrv.md#m_init) ... `OPM _M_INIT`でトラックバッファ初期化
   * [m_intoff](docs/opmdrv.md#m_intoff) ... `OPM $0e`で割り込みを停止
   * [m_inton](docs/opmdrv.md#m_inton) ... `OPM $0d`で割り込みを開始
