@@ -5,7 +5,7 @@ O1 = m_alloc.x m_assign.x m_atoi.x m_cont.x m_free.x m_init.x \
 
 O2 = md_off.x md_on.x md_stat.x
 
-O3 = m_freea.x m_ifchk.x m_use.x m_version.x
+O3 = m_chan.x m_freea.x m_ifchk.x m_pan.x m_prog.x m_use.x m_version.x m_vol.x
 
 TARGET = $(O1) $(O2) $(O3) opmdrvtype.x
 

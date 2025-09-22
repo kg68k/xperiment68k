@@ -49,9 +49,8 @@ GetIntOrUint32Value:
   addq.l #1,a0
   FPACK __STOL
   bcs NumberError
-  neg.l d0  ;(0以外のとき)ccrC=1になるので、成功時は忘れずにccrC=0にする
+  neg.l d0
   bpl NumberError
-  tst.l d0  ;ccrC=0
   rts
 
 GetUint32Value:

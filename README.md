@@ -158,6 +158,7 @@
   * [m_alloc](docs/opmdrv.md#m_alloc) ... `OPM _M_ALLOC`でトラックバッファ確保
   * [m_assign](docs/opmdrv.md#m_assign) ... `OPM _M_ASSIGN`でチャンネルにトラック番号を割り当て
   * [m_atoi](docs/opmdrv.md#m_atoi) ... `OPM _M_ATOI`でトラックバッファの先頭アドレス取得
+  * [m_chan](docs/opmdrv.md#m_chan) ... `OPM _M_CHAN`で出力チャンネルを設定・取得
   * [m_cont](docs/opmdrv.md#m_cont) ... `OPM _M_CONT`で演奏を再開
   * [m_free](docs/opmdrv.md#m_free) ... `OPM _M_FREE`でトラックバッファの残りバイト数を取得
   * [m_freea](docs/opmdrv.md#m_freea) ... `OPM _M_FREEA`でトラックバッファの全バイト数を取得
@@ -165,13 +166,16 @@
   * [m_init](docs/opmdrv.md#m_init) ... `OPM _M_INIT`でトラックバッファ初期化
   * [m_intoff](docs/opmdrv.md#m_intoff) ... `OPM $0e`で割り込みを停止
   * [m_inton](docs/opmdrv.md#m_inton) ... `OPM $0d`で割り込みを開始
+  * [m_pan](docs/opmdrv.md#m_pan) ... `OPM _M_PAN`でチャンネルのパンポットを設定・取得
   * [m_play](docs/opmdrv.md#m_play) ... `OPM _M_PLAY`で演奏を開始
+  * [m_prog](docs/opmdrv.md#m_prog) ... `OPM _M_PROG`でチャンネルの音色番号を設定・取得
   * [m_stat](docs/opmdrv.md#m_stat) ... `OPM _M_STAT`で演奏状態を取得
   * [m_stop](docs/opmdrv.md#m_stop) ... `OPM _M_STOP`で演奏を停止
   * [m_tempo](docs/opmdrv.md#m_tempo) ... `OPM _M_TEMPO`で曲のテンポを指定
   * [m_trk](docs/opmdrv.md#m_trk) ... `OPM _M_TRK`でトラックへMMLを書き込む
   * [m_use](docs/opmdrv.md#m_use) ... `OPM _M_USE`でトラックバッファの使用容量を取得
   * [m_version](docs/opmdrv.md#m_version) ... `OPM _M_VERSION`でバージョンと作成年月日を取得
+  * [m_vol](docs/opmdrv.md#m_vol) ... `OPM _M_VOL`でチャンネルのボリュームを設定・取得
   * [opmdrvtype](docs/opmdrv.md#opmdrvtype) ... 組み込まれているOPMDRV\*.Xの種類を表示
 * [Proof of Concept](docs/poc.md)
   * [bglivingdead](docs/poc.md#bglivingdead) ... `DOS _KILL_PR`の動作検証
