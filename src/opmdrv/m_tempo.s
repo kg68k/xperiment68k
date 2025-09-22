@@ -24,27 +24,53 @@
 .include xputil.mac
 
 
+TEMPO_MIN: .equ 20   ;OPMDRV.X、OPMDRV2.Xでは32
+TEMPO_MAX: .equ 300  ;OPMDRV.X、OPMDRV2.Xでは200
+
+
 .cpu 68000
 .text
 
 ProgramStart:
+  moveq #-1,d2
   lea (1,a2),a0
   SKIP_SPACE a0
-  beq PrintUsage
+  bne 1f
+    bsr PrintCurrentTempo  ;テンポ省略時は現在値を表示する
+    bra @f
+  1:
+    bsr SetTempo
+  @@:
+  DOS _EXIT
+
+
+PrintCurrentTempo:
+  moveq #-1,d2
+  OPM _M_TEMPO
+  cmpi.l #TEMPO_MIN,d0
+  bcs 1f
+  cmpi.l #TEMPO_MAX,d0
+  bhi 1f
+    lea (Buffer,pc),a0
+    FPACK __LTOS
+    DOS_PRINT (Buffer,pc)
+    bra @f
+  1:
+    bsr Print$4_4  ;エラーコードは16進数で表示する
+  @@:
+  DOS_PRINT (strCrLf,pc)
+  rts
+
+
+SetTempo:
   FPACK __STOL
   bcs NumberError
   move.l d0,d2  ;テンポ
-
   OPM _M_TEMPO
   bsr Print$4_4
   DOS_PRINT (strCrLf,pc)
+  rts
 
-  DOS _EXIT
-
-
-PrintUsage:
-  DOS_PRINT (strUsage,pc)
-  DOS _EXIT
 
 NumberError:
   DOS_PRINT (strNumberError,pc)
@@ -56,13 +82,16 @@ NumberError:
 
 .data
 
-strUsage:
-  .dc.b 'usage: m_tempo <tempo>',CR,LF,0
-
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0
 
 strCrLf: .dc.b CR,LF,0
+
+
+.bss
+.even
+
+Buffer: .ds.b 256
 
 
 .end ProgramStart
