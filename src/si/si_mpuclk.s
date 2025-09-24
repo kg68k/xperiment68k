@@ -45,6 +45,11 @@ ProgramStart:
   addq.l #4,sp
 
   moveq #0,d0
+  addq.l #1,a2
+  SKIP_SPACE a2
+  beq @f
+    bset #31,d0  ;なにか引数があれば常に自己測定を行う
+  @@:
   move.b (MPUTYPE),d0
   lea (Buffer,pc),a0
   bsr MpuClock_GetString
@@ -74,39 +79,11 @@ Buffer: .ds.b 64
 .text
 
 
-;MPUクロック数(kHz)の値を返す。
-;  スーパーバイザモードで呼び出すこと。
-;in
-;  d0.l ... MPU種類(0:68000 ... 6:68060)
-;out
-;  d0.l ... MPUクロック数(kHz)
-MpuClock_GetClock::
-  PUSH d1-d2
-  move.l d0,d2
-  move.l (ROMCNT_U32),d0
-  bne @f
-    move (ROMCNT),d0
-    bne @f
-      move.l d2,d0
-      bsr MpuClock_CountLoopOnSram
-  @@:
-  move.l d0,d1
-  add.l d0,d0
-  add.l d1,d0
-  add.l d0,d0  ;6倍
-  subq #2,d2
-  bcc @f
-    add.l d0,d0  ;68000,68010ならさらに2倍
-  @@:
-  POP d1-d2
-  rts
-
-
 ;MPUクロック数を文字列化して返す。
 ;  指定したバッファに文字列(単位 MHz)を書き込む。
 ;  その他制限は MpuClock_GetClock と同じ。
 ;in
-;  d0.l ... MPU種類(0:68000 ... 6:68060)
+;  d0.l ... bit31=1: 常に自己測定  bit7-0: MPU種類(0:68000 ... 6:68060)
 ;  a0.l ... 文字列バッファ
 ;out
 ;  d0.l ... MPUクロック数(kHz)
@@ -136,6 +113,36 @@ MpuClock_GetString::
   rts
 
 
+;MPUクロック数(kHz)の値を返す。
+;  スーパーバイザモードで呼び出すこと。
+;in
+;  d0.l ... bit31=1: 常に自己測定  bit7-0: MPU種類(0:68000 ... 6:68060)
+;out
+;  d0.l ... MPUクロック数(kHz)
+MpuClock_GetClock::
+  PUSH d1-d2
+  move.l d0,d2
+  bmi 1f
+    move.l (ROMCNT_U32),d0
+    bne @f
+      move (ROMCNT),d0
+      bne @f
+        1:
+        move.l d2,d0
+        bsr MpuClock_CountLoopOnSram
+  @@:
+  move.l d0,d1
+  add.l d0,d0
+  add.l d1,d0
+  add.l d0,d0  ;6倍
+  subq #2,d2
+  bcc @f
+    add.l d0,d0  ;68000,68010ならさらに2倍
+  @@:
+  POP d1-d2
+  rts
+
+
 TCDCR_C_MASK:      .equ %1111_0000
 TCDCR_D_MASK:      .equ %0000_1111
 TCDCR_D_DELAY_16:  .equ %0011_0000  ;ディレイモード(÷16 プリスケーラ)
@@ -161,7 +168,7 @@ MAX_CODE_SIZE: .equ 16
 ;  スーパーバイザモードで呼び出すこと。
 ;  68000,68010以外には対応していない。
 ;in
-;  d0.l ... MPU種類(0:68000 ... 6:68060)
+;  d0.l ... bit7-0: MPU種類(0:68000 ... 6:68060)
 ;out
 ;  d0.l ... MPUクロック数(kHz)。68020以上の場合は0
 ;
@@ -175,7 +182,7 @@ MAX_CODE_SIZE: .equ 16
 ;  MFP Timer-Cを設定を変更して使用している。このため、システム時間が多少遅延する。
 ;
 MpuClock_CountLoopOnSram::
-  subq.l #2,d0
+  subq.b #2,d0
   bcs Count68000
 
   moveq #0,d0
