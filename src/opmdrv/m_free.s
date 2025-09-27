@@ -29,21 +29,19 @@
 ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
-  beq PrintUsage
+  bne @f
+    PRINT_1LINE_USAGE 'usage: m_free <track_no>'
+    DOS _EXIT
+  @@:
   FPACK __STOL
   bcs NumberError
   move.l d0,d2  ;トラック番号
-
   OPM _M_FREE
   bsr Print$4_4
   DOS_PRINT (strCrLf,pc)
 
   DOS _EXIT
 
-
-PrintUsage:
-  DOS_PRINT (strUsage,pc)
-  DOS _EXIT
 
 NumberError:
   DOS_PRINT (strNumberError,pc)
@@ -54,9 +52,6 @@ NumberError:
 
 
 .data
-
-strUsage:
-  .dc.b 'usage: m_free <track_no>',CR,LF,0
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0

@@ -61,7 +61,7 @@ ProgramStart:
 
 
 PrintUsage:
-  DOS_PRINT (strUsage,pc)
+  PRINT_1LINE_USAGE 'usage: zmsc2_mstat [hex]'
   DOS _EXIT
 
 
@@ -97,8 +97,6 @@ GetZmusicVersion:
 
 
 .data
-
-strUsage: .dc.b 'usage: zmsc2_mstat [hex]',CR,LF,0
 
 strZmusic2IsNotResident:
   .dc.b 'Z-MUSIC v2が常駐していません。',CR,LF,0

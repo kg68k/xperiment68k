@@ -40,7 +40,7 @@ ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'bgsprocess thread_name'
     DOS _EXIT
   @@:
   bsr SetThreadName
@@ -54,7 +54,7 @@ ProgramStart:
   move.l d0,d6
   bpl @f
     move.l d6,d7
-    lea (MallocErrorMessage,pc),a0
+    lea (strMallocError,pc),a0
     bra error2
   @@:
 
@@ -62,7 +62,7 @@ ProgramStart:
   bsr GetPr
   move.l d0,d7
   bpl @f
-    lea (GetPrErrorMessage,pc),a0
+    lea (strGetPrError,pc),a0
     bra error2
   @@:
 
@@ -75,10 +75,10 @@ ProgramStart:
   lea (14,sp),sp
   move.l d0,d7
   bpl @f
-    lea (SProcessErrorMessage,pc),a0
+    lea (strSProcessError,pc),a0
     bra error2
   @@:
-  DOS_PRINT (SetSubMemoryMessage,pc)
+  DOS_PRINT (strSetSubMemory,pc)
   move.l d7,d0
   bsr PrintD0$4_4
   DOS_PRINT (CrLf,pc)
@@ -103,7 +103,7 @@ SetThreadName:
     move.b (a2)+,(a0)+
   dbeq d1,@b
   beq @f
-    DOS_PRINT (ThreadNameTooLong,pc)
+    DOS_PRINT (strThreadNameTooLong,pc)
     moveq #-1,d0
     rts
   @@:
@@ -124,13 +124,11 @@ GetPr:
 
 .data
 
-Usage: .dc.b 'bgsprocess thread_name',CR,LF,0
-
-ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
-MallocErrorMessage:   .dc.b 'DOS _MALLOC エラー: ',0
-GetPrErrorMessage:    .dc.b 'DOS _GET_PR エラー: ',0
-SProcessErrorMessage: .dc.b 'DOS _S_PROCESS エラー: ',0
-SetSubMemoryMessage:  .dc.b 'サブのメモリ管理を設定しました: ',0
+strThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
+strMallocError:   .dc.b 'DOS _MALLOC エラー: ',0
+strGetPrError:    .dc.b 'DOS _GET_PR エラー: ',0
+strSProcessError: .dc.b 'DOS _S_PROCESS エラー: ',0
+strSetSubMemory:  .dc.b 'サブのメモリ管理を設定しました: ',0
 
 CrLf: .dc.b CR,LF,0
 

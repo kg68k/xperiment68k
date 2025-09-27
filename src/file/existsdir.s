@@ -32,7 +32,7 @@ Start:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'usage: existsdir <dir>'
     DOS _EXIT
   @@:
 
@@ -126,7 +126,6 @@ PrintResult:
 
 .data
 
-Usage: .dc.b 'usage: existsdir <dir>',CR,LF,0
 WildCardMessage: .dc.b 'ワイルドカードは指定できません。',CR,LF,0
 
 NamestsMessage: .dc.b 'DOS _NAMESTS: ',0

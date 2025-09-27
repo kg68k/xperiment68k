@@ -1,7 +1,7 @@
 .title mpcm_echcnt - set effect channel count of MPCM
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -36,13 +36,13 @@ ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
   bne @f
-    DOS_PRINT (UsageMessage,pc)
-    bra exit
+    PRINT_1LINE_USAGE 'usage: mpcm_echcnt <n>  (0<=n<=8)'
+    DOS _EXIT
   @@:
   FPACK __STOL
   bcc @f
-    DOS_PRINT (NumErrorMessage,pc)
-    bra exit
+    DOS_PRINT (strNumError,pc)
+    DOS _EXIT
   @@:
   move.l d0,d1
 
@@ -51,13 +51,12 @@ ProgramStart:
   addq.l #4,sp
   tst.l d0
   bpl @f
-    DOS_PRINT (NoMpcmMessage,pc)
-    bra exit
+    DOS_PRINT (strNoMpcm,pc)
+    DOS _EXIT
   @@:
 
   move #M_SET_ECHCNT,d0
   trap #1
-exit:
   DOS _EXIT
 
 
@@ -75,9 +74,9 @@ GetMpcmVersion:
 
 
 .data
-UsageMessage: .dc.b 'usage: mpcm_echcnt <n>  (0<=n<=8)',CR,LF,0
-NumErrorMessage: .dc.b '数値の指定が正しくありません。',CR,LF,0
-NoMpcmMessage: .dc.b 'MPCMが組み込まれていません。',CR,LF,0
+
+strNumError: .dc.b '数値の指定が正しくありません。',CR,LF,0
+strNoMpcm: .dc.b 'MPCMが組み込まれていません。',CR,LF,0
 
 
 .end ProgramStart

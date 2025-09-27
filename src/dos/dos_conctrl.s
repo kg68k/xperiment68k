@@ -35,7 +35,10 @@ MD_MAX: .equ 18
 ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
-  beq PrintUsage
+  bne @f
+    PRINT_1LINE_USAGE 'usage: dos_conctrl <md(0..18)> [param...]'
+    DOS _EXIT
+  @@:
 
   ;MD(0～18)
   FPACK __STOL
@@ -59,10 +62,6 @@ MdJumpTable:
     ~md:=~md+1
   .endm
 
-
-PrintUsage:
-  DOS_PRINT (strUsage,pc)
-  DOS _EXIT
 
 NumberError:
   DOS_PRINT (strNumberError,pc)
@@ -222,11 +221,6 @@ Md15:
 
 
 .data
-
-strUsage:
-  .dc.b 'usage: dos_conctrl <md> [param...]',CR,LF
-  .dc.b '  md=0...18',CR,LF
-  .dc.b 0
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0

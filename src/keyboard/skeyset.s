@@ -1,7 +1,7 @@
 .title skeyset - call IOCS _SKEYSET and show IOCS _KEYINP result
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -60,9 +60,8 @@ printInkey:
 
 
 printUsage:
-  DOS_PRINT (Usage,pc)
-  move #1,-(sp)
-  DOS _EXIT2
+  PRINT_1LINE_USAGE 'usage: skeyset <scancode>'
+  DOS _EXIT
 
 
 getArgument:
@@ -86,10 +85,6 @@ getArgument:
 
 
 .data
-
-Usage:
-  .dc.b 'skeyset <scancode>',CR,LF
-  .dc.b 0
 
 NoInputKey: .dc.b 'no input key',CR,LF,0
 

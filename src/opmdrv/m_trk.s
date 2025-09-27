@@ -29,7 +29,10 @@
 ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
-  beq PrintUsage
+  bne @f
+    PRINT_1LINE_USAGE 'usage: m_trk <track_no> [mml]'
+    DOS _EXIT
+  @@:
   FPACK __STOL
   bcs NumberError
   move.l d0,d2  ;トラック番号
@@ -44,10 +47,6 @@ ProgramStart:
   DOS _EXIT
 
 
-PrintUsage:
-  DOS_PRINT (strUsage,pc)
-  DOS _EXIT
-
 NumberError:
   DOS_PRINT (strNumberError,pc)
   DOS _EXIT
@@ -57,9 +56,6 @@ NumberError:
 
 
 .data
-
-strUsage:
-  .dc.b 'usage: m_trk <track_no> [mml]',CR,LF,0
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0

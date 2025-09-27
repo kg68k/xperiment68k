@@ -52,7 +52,7 @@ Start:
 
 
 PrintUsage:
-  DOS_PRINT (strUsage,pc)
+  PRINT_1LINE_USAGE 'usage: bindno <overlay_x_file> <module_x_file>'
   DOS _EXIT
 
 
@@ -75,8 +75,6 @@ CopyFilename:
 
 
 .data
-
-strUsage: .dc.b 'usage: bindno <overlay_x_file> <module_x_file>',CR,LF,0
 
 CrLf: .dc.b CR,LF,0
 

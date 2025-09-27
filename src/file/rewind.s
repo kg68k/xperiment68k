@@ -1,7 +1,7 @@
 .title rewind - DOS _SEEK to position -1 from the end of the file
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
   bne @f
-    DOS_PRINT (UsageMessage,pc)
+    PRINT_1LINE_USAGE 'usage: rewind <filename>'
     bra error
   @@:
 
@@ -67,7 +67,6 @@ error:
 
 .data
 
-UsageMessage: .dc.b 'usage: rewind <filename>',CR,LF,0
 FileOpenErrorMessage: .dc.b 'file open error: ',0
 
 CrLf: .dc.b CR,LF,0

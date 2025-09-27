@@ -1,7 +1,7 @@
 .title iocs_datebcd - IOCS _DATEBCD
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -48,16 +48,16 @@ ProgramStart:
   DOS_PRINT (CrLf,pc)
   DOS _EXIT
 
+
 PrintUsage:
-  DOS_PRINT (strUsage,pc)
+  PRINT_1LINE_USAGE 'usage: iocs_datebcd [hex]'
   DOS _EXIT
+
 
   DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
-
-strUsage: .dc.b 'usage: iocs_datebcd [hex]',CR,LF,0
 
 CrLf: .dc.b CR,LF,0
 

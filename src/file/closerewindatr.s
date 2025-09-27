@@ -32,7 +32,7 @@ Start:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'usage: closerewindatr <file>'
     DOS _EXIT
   @@:
 
@@ -148,8 +148,6 @@ PrintFileAttribute:
 
 
 .data
-
-Usage: .dc.b 'usage: closerewindatr <file>',CR,LF,0
 
 DosOpenMessage: .dc.b 'DOS _OPEN エラー: ',0
 DosSeekMessage: .dc.b 'DOS _SEEK エラー: ',0

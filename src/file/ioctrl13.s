@@ -1,7 +1,7 @@
 .title ioctrl13 - DOS _IOCTRL (MD=13, F_CODE=0)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ Start:
 
 
 PrintUsage:
-  DOS_PRINT (Usage,pc)
+  PRINT_1LINE_USAGE 'usage: ioctrl13 [d:]'
   DOS _EXIT
 
 
@@ -91,7 +91,6 @@ DumpMemory:
 
 .data
 
-Usage: .dc.b 'usage: ioctrl13 [d:]',CR,LF,0
 CrLf: .dc.b CR,LF,0
 
 

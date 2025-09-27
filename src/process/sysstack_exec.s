@@ -37,7 +37,7 @@ ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (strUsage,pc)
+    PRINT_1LINE_USAGE 'usage: sysstack_exec <command...>'
     DOS _EXIT
   @@:
   lea (Execfile,pc),a0
@@ -97,7 +97,7 @@ exec:
 
 
 .data
-strUsage: .dc.b 'usage: sysstack_exec <command...>',CR,LF,0
+
 strPathchkError: .dc.b 'pathchk error',CR,LF,0
 strSsp: .dc.b 'ssp = ',0
 

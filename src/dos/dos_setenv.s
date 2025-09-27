@@ -1,7 +1,7 @@
 .title dos_setenv - DOS _SETENV
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -58,8 +58,9 @@ error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
+
 PrintUsage:
-  DOS_PRINT (Usage,pc)
+  PRINT_1LINE_USAGE 'usage: dos_setenv name=value'
   DOS _EXIT
 
 
@@ -68,7 +69,6 @@ PrintUsage:
 
 .data
 
-Usage: .dc.b 'usage: dos_setenv name=value',CR,LF,0
 CrLf: .dc.b CR,LF,0
 
 

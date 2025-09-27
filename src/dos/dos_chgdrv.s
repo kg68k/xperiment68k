@@ -50,7 +50,7 @@ ProgramStart:
 
 
 PrintUsage:
-  DOS_PRINT (strUsage,pc)
+  PRINT_1LINE_USAGE 'usage: dos_chgdrv <drive or @>'
   DOS _EXIT
 
 
@@ -58,8 +58,6 @@ PrintUsage:
 
 
 .data
-
-strUsage: .dc.b 'usage: dos_chgdrv <drive or @>',CR,LF,0
 
 CrLf: .dc.b CR,LF,0
 

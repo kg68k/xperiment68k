@@ -1,7 +1,7 @@
 .title malloc_ba_exec - malloc before and after exec
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'usage: malloc_ba_exec <command...>'
     DOS _EXIT
   @@:
   lea (Execfile,pc),a0
@@ -104,7 +104,7 @@ malloc:
 
 
 .data
-Usage: .dc.b 'usage: malloc_ba_exec <command...>',CR,LF,0
+
 PathchkErrorMessage: .dc.b 'pathchk error',CR,LF,0
 
 Space: .dc.b ' ',0

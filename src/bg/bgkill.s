@@ -31,13 +31,13 @@ ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'usage: bgkill <thread_name>'
     bra error
   @@:
   lea (a2),a0
   bsr SetThreadName
   beq @f
-    DOS_PRINT (ThreadNameTooLong,pc)
+    DOS_PRINT (strThreadNameTooLong,pc)
     bra error
   @@:
 
@@ -45,7 +45,7 @@ ProgramStart:
   bsr GetPr
   move.l d0,d7
   bpl @f
-    DOS_PRINT (GetPrErrorMessage,pc)
+    DOS_PRINT (strGetPrError,pc)
     bra error2
   @@:
   moveq #-2,d0  ;自分自身のスレッドIDを得る
@@ -53,7 +53,7 @@ ProgramStart:
   move.l d0,d6
   bpl @f
     move.l d6,d7
-    DOS_PRINT (GetPrErrorMessage,pc)
+    DOS_PRINT (strGetPrError,pc)
     bra error2
   @@:
 
@@ -66,7 +66,7 @@ ProgramStart:
   lea (14,sp),sp
   move.l d0,d7
   bpl @f
-    DOS_PRINT (SendPrErrorMessage,pc)
+    DOS_PRINT (strSendPrError,pc)
     bra error2
   @@:
 
@@ -107,11 +107,9 @@ GetPr:
 
 .data
 
-Usage: .dc.b 'usage: bgkill thread_name',CR,LF,0
-
-ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
-GetPrErrorMessage: .dc.b 'DOS _GET_PR エラー: ',0
-SendPrErrorMessage: .dc.b 'DOS _SEND_PR エラー: ',0
+strThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
+strGetPrError: .dc.b 'DOS _GET_PR エラー: ',0
+strSendPrError: .dc.b 'DOS _SEND_PR エラー: ',0
 
 CrLf: .dc.b CR,LF,0
 

@@ -1,7 +1,7 @@
 .title iocs_txrascpy - IOCS _TXRASCPY sample
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -80,14 +80,14 @@ ProgramStart:
 
 
 valueError:
-  lea (usage,pc),a0
+  lea (strUsage,pc),a0
   tst.l d0
   beq error
-  lea (valueErrMes,pc),a0
+  lea (strValueError,pc),a0
   bra error
 
 valueRangeError:
-  lea (valueRangeErrMes,pc),a0
+  lea (strValueRangeError,pc),a0
   bra error
 
 error:
@@ -155,15 +155,14 @@ getValue:
 
 
 .data
-usage:
+
+strUsage:
   .dc.b 'usage: iocs_txrascpy '
   .dc.b 'コピー元 コピー先 ラスタ数 移動方向(0:下,-1:上) テキストプレーン'
-  .dc.b LF,0
+  .dc.b CR,LF,0
 
-valueErrMes: .dc.b '数値の指定が正しくありません。',LF,0
-valueRangeErrMes: .dc.b '数値の指定が範囲外です。',LF,0
-
-
+strValueError: .dc.b '数値の指定が正しくありません。',CR,LF,0
+strValueRangeError: .dc.b '数値の指定が範囲外です。',CR,LF,0
 
 
 .end ProgramStart

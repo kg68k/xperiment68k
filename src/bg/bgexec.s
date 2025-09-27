@@ -41,7 +41,7 @@ ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'usage: bgexec file [arg...]'
     bra error
   @@:
   lea (FileBuffer,pc),a0
@@ -55,7 +55,7 @@ ProgramStart:
   lea (14,sp),sp
   move.l d0,d7
   bpl @f
-    DOS_PRINT (PathchkErrorMessage,pc)
+    DOS_PRINT (strPathchkError,pc)
     bra error2
   @@:
 
@@ -72,7 +72,7 @@ ProgramStart:
   move.l d0,d6
   bpl @f
     move.l d6,d7
-    DOS_PRINT (GetPrErrorMessage,pc)
+    DOS_PRINT (strGetPrError,pc)
     bra error2
   @@:
 
@@ -83,7 +83,7 @@ retry:
   bsr GetPr
   move.l d0,d7
   bpl @f
-    DOS_PRINT (GetPrErrorMessage,pc)
+    DOS_PRINT (strGetPrError,pc)
     bra error2
   @@:
 
@@ -118,7 +118,7 @@ retry:
     cmp.l d0,d1
     beq retry
 
-    DOS_PRINT (SendPrErrorMessage,pc)
+    DOS_PRINT (strSendPrError,pc)
     bra error2
   @@:
 
@@ -160,11 +160,9 @@ GetPr:
 
 BgThreadName: .dc.b 'bgexecd',0
 
-Usage: .dc.b 'usage: bgexec file [arg...]',CR,LF,0
-
-PathchkErrorMessage: .dc.b 'DOS _EXEC (pathchk) エラー: ',0
-GetPrErrorMessage: .dc.b 'DOS _GET_PR エラー: ',0
-SendPrErrorMessage: .dc.b 'DOS _SEND_PR エラー: ',0
+strPathchkError: .dc.b 'DOS _EXEC (pathchk) エラー: ',0
+strGetPrError: .dc.b 'DOS _GET_PR エラー: ',0
+strSendPrError: .dc.b 'DOS _SEND_PR エラー: ',0
 
 CrLf: .dc.b CR,LF,0
 

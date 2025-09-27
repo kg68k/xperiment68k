@@ -31,7 +31,7 @@ Start:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'usage: newvol <name>'
     DOS _EXIT
   @@:
   move #1<<FILEATR_VOLUME,-(sp)
@@ -49,8 +49,6 @@ Start:
 
 
 .data
-
-Usage: .dc.b 'usage: newvol <name>',CR,LF,0
 
 CrLf: .dc.b CR,LF,0
 

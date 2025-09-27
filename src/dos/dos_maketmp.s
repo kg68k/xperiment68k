@@ -31,8 +31,10 @@
 ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
-  beq PrintUsage
-
+  bne @f
+    PRINT_1LINE_USAGE 'usage: dos_maketmp filename'
+    DOS _EXIT
+  @@:
   lea (Filename,pc),a1
   STRCPY a0,a1
 
@@ -49,20 +51,12 @@ ProgramStart:
   DOS _EXIT
 
 
-PrintUsage:
-  DOS_PRINT (Usage,pc)
-  move #EXIT_FAILURE,-(sp)
-  DOS _EXIT2
-
-
   DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
-Usage: .dc.b 'usage: dos_maketmp filename',CR,LF,0
 Comma: .dc.b ', ',0
-
 CrLf: .dc.b CR,LF,0
 
 

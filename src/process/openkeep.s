@@ -1,7 +1,7 @@
 .title openkeep - open file and keeppr
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ End:  ;常駐部末尾
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'usage: openkeep <file>'
     bra error
   @@:
 
@@ -61,7 +61,7 @@ error:
 
 
 .data
-Usage: .dc.b 'usage: openkeep <file>',CR,LF,0
+
 OpenErrorMessage: .dc.b 'file open error',CR,LF,0
 
 

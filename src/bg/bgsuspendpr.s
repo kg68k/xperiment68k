@@ -30,13 +30,13 @@ ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
-    DOS_PRINT (Usage,pc)
+    PRINT_1LINE_USAGE 'usage: bgsuspendpr <thread_name>'
     bra error
   @@:
   lea (a2),a0
   bsr SetThreadName
   beq @f
-    DOS_PRINT (ThreadNameTooLong,pc)
+    DOS_PRINT (strThreadNameTooLong,pc)
     bra error
   @@:
 
@@ -44,7 +44,7 @@ ProgramStart:
   bsr GetPr
   move.l d0,d7
   bpl @f
-    DOS_PRINT (GetPrErrorMessage,pc)
+    DOS_PRINT (strGetPrError,pc)
     bra error2
   @@:
 
@@ -53,7 +53,7 @@ ProgramStart:
   addq.l #2,sp
   move.l d0,d7
   bpl @f
-    DOS_PRINT (SuspendErrorMessage,pc)
+    DOS_PRINT (strSuspendError,pc)
     bra error2
   @@:
   DOS _EXIT
@@ -93,11 +93,9 @@ GetPr:
 
 .data
 
-Usage: .dc.b 'usage: bgsuspendpr <thread_name>',CR,LF,0
-
-ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
-GetPrErrorMessage: .dc.b 'DOS _GET_PR エラー: ',0
-SuspendErrorMessage: .dc.b 'DOS _SUSPEND_PR エラー: ',0
+strThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
+strGetPrError: .dc.b 'DOS _GET_PR エラー: ',0
+strSuspendError: .dc.b 'DOS _SUSPEND_PR エラー: ',0
 
 CrLf: .dc.b CR,LF,0
 

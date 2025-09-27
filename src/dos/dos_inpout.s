@@ -1,7 +1,7 @@
 .title dos_inpout - DOS _INPOUT
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ OutputMode:
 
 
 PrintUsage:
-  DOS_PRINT (UsageMessage,pc)
+  PRINT_1LINE_USAGE 'usage: dos_inpout <-ff | -fe | string...>'
   DOS _EXIT
 
 
@@ -127,7 +127,6 @@ AnalyzeArgument:
 
 .data
 
-UsageMessage: .dc.b 'usage: dos_inpout <-ff | -fe | string...>',CR,LF,0
 Comma: .dc.b ', ',0
 CrLf: .dc.b CR,LF,0
 

@@ -1,7 +1,7 @@
 .title appendbytes - append padding data to file
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ Start:
   lea (LengthTable,pc),a1
   bsr AnalyzeArgument
   beq @f
-    DOS_PRINT (strUsage,pc)
+    PRINT_1LINE_USAGE 'usage: appendbytes <length<[,...] <filename>'
     DOS _EXIT
   @@:
 
@@ -166,8 +166,6 @@ AnalyzeArgument:
 
 
 .data
-
-strUsage: .dc.b 'usage: appendbytes length[,...] filename',CR,LF,0
 
 strFileOpenError:  .dc.b 'file open error: ',0
 strFileSeekError:  .dc.b 'file seek error: ',0

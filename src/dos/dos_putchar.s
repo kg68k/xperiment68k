@@ -29,7 +29,10 @@
 ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
-  beq PrintUsage
+  bne @f
+    PRINT_1LINE_USAGE 'usage: dos_putchar <string...>'
+    DOS _EXIT
+  @@:
 
   bra 8f
   1:
@@ -46,15 +49,8 @@ ProgramStart:
 
   DOS _EXIT
 
-
-PrintUsage:
-  DOS_PRINT (strUsage,pc)
-  DOS _EXIT
-
-
 .data
 
-strUsage: .dc.b 'usage: dos_putchar <string...>',CR,LF,0
 CrLf: .dc.b CR,LF,0
 
 

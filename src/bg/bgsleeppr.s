@@ -109,7 +109,7 @@ GetPr:
 
 
 PrintUsage:
-  DOS_PRINT (strUsage,pc)
+  PRINT_1LINE_USAGE 'usage: bgsleeppr [-f] [time]'
   DOS _EXIT
 
 NumberError:
@@ -124,9 +124,6 @@ NumberError:
 
 strProgramName:
   .dc.b 'bgsleeppr: ',0
-
-strUsage:
-  .dc.b 'usage: bgsleeppr [-f] [time]',CR,LF,0
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0

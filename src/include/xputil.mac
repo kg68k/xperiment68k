@@ -411,6 +411,15 @@ DOS_PRINT: .macro ea
 .endm
 
 
+;1行の使用法を表示する(標準出力への出力)
+PRINT_1LINE_USAGE: .macro mes
+  DOS_PRINT (@mes,pc)
+  .data
+  @mes: .dc.b mes,CR,LF,0
+  .text
+.endm
+
+
 ;文字列を表示する(IOCS)
 IOCS_B_PRINT: .macro ea
   lea ea,a1
