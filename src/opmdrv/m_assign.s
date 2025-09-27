@@ -29,13 +29,16 @@
 ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
-  beq PrintUsage
-  bsr GetUint16Value
+  bne @f
+    PRINT_1LINE_USAGE 'usage: m_assign <channel_no> <track_no>'
+    DOS _EXIT
+  @@:
+
+  bsr GetWordValue
   move d0,d2  ;チャンネル番号
   swap d2
-
   SKIP_SPACE a0
-  bsr GetUint16Value
+  bsr GetWordValue
   move d0,d2  ;トラック番号
 
   OPM _M_ASSIGN
@@ -45,17 +48,14 @@ ProgramStart:
   DOS _EXIT
 
 
-GetUint16Value:
+GetWordValue:
   FPACK __STOL
   bcs NumberError
-  cmpi.l #$0001_0000,d0
-  bcc NumberError
+  cmpi.l #$0000_ffff,d0
+  bgt NumberError
+  cmpi.l #$ffff_8000,d0
+  blt NumberError
   rts
-
-
-PrintUsage:
-  DOS_PRINT (strUsage,pc)
-  DOS _EXIT
 
 NumberError:
   DOS_PRINT (strNumberError,pc)
@@ -66,9 +66,6 @@ NumberError:
 
 
 .data
-
-strUsage:
-  .dc.b 'usage: m_assign <channel_no> <track_no>',CR,LF,0
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0

@@ -32,7 +32,6 @@ TEMPO_MAX: .equ 300  ;OPMDRV.X、OPMDRV2.Xでは200
 .text
 
 ProgramStart:
-  moveq #-1,d2
   lea (1,a2),a0
   SKIP_SPACE a0
   bne 1f

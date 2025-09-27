@@ -41,13 +41,13 @@ ProgramStart:
     bsr PrintAllChannels  ;引数省略時は全チャンネルの音色番号を表示
     bra 9f
   @@:
-    moveq #-1,d2
-    bsr GetIntOrUint16Value
+    bsr GetWordValue
     move d0,d2  ;チャンネル番号
     swap d2
+    move #-1,d2  ;音色番号省略時は設定取得
     SKIP_SPACE a0
-    beq @f  ;音色番号省略時は設定取得
-      bsr GetIntOrUint16Value
+    beq @f
+      bsr GetWordValue
       move d0,d2  ;音色番号
   @@:
   OPM _M_PROG
@@ -98,25 +98,14 @@ PrintAllChannels:
   rts
 
 
-GetIntOrUint16Value:
-  cmpi.b #'-',(a0)
-  bne GetUint16Value
-
-  addq.l #1,a0
+GetWordValue:
   FPACK __STOL
   bcs NumberError
-  cmpi.l #$0000_8000,d0
-  bhi NumberError
-  neg.l d0
+  cmpi.l #$0000_ffff,d0
+  bgt NumberError
+  cmpi.l #$ffff_8000,d0
+  blt NumberError
   rts
-
-GetUint16Value:
-  FPACK __STOL
-  bcs NumberError
-  cmpi.l #$0001_0000,d0
-  bcc NumberError
-  rts
-
 
 NumberError:
   DOS_PRINT (strNumberError,pc)

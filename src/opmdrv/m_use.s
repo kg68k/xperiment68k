@@ -28,11 +28,11 @@
 
 ProgramStart:
   moveq #-1,d2  ;省略時は-1=全トラック合計
-
   lea (1,a2),a0
   SKIP_SPACE a0
   beq @f
-    bsr GetIntOrUint32Value
+    FPACK __STOL
+    bcs NumberError
     move.l d0,d2  ;トラック番号
   @@:
   OPM _M_USE
@@ -41,22 +41,6 @@ ProgramStart:
 
   DOS _EXIT
 
-
-GetIntOrUint32Value:
-  cmpi.b #'-',(a0)
-  bne GetUint32Value
-
-  addq.l #1,a0
-  FPACK __STOL
-  bcs NumberError
-  neg.l d0
-  bpl NumberError
-  rts
-
-GetUint32Value:
-  FPACK __STOL
-  bcs NumberError
-  rts
 
 NumberError:
   DOS_PRINT (strNumberError,pc)
