@@ -29,17 +29,12 @@
 ProgramStart:
   OPM _M_VERSION
   bsr Print$8
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
 
   DEFINE_PRINT$8 Print$8
-
-
-.data
-
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

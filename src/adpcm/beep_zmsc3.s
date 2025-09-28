@@ -89,7 +89,7 @@ MainLoop:
     Z_MUSIC ZM_SE_ADPCM1
 
     bsr Print$4_4
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   loopNext:
   move.l d5,d0
   bsr getPlayChannel
@@ -221,8 +221,6 @@ Usage:
 
 NoZmsc3Message: .dc.b 'ZMSC3.Xが組み込まれていません。',CR,LF,0
 InvalidBeepDataMessage: .dc.b 'BEEP音データが登録されていません。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

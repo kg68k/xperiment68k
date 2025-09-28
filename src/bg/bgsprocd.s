@@ -1,7 +1,7 @@
 .title bgsprocd - bgexec daemon with `DOS _S_PROCESS`
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ Awaken:
   IOCS_B_PRINT (a5)
   move.b d1,(a5)
 
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
 
   clr.l -(sp)
   pea (a5)
@@ -159,7 +159,7 @@ PrintUnknownCommand:
   lea (sp),a0
   bsr ToHexString4
   IOCS_B_PRINT (sp)
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
   unlk a6
   rts
 
@@ -173,7 +173,7 @@ ExecError:
   lea (sp),a0
   bsr ToHexString4_4
   IOCS_B_PRINT (sp)
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
   unlk a6
   rts
 
@@ -205,8 +205,6 @@ NotTerminated:        .dc.b 'プロセスがまだ終了していません。',C
 ExecuteMessage:       .dc.b 'ファイルを実行します: ',0
 ExecDoneMessage:      .dc.b '実行終了しました。',CR,LF,0
 ExecErrorMessage:     .dc.b '実行エラー: d0.l = $',0
-
-CrLf: .dc.b CR,LF,0
 
 IsThreadStarted: .dc.b 0
 .even
@@ -275,7 +273,7 @@ error:
   DOS_PRINT (a0)
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2

@@ -50,7 +50,7 @@ Start:
   lea (10,sp),sp
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   moveq #16,d0
   lea (IoctrlBuffer,pc),a0
@@ -79,7 +79,7 @@ DumpMemory:
   clr.b -(a0)
 
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   POP d2/a2
   rts
@@ -87,11 +87,6 @@ DumpMemory:
 
   DEFINE_TOHEXSTRING4 ToHexString4
   DEFINE_PRINTD0$4_4 PrintD0$4_4
-
-
-.data
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

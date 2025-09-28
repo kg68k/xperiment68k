@@ -73,7 +73,7 @@ ProgramStart:
 
   jsr (a5)
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -135,8 +135,6 @@ strUsage:
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

@@ -420,10 +420,35 @@ PRINT_1LINE_USAGE: .macro mes
 .endm
 
 
+;(マクロ内部で使用) 改行コード
+_DEFINE_STRCRLF: .macro
+  .data
+  _strCrLf: .dc.b CR,LF,0
+  .text
+
+  _DEFINE_STRCRLF: .macro
+  .endm
+.endm
+
+
+;改行を表示する(標準出力への出力)
+DOS_PRINT_CRLF: .macro
+  DOS_PRINT (_strCrLf,pc)
+  _DEFINE_STRCRLF
+.endm
+
+
 ;文字列を表示する(IOCS)
 IOCS_B_PRINT: .macro ea
   lea ea,a1
   IOCS _B_PRINT
+.endm
+
+
+;改行を表示する(IOCS)
+B_PRINT_CRLF: .macro
+  IOCS_B_PRINT (_strCrLf,pc)
+  _DEFINE_STRCRLF
 .endm
 
 

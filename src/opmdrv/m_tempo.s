@@ -57,7 +57,7 @@ PrintCurrentTempo:
   1:
     bsr Print$4_4  ;エラーコードは16進数で表示する
   @@:
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -67,7 +67,7 @@ SetTempo:
   move.l d0,d2  ;テンポ
   OPM _M_TEMPO
   bsr Print$4_4
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -83,8 +83,6 @@ NumberError:
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

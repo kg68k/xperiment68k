@@ -1,7 +1,7 @@
 .title runwaitchk - memory wait checker
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ Measure:
   lea (Buffer,pc),a0
   FPACK __LTOS
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   POP d3/d6-d7
   rts
@@ -126,12 +126,11 @@ LoopCodeEnd:
 
 
 .data
+
 OnMainReadMain:   .dc.b 'on main memory, read main memory: ',0
 OnMainReadGvram:  .dc.b 'on main memory, read gvram: ',0
 OnGvramReadMain:  .dc.b 'on gvram, read main memory: ',0
 OnGvramReadGvram: .dc.b 'on gvram, read gvram: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

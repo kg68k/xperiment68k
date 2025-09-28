@@ -32,7 +32,7 @@ ProgramStart:
   DOS_PRINT (StartupMesssage,pc)
   move.l d3,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   @@:
     IOCS _B_KEYINP
     move.l d0,d7
@@ -43,7 +43,7 @@ ProgramStart:
     DOS_PRINT (ResultD3,pc)
     move.l d3,d0
     bsr Print$4_4
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   cmpi.b #$1b,d7
   bne @b
 
@@ -58,8 +58,6 @@ ProgramStart:
 StartupMesssage: .dc.b 'ESCキーで終了します。d3 = ',0
 ResultD0: .dc.b 'd0 = ',0
 ResultD3: .dc.b ', d3 = ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

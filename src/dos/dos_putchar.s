@@ -45,13 +45,9 @@ ProgramStart:
   bne 1b
 
   ;ファイルへのリダイレクト時に指定コードだけが保存されるように、IOCSで改行を表示する
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
 
   DOS _EXIT
-
-.data
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

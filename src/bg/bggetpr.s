@@ -43,7 +43,7 @@ ProgramStart:
 
   move.l d0,d7
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   tst.l d7
   bmi @f
     bsr PrintThreadInfo
@@ -207,7 +207,7 @@ copyThreadName:
   bra appendCrLf
 
 appendCrLf:
-  lea (CrLf,pc),a1
+  lea (strCrLf,pc),a1
   STRCPY a1,a0,-1
   rts
 
@@ -242,7 +242,7 @@ strWaitTime:   .dc.b 'wait_time: ',0
 
 strComma: .dc.b ',',0  ;一行が長くなるので,のあとにスペースは入れない
 
-CrLf: .dc.b CR,LF,0
+strCrLf: .dc.b CR,LF,0
 
 
 .bss

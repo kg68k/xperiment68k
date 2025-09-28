@@ -1,7 +1,7 @@
 .title bg1pr2th - create 2 threads in one process
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -105,7 +105,7 @@ PrintUnknownCommand:
   lea (sp),a0
   bsr ToHexString4
   IOCS_B_PRINT (sp)
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
   unlk a6
   rts
 
@@ -137,7 +137,6 @@ PrcctrlBuffer2:
 MessageHeader: .dc.b 'bgexecd: ',0
 UnknownCmdMessage:    .dc.b '非対応のコマンド番号です: $',0
 
-CrLf: .dc.b CR,LF,0
 .even
 
 ;ここまでバックグラウンドスレッドのコード
@@ -198,7 +197,7 @@ PrintOpenPrError:
   DOS_PRINT (OpenPrErrorMessage,pc)
   move.l (sp)+,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4

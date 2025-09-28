@@ -52,7 +52,7 @@ ProgramStart:
   @@:
   OPM _M_PROG
   bsr Print$4_4
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
 9:
   DOS _EXIT
 

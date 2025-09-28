@@ -57,7 +57,7 @@ ProgramStart:
   DOS_PRINT (strSsp,pc)
   move.l sp,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   bsr exec
 
@@ -78,7 +78,7 @@ exec:
   DOS_PRINT (Execfile,pc)
   DOS_PRINT (Space,pc)
   DOS_PRINT (Cmdline,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   clr.l -(sp)
   pea (Cmdline,pc)
@@ -88,7 +88,7 @@ exec:
   lea (14,sp),sp
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -102,7 +102,6 @@ strPathchkError: .dc.b 'pathchk error',CR,LF,0
 strSsp: .dc.b 'ssp = ',0
 
 Space: .dc.b ' ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

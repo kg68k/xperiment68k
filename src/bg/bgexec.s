@@ -128,7 +128,7 @@ retry:
 error2:
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -163,8 +163,6 @@ BgThreadName: .dc.b 'bgexecd',0
 strPathchkError: .dc.b 'DOS _EXEC (pathchk) エラー: ',0
 strGetPrError: .dc.b 'DOS _GET_PR エラー: ',0
 strSendPrError: .dc.b 'DOS _SEND_PR エラー: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

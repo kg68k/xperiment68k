@@ -1,7 +1,7 @@
 .title nameck_bof - DOS _NAMECK buffer overflow PoC
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ ProgramStart:
   bsr PrintCwd
   DOS_PRINT (ArgMessage,pc)
   DOS_PRINT (a2)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   lea (NameckBuffer,pc),a0
   bsr InitNameckBuffer
@@ -50,7 +50,7 @@ ProgramStart:
   move.l d0,d7
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   tst.l d7
   bmi @f
@@ -124,7 +124,7 @@ DumpByte:
     dbra d2,1b
     clr.b -(a0)
     DOS_PRINT (Buffer,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 
     add d4,d3
   sub d4,d5
@@ -143,7 +143,7 @@ PrintCwd:
   bmi @f
     DOS_PRINT (CwdMessage,pc)
     DOS_PRINT (Buffer,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   @@:
   rts
 
@@ -164,7 +164,7 @@ PrintNameck:
 PrintNameckSub:
   DOS_PRINT (a2)
   DOS_PRINT (a1)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -176,7 +176,6 @@ PrintNameckSub:
 
 CwdMessage:    .dc.b 'Cwd:      ',0
 ArgMessage:    .dc.b 'Argument: ',0
-CrLf: .dc.b CR,LF,0
 
 PathMessage: .dc.b 'Path: ',0
 NameMessage: .dc.b 'Name: ',0

@@ -27,7 +27,7 @@
 .cpu 68000
 .text
 
-Start:
+ProgramStart:
   addq.l #1,a2
   SKIP_SPACE a2
   bne @f
@@ -40,7 +40,7 @@ Start:
   addq.l #6,sp
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -48,9 +48,4 @@ Start:
   DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
-.data
-
-CrLf: .dc.b CR,LF,0
-
-
-.end
+.end ProgramStart

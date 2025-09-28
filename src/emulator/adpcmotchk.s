@@ -1,7 +1,7 @@
 .title adpcmotchk - IOCS _ADPCMAOT/_ADPCMLOT checker
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -42,8 +42,7 @@ ProgramStart:
 
 adpcmAot:
   PUSH d2/d7
-  lea (AdpcmAotStr,pc),a0
-  bsr PrintA0
+  DOS_PRINT (AdpcmAotStr,pc)
 
   moveq #0<<8+0,d1
   moveq #1,d2
@@ -55,41 +54,36 @@ adpcmAot:
   moveq #0,d1
   IOCS _ADPCMMOD
 
-  lea (BtcIs,pc),a0
-  bsr PrintA0
+  DOS_PRINT (BtcIs,pc)
   move d7,d0
   bsr PrintD0w
-  bsr PrintCrLf
+  DOS_PRINT_CRLF
 
   POP d2/d7
   rts
 
 
 adpcmLot1:
-  lea (AdpcmLotStr1,pc),a0
+  DOS_PRINT (AdpcmLotStr1,pc)
   lea (LinkArrayChainTable1,pc),a1
   bsr adpcmLot
   rts
 
 adpcmLot2:
-  lea (AdpcmLotStr2,pc),a0
+  DOS_PRINT (AdpcmLotStr2,pc)
   lea (LinkArrayChainTable2,pc),a1
   bsr adpcmLot
   rts
 
 adpcmLot:
   PUSH d7
-  bsr PrintA0
-
-  lea (LatIs,pc),a0
-  bsr PrintA0
+  DOS_PRINT (LatIs,pc)
   move.l a1,d0
   bsr PrintD0l
-  lea (CommaDollar,pc),a0
-  bsr PrintA0
+  DOS_PRINT (CommaDollar,pc)
   move.l (6,a1),d0  ;next table
   bsr PrintD0l
-  bsr PrintCrLf
+  DOS_PRINT_CRLF
 
   moveq #0<<8+0,d1
   IOCS _ADPCMLOT
@@ -99,11 +93,10 @@ adpcmLot:
   moveq #0,d1
   IOCS _ADPCMMOD
 
-  lea (BarIs,pc),a0
-  bsr PrintA0
+  DOS_PRINT (BarIs,pc)
   move.l d7,d0
   bsr PrintD0l
-  bsr PrintCrLf
+  DOS_PRINT_CRLF
 
   POP d7
   rts
@@ -126,24 +119,11 @@ fillAdpcmBuf:
   rts
 
 
-PrintA0:
-  pea (a0)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-PrintCrLf:
-  pea (CrLf,pc)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
 PrintD0w:
   lea (Buffer,pc),a0
   bsr ToHexString4
 
-  lea (Buffer,pc),a0
-  bsr PrintA0
+  DOS_PRINT (Buffer,pc)
   rts
 
   DEFINE_TOHEXSTRING4 ToHexString4
@@ -152,8 +132,7 @@ PrintD0l:
   lea (Buffer,pc),a0
   bsr ToHexString4_4
 
-  lea (Buffer,pc),a0
-  bsr PrintA0
+  DOS_PRINT (Buffer,pc)
   rts
 
   DEFINE_TOHEXSTRING4_4 ToHexString4_4
@@ -186,8 +165,6 @@ AdpcmLotStr2: .dc.b 'testing IOCS _ADPCMLOT (2)',CR,LF,0
 LatIs: .dc.b 'LinkArrayChainTable = $',0
 CommaDollar: .dc.b ', $',0
 BarIs: .dc.b 'BAR = $',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

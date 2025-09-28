@@ -49,14 +49,14 @@ ProgramStart:
   DOS_PRINT (strChannelTable,pc)
   move.l d6,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   movea.l d6,a0
   bsr PrintChannelTable
 
   DOS_PRINT (strTrackTable,pc)
   move.l d7,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   movea.l d7,a0
   bsr PrintTrackTable
 
@@ -199,8 +199,6 @@ strEllipsis: .dc.b '...',0
 
 strZmusic2IsNotResident:
   .dc.b 'Z-MUSIC v2が常駐していません。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

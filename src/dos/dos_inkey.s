@@ -38,7 +38,7 @@ ProgramStart:
     DOS _INKEY
     bsr Print$4_4
   @@:
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -49,7 +49,6 @@ ProgramStart:
 .data
 
 Space: .dc.b ' ',0
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

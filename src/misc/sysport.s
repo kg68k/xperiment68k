@@ -53,7 +53,7 @@ printSysPort:
   @@:
     bsr Print$2
 9:
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -82,8 +82,6 @@ headers:
   .dc.b '$00e8e00f #8(  w): ',0
 
 strBusErr: .dc.b 'bus error',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end

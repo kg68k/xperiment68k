@@ -1,7 +1,7 @@
 .title fntget - show font data
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -22,6 +22,8 @@
 .include doscall.mac
 .include iocscall.mac
 
+.include xputil.mac
+
 
 BLANK_CHAR: .equ '□'
 DOT_CHAR:   .equ '■'
@@ -41,24 +43,14 @@ ProgramStart:
 
   lea (Buffer,pc),a0
   bsr stringifyFontData
-
-  lea (Buffer,pc),a0
-  bsr PrintA0
+  DOS_PRINT (Buffer,pc)
 
   DOS _EXIT
 
 error:
-  lea (Usage,pc),a0
-  bsr PrintA0
+  DOS_PRINT (Usage,pc)
   move #1,-(sp)
   DOS _EXIT2
-
-
-PrintA0:
-  pea (a0)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
 
 
 stringifyFontData:

@@ -1,7 +1,7 @@
 .title bgzombie - testing to killing a thread without saving psp into thread data
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ ExecError:
   lea (sp),a0
   bsr ToHexString4_4
   IOCS_B_PRINT (sp)
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
   unlk a6
   rts
 
@@ -107,8 +107,6 @@ PrcctrlBuffer:
 MessageHeader: .dc.b 'bgzombie: ',0
 ThreadAlreadyStarted: .dc.b '開始済みのスレッドが再び実行開始されました。',0
 ExecErrorMessage:     .dc.b '実行エラー: d0.l = $',0
-
-CrLf: .dc.b CR,LF,0
 
 IsThreadStarted: .dc.b 0
 .even
@@ -184,7 +182,7 @@ OptionC:
 error:
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2

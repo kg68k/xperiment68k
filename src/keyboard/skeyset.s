@@ -54,7 +54,7 @@ printInkey:
   @@:
     IOCS _B_KEYINP
     bsr Print$4
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 9:
   rts
 
@@ -87,8 +87,6 @@ getArgument:
 .data
 
 NoInputKey: .dc.b 'no input key',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

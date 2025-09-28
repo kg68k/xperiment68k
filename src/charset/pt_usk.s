@@ -1,7 +1,7 @@
 .title pt_usk - print text: USKCG
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ ProgramStart:
 
       tst d7
       beq @f
-        DOS_PRINT (CrLf,pc)  ;他の外字グループも表示するなら行を空ける
+        DOS_PRINT_CRLF  ;他の外字グループも表示するなら行を空ける
     @@:
     addq #1,d3
   cmpi #PRINT_F5XX,d3
@@ -141,8 +141,6 @@ Header:
   .dc.b '     | +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f',CR,LF
   .dc.b '-----+------------------------------------------------',CR,LF
   .dc.b 0
-
-CrLf: .dc.b CR,LF,0
 
 UskTextA:
   DUMPL '8690 |',15,$869f,1

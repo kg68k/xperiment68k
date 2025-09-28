@@ -81,7 +81,7 @@ ProgramStart:
   DOS_PRINT (strSetSubMemory,pc)
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -90,7 +90,7 @@ error2:
   DOS_PRINT (a0)
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -129,8 +129,6 @@ strMallocError:   .dc.b 'DOS _MALLOC エラー: ',0
 strGetPrError:    .dc.b 'DOS _GET_PR エラー: ',0
 strSProcessError: .dc.b 'DOS _S_PROCESS エラー: ',0
 strSetSubMemory:  .dc.b 'サブのメモリ管理を設定しました: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

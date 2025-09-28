@@ -158,8 +158,6 @@ PrcctrlBuffer:
 MessageHeader: .dc.b 'bgontime: ',0
 ThreadAlreadyStarted: .dc.b '開始済みのスレッドが再び実行開始されました。',0
 
-CrLf: .dc.b CR,LF,0
-
 IsThreadStarted: .dc.b 0
 .even
 
@@ -190,7 +188,7 @@ ProgramStart:
     DOS_PRINT (OpenPrErrorMessage,pc)
     move.l d7,d0
     bsr PrintD0$4_4
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 
     move #EXIT_FAILURE,-(sp)
     DOS _EXIT2

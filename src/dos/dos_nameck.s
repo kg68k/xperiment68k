@@ -1,7 +1,7 @@
 .title dos_nameck - DOS _NAMECK
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ ProgramStart:
 
   DOS_PRINT (ArgMessage,pc)
   DOS_PRINT (a2)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   pea (NameckBuffer,pc)
   pea (a2)
@@ -43,7 +43,7 @@ ProgramStart:
 
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   tst.l d7
   bmi @f
@@ -70,7 +70,7 @@ PrintNameck:
 PrintNameckSub:
   DOS_PRINT (a2)
   DOS_PRINT (a1)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -80,7 +80,6 @@ PrintNameckSub:
 .data
 
 ArgMessage: .dc.b 'Argument: ',0
-CrLf: .dc.b CR,LF,0
 
 PathMessage: .dc.b 'Path: ',0
 NameMessage: .dc.b 'Name: ',0

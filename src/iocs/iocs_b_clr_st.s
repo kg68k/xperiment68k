@@ -40,7 +40,7 @@ ProgramStart:
   IOCS _B_CLR_ST
 
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 
@@ -56,8 +56,6 @@ NumberError:
 
 strNumberError:
   .dc.b '範囲の指定が正しくありません。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

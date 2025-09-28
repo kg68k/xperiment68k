@@ -1,7 +1,7 @@
 .title getassign - DOS _ASSIGN (MD = 0; getassign)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -38,22 +38,17 @@ ProgramStart:
   move.l d0,d7
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   tst.l d7
   bmi @f
     DOS_PRINT (Buffer,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   @@:
   DOS _EXIT
 
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
-
-
-.data
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

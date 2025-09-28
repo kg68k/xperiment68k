@@ -1,7 +1,7 @@
 .title namests_bof - DOS _NAMESTS buffer overflow PoC
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ ProgramStart:
   bsr PrintCwd
   DOS_PRINT (ArgMessage,pc)
   DOS_PRINT (a2)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   lea (NamestsBuffer,pc),a0
   bsr InitNamestsBuffer
@@ -50,7 +50,7 @@ ProgramStart:
   move.l d0,d7
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   tst.l d7
   bmi @f
@@ -125,7 +125,7 @@ DumpByte:
     dbra d2,1b
     clr.b -(a0)
     DOS_PRINT (Buffer,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 
     add d4,d3
   sub d4,d5
@@ -144,7 +144,7 @@ PrintCwd:
   bmi @f
     DOS_PRINT (CwdMessage,pc)
     DOS_PRINT (Buffer,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   @@:
   rts
 
@@ -189,7 +189,7 @@ PrintNamestsD0b:
   DOS_PRINT (a0)
   move.l (sp)+,d0
   bsr Print$2
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 PrintNamestsSub:
@@ -198,7 +198,7 @@ PrintNamestsSub:
   clr.b (a2)
   DOS_PRINT (a1)
   move.b d1,(a2)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -211,7 +211,6 @@ PrintNamestsSub:
 
 CwdMessage:    .dc.b 'Cwd:      ',0
 ArgMessage:    .dc.b 'Argument: ',0
-CrLf: .dc.b CR,LF,0
 
 WildMessage:  .dc.b 'Wildcard: ',0
 DriveMessage: .dc.b 'Drive:    ',0

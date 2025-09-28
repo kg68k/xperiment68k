@@ -47,7 +47,7 @@ Start:
   lea (10,sp),sp
 
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 
@@ -72,11 +72,6 @@ CopyFilename:
 
 
   DEFINE_PRINT$4_4 Print$4_4
-
-
-.data
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

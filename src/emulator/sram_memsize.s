@@ -82,7 +82,7 @@ PrintMainMemorySize:
   DOS_PRINT (MemorySizeMessage,pc)
   bsr GetMeinMemorySize
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -95,8 +95,6 @@ MemorySizeMessage: .dc.b '現在のメインメモリ容量($00ed0008): ',0
 ModifyMessage1: .dc.b 'メインメモリ容量を',0
 ModifyMessage2: .dc.b 'に書き換えます。',CR,LF,0
 RestoreMessage: .dc.b 'メインメモリ容量を元に戻します。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end

@@ -109,7 +109,7 @@ PrintFpEnabled:
     lea (strFpEnabled,pc),a0  ;d0.l==2が返った場合は変換モードになっている。
   @@:
   DOS_PRINT (a0)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -131,7 +131,7 @@ GetAndPrintVersion:
   DOS _KNJCTRL
   addq.l #4,sp
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -161,7 +161,7 @@ GetAndPrintMode:
   @@:
   DOS_PRINT (a1)
 
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -341,7 +341,6 @@ strFpDisabled: .dc.b '変換なし(直接入力)',0
 strFpEnabled:  .dc.b '変換あり',0
 
 Space: .dc.b ' ',0
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

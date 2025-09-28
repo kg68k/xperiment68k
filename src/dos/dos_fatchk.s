@@ -44,7 +44,7 @@ ProgramStart:
   move.l d0,d7
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move.l d7,d0
   bmi @f
@@ -69,7 +69,7 @@ PrintFatChkData:
   DOS_PRINT (DriveMessage,pc)
   move (a2)+,d0  ;drive number
   bsr Print$4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   bra 8f
   1:

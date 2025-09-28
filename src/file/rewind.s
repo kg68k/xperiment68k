@@ -43,7 +43,7 @@ ProgramStart:
     DOS_PRINT (FileOpenErrorMessage,pc)
     move.l d7,d0
     bsr PrintD0$4_4
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
     bra error
   @@:
   move #SEEKMODE_END,-(sp)
@@ -53,7 +53,7 @@ ProgramStart:
   addq.l #8,sp
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -68,8 +68,6 @@ error:
 .data
 
 FileOpenErrorMessage: .dc.b 'file open error: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

@@ -52,7 +52,7 @@ ProgramStart:
   jsr (MdJumpTable,pc,d0.w)
 
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 MdJumpTable:
@@ -103,8 +103,7 @@ Md0:
 
 IocsPrintCrLf:
   PUSH d0/a1
-  lea (CrLf,pc),a1
-  IOCS _B_PRINT
+  B_PRINT_CRLF
   POP d0/a1
   rts
 
@@ -227,8 +226,6 @@ strNumberError:
 
 strNoArgError:
   .dc.b '引数が足りません',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

@@ -1,7 +1,7 @@
 .title esc_dsr - show response of escape sequence DSR
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -53,8 +53,7 @@ ProgramStart:
   move.b (a0)+,d1
   bne 1b
 
-  IOCS_B_PRINT (strCrLf,pc)
-
+  B_PRINT_CRLF
   DOS _EXIT
 
 
@@ -70,18 +69,17 @@ Input:
   rts
 
 
+.data
+
+strEsc: .dc.b ESC,'[32m','[ESC]',ESC,'[33m',0
+strDsr: .dc.b ESC,'[6n',CR,LF,0
+
+
 .bss
 .quad
 
 Buffer: .ds.b 256
 BufferEnd:
-
-
-.data
-
-strEsc: .dc.b ESC,'[32m','[ESC]',ESC,'[33m',0
-strDsr: .dc.b ESC,'[6n'
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

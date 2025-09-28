@@ -1,7 +1,7 @@
 .title exfiles - DOS _FILES (EX mode)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ ProgramStart:
 
   DOS_PRINT (Argument,pc)
   DOS_PRINT (a2)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move #$00ff,-(sp)
   pea (a2)
@@ -46,7 +46,7 @@ ProgramStart:
   move.l d0,d7
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS_PRINT (FilesFound,pc)
   lea (FilesBuffer,pc),a0
@@ -54,7 +54,7 @@ ProgramStart:
   bmi @f
     DOS_PRINT (FILES_FileName,a0)
   @@:
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   bsr PrintExfilesData
 
@@ -67,7 +67,7 @@ PrintExfilesData:
 
   DOS_PRINT (ExfilesPath,pc)
   DOS_PRINT (FILES_EX_Drive,a3)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   lea (ExfilesName1,pc),a0
   lea (FILES_EX_Name1,a3),a1
@@ -93,7 +93,7 @@ PrintNamestsSub:
   clr.b (a2)
   DOS_PRINT (a1)
   move.b d1,(a2)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -106,7 +106,6 @@ DefaultFindPath: .dc.b '*.*',0
 
 Argument: .dc.b 'Argument = ',0
 FilesFound: .dc.b 'Found = ',0
-CrLf: .dc.b CR,LF,0
 
 ExfilesPath:  .dc.b 'Path  = ',0
 ExfilesName1: .dc.b 'Name1 = ',0

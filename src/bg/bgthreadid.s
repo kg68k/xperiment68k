@@ -41,7 +41,7 @@ ProgramStart:
   bsr GetPr
   move.l d0,d7
   bsr Print$8
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   tst.l d7
   bmi error
 
@@ -81,8 +81,6 @@ GetPr:
 .data
 
 ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

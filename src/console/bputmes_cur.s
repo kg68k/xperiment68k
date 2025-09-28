@@ -42,8 +42,7 @@ ProgramStart:
   lea (strTarget,pc),a1
   IOCS _B_PUTMES
 
-  lea (CrLf,pc),a1
-  IOCS _B_PRINT
+  B_PRINT_CRLF
 
   DOS _EXIT
 
@@ -52,8 +51,6 @@ ProgramStart:
 
 strPutKey: .dc.b 'カーソルが描画中のタイミングでなにかキーを押してください。',CR,LF,0
 strTarget: .dc.b '★ ← タイミングがよければ、カーソルの反転描画が残ります。',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

@@ -28,17 +28,12 @@
 ProgramStart:
   OPM _M_INTOFF
   bsr Print$4_4
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
 
   DEFINE_PRINT$4_4 Print$4_4
-
-
-.data
-
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

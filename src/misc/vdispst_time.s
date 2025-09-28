@@ -1,7 +1,7 @@
 .title vdispst_time - print time to interrupt of IOCS _VDISPST
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -75,7 +75,7 @@ ProgramStart:
   @@:
   sub.l d6,d0  ;経過時間(1/100秒単位)
   bsr PrintD0Dec
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 exit:
   DOS _EXIT
 
@@ -163,10 +163,9 @@ PrintD0Dec:
 
 
 .data
+
 CounterError: .dc.b '割り込みカウンターは0～255で指定してください。',CR,LF,0
 AlreadyUsed: .dc.b 'IOCS _VDISPSTは既に設定されています。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

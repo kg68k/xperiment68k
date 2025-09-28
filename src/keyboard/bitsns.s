@@ -1,7 +1,7 @@
 .title bitsns - show IOCS _BITSNS result
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ Start:
   bsr readBitsns
   lea (a2),a0
   bsr printBitsns
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
 
   loop:
     DOS _CHANGE_PR
@@ -107,7 +107,7 @@ printBitsnsWithChange:
 
   bsr printKeyChange
 
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
   rts
 
 printKeyChange:
@@ -187,7 +187,6 @@ printBitsns:
 .data
 
 Notice: .dc.b 'マウスボタン押し下げで終了します。',CR,LF,0
-CrLf: .dc.b CR,LF,0
 Space: .dc.b ' ',0
 
 KeyDown: .dc.b ' +',0

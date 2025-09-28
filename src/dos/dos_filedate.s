@@ -59,7 +59,7 @@ ProgramStart:
   bmi error2
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 
@@ -69,7 +69,7 @@ error:
   move.l (sp)+,d0
 error2:
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -129,8 +129,6 @@ UsageMessage:
   .dc.b 0
 
 OpenErrMessage:.dc.b 'file open error: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

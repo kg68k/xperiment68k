@@ -1,7 +1,7 @@
 .title keyscan - show keyboard scan code
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -54,7 +54,7 @@ mainLoop:
       bsr printScanCode
       move.l (sp)+,d0
       bsr printKeyName
-      IOCS_B_PRINT (CrLf,pc)
+      B_PRINT_CRLF
     @@:
     IOCS _MS_GETDT
     tst.b d0
@@ -236,7 +236,6 @@ printScanCode:
 
 Notice: .dc.b 'マウス左ボタンで終了、右ボタンでキーボード判別コマンドを送信します。',CR,LF,0
 ReqIdentifyCompact: .dc.b 'キーボード判別コマンド($47)を送信しました。',CR,LF,0
-CrLf: .dc.b CR,LF,0
 
 ScanCode_fe: .dc.b 'Compact',0
 ScanCode_ff: .dc.b 'Connected',0

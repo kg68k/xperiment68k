@@ -52,7 +52,7 @@ ProgramStart:
   DOS_PRINT (strProgramName,pc)
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -127,8 +127,6 @@ strProgramName:
 
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

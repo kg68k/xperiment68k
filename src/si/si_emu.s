@@ -1,7 +1,7 @@
 .title si_emu - show information: emulator
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 .include macro.mac
 .include console.mac
 .include doscall.mac
 
 .include xputil.mac
+
 
 SYSPORT_E8E001_P1: .equ $e8e001
 SYSPORT_E8E00B_P6: .equ $e8e00b
@@ -62,24 +62,17 @@ ProgramStart:
     bsr Emulator_ToString
     lea (strBuf,pc),a0
 @@:
-  bsr PrintEmu
+  DOS_PRINT (strEmu,pc)
+  DOS_PRINT (a0)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
-PrintEmu:
-  pea (strEmu,pc)
-  DOS _PRINT
-  move.l a0,(sp)
-  DOS _PRINT
-  pea (strCrLf,pc)
-  DOS _PRINT
-  addq.l #8,sp
-  rts
 
 .data
 strEmu: .dc.b 'Emulator: ',0
 strNoEmu: .dc.b '実機または識別できないエミュレータです。',0
-strCrLf: .dc.b CR,LF,0
+
 .bss
 .even
 strBuf: .ds.b 256

@@ -101,7 +101,7 @@ error:
   DOS_PRINT (a0)
   move.l (sp)+,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -117,7 +117,7 @@ GetAndPrintFileAttribute:
     DOS_PRINT (FileAttributeMessage,pc)
     move.l (sp),d0
     bsr PrintFileAttribute
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   @@:
   move.l (sp)+,d0
   rts
@@ -162,8 +162,6 @@ OpenMessage: .dc.b 'ファイルをオープンします。',CR,LF,0
 ReverseRMessage: .dc.b '読み込み専用属性を変更します。',CR,LF,0
 WriteMessage: .dc.b 'ファイルに書き込みを行います。',CR,LF,0
 CloseMessage: .dc.b 'ファイルをクローズします。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end

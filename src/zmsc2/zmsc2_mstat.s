@@ -55,7 +55,7 @@ ProgramStart:
   @@:
   ZMUSIC ZM_M_STAT
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -100,8 +100,6 @@ GetZmusicVersion:
 
 strZmusic2IsNotResident:
   .dc.b 'Z-MUSIC v2が常駐していません。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

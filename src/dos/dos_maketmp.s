@@ -46,7 +46,7 @@ ProgramStart:
   bsr PrintD0$4_4
   DOS_PRINT (Comma,pc)
   DOS_PRINT (Filename,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -57,7 +57,6 @@ ProgramStart:
 .data
 
 Comma: .dc.b ', ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

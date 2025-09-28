@@ -117,7 +117,7 @@ PrintResult:
   DOS_PRINT (a0)
   move.l (sp)+,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -135,8 +135,6 @@ FilesMessage2: .dc.b 'DOS _FILES (atr=$0010): ',0
 ExistsMessage:     .dc.b 'ディレクトリが存在します。',CR,LF,0
 NotExistsMessage:  .dc.b 'ディレクトリは存在しません。',CR,LF,0
 OtherErrorMessage: .dc.b 'ディレクトリは存在しません(その他のエラー)。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

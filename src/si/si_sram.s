@@ -1,7 +1,7 @@
 .title si_sram - show information: SRAM
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -70,8 +70,7 @@ ProgramStart:
   DOS _SUPER
   addq.l #4,sp
 
-  lea (strSram,pc),a0
-  bsr print_a0
+  DOS_PRINT (strSram,pc)
 
   lea (strBuf,pc),a0
   bsr Sram_GetSizeInKiB
@@ -96,18 +95,11 @@ ProgramStart:
       move.l d7,d0
       bsr SramProgram_ToString
   @@:
-  lea (strBuf,pc),a0
-  bsr print_a0
-  lea (strCrLf,pc),a0
-  bsr print_a0
+  DOS_PRINT (strBuf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
-print_a0:
-  pea (a0)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
 
 getUseModeString:
   cmpi #SRAM_U_PROGRAM,d0
@@ -130,7 +122,6 @@ strUnknown:  .dc.b 'Unknown',0
 strSram:     .dc.b 'SRAM: ',0
 strKibSlash: .dc.b 'KiB'
 strSlash:    .dc.b ' / ',0
-strCrLf:     .dc.b CR,LF,0
 
 .bss
 .even

@@ -1,7 +1,7 @@
 .title pathchk - DOS _EXEC (md=2)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -42,22 +42,22 @@ Start:
   move.l d0,d7
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   tst.l d7
   bmi @f
     DOS_PRINT (File,pc)
     DOS_PRINT (FileBuffer,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 
     DOS_PRINT (CmdlineLen,pc)
     move.b (CmdlineBuffer,pc),d0
     bsr Print$2
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 
     DOS_PRINT (CmdlineStr,pc)
     DOS_PRINT (CmdlineBuffer+1,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   @@:
   DOS _EXIT
 
@@ -71,8 +71,6 @@ Start:
 File: .dc.b 'file: ',0
 CmdlineLen: .dc.b 'cmdline length: ',0
 CmdlineStr: .dc.b 'cmdline string: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -1,7 +1,7 @@
 .title crampedexec - execute a file in cramped memory
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -136,7 +136,7 @@ error:
   move.l (sp)+,d0
   bsr PrintD0$4_4
 error2:
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
@@ -157,8 +157,6 @@ strNotEnoughMemory: .dc.b 'メモリが不足しています。',0
 strMallocError:   .dc.b 'DOS _MALLOC error: ',0
 strPathchkError:  .dc.b 'DOS _EXEC (pathchk) error: ',0
 strLoadexecError: .dc.b 'DOS _EXEC (loadexec) error: ',0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

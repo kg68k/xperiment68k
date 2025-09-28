@@ -1,7 +1,7 @@
 .title si_midi - show information: midi board
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -85,19 +85,15 @@ PrintMidi:
   rts
 
 PrintMidiSub:
-  pea (strBoard,pc)
-  DOS _PRINT
-  move.l a0,(sp)
-  DOS _PRINT
-  pea (strCrLf,pc)
-  DOS _PRINT
-  addq.l #8,sp
+  DOS_PRINT (strBoard,pc)
+  DOS_PRINT (a0)
+  DOS_PRINT_CRLF
   rts
 
 .data
 strBoard: .dc.b 'optional board: ',0
 strNotInst: .dc.b 'not installed',0
-strCrLf: .dc.b CR,LF,0
+
 .bss
 .even
 strBuf: .ds.b 256

@@ -41,7 +41,7 @@ ProgramStart:
   addq.l #4,sp
 
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 
@@ -51,11 +51,6 @@ PrintUsage:
 
 
   DEFINE_PRINT$4_4 Print$4_4
-
-
-.data
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

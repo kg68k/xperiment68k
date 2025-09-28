@@ -70,7 +70,7 @@ ProgramStart:
 PrintExitCode:
   DOS _WAIT
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -83,8 +83,6 @@ Title:
   .dc.b CR,LF
   .dc.b 'DOS _WAIT: '
   .dc.b 0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

@@ -1,7 +1,7 @@
 .title si_memory - show information: main memory and high memory
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -63,8 +63,7 @@ ProgramStart:
   DOS _SUPER
   addq.l #4,sp
 
-  lea (strMainMem,pc),a0
-  bsr print_a0
+  DOS_PRINT (strMainMem,pc)
 
   bsr Memory_GetHighArea
   movem.l d0-d1,(highArea)
@@ -86,8 +85,7 @@ ProgramStart:
   move.l (sp)+,d0
   bsr print_mem
 
-  lea (strHighMem,pc),a0
-  bsr print_a0
+  DOS_PRINT (strHighMem,pc)
 
   movem.l (highArea,pc),d0-d1
   move.l d1,d2
@@ -101,8 +99,7 @@ ProgramStart:
   bsr print_mem
   bra 9f
 no_himem:
-  lea (strNoHighMem,pc),a0
-  bsr print_a0
+  DOS_PRINT (strNoHighMem,pc)
 9:
   DOS _EXIT
 
@@ -124,21 +121,15 @@ print_mem:
   lea (strFree,pc),a1
   STRCPY a1,a0
 
-  lea (strBuf,pc),a0
-  bra print_a0
-
-print_a0:
-  pea (a0)
-  DOS _PRINT
-  addq.l #4,sp
+  DOS_PRINT (strBuf,pc)
   rts
+
 
 .data
 strMainMem: .dc.b 'Main memory: ',0
 strHighMem: .dc.b 'High memory: ',0
 strNoHighMem: .dc.b 'ハイメモリは装着されていません。',CR,LF,0
 strFree: .dc.b ' free)',CR,LF,0
-strCrLf: .dc.b CR,LF,0
 
 .bss
 .even

@@ -1,7 +1,7 @@
 .title si_model - show information: model
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -57,24 +57,17 @@ ProgramStart:
   bsr Model_GetType
   lea (strBuf,pc),a0
   bsr Model_ToString
-  lea (strBuf,pc),a0
-  bsr PrintModel
+
+  DOS_PRINT (strModel,pc)
+  DOS_PRINT (strBuf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
-PrintModel:
-  pea (strModel,pc)
-  DOS _PRINT
-  move.l a0,(sp)
-  DOS _PRINT
-  pea (strCrLf,pc)
-  DOS _PRINT
-  addq.l #8,sp
-  rts
 
 .data
 strModel: .dc.b 'Model: ',0
-strCrLf: .dc.b CR,LF,0
+
 .bss
 .even
 strBuf: .ds.b 256

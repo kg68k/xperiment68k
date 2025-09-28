@@ -1,7 +1,7 @@
 .title ns_sbo - namests stack buffer overflow PoC
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ PrintUsage:
   @@:
     DOS_PRINT (Indent,pc)
     DOS_PRINT (a0)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
     STREND a0,+1
   tst.b (a0)
   bne @b
@@ -395,7 +395,7 @@ AskExecute:
     bne @f
       addq.l #1,(sp)
   @@:
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move.l (sp)+,d0
   rts
@@ -437,8 +437,6 @@ PromptMessage:
   .dc.b '※普段使っているシステムでは実行しないこと！',CR,LF
   .dc.b CR,LF
   .dc.b '実行してよろしいですか？(yes/no):',0
-
-CrLf: .dc.b CR,LF,0
 
 MkdirError: .dc.b 'テスト用ディレクトリの作成に失敗しました。',CR,LF,0
 CreateBoundFileError: .dc.b 'テスト用ファイルの作成に失敗しました。',CR,LF,0

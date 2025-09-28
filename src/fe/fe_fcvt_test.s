@@ -1,7 +1,7 @@
 .title fe_fcvt_test - FPACK __FCVT test
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ testFcvt:
     move.l d7,d0  ;符号
     bsr PrintD0dec
 
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 
     adda (TC_NEXT,a4),a4
   next:
@@ -124,8 +124,6 @@ Mes2: .dc.b ', ',0
 Mes3: .dc.b ') -> "',0
 Mes4: .dc.b '", point=',0
 Mes5: .dc.b ', sign=',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .even

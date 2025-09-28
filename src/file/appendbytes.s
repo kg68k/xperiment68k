@@ -95,7 +95,7 @@ error:
   DOS_PRINT (a0)
   move.l (sp)+,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 error2:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -171,7 +171,6 @@ strFileOpenError:  .dc.b 'file open error: ',0
 strFileSeekError:  .dc.b 'file seek error: ',0
 strFileWriteError: .dc.b 'file write error: ',0
 strDiskFull: .dc.b 'disk full',CR,LF,0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -1,7 +1,7 @@
 .title movem_aipi - verify MOVEM.L from (An)+'s overwriting of An
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ Start:
   DOS_PRINT (BeforeMessage,pc)
   move.l a0,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move.l #1,(a0)
   ;a0にはポストインクリメント後の実効アドレスの値が入る
@@ -42,7 +42,7 @@ Start:
   DOS_PRINT (AfterMessage,pc)
   move.l a0,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -54,7 +54,6 @@ Start:
 
 BeforeMessage: .dc.b 'before: ',0
 AfterMessage:  .dc.b 'after:  ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

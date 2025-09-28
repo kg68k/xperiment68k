@@ -54,7 +54,7 @@ ProgramStart:
 
 error:
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
@@ -65,11 +65,6 @@ PrintUsage:
 
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
-
-
-.data
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -1,7 +1,7 @@
 .title dumpstdin - dump result of DOS _READ from stdin
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ ProgramStart:
   lea (Buffer,pc),a0
   FPACK __LTOS
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move.l d6,d0
   bmi readError
@@ -60,7 +60,7 @@ ProgramStart:
     lea (ReadBuffer,pc),a1
     bsr StringToHexString
     DOS_PRINT (Buffer,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   @@:
 
   DOS _EXIT
@@ -117,7 +117,6 @@ StringToHexString:
 Prompt: .dc.b 'input: ',0
 Result: .dc.b 'result: ',0
 ReadError: .dc.b 'read error',CR,LF,0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

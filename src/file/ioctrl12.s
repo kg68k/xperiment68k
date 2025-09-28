@@ -1,7 +1,7 @@
 .title ioctrl12 - DOS _IOCTRL (MD=12, F_CODE=0)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ Start:
   lea (10,sp),sp
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   moveq #16,d0
   lea (IoctrlBuffer,pc),a0
@@ -62,7 +62,7 @@ FileOpenError:
   DOS_PRINT (FileOpenErrorMessage,pc)
   move.l (sp)+,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -83,7 +83,7 @@ DumpMemory:
   clr.b -(a0)
 
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   POP d2/a2
   rts
@@ -96,7 +96,6 @@ DumpMemory:
 .data
 
 FileOpenErrorMessage: .dc.b 'ファイルがオープンできませんでした: ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -34,17 +34,12 @@ Start:
   DOS _MKDIR
   addq.l #4,sp
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT 
 
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
-
-
-.data
-
-CrLf: .dc.b CR,LF,0
 
 
 .end

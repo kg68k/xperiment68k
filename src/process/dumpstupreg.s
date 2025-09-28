@@ -47,7 +47,7 @@ ProgramStart:
   DOS_PRINT (strSsp,pc)
   move.l d5,d0
   bsr Print$8
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   lea (strSr,pc),a0
   cmp (MoveFromSr,pc),d6
@@ -57,7 +57,7 @@ ProgramStart:
   DOS_PRINT (a0)
   move d7,d0
   bsr Print$4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -77,7 +77,7 @@ PrintRegisters:
     move.l (a1)+,d0
     bsr Print$8
   dbra d2,@b
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -94,7 +94,6 @@ strSr:  .dc.b 'sr: ',0
 strCcr: .dc.b 'ccr: ',0
 Comma: .dc.b ', ',0
 
-CrLf: .dc.b CR,LF,0
 
 .bss
 

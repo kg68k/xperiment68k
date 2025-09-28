@@ -56,7 +56,7 @@ Start:
   lea (14,sp),sp
 
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 
@@ -66,8 +66,6 @@ Start:
 .data
 
 strMallocError: .dc.b 'メモリが確保できませんでした。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end

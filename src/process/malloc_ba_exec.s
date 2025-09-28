@@ -70,7 +70,7 @@ exec:
   DOS_PRINT (Execfile,pc)
   DOS_PRINT (Space,pc)
   DOS_PRINT (Cmdline,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   clr.l -(sp)
   pea (Cmdline,pc)
@@ -80,7 +80,7 @@ exec:
   lea (14,sp),sp
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -90,7 +90,7 @@ malloc:
   move.l d0,(sp)
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   tst.l (sp)
   bmi @f
@@ -108,7 +108,6 @@ malloc:
 PathchkErrorMessage: .dc.b 'pathchk error',CR,LF,0
 
 Space: .dc.b ' ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

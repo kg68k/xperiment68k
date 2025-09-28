@@ -62,7 +62,7 @@ ProgramStart:
 error2:
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -96,8 +96,6 @@ GetPr:
 strThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
 strGetPrError: .dc.b 'DOS _GET_PR エラー: ',0
 strSuspendError: .dc.b 'DOS _SUSPEND_PR エラー: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

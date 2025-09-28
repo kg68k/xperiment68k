@@ -78,7 +78,7 @@ CreateFile:
   addq.l #6,sp
 
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -89,8 +89,6 @@ CreateFile:
 
 NoArgMessage: .dc.b 'no filename',CR,LF,0
 FileExistMessage: .dc.b '同名のファイルがすでに存在します。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

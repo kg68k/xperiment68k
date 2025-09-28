@@ -1,7 +1,7 @@
 .title a2arg_nh - print argument/arg0 specified by a2 (no HUPAIR mark)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 .include fefunc.mac
 .include console.mac
 .include doscall.mac
+
+.include xputil.mac
 
 
 HUPAIR_MARK:      .reg '#HUPAIR',0
@@ -61,11 +63,9 @@ isHupairMarkExists:
   rts
 
 printHupairMark:
-  lea (strHupairMark,pc),a0
-  bsr print
-  lea (-HUPAIR_MARK_SIZE,a2),a0
-  bsr print
-  bsr printCrLf
+  DOS_PRINT (strHupairMark,pc)
+  DOS_PRINT (-HUPAIR_MARK_SIZE,a2)
+  DOS_PRINT_CRLF
   rts
 
 printArgumentLength:
@@ -74,36 +74,23 @@ printArgumentLength:
   lea (buffer,pc),a0
   FPACK __LTOS
 
-  lea (strLength,pc),a0
-  bsr print
-  lea (buffer,pc),a0
-  bsr print
-  bsr printCrLf
+  DOS_PRINT (strLength,pc)
+  DOS_PRINT (buffer,pc)
+  DOS_PRINT_CRLF
   rts
 
 printArgument:
-  lea (strArgument,pc),a0
-  bsr print
-  lea (1,a2),a0
-  bsr print
-  bsr printCrLf
+  DOS_PRINT (strArgument,pc)
+  DOS_PRINT (1,a2)
+  DOS_PRINT_CRLF
   rts
 
 printArg0:
-  lea (strArg0,pc),a0
-  bsr print
+  DOS_PRINT (strArg0,pc)
   lea (1,a2),a0
   STREND a0,+1
-  bsr print
-  bsr printCrLf
-  rts
-
-printCrLf:
-  lea (strCrLf,pc),a0
-print:
-  pea (a0)
-  DOS _PRINT
-  addq.l #4,sp
+  DOS_PRINT (a0)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -117,7 +104,6 @@ strLength:     .dc.b 'length = ',0
 strArgument:   .dc.b 'argument = ',0
 strArg0:       .dc.b 'arg0 = ',0
 
-strCrLf: .dc.b CR,LF,0
 
 .bss
 .even

@@ -72,7 +72,7 @@ InputMode:
       addq.l #2,sp
       bsr Print$4_4
     @@:
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   cmpi #$03,d5  ;Ctrl+Cが入力されたら終了する
   bne 1b
 
@@ -92,7 +92,7 @@ OutputMode:
   bne 1b
 
   ;ファイルへのリダイレクト時に指定コードだけが保存されるように、IOCSで改行を表示する
-  IOCS_B_PRINT (CrLf,pc)
+  B_PRINT_CRLF
   rts
 
 
@@ -128,7 +128,6 @@ AnalyzeArgument:
 .data
 
 Comma: .dc.b ', ',0
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

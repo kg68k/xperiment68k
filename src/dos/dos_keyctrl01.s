@@ -1,7 +1,7 @@
 .title dos_keyctrl01 - DOS _KEYCTRL (md=0,1) test
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -104,7 +104,7 @@ PrintKeyCode:
   move.l d1,d0
   bsr PrintHex
 
-  IOCS_B_PRINT (strCrLf,pc)
+  B_PRINT_CRLF
   rts
 
 PrintHex:
@@ -137,7 +137,6 @@ AnalyzeArgument:
 .data
 
 strOpt12ToExit: .dc.b 'OPT.1またはOPT.2キー押し下げで終了します。',CR,LF,0
-strCrLf: .dc.b CR,LF,0
 
 strMd0: .dc.b ': md=0(input), key=',0
 strMd1: .dc.b ': md=1(sense), key=',0

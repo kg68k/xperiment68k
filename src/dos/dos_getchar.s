@@ -37,7 +37,7 @@ ProgramStart:
     ;それをしないで他の文字を出力すると文字化けする。
     DOS _GETCHAR
     move.l d0,d6
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 
     move.l d7,d0  ;上位バイト
     bsr Print$4_4
@@ -45,11 +45,11 @@ ProgramStart:
     move.l d6,d7  ;下位バイト
     bra @f
   1:
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   @@:
   move.l d7,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS _EXIT
 
@@ -60,7 +60,6 @@ ProgramStart:
 .data
 
 Space: .dc.b ' ',0
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

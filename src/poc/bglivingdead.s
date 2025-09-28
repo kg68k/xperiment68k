@@ -114,7 +114,7 @@ ProgramStart:
 error2:
   move.l d7,d0
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 error:
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
@@ -168,8 +168,6 @@ ThreadKillDone: .dc.b 'BGスレッドが削除されました。',CR,LF,0
 
 MemoryBlockNotFound: .dc.b '自分自身のプロセスのメモリブロックが見つかりませんでした。',CR,LF,0
 MemoryBlockFound     .dc.b '自分自身のプロセスのメモリブロックが見つかりました。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

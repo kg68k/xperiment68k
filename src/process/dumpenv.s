@@ -1,7 +1,7 @@
 .title dumpenv - dump environment variables
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -62,7 +62,7 @@ printAllEnv:
   bra 1f
   @@:
     DOS_PRINT (a0)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
     STREND a0,+1
   1:
   tst.b (a0)
@@ -81,7 +81,6 @@ PrintErrA0:
 .data
 
 NoEnvBuffer: .dc.b '環境変数領域が確保されていません。',CR,LF,0
-CrLf: .dc.b CR,LF,0
 
 WaitMessage:
   .dc.b '----',CR,LF

@@ -79,7 +79,7 @@ nfilesError:
 
 PrintFilesResult:
   DOS_PRINT (FILES_FileName,a0)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -92,8 +92,6 @@ DefaultFindPath: .dc.b '*.*',0
 
 FilesError:  .dc.b 'DOS _FILES error: ',0
 NfilesError: .dc.b 'DOS _NFILES error: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -45,11 +45,11 @@ ProgramStart:
     moveq #0,d0
     move.b (INPPTR_LENGTH,a0),d0
     bsr Print$2
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
 
     DOS_PRINT (INPPTR_BUFFER,a0)
 exit:
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 
@@ -60,7 +60,6 @@ exit:
 .data
 
 strLength: .dc.b ', length = ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

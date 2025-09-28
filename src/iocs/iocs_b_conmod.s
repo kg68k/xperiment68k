@@ -99,8 +99,6 @@ strUsage:
 strNumberError:
   .dc.b '数値の指定が正しくありません。',CR,LF,0
 
-CrLf: .dc.b CR,LF,0
-
 
 .bss
 

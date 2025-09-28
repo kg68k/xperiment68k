@@ -1,7 +1,7 @@
 .title fatchk_bof - DOS _FATCHK buffer overflow PoC
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ Fatchk:
   DOS_PRINT (LengthMessage,pc)
   move.l d2,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   move d2,-(sp)
   pea (FatChkBuf,pc)
@@ -73,7 +73,7 @@ Fatchk:
   lea (10,sp),sp
 
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   moveq #FATCHK_BUF_SIZE,d0
   lea (FatChkBuf,pc),a0
@@ -108,7 +108,7 @@ DumpMemory:
   clr.b -(a0)
 
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   POP d2/a2
   rts
@@ -122,7 +122,6 @@ DumpMemory:
 .data
 
 LengthMessage: .dc.b 'length = ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

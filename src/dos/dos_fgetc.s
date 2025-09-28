@@ -92,7 +92,7 @@ exit:
 
 error:
   bsr PrintD0$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
 
@@ -105,8 +105,6 @@ error:
 OpenErrorMessage: .dc.b 'file open error: ',0
 ReadErrorMessage: .dc.b 'file read error: ',0
 CtrlZMessage: .dc.b CR,LF,'Ctrl+Zが入力されたので終了します。',CR,LF,0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

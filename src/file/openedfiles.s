@@ -69,7 +69,7 @@ showFile:
   lea (Buffer,pc),a1
   bsr copyFilename
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 showFileDone:
   moveq #0,d0
 showFileEnd:
@@ -133,8 +133,6 @@ copyFilename:
 .data
 
 Colon: .dc.b ': ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

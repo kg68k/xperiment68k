@@ -1,7 +1,7 @@
 .title mallocall - malloc all
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -58,7 +58,7 @@ ProgramStart:
   bsr PrintMemoryBlock
   lea (a3),a0
   bsr PrintProcessFilename
-  bsr PrintCrLf
+  DOS_PRINT_CRLF
 
   @@:
     bsr MallocMax
@@ -67,7 +67,7 @@ ProgramStart:
     movea.l d0,a0
     lea (-sizeof_MEMBLK,a0),a0  ;メモリ管理ポインタ
     bsr PrintMemoryBlock
-    bsr PrintCrLf
+    DOS_PRINT_CRLF
     bra @b
   @@:
 
@@ -197,17 +197,11 @@ PrintProcessFilename:
   rts
 
 
-PrintCrLf:
-  DOS_PRINT (CrLf,pc)
-  rts
-
-
   DEFINE_TOHEXSTRING8 ToHexString8
 
 
 .data
 Space: .dc.b ' ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

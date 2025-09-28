@@ -1,7 +1,7 @@
 .title datetime - print date and time obtained from IOCS
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ PrintDateTime:
   IOCS _TIMEASC
 
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -95,7 +95,7 @@ PrintDateTimeBCD:
   DOS_PRINT (Space,pc)
   move.l (sp)+,d0
   bsr Print$4_4
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -106,7 +106,6 @@ PrintDateTimeBCD:
 
 BcdMessage: .dc.b 'BCD: ',0
 Space: .dc.b ' ',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss

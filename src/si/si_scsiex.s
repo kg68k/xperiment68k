@@ -1,7 +1,7 @@
 .title si_scsiex - show information: scsiex board
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -109,20 +109,16 @@ printScsiex:
   bra print
 
 print:
-  pea (strScsiex,pc)
-  DOS _PRINT
-  move.l a0,(sp)
-  DOS _PRINT
-  pea (strCrLf,pc)
-  DOS _PRINT
-  addq.l #8,sp
+  DOS_PRINT (strScsiex,pc)
+  DOS_PRINT (a0)
+  DOS_PRINT_CRLF
   rts
 
 .data
 strScsiex: .dc.b 'SCSIEX: ',0
 strNotInst: .dc.b 'not installed',0
 strSlash: .dc.b ' / ',0
-strCrLf: .dc.b CR,LF,0
+
 .bss
 .even
 strBuf: .ds.b 256

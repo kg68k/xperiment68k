@@ -41,7 +41,7 @@ ProgramStart:
 
   DOS_PRINT (strFilename,pc)
   DOS_PRINT (FilenameBuffer,pc)
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
 
   moveq #-1,d7  ;ファイルハンドル(-1ならまだオープンしていない)
   lea (FilenameBuffer,pc),a5
@@ -198,7 +198,7 @@ Command_a:
 
   move d0,(FileAttribute)
   bsr PrintFileAttribute
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 Command_r:
@@ -267,7 +267,7 @@ Command_t:
 PrintResult:
   move.l d0,-(sp)
   bsr PrintD0$4_4
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
   move.l (sp)+,d0
   rts
 
@@ -348,8 +348,6 @@ strUnknownCommand: .dc.b '対応していないコマンドです。',CR,LF,0
 strFileNotOpen:    .dc.b 'ファイルがまだオープンされていません。',CR,LF,0
 strNumberError:    .dc.b '数値の指定が正しくありません。',CR,LF,0
 strNoNumberError:  .dc.b '出力する値が指定されていません。',CR,LF,0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

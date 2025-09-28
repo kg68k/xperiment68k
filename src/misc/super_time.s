@@ -39,7 +39,7 @@ ProgramStart:
   DOS_PRINT (strLoopCount,pc)
   move.l #LOOP_COUNT,d0
   bsr PrintD0Dec
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
 
   bsr CountTime_Empty
   lea (strEmptyJob,pc),a0
@@ -189,7 +189,7 @@ PrintTime:
   DOS_PRINT (a0)
   move.l (sp)+,d0
   bsr PrintD0Dec
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -213,8 +213,6 @@ strDosSuper:     .dc.b 'DOS _SUPER: ',0
 strDosSuper2:    .dc.b 'DOS _SUPER (in supervisor mode): ',0
 strDosSuperJsr:  .dc.b 'DOS _SUPER_JSR: ',0
 strDosSuperJsr2: .dc.b 'DOS _SUPER_JSR (in supervisor mode): ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

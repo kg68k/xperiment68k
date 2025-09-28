@@ -1,7 +1,7 @@
 .title dbrams - remeasure $cb8/$cba value
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -22,6 +22,8 @@
 .include doscall.mac
 .include iocscall.mac
 .include iocswork.mac
+
+.include xputil.mac
 
 
 MOVEL_IMM_D0: .equ $203C  ;move.l #imm,d0 のオペコード
@@ -79,15 +81,11 @@ printValue:
   bra print
 
 print:
-  pea (a0)
-  DOS _PRINT
-  pea (strCrLf,pc)
-  DOS _PRINT
-  addq.l #8,sp
+  DOS_PRINT (a0)
+  DOS_PRINT_CRLF
   rts
 
 .data
-strCrLf: .dc.b CR,LF,0
 strRom: .dc.b 'ROM: ',0
 strRam: .dc.b ', RAM: ',0
 .bss

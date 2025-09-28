@@ -43,13 +43,11 @@ ProgramStart:
   DOS _SUPER
   addq.l #4,sp
 
-  lea (strPhantomX,pc),a0
-  bsr print_a0
+  DOS_PRINT (strPhantomX,pc)
 
   bsr PhantomX_Exists
   bne @f
-    lea (strNoPX,pc),a0
-    bsr print_a0
+    DOS_PRINT (strNoPX,pc)
     bra 9f
   @@:
 
@@ -81,16 +79,9 @@ ProgramStart:
   lea (strTemp1,pc),a1
   STRCPY a1,a0
 
-  lea (strBuf,pc),a0
-  bsr print_a0
+  DOS_PRINT (strBuf,pc)
 9:
   DOS _EXIT
-
-print_a0:
-  pea (a0)
-  DOS _PRINT
-  addq.l #4,sp
-  rts
 
 
 .data

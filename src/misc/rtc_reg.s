@@ -65,7 +65,7 @@ PrintBank:
   clr.b -(a0)
   DOS_PRINT (sp)
 
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   unlk a6
   rts
 
@@ -128,8 +128,6 @@ WriteRtcMode:
 strHeader: .dc.b 'RTC     01 03 05 07 09 0b 0d 0f | 11 13 15 17 19 1b 1d 1f',CR,LF,0
 strBank0:  .dc.b 'bank 0: ',0
 strBank1:  .dc.b 'bank 1: ',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

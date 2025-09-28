@@ -1,7 +1,7 @@
 .title midi_reg - show YM3802 registers
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -104,23 +104,16 @@ ProgramStart:
 
 
 printReg:
-  PUSH d1/a0
-  subq.l #4,sp
+  PUSH d1/a0-a1
+  link a6,#-16
   lea (sp),a0
-  bsr ToHexString2
-
-  pea (a1)
-  DOS _PRINT
-  addq.l #4,sp
-
-  pea (sp)
-  DOS _PRINT
-  addq.l #4,sp
-
-  pea (strCrLf,pc)
-  DOS _PRINT
-  addq.l #4+4,sp
-  POP d1/a0
+  STRCPY a1,a0,-1   ;ヘッダ
+  bsr ToHexString2  ;値
+  lea (strCrLf,pc),a1
+  STRCPY a1,a0
+  DOS_PRINT (sp)
+  unlk a6
+  POP d1/a0-a1
   rts
 
 

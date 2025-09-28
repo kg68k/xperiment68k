@@ -1,7 +1,7 @@
 .title si_acc - show information: accelerator
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -84,52 +84,45 @@ MODEL_HYBRID:            .equ 12  ;XEiJ X68000 SCSI + ROM1.5-
 .text
 
 ProgramStart:
-  clr.l -(sp)
-  DOS _SUPER
-  addq.l #4,sp
+  DOS_PRINT (strAcc,pc)
 
-  lea (strNoAcc,pc),a0
-  bsr Accelerator_GetTypes
-  tst.l d0
-  beq 9f
+  pea (Accelerator_GetTypes,pc)
+  DOS _SUPER_JSR
+  move.l d0,(sp)+
+  bne 1f
+    DOS_PRINT (strNoAcc,pc)
+    bra @f
+  1:
+    bsr PrintAccelerators
+  @@:
+  DOS_PRINT_CRLF
 
-  lea (strBuf,pc),a0
+  DOS _EXIT
+
+
+PrintAccelerators:
+  link a6,#-256
+  lea (sp),a0
   @@:
     bsr Accelerator_ToString
     tst d0
     beq @f
 
     lea (strOn,pc),a1  ;複数のアクセラレータが認識された
-    STRCPY a1,a0
-    subq.l #1,a0
+    STRCPY a1,a0,-1
     bra @b
   @@:
-  lea (strBuf,pc),a0
-9:
-  bsr PrintAcc
-  DOS _EXIT
-
-
-PrintAcc:
-  pea (strAcc,pc)
-  DOS _PRINT
-  move.l a0,(sp)
-  DOS _PRINT
-  pea (strCrLf,pc)
-  DOS _PRINT
-  addq.l #8,sp
+  clr.b (a0)
+  DOS_PRINT (sp)
+  unlk a6
   rts
 
 
 .data
-strAcc: .dc.b 'Accelerator: ',0
-strOn: .dc.b ' on ',0
+strAcc:   .dc.b 'Accelerator: ',0
+strOn:    .dc.b ' on ',0
 strNoAcc: .dc.b 'アクセラレータは無効または装着されていません。',0
-strCrLf: .dc.b CR,LF,0
-.bss
 .even
-strBuf: .ds.b 256
-.text
 
 
 ;アクセラレータの種類を返す。

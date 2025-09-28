@@ -1,7 +1,7 @@
 .title incdir_test - increase directory test
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -255,7 +255,7 @@ CreatePaddingFiles:
     addq.l #2,sp
 
     DOS_PRINT (PaddingFilename,pc)
-    DOS_PRINT (CrLf,pc)
+    DOS_PRINT_CRLF
   dbra d6,paddingLoop
 
   moveq #0,d0
@@ -270,7 +270,7 @@ PrintError:
   bsr ToHexString4_4
   DOS_PRINT (ErrorMessage,pc)
   DOS_PRINT (Buffer,pc)
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   move.l (sp)+,d0
   rts
 
@@ -295,8 +295,6 @@ FillerExistsMessage: .dc.b 'ファイルが存在するため、そのまま続�
 FillerSizeMismatchMessage: .dc.b 'サイズの違うファイルが存在します。',CR,LF,0
 NoDiskSpaceMessage: .dc.b 'ディスクの空き容量が足りません。',CR,LF,0
 ErrorMessage: .dc.b 'error: $',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

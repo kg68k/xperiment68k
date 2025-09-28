@@ -1,7 +1,7 @@
 .title exception - take an exception
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -185,7 +185,7 @@ PrintUsage:
     lea (sizeof_EXC,a3),a3
   tst.b (EXC_STRING,a3)
   bne @b
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 
@@ -207,8 +207,6 @@ strUsage:
   .dc.b 0
 
 strComma: .dc.b ', ',0
-
-strCrLf: .dc.b CR,LF,0
 
 strMpuIsnt68000:
   .dc.b 'MPU が 68000 ではありません。',CR,LF,0

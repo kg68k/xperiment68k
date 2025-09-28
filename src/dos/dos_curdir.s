@@ -49,16 +49,11 @@ ProgramStart:
   @@:
   DOS_PRINT (CurdirBuffer,pc)
 exit:
-  DOS_PRINT (CrLf,pc)
+  DOS_PRINT_CRLF
   DOS _EXIT
 
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
-
-
-.data
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss
