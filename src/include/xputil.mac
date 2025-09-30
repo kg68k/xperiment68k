@@ -30,6 +30,30 @@
 .nlist
 
 
+;(マクロ内部で使用) エラーを表示して終了
+_DEFINE_FATAL: .macro
+_Fatal:
+  move #2,-(sp)  ;STDERR
+  pea (a0)
+  DOS _FPUTS
+  addq.l #6,sp
+
+  move #EXIT_FAILURE,-(sp)
+  DOS _EXIT2
+
+  _DEFINE_FATAL: .macro
+  .endm
+.endm
+
+
+;エラーを表示して終了
+DEFINE_FATAL: .macro label
+label: .equ _Fatal
+
+  _DEFINE_FATAL
+.endm
+
+
 ;グラフィック画面が使用できることを確認する
 ;  破壊レジスタ d0-d2
 USE_GVRAM: .macro
@@ -38,14 +62,15 @@ USE_GVRAM: .macro
   IOCS _TGUSEMD
   btst d0,#%0110  ;d0=0:未使用 3:破壊
   beq @skip
-    move #STDERR,-(sp)
-    pea (@s,pc)
-    DOS _FPUTS
-    move #1,(sp)
-    DOS _EXIT2
-    @s: .dc.b 'グラフィック画面は使用中です。',LF,0
-    .even
+    lea (@strGvramInUse,pc),a0
+    bra _Fatal
+
+    _DEFINE_FATAL
   @skip:
+
+  .data
+    @strGvramInUse: .dc.b 'グラフィック画面は使用中です。',CR,LF,0
+  .text
 .endm
 
 
@@ -166,15 +191,13 @@ label: .equ _ToHexString2
 .endm
 
 
-;数値を16進数で文字列化(8桁)
-DEFINE_TOHEXSTRING8: .macro label
+;数値を16進数で文字列化($+2桁)
+DEFINE_TOHEXSTRING$2: .macro label
 label:
-  swap d0
-  bsr _ToHexString4
-  swap d0
-  bra _ToHexString4
+  move.b #'$',(a0)+
+  bra _ToHexString2
 
-  _DEFINE_TOHEXSTRING4
+  _DEFINE_TOHEXSTRING2
 .endm
 
 
@@ -216,21 +239,6 @@ _ToHexString4:
 .endm
 
 
-;(マクロ内部で使用) 数値を16進数で文字列化(8桁)
-_DEFINE_TOHEXSTRING8: .macro
-_ToHexString8:
-  swap d0
-  bsr _ToHexString4
-  swap d0
-  bra _ToHexString4
-
-  _DEFINE_TOHEXSTRING8: .macro
-  .endm
-
-  _DEFINE_TOHEXSTRING4
-.endm
-
-
 ;数値を16進数で文字列化($+4桁)
 DEFINE_TOHEXSTRING$4: .macro label
 label:
@@ -264,6 +272,33 @@ DEFINE_TOHEXSTRING4_4: .macro label
 label: .equ _ToHexString4_4
 
   _DEFINE_TOHEXSTRING4_4
+.endm
+
+
+;(マクロ内部で使用) 数値を16進数で文字列化(8桁)
+_DEFINE_TOHEXSTRING8: .macro
+_ToHexString8:
+  swap d0
+  bsr _ToHexString4
+  swap d0
+  bra _ToHexString4
+
+  _DEFINE_TOHEXSTRING8: .macro
+  .endm
+
+  _DEFINE_TOHEXSTRING4
+.endm
+
+
+;数値を16進数で文字列化(8桁)
+DEFINE_TOHEXSTRING8: .macro label
+label:
+  swap d0
+  bsr _ToHexString4
+  swap d0
+  bra _ToHexString4
+
+  _DEFINE_TOHEXSTRING4
 .endm
 
 
