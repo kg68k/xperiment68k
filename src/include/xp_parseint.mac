@@ -20,8 +20,29 @@
         xp_parseint_mac:=1
 
 
-DEFINE_PARSEINT: .macro label
-label:
+;(マクロ内部で使用) 文字列を数値化する際のエラー処理
+_DEFINE_PARSEINTERROR: .macro
+  _DEFINE_PARSEINTERROR: .macro
+  .endm
+
+_ParseIntError:
+  lea (@strNumberError,pc),a0
+  bra _Fatal
+
+.data
+@strNumberError: .dc.b '数値の指定が正しくありません。',CR,LF,0
+.text
+
+  _DEFINE_FATAL
+.endm
+
+
+;(マクロ内部で使用) 文字列を数値化(ロングワードサイズ)
+_DEFINE_PARSEINT: .macro
+  _DEFINE_PARSEINT: .macro
+  .endm
+
+_ParseInt:
   movem.l d1-d2/a1,-(sp)
   cmpi.b #'-',(a0)
   bne 1f
@@ -30,14 +51,14 @@ label:
     neg.l d0
     bmi @f
     beq @f
-    bra @Error  ;0または負数として表現できない
+    bra _ParseIntError  ;0または負数として表現できない
   1:
     bsr @ParseIntCore
   @@:
   subq.l #1,a0
   cmpa.l a0,a1
   movem.l (sp)+,d1-d2/a1
-  beq @Error  ;数字が一つもなかった
+  beq _ParseIntError  ;数字が一つもなかった
   rts
 
 @ParseIntCore:
@@ -68,14 +89,14 @@ label:
   bra 8f
   2:
     cmpi.l #429496729,d0  ;$ffff_ffff/10
-    bhi @Error  ;10倍するとオーバーフローしてしまう
+    bhi _ParseIntError  ;10倍するとオーバーフローしてしまう
 
     move.l d0,d2
     lsl.l #2,d0  ;4n
     add.l d2,d0  ;5n
     add.l d0,d0  ;10n
     add.l d1,d0  ;10n + m
-    bcs @Error
+    bcs _ParseIntError
   8:
   move.b (a0)+,d1
   subi.b #'0',d1
@@ -90,7 +111,7 @@ label:
     subi.b #'a'-10,d1  ;'a'..'f' -> 10..15
   2:
     cmpi.l #$ffff_ffff>>4,d0
-    bhi @Error  ;16倍するとオーバーフローしてしまう
+    bhi _ParseIntError  ;16倍するとオーバーフローしてしまう
 
     lsl.l #4,d0
     or.b d1,d0
@@ -114,7 +135,7 @@ label:
   bra 8f
   2:
     addx.l d0,d0
-    bcs @Error
+    bcs _ParseIntError
   8:
   move.b (a0)+,d1
   sub.b d2,d1  ;subi.b #'0',d1
@@ -122,18 +143,68 @@ label:
   beq 2b
 
   subq.b #('9'-'0')>>1,d1
-  bls @Error  ;0と1の後ろにほかの数字が続いていたらエラーにする
+  bls _ParseIntError  ;0と1の後ろにほかの数字が続いていたらエラーにする
   rts
 
-@Error:
-  lea (@strNumberError,pc),a0
-  bra _Fatal
+  _DEFINE_PARSEINTERROR
+.endm
 
-.data
-@strNumberError: .dc.b '数値の指定が正しくありません。',CR,LF,0
-.text
 
-  _DEFINE_FATAL
+;文字列を数値化(ロングワードサイズ)
+DEFINE_PARSEINT: .macro label
+label: .equ _ParseInt
+
+  _DEFINE_PARSEINT
+.endm
+
+
+;(マクロ内部で使用) 文字列を数値化(ワードサイズ)
+_DEFINE_PARSEINTWORD: .macro
+  _DEFINE_PARSEINTWORD: .macro
+  .endm
+
+_ParseIntWord:
+  bsr _ParseInt
+  cmpi.l #$0000_ffff,d0
+  bgt _ParseIntError
+  cmpi.l #$ffff_8000,d0
+  blt _ParseIntError
+  rts
+
+  _DEFINE_PARSEINT
+.endm
+
+
+;文字列を数値化(ワードサイズ)
+DEFINE_PARSEINTWORD: .macro label
+label: .equ _ParseIntWord
+
+  _DEFINE_PARSEINTWORD
+.endm
+
+
+;(マクロ内部で使用) 文字列を数値化(バイトサイズ)
+_DEFINE_PARSEINTBYTE: .macro
+  _DEFINE_PARSEINTBYTE: .macro
+  .endm
+
+_ParseIntByte:
+  bsr _ParseInt
+  cmpi.l #$0000_00ff,d0
+  bgt _ParseIntError
+  cmpi.l #$ffff_ff80,d0
+  blt _ParseIntError
+  rts
+
+  _DEFINE_PARSEINT
+.endm
+
+
+;文字列を数値化(バイトサイズ)
+DEFINE_PARSEINTBYTE: .macro label
+label: .equ _ParseIntByte
+
+  _DEFINE_PARSEINTBYTE
 .endm
 
 
