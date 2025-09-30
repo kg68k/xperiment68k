@@ -157,26 +157,55 @@
   * [md_off](docs/opmdrv.md#md_off) ... `OPM _MD_OFF`でMIDIチャンネル出力禁止
   * [md_stat](docs/opmdrv.md#md_stat) ... `OPM _MD_STAT`でMIDIチャンネル出力許可・禁止状態を得る
   * [m_alloc](docs/opmdrv.md#m_alloc) ... `OPM _M_ALLOC`でトラックバッファ確保
+  * [m_antoff](docs/opmdrv.md#m_antoff) ... `OPM _M_ANTOFF`でチャンネルにオートノートオフ出力
   * [m_assign](docs/opmdrv.md#m_assign) ... `OPM _M_ASSIGN`でチャンネルにトラック番号を割り当て
   * [m_atoi](docs/opmdrv.md#m_atoi) ... `OPM _M_ATOI`でトラックバッファの先頭アドレス取得
+  * [m_bend](docs/opmdrv.md#m_bend) ... `OPM _M_BEND`でチャンネルのピッチベンドを設定
   * [m_chan](docs/opmdrv.md#m_chan) ... `OPM _M_CHAN`で出力チャンネルを設定・取得
+  * [m_chget](docs/opmdrv.md#m_chget) ... `OPM $2e`でチャンネル情報のアドレスを取得
   * [m_cont](docs/opmdrv.md#m_cont) ... `OPM _M_CONT`で演奏を再開
+  * [m_enable](docs/opmdrv.md#m_enable) .. `OPM _M_ENABLE`でチャンネルの発声許可・禁止
   * [m_free](docs/opmdrv.md#m_free) ... `OPM _M_FREE`でトラックバッファの残りバイト数を取得
   * [m_freea](docs/opmdrv.md#m_freea) ... `OPM _M_FREEA`でトラックバッファの全バイト数を取得
   * [m_ifchk](docs/opmdrv.md#m_ifchk) ... `OPM _M_IFCHK`でMIDIインターフェイスの有無を検出
   * [m_init](docs/opmdrv.md#m_init) ... `OPM _M_INIT`でトラックバッファ初期化
   * [m_intoff](docs/opmdrv.md#m_intoff) ... `OPM $0e`で割り込みを停止
   * [m_inton](docs/opmdrv.md#m_inton) ... `OPM $0d`で割り込みを開始
+  * [m_mstvol](docs/opmdrv.md#m_mstvol) ... `OPM _M_MSTVOL`でマスターボリュームを設定・取得
+  * [m_mod](docs/opmdrv.md#m_mod) ... `OPM _M_MOD`でチャンネルのモジュレーションを設定
+  * [m_modsns](docs/opmdrv.md#m_modsns) ... `OPM _M_MODSNS`でFM音源(YM2151)のモジュレーションの深さを設定・取得
+  * [m_opmexc](docs/opmdrv.md#m_opmexc) ... `OPM _M_OPMEXC`でFM音源(YM2151)のパラメーターセットモードを設定・取得
+  * [m_opmlfq](docs/opmdrv.md#m_opmlfq) ... `OPM _M_OPMLFQ`でFM音源(YM2151)の発振周波数を設定・取得
+  * [m_opmreg](docs/opmdrv.md#m_opmreg) ... `OPM _M_OPMREG`でFM音源(YM2151)のレジスタを読み書き
   * [m_pan](docs/opmdrv.md#m_pan) ... `OPM _M_PAN`でチャンネルのパンポットを設定・取得
+  * [m_panflt](docs/opmdrv.md#m_panflt) ... `OPM _M_PANFLT`でパンポット設定コマンドの出力フィルタを設定・取得
+  * [m_pcmbsy](docs/opmdrv.md#m_pcmbsy) ... `OPM _M_PCMBSY`でPCMの実行状態を取得
+  * [m_pcmget](docs/opmdrv.md#m_pcmget) ... `OPM _M_PCMGET`でPCMバッファに登録されたADPCMデータを取得
+  * [m_pcmlen](docs/opmdrv.md#m_pcmlen) ... `OPM _M_PCMLEN`でPCMバッファに登録されたADPCMデータのサイズを取得
+  * [m_pcmon](docs/opmdrv.md#m_pcmon) ... `OPM _M_PCMON`でPCMバッファに登録されたADPCMデータを再生
+  * [m_pcmrec](docs/opmdrv.md#m_pcmrec) ... `OPM _M_PCMREC`でオーディオ入力端子からADPCMを録音
+  * [m_pcmset](docs/opmdrv.md#m_pcmset) ... `OPM _M_PCMSET`でPCMバッファにADPCMデータを登録
+  * [m_pgmflt](docs/opmdrv.md#m_pgmflt) ... `OPM _M_PGMFLT`でMML音色切り替えコマンドの出力フィルタを設定・取得
   * [m_play](docs/opmdrv.md#m_play) ... `OPM _M_PLAY`で演奏を開始
+  * [m_tnmget](docs/opmdrv.md#m_pnmget) ... `OPM _M_PNMGET`でPCM音源の音色名を取得
+  * [m_tnmset](docs/opmdrv.md#m_pnmset) ... `OPM _M_PNMSET`でPCM音源の音色名を登録
   * [m_prog](docs/opmdrv.md#m_prog) ... `OPM _M_PROG`でチャンネルの音色番号を設定・取得
   * [m_stat](docs/opmdrv.md#m_stat) ... `OPM _M_STAT`で演奏状態を取得
   * [m_stop](docs/opmdrv.md#m_stop) ... `OPM _M_STOP`で演奏を停止
+  * [m_sync](docs/opmdrv.md#m_sync) ... `OPM _M_SYNC`で同期モードを設定
+  * [m_sysch](docs/opmdrv.md#m_sysch) ... `OPM _M_SYSCH`でチャンネル番号の割り当てモードを変更・取得
   * [m_tempo](docs/opmdrv.md#m_tempo) ... `OPM _M_TEMPO`で曲のテンポを指定
+  * [m_tnmget](docs/opmdrv.md#m_tnmget) ... `OPM _M_TNMGET`でFM音源(YM2151)の音色名を取得
+  * [m_tnmset](docs/opmdrv.md#m_tnmset) ... `OPM _M_TNMSET`でFM音源(YM2151)の音色名を登録
   * [m_trk](docs/opmdrv.md#m_trk) ... `OPM _M_TRK`でトラックへMMLを書き込む
+  * [m_trkget](docs/opmdrv.md#m_trkget) ... `OPM $2d`でトラック情報のアドレスを取得
+  * [m_trns](docs/opmdrv.md#m_trns) ... `OPM _M_TRNS`でチャンネルのトランスポーズを設定・取得
   * [m_use](docs/opmdrv.md#m_use) ... `OPM _M_USE`でトラックバッファの使用容量を取得
+  * [m_vel](docs/opmdrv.md#m_vel) ... `OPM _M_VEL`でチャンネルのベロシティを設定・取得
   * [m_version](docs/opmdrv.md#m_version) ... `OPM _M_VERSION`でバージョンと作成年月日を取得
   * [m_vol](docs/opmdrv.md#m_vol) ... `OPM _M_VOL`でチャンネルのボリュームを設定・取得
+  * [m_volflt](docs/opmdrv.md#m_volflt) ... `OPM _M_VOLFLT`でボリューム設定コマンドの出力フィルタを設定・取得
+  * [m_ycom](docs/opmdrv.md#m_ycom) ... `OPM _M_YCOM`でYコマンドの使用モードを設定・取得
   * [opmdrvtype](docs/opmdrv.md#opmdrvtype) ... 組み込まれているOPMDRV\*.Xの種類を表示
 * [Proof of Concept](docs/poc.md)
   * [bglivingdead](docs/poc.md#bglivingdead) ... `DOS _KILL_PR`の動作検証
