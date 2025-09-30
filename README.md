@@ -143,6 +143,7 @@
   * [exception](docs/misc.md#exception) ... 例外を発生させて例外処理を呼び出す
   * [joyget](docs/misc.md#joyget) ... `IOCS _JOYGET`によるジョイスティック入力
   * [midi_reg](docs/misc.md#midi_reg) ... MIDIボード(YM3802)のレジスタの値を表示
+  * [parseint](docs/misc.md#parseint) ... ParseIntサブルーチンの動作確認用
   * [reset68k](docs/misc.md#reset68k) ... `trap #10`命令によるソフトウェアリセット
   * [rtc_reg](docs/misc.md#rtc_reg) ... RTC(RP5C15)のレジスタの値を表示
   * [runwaitchk](docs/misc.md#runwaitchk) ... メモリを読み込むループの実行時間を計測

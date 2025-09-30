@@ -1,0 +1,141 @@
+.nlist
+
+;This file is part of Xperiment68k
+;Copyright (C) 2025 TcbnErik
+;
+;This program is free software: you can redistribute it and/or modify
+;it under the terms of the GNU General Public License as published by
+;the Free Software Foundation, either version 3 of the License, or
+;(at your option) any later version.
+;
+;This program is distributed in the hope that it will be useful,
+;but WITHOUT ANY WARRANTY; without even the implied warranty of
+;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;GNU General Public License for more details.
+;
+;You should have received a copy of the GNU General Public License
+;along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+.ifndef xp_parseint_mac
+        xp_parseint_mac:=1
+
+
+DEFINE_PARSEINT: .macro label
+label:
+  movem.l d1-d2/a1,-(sp)
+  cmpi.b #'-',(a0)
+  bne 1f
+    addq.l #1,a0
+    bsr @ParseIntCore
+    neg.l d0
+    bmi @f
+    beq @f
+    bra @Error  ;0または負数として表現できない
+  1:
+    bsr @ParseIntCore
+  @@:
+  subq.l #1,a0
+  cmpa.l a0,a1
+  movem.l (sp)+,d1-d2/a1
+  beq @Error  ;数字が一つもなかった
+  rts
+
+@ParseIntCore:
+  moveq #0,d0
+  moveq #'0',d2
+
+  moveq #0,d1
+  move.b (a0)+,d1
+  cmpi.b #'$',d1
+  beq @ParseHex
+  cmpi.b #'%',d1
+  beq @ParseBinary
+  cmp.b d2,d1
+  bne @ParseDecimal
+
+  move.b (a0)+,d1
+  cmpi.b #'x',d1
+  beq @ParseHex  ;'0x'
+  cmpi.b #'b',d1
+  beq @ParseBinary  ;'0b'
+
+  subq.l #1,a0  ;それ以外で'0'から始まる場合
+  bra @ParseDecimal
+
+@ParseDecimal:
+  subq.l #1,a0
+  lea (a0),a1
+  bra 8f
+  2:
+    cmpi.l #429496729,d0  ;$ffff_ffff/10
+    bhi @Error  ;10倍するとオーバーフローしてしまう
+
+    move.l d0,d2
+    lsl.l #2,d0  ;4n
+    add.l d2,d0  ;5n
+    add.l d0,d0  ;10n
+    add.l d1,d0  ;10n + m
+    bcs @Error
+  8:
+  move.b (a0)+,d1
+  subi.b #'0',d1
+  cmpi.b #9,d1
+  bls 2b
+  rts
+
+@ParseHex:
+  lea (a0),a1
+  bra 8f
+  1:
+    subi.b #'a'-10,d1  ;'a'..'f' -> 10..15
+  2:
+    cmpi.l #$ffff_ffff>>4,d0
+    bhi @Error  ;16倍するとオーバーフローしてしまう
+
+    lsl.l #4,d0
+    or.b d1,d0
+  8:
+  move.b (a0)+,d1
+  sub.b d2,d1  ;subi.b #'0',d1
+  cmpi.b #9,d1
+  bls 2b  ;'0'..'9' -> 0..9
+
+  add.b d2,d1
+  ori.b #$20,d1  ;小文字化
+  cmpi.b #'a',d1
+  bcs @f
+    cmpi.b #'f',d1
+    bls 1b
+  @@:
+  rts
+
+@ParseBinary:
+  lea (a0),a1
+  bra 8f
+  2:
+    addx.l d0,d0
+    bcs @Error
+  8:
+  move.b (a0)+,d1
+  sub.b d2,d1  ;subi.b #'0',d1
+  lsr.b #1,d1
+  beq 2b
+
+  subq.b #('9'-'0')>>1,d1
+  bls @Error  ;0と1の後ろにほかの数字が続いていたらエラーにする
+  rts
+
+@Error:
+  lea (@strNumberError,pc),a0
+  bra _Fatal
+
+.data
+@strNumberError: .dc.b '数値の指定が正しくありません。',CR,LF,0
+.text
+
+  _DEFINE_FATAL
+.endm
+
+
+.endif
+.list

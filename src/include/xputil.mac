@@ -29,6 +29,8 @@
 .include iocscall.mac
 .nlist
 
+.include xp_parseint.mac
+
 
 ;(マクロ内部で使用) エラーを表示して終了
 _DEFINE_FATAL: .macro
