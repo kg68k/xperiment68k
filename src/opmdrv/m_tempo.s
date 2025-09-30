@@ -18,8 +18,6 @@
 
 .include fefunc.mac
 .include opmdrv.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -62,8 +60,7 @@ PrintCurrentTempo:
 
 
 SetTempo:
-  FPACK __STOL
-  bcs NumberError
+  bsr ParseInt
   move.l d0,d2  ;テンポ
   OPM _M_TEMPO
   bsr Print$4_4
@@ -71,18 +68,8 @@ SetTempo:
   rts
 
 
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
-
-
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINT$4_4 Print$4_4
-
-
-.data
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
 
 
 .bss

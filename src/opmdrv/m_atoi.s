@@ -16,10 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
 .include opmdrv.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -34,8 +31,7 @@ ProgramStart:
     PRINT_1LINE_USAGE 'usage: m_atoi <channel_no or track_no>'
     DOS _EXIT
   @@:
-  FPACK __STOL
-  bcs NumberError
+  bsr ParseInt
   move.l d0,d2  ;チャンネル番号
   OPM _M_ATOI
   bsr Print$4_4
@@ -44,18 +40,8 @@ ProgramStart:
   DOS _EXIT
 
 
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
-
-
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINT$4_4 Print$4_4
-
-
-.data
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
 
 
 .end ProgramStart

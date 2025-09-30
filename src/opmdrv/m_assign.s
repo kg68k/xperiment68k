@@ -16,9 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
 .include opmdrv.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -29,16 +27,15 @@
 ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
-  bne @f
-    PRINT_1LINE_USAGE 'usage: m_assign <channel_no> <track_no>'
-    DOS _EXIT
-  @@:
+  beq PrintUsage
 
-  bsr GetWordValue
+  bsr ParseIntWord
   move d0,d2  ;チャンネル番号
   swap d2
   SKIP_SPACE a0
-  bsr GetWordValue
+  beq PrintUsage
+
+  bsr ParseIntWord
   move d0,d2  ;トラック番号
 
   OPM _M_ASSIGN
@@ -48,27 +45,13 @@ ProgramStart:
   DOS _EXIT
 
 
-GetWordValue:
-  FPACK __STOL
-  bcs NumberError
-  cmpi.l #$0000_ffff,d0
-  bgt NumberError
-  cmpi.l #$ffff_8000,d0
-  blt NumberError
-  rts
-
-NumberError:
-  DOS_PRINT (strNumberError,pc)
+PrintUsage:
+  PRINT_1LINE_USAGE 'usage: m_assign <channel_no> <track_no>'
   DOS _EXIT
 
 
+  DEFINE_PARSEINTWORD ParseIntWord
   DEFINE_PRINT$4_4 Print$4_4
-
-
-.data
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
 
 
 .end ProgramStart

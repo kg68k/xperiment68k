@@ -19,9 +19,6 @@
 .include macro.mac
 .include opmdrv.mac
 .include vector.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 

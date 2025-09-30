@@ -19,7 +19,6 @@
 .include macro.mac
 .include fefunc.mac
 .include opmdrv.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -38,13 +37,13 @@ ProgramStart:
     bsr PrintAllChannels  ;引数省略時は全チャンネルの設定を表示
     bra 9f
   @@:
-    bsr GetWordValue
+    bsr ParseIntWord
     move d0,d2  ;チャンネル番号
     swap d2
     move #-1,d2  ;出力チャンネル省略時は設定取得
     SKIP_SPACE a0
     beq @f
-      bsr GetWordValue
+      bsr ParseIntWord
       move d0,d2  ;出力チャンネル番号
   @@:
   OPM _M_CHAN
@@ -95,28 +94,12 @@ PrintAllChannels:
   rts
 
 
-GetWordValue:
-  FPACK __STOL
-  bcs NumberError
-  cmpi.l #$0000_ffff,d0
-  bgt NumberError
-  cmpi.l #$ffff_8000,d0
-  blt NumberError
-  rts
-
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
-
-
+  DEFINE_PARSEINTWORD ParseIntWord
   DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
   DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
 
 strHeader: .dc.b 'Ch -> Output Ch',CR,LF,0
 strArrow: .dc.b ' -> ',0

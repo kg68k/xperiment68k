@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include opmdrv.mac
-.include doscall.mac
 
 .include xputil.mac
 
