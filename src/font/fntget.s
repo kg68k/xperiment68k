@@ -17,10 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -34,10 +30,9 @@ DOT_CHAR:   .equ '■'
 
 ProgramStart:
   lea (1,a2),a0
-  bsr getArgument
-  move.l d0,d1
-  bmi error
+  bsr getArguments
 
+  move.l d0,d1
   lea (FntgetBuffer,pc),a1
   IOCS _FNTGET
 
@@ -46,11 +41,6 @@ ProgramStart:
   DOS_PRINT (Buffer,pc)
 
   DOS _EXIT
-
-error:
-  DOS_PRINT (Usage,pc)
-  move #1,-(sp)
-  DOS _EXIT2
 
 
 stringifyFontData:
@@ -90,92 +80,85 @@ stringifyFontData:
   rts
 
 
-getArgument:
-  PUSH d7
-  moveq #0,d7
+getArguments:
+  PUSH d6-d7
+  moveq #0,d6  ;文字コード
+  moveq #0,d7  ;フォントサイズ
   1:
-    bsr skipBlank
-    move.l a0,-(sp)
-    bsr getHexLength
-    movea.l (sp)+,a0
-    subq.l #2,d0
-    bcs 2f
-      FPACK __STOH  ;2桁以上の16進数なら文字コードの指定
-      bcs 8f
-      move d0,d7
-      bra 1b
-    2:
-    moveq #0,d0
-    move.b (a0)+,d0
+    SKIP_SPACE a0
     beq 9f
 
-    cmpi.b #'-',d0
-    bne 3f
-      FPACK __STOL  ;フォントサイズの指定 -6, -8, -12
-      bcs 8f
-      swap d7
-      move d0,d7
-      swap d7
-      bra 1b
-  3:
-    move.b d0,d1  ;文字の指定
-    lsr.b #5,d1
-    btst d1,#%10010000
+    cmpi.b #'-',(a0)
+    bne 2f
+      move.b (1,a0),d0
+      cmpi.b #'f',d0
+      bne @f
+        addq.l #2,a0  ;-f<n> フォントサイズの指定
+        SKIP_SPACE a0
+        beq PrintUsage
+
+        bsr ParseIntWord  ;IOCS _FNTGETが対応しているのは0,6,8,12だが
+        move d0,d7        ;特に制限せず指定されたものをそのまま使う
+        bra 1b
+      @@:
+      cmpi.b #'c',d0
+      bne @f
+        addq.l #2,a0  ;-c<n> 文字コードによる文字の指定
+        SKIP_SPACE a0
+        beq PrintUsage
+
+        bsr ParseIntWord
+        moveq #-1,d6  ;文字指定あり
+        move d0,d6
+        bra 1b
+      @@:
+      bra PrintUsage
+    2:
+    bsr GetChar
+    moveq #-1,d6  ;文字指定あり
+    move d0,d6
+    bra 1b
+  9:
+  tst.l d6
+  bpl PrintUsage  ;文字が指定されなかった
+
+  move d7,d0
+  swap d0
+  move d6,d0
+  POP d6-d7
+  rts
+
+GetChar:
+  moveq #0,d0
+  move.b (a0)+,d0
+  move.b d0,d1
+  lsr.b #5,d1
+  btst d1,#%10010000
+  beq @f
+    tst.b (a0)
     beq @f
       lsl #8,d0  ;2バイト文字
       move.b (a0)+,d0
-    @@:
-    move d0,d7
-    bra 1b
-  8:
-    moveq #-1,d7
-9:
-  move.l d7,d0
-  tst d0
-  bne @f
-    moveq #-1,d0
   @@:
-  POP d7
   rts
 
 
-skipBlank:
-@@:
-  move.b (a0)+,d0
-  beq @f
-  cmpi.b #SPACE,d0
-  beq @b
-@@:
-  subq.l #1,a0
-  rts
+PrintUsage:
+  lea (strUsage,pc),a0
+  bra Fatal
 
 
-getHexLength:
-  lea (a0),a1
-  1:
-    move.b (a0)+,d0
-    beq 9f
-    cmpi.b #'0',d0
-    bcs 9f
-    cmpi.b #'9',d0
-    bls 1b
-    ori.b #$20,d0
-    cmpi.b #'a',d0
-    bcs 9f
-    cmpi.b #'f',d0
-    bls 1b
-9:
-  subq.l #1,a0
-  suba.l a1,a0
-  move.l a0,d0
-  rts
+  DEFINE_PARSEINTWORD ParseIntWord
+  DEFINE_FATAL Fatal
 
 
 .data
 
-Usage:
-  .dc.b 'fntget [option] <char or hex>',CR,LF
-  .dc.b '  -6, -8, -12 ... font size',CR,LF
+strUsage:
+  .dc.b 'usage: fntget [options] <char>',CR,LF
+  .dc.b 'options:',CR,LF
+  .dc.b '  -c<n> ... character code',CR,LF
+  .dc.b '  -f<n> ... font size (n=6,8,12)',CR,LF
   .dc.b 0
 
 
