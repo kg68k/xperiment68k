@@ -157,8 +157,8 @@ PrintUsage:
 strUsage:
   .dc.b 'usage: fntget [options] <char>',CR,LF
   .dc.b 'options:',CR,LF
-  .dc.b '  -c<n> ... character code',CR,LF
-  .dc.b '  -f<n> ... font size (n=6,8,12)',CR,LF
+  .dc.b '  -c<code> ... character code',CR,LF
+  .dc.b '  -f<size> ... font size (<size>=6,8,12)',CR,LF
   .dc.b 0
 
 

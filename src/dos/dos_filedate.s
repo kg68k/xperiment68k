@@ -105,7 +105,7 @@ GetArguments:
 strUsage:
   .dc.b 'usage: dos_filedate [option] <filename>',CR,LF
   .dc.b 'option:',CR,LF
-  .dc.b '  -t<n>  set filedate(<n>: DOS timestamp format)',CR,LF
+  .dc.b '  -t<datetime>  set filedate(DOS timestamp format)',CR,LF
   .dc.b 0
 
 strFileOpenError: .dc.b 'file open error: ',0
