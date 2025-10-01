@@ -77,6 +77,36 @@ Buffer: .ds.b 64
 .text
 
 
+;MPUクロック数(kHz)の値を返す。
+;  スーパーバイザモードで呼び出すこと。
+;in
+;  d0.l ... bit31=1: 常に自己測定  bit7-0: MPU種類(0:68000 ... 6:68060)
+;out
+;  d0.l ... MPUクロック数(kHz)
+MpuClock_GetClock::
+  PUSH d1-d2
+  move.l d0,d2
+  bmi 1f
+    move.l (ROMCNT_U32),d0
+    bne @f
+      move (ROMCNT),d0
+      bne @f
+        1:
+        move.l d2,d0
+        bsr MpuClock_CountLoopOnSram
+  @@:
+  move.l d0,d1
+  add.l d0,d0
+  add.l d1,d0
+  add.l d0,d0  ;6倍
+  subq #2,d2
+  bcc @f
+    add.l d0,d0  ;68000,68010ならさらに2倍
+  @@:
+  POP d1-d2
+  rts
+
+
 ;MPUクロック数を文字列化して返す。
 ;  指定したバッファに文字列(単位 kHz/MHz つき)を書き込む。
 ;  その他制限は MpuClock_GetClock と同じ。
@@ -116,36 +146,6 @@ MpuClock_GetString::
   clr.b (a0)
 
   POP d0-d1
-  rts
-
-
-;MPUクロック数(kHz)の値を返す。
-;  スーパーバイザモードで呼び出すこと。
-;in
-;  d0.l ... bit31=1: 常に自己測定  bit7-0: MPU種類(0:68000 ... 6:68060)
-;out
-;  d0.l ... MPUクロック数(kHz)
-MpuClock_GetClock::
-  PUSH d1-d2
-  move.l d0,d2
-  bmi 1f
-    move.l (ROMCNT_U32),d0
-    bne @f
-      move (ROMCNT),d0
-      bne @f
-        1:
-        move.l d2,d0
-        bsr MpuClock_CountLoopOnSram
-  @@:
-  move.l d0,d1
-  add.l d0,d0
-  add.l d1,d0
-  add.l d0,d0  ;6倍
-  subq #2,d2
-  bcc @f
-    add.l d0,d0  ;68000,68010ならさらに2倍
-  @@:
-  POP d1-d2
   rts
 
 
