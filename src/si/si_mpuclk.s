@@ -17,8 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include fefunc.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -80,7 +78,7 @@ Buffer: .ds.b 64
 
 
 ;MPUクロック数を文字列化して返す。
-;  指定したバッファに文字列(単位 MHz)を書き込む。
+;  指定したバッファに文字列(単位 kHz/MHz つき)を書き込む。
 ;  その他制限は MpuClock_GetClock と同じ。
 ;in
 ;  d0.l ... bit31=1: 常に自己測定  bit7-0: MPU種類(0:68000 ... 6:68060)
@@ -92,21 +90,29 @@ MpuClock_GetString::
   bsr MpuClock_GetClock
   PUSH d0-d1  ;d0も返り値なので保存
 
-  moveq #50,d1
-  add.l d1,d0
-  move.l #1000,d1
-  bsr U32DivMod  ;MHz単位の値に換算
-  bsr U32ToDecimalString
-  move.b #'.',(a0)+
-  move.l d1,d0
   moveq #100,d1
-  bsr U32DivMod  ;余りを0.1MHz単位の値に換算
-  addi.b #'0',d0
-  move.b d0,(a0)+  ;少数第1位まで出力
-
-  .irpc ch,MHz
-    move.b #'&ch',(a0)+
-  .endm
+  cmp.l d1,d0
+  bcc 1f
+    bsr U32ToDecimalString  ;0.1MHz未満はkHz単位で出力
+    moveq #'k',d0
+    bra 2f
+  1:
+    moveq #50,d1
+    add.l d1,d0
+    move.l #1000,d1
+    bsr U32DivMod  ;MHz単位の値に換算
+    bsr U32ToDecimalString
+    move.b #'.',(a0)+
+    move.l d1,d0
+    moveq #100,d1
+    bsr U32DivMod  ;余りを0.1MHz単位の値に換算
+    addi.b #'0',d0
+    move.b d0,(a0)+  ;少数第1位まで出力
+    moveq #'M',d0
+  2:
+  move.b d0,(a0)+  ;k or M
+  move.b #'H',(a0)+
+  move.b #'z',(a0)+
   clr.b (a0)
 
   POP d0-d1
