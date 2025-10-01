@@ -16,11 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
-
 .include xputil.mac
 
 
@@ -52,10 +47,10 @@ b_conmod_18:
   DOS _EXIT
 
 b_conmod_2:
+b_conmod_16:
   SKIP_SPACE a0
   beq PrintUsage
-  FPACK __STOH
-  bcs NumberError
+  bsr ParseInt
   move.l d0,d2
   IOCS _B_CONMOD
   DOS _EXIT
@@ -66,26 +61,13 @@ b_conmod_3:
   @@:
     SKIP_SPACE a0
     beq PrintUsage
-    FPACK __STOH
-    bcs NumberError
+    bsr ParseInt
     move.l d0,(a1)+
   dbra d2,@b
 
   move.l #CursorBuffer,d2
   IOCS _B_CONMOD
   DOS _EXIT
-
-b_conmod_16:
-  SKIP_SPACE a0
-  beq PrintUsage
-  bsr ParseInt
-  move.l d0,d2
-  IOCS _B_CONMOD
-  DOS _EXIT
-
-
-NumberError:
-  FATAL_ERROR '数値の指定が正しくありません。'
 
 
   DEFINE_PARSEINT ParseInt
@@ -97,9 +79,9 @@ strUsage:
   .dc.b 'usage: iocs_b_conmod <md> ...',CR,LF
   .dc.b '   0 ... カーソル点滅許可',CR,LF
   .dc.b '   1 ... カーソル点滅禁止',CR,LF
-  .dc.b '   2 <hex> ... カーソルパターン指定',CR,LF
-  .dc.b '   3 <hex hex hex hex> <hex hex hex hex> ... カーソルパターン定義',CR,LF
-  .dc.b '  16 <n> ... スムーススクロール指定(n = 0..3)',CR,LF
+  .dc.b '   2 <cursor> ... カーソルパターン指定',CR,LF
+  .dc.b '   3 <pat pat pat pat> <pat pat pat pat> ... カーソルパターン定義',CR,LF
+  .dc.b '  16 <scroll> ... スムーススクロール指定(scroll = 0..3)',CR,LF
   .dc.b '  17 ... ラスタコピースクロール指定',CR,LF
   .dc.b '  18 ... ソフトコピースクロール指定',CR,LF
   .dc.b 0

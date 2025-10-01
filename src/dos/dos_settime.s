@@ -16,10 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-
 .include xputil.mac
 
 
@@ -29,12 +25,11 @@
 ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
-  beq PrintUsage
-
-  FPACK __STOH  ;16進数で指定(接頭辞なし)
-  bcs PrintUsage
-  SKIP_SPACE a0
-  bne PrintUsage
+  bne @f
+    PRINT_1LINE_USAGE 'usage: dos_settime <time>'
+    DOS _EXIT
+  @@:
+  bsr ParseIntWord
 
   move d0,-(sp)
   DOS _SETTIME
@@ -45,10 +40,7 @@ ProgramStart:
   DOS _EXIT
 
 
-PrintUsage:
-  PRINT_1LINE_USAGE 'usage: dos_settime <hex>'
-  DOS _EXIT
-
+  DEFINE_PARSEINTWORD ParseIntWord
   DEFINE_PRINT$4_4 Print$4_4
 
 

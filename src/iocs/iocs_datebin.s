@@ -16,11 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
-
 .include xputil.mac
 
 
@@ -34,10 +29,7 @@ ProgramStart:
     IOCS _DATEGET  ;省略時は現在の日付
     bra @f
   1:
-    FPACK __STOH  ;16進数で指定(接頭辞なし)
-    bcs PrintUsage
-    SKIP_SPACE a0
-    bne PrintUsage
+    bsr ParseInt
   @@:
   move.l d0,d1
   IOCS _DATEBIN
@@ -47,10 +39,7 @@ ProgramStart:
   DOS _EXIT
 
 
-PrintUsage:
-  PRINT_1LINE_USAGE 'usage: iocs_datebin [hex]'
-  DOS _EXIT
-
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINT$4_4 Print$4_4
 
 

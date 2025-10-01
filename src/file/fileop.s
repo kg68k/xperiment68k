@@ -16,9 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
 .include filesys.mac
 
 .include xputil.mac
@@ -190,13 +187,10 @@ Command_a:
   lea (a4),a0  ;ファイル属性を引数として受け取る
   SKIP_SPACE a0
   beq NoNumberError
-  FPACK __STOH
-  bcs NumberError
-  cmpi.l #$ff,d0
-  bhi NumberError
+  bsr ParseIntByte
   lea (a0),a4
 
-  move d0,(FileAttribute)
+  move.b d0,(FileAttributeByte)
   bsr PrintFileAttribute
   DOS_PRINT_CRLF
   rts
@@ -235,10 +229,8 @@ Command_p:
   lea (a4),a0  ;出力する1バイト値を引数として受け取る
   SKIP_SPACE a0
   beq NoNumberError
-  FPACK __STOH
-  bcs NumberError
-  cmpi.l #$ff,d0
-  bhi NumberError
+  bsr ParseIntByte
+  andi #$00ff,d0
   lea (a0),a4
 
   move d7,-(sp)
@@ -271,11 +263,6 @@ PrintResult:
   move.l (sp)+,d0
   rts
 
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  moveq #-1,d0
-  rts
-
 NoNumberError:
   DOS_PRINT (strNoNumberError,pc)
   moveq #-1,d0
@@ -303,13 +290,15 @@ PrintFileAttribute:
   rts
 
 
+  DEFINE_PARSEINTBYTE ParseIntByte
   DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
-.even
 
-FileAttribute: .dc 1<<FILEATR_ARCHIVE
+.even
+FileAttribute:     .dc.b 0
+FileAttributeByte: .dc.b 1<<FILEATR_ARCHIVE
 
 strUsage:
   .dc.b 'usage: fileop <filename> <Command...>',CR,LF
@@ -317,12 +306,12 @@ strUsage:
   .dc.b '  c ... DOS _CREATE',CR,LF
   .dc.b '  f ... DOS _CREATE (fast mode)',CR,LF
   .dc.b '  n ... DOS _NEWFILE',CR,LF
-  .dc.b '  a <hex> ... set file attribute on creation',CR,LF
+  .dc.b '  a <atr> ... set file attribute on creation',CR,LF
   .dc.b '  r ... DOS _OPEN (read)',CR,LF
   .dc.b '  w ... DOS _OPEN (write)',CR,LF
   .dc.b '  b ... DOS _OPEN (read and write)',CR,LF
   .dc.b '  g ... DOS _FGETC',CR,LF
-  .dc.b '  p <hex> ... DOS _FPUTC',CR,LF
+  .dc.b '  p <data> ... DOS _FPUTC',CR,LF
   .dc.b '  h ... DOS _SEEK (head)',CR,LF
   .dc.b '  t ... DOS _SEEK (tail)',CR,LF
   .dc.b 0
@@ -346,7 +335,6 @@ strDosSeekTail: .dc.b 'DOS _SEEK (tail): ',0
 
 strUnknownCommand: .dc.b '対応していないコマンドです。',CR,LF,0
 strFileNotOpen:    .dc.b 'ファイルがまだオープンされていません。',CR,LF,0
-strNumberError:    .dc.b '数値の指定が正しくありません。',CR,LF,0
 strNoNumberError:  .dc.b '出力する値が指定されていません。',CR,LF,0
 
 

@@ -17,9 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -52,7 +49,7 @@ TBL_LIST:
 ProgramStart:
   lea (1,a2),a0
   bsr AnalyzeArgument
-  move.l d1,d7  ;hex
+  move.l d1,d7  ;DOS _KNJCTRLの第一引数とorする値
   tst d0
   beq @f
     bsr WaitReturnKey  ;-k指定時はキー入力を待つ
@@ -168,7 +165,7 @@ GetAndPrintMode:
 AnalyzeArgument:
   PUSH d6-d7
   moveq #0,d6  ;-k
-  moveq #0,d7  ;hex
+  moveq #0,d7  ;DOS _KNJCTRLの第一引数とorする値
   1:
     SKIP_SPACE a0
     beq 9f
@@ -180,9 +177,8 @@ AnalyzeArgument:
         moveq #1,d6  ;-k
         bra 1b
     @@:
-    FPACK __STOH
-    bcs NumberError
-    move.l d0,d7  ;hex
+    bsr ParseInt
+    move.l d0,d7
     bra 1b
   9:
   move.l d7,d1
@@ -195,25 +191,18 @@ PrintUsage:
   DOS_PRINT (strUsage,pc)
   DOS _EXIT
 
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
 
-
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINT$4_4 Print$4_4
 
 
 .data
 
 strUsage:
-  .dc.b 'usage: jfp_stat [-k] [hex]',CR,LF
+  .dc.b 'usage: jfp_stat [-k] [num]',CR,LF
   .dc.b '  -k ... 起動時にRETURNキー入力を待つ',CR,LF
-  .dc.b '  hex ... ファンクションコール番号にORする値',CR,LF
+  .dc.b '  num ... ファンクションコール番号にORする値',CR,LF
   .dc.b 0
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
-
 
 strTypeReturnKey: .dc.b 'RETURNキーを押してください。',CR,LF,0
 

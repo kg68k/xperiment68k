@@ -1,7 +1,7 @@
 .title kbdctrl - send keyboard control code
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -18,11 +18,11 @@
 
 .include iomap.mac
 .include macro.mac
-.include fefunc.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
+
+
+DEFAULT_CODE: .equ $47  ;省略時はCompactキーボード判別コマンド
 
 
 .cpu 68000
@@ -30,11 +30,9 @@
 
 ProgramStart:
   lea (1,a2),a0
-  bsr getArgument
+  bsr ParseArguments
   move.l d0,d7
-  bpl @f
-    moveq #$47,d7  ;省略時はCompactキーボード判別コマンド
-  @@:
+
   suba.l a1,a1
   IOCS _B_SUPER
 
@@ -58,17 +56,17 @@ OutputKeyboardControl:
   rts
 
 
-getArgument:
+ParseArguments:
+  moveq #DEFAULT_CODE,d0
   SKIP_SPACE a0
   beq @f
-  FPACK __STOH
-  bcs @f
-  cmpi.l #$ff,d0
-  bls 9f
+    bsr ParseIntByte
+    andi.l #$ff,d0
   @@:
-    moveq #-1,d0
-9:
   rts
+
+
+  DEFINE_PARSEINTBYTE ParseIntByte
 
 
 .end ProgramStart

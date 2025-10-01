@@ -17,9 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -29,9 +26,13 @@
 
 ProgramStart:
   lea (1,a2),a0
-  bsr getArgument
+  SKIP_SPACE a0
+  bne @f
+    PRINT_1LINE_USAGE 'usage: skeyset <scancode>'
+    DOS _EXIT
+  @@:
+  bsr ParseInt
   move.l d0,d7
-  bmi  printUsage
 
   bsr FlushIocsKey
 
@@ -59,28 +60,10 @@ printInkey:
   rts
 
 
-printUsage:
-  PRINT_1LINE_USAGE 'usage: skeyset <scancode>'
-  DOS _EXIT
-
-
-getArgument:
-  SKIP_SPACE a0
-  FPACK __STOH
-  bcs @f
-  tst.l d0
-  beq @f
-  cmpi.l #$ff,d0
-  bls 9f
-  @@:
-    moveq #-1,d0
-9:
-  rts
-
-
   DEFINE_FLUSHIOCSKEY FlushIocsKey
   DEFINE_FLUSHDOSKEY FlushDosKey
 
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINT$4 Print$4
 
 

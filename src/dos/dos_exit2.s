@@ -17,8 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include fefunc.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -32,25 +30,13 @@ ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
   beq @f
-    FPACK __STOH
-    bcs NumberError
-    cmpi.l #$0001_0000,d0
-    bcc NumberError
+    bsr ParseIntWord
   @@:
-
   move d0,-(sp)
   DOS _EXIT2
 
 
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
-
-
-.data
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
+  DEFINE_PARSEINTWORD ParseIntWord
 
 
 .end ProgramStart

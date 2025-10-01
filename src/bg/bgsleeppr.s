@@ -17,11 +17,7 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
 .include process.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -87,8 +83,7 @@ AnalyzeArgument:
         moveq #1,d6  ;-f指定あり
         bra 8f
     @@:
-    FPACK __STOH
-    bcs NumberError
+    bsr ParseInt
     move.l d0,d7
   8:
   SKIP_SPACE a0
@@ -112,11 +107,8 @@ PrintUsage:
   PRINT_1LINE_USAGE 'usage: bgsleeppr [-f] [time]'
   DOS _EXIT
 
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
 
-
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
@@ -124,9 +116,6 @@ NumberError:
 
 strProgramName:
   .dc.b 'bgsleeppr: ',0
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
 
 
 .bss

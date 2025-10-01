@@ -71,7 +71,7 @@
   * [dos_putchar](docs/dos.md#dos_putchar) ... `DOS _PUTCHAR`で標準出力に文字出力
   * [dos_setdate](docs/dos.md#dos_setdate) ... `DOS _SETDATE`で日付を設定
   * [dos_setenv](docs/dos.md#dos_setenv) ... `DOS _SETENV`で環境変数を設定
-  * [dos_setitm2](docs/dos.md#dos_setitm2) ... `DOS _SETITM2`で時刻を設定(ロングワード)
+  * [dos_settim2](docs/dos.md#dos_settim2) ... `DOS _SETTIM2`で時刻を設定(ロングワード)
   * [dos_settime](docs/dos.md#dos_settime) ... `DOS _SETTIME`で時刻を設定
   * [dos_vernum](docs/dos.md#dos_vernum) ... `DOS _VERNUM`でHuman68kのバージョンを取得
   * [dos_wait](docs/dos.md#dos_wait) ... `DOS _WAIT`で終了したプロセスの終了コードを取得
