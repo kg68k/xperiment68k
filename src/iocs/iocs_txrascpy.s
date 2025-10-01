@@ -23,146 +23,68 @@
 
 .include xputil.mac
 
+DEFAULT_DIRECTION: .equ 0
 DEFAULT_PLANE: .equ %0011
 
 .cpu 68000
 .text
 
 ProgramStart:
-  moveq #0,d7
-  not.b d7  ;d7.l = 255
   lea (1,a2),a0
+  SKIP_SPACE a0
+  beq PrintUsage
+  bsr ParseIntByte
+  move.b d0,-(sp)
+  move (sp)+,d1  ;コピー元ラスタ番号
 
-  bsr getValue
-  ble valueError
-  cmp.l d7,d0
-  bhi valueRangeError
-  move.b d1,-(sp)
-  move (sp)+,d6  ;コピー元ラスタ番号
+  SKIP_SPACE a0
+  beq PrintUsage
+  bsr ParseIntByte
+  move.b d0,d1  ;コピー先ラスタ番号
 
-  bsr getValue
-  ble valueError
-  cmp.l d7,d0
-  bhi valueRangeError
-  move.b d1,d6  ;コピー先ラスタ番号
+  SKIP_SPACE a0
+  beq PrintUsage
+  bsr ParseIntWord
+  move d0,d2  ;ラスタ数
 
-  bsr getValue
-  ble valueError
-  cmp.l d7,d0
-  bhi valueRangeError
-  move d1,d2  ;ラスタ数
-
-  moveq #$00<<8+DEFAULT_PLANE,d3
-  bsr getValue
-  bmi valueError
-  beq @f  ;省略時は下方向
-    tst.l d1
-    beq @f  ;0なら下方向
-      addq.l #1,d1
-      bne valueRangeError
-        move #$ff<<8+DEFAULT_PLANE,d3  ;-1なら上方向
+  moveq #DEFAULT_DIRECTION<<8,d3  ;省略時は下方向
+  SKIP_SPACE a0
+  beq @f
+    bsr ParseIntByte
+    move.b d0,-(sp)
+    move (sp)+,d3  ;ポインタ移動方向
   @@:
-  bsr getValue
-  bmi valueError
-  beq @f  ;省略時はプレーン0,1
-    moveq #%1111,d0
-    cmp.l d0,d1
-    bhi valueRangeError
-      move.b d1,d3  ;テキストプレーン
+
+  move.b #DEFAULT_PLANE,d3  ;省略時はプレーン0,1
+  SKIP_SPACE a0
+  beq @f
+    bsr ParseIntByte
+    move.b d0,d3  ;テキストプレーン
   @@:
 
   IOCS _B_CUROFF
-  move d6,d1
   IOCS _TXRASCPY
   IOCS _B_CURON
 
   DOS _EXIT
 
 
-valueError:
+PrintUsage:
   lea (strUsage,pc),a0
-  tst.l d0
-  beq error
-  lea (strValueError,pc),a0
-  bra error
-
-valueRangeError:
-  lea (strValueRangeError,pc),a0
-  bra error
-
-error:
-  move #STDERR,-(sp)
-  pea (a0)
-  DOS _FPUTS
-  addq.l #6,sp
-
-  move #EXIT_FAILURE,-(sp)
-  DOS _EXIT2
+  bra Fatal
 
 
-;文字列を数値化する
-;in a0.l = 文字列
-;out d0.l = 1: 成功, 0:数字がない -1:数値の指定が不正
-;    d1.l = 数値
-;    a0.l = 数値の末尾+1
-getValue:
-  moveq #0,d1
-  SKIP_SPACE a0
-  move.b (a0),d0
-  bne @f
-    moveq #0,d0
-    bra 9f
-  @@:
-  cmpi.b #'$',d0
-  bne @f
-    addq.l #1,a0
-    FPACK __STOH
-    bra 7f
-  @@:
-  cmpi.b #'%',d0
-  bne @f
-    addq.l #1,a0
-    FPACK __STOB
-    bra 7f
-  @@:
-  cmpi.b #'0',d0
-  bne @f
-    cmpi.b #'x',(1,a0)
-    bne 1f
-      addq.l #2,a0
-      FPACK __STOH
-      bra 7f
-    1:
-    cmpi.b #'b',(1,a0)
-    bne 1f
-      addq.l #2,a0
-      FPACK __STOB
-      bra 7f
-    1:
-    ;0x 0b 以外なら0から始まる10進数
-  @@:
-    FPACK __STOL
-  7:
-  bcc @f
-    8:
-    moveq #-1,d0
-    bra 9f
-  @@:
-  move.l d0,d1
-  moveq #1,d0
-9:
-  rts
+  DEFINE_PARSEINTWORD ParseIntWord
+  DEFINE_PARSEINTBYTE ParseIntByte
+  DEFINE_FATAL Fatal
 
 
 .data
 
 strUsage:
   .dc.b 'usage: iocs_txrascpy '
-  .dc.b 'コピー元 コピー先 ラスタ数 移動方向(0:下,-1:上) テキストプレーン'
+  .dc.b '<コピー元> <コピー先> <ラスタ数> [移動方向(0:下,-1:上)] [テキストプレーン]'
   .dc.b CR,LF,0
-
-strValueError: .dc.b '数値の指定が正しくありません。',CR,LF,0
-strValueRangeError: .dc.b '数値の指定が範囲外です。',CR,LF,0
 
 
 .end ProgramStart

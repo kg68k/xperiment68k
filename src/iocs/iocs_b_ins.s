@@ -16,11 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
-
 .include xputil.mac
 
 
@@ -33,8 +28,7 @@ ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
   beq @f
-    FPACK __STOL
-    bcs NumberError
+    bsr ParseInt
     move.l d0,d1  ;値の上限チェックはしない
   @@:
   IOCS _B_INS
@@ -44,18 +38,8 @@ ProgramStart:
   DOS _EXIT
 
 
-NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
-
-
- DEFINE_PRINTD0$4_4 PrintD0$4_4
-
-
-.data
-
-strNumberError:
-  .dc.b '行数の指定が正しくありません。',CR,LF,0
+  DEFINE_PARSEINT ParseInt
+  DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .end ProgramStart

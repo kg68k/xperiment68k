@@ -17,10 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -35,16 +31,12 @@ MD_MAX: .equ 18
 ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
-  bne @f
-    PRINT_1LINE_USAGE 'usage: dos_conctrl <md(0..18)> [param...]'
-    DOS _EXIT
-  @@:
+  beq PrintUsage
 
   ;MD(0～18)
-  FPACK __STOL
-  bcs NumberError
+  bsr ParseInt
   cmpi.l #MD_MAX,d0
-  bhi NumberError
+  bhi PrintUsage
   move.l d0,d7
 
   add d0,d0
@@ -63,21 +55,12 @@ MdJumpTable:
   .endm
 
 
-NumberError:
-  DOS_PRINT (strNumberError,pc)
+PrintUsage:
+  PRINT_1LINE_USAGE 'usage: dos_conctrl <md(0..18)> [param...]'
   DOS _EXIT
 
 NoArgumentError:
-  DOS_PRINT (strNoArgError,pc)
-  DOS _EXIT
-
-
-ParseUint16:
-  FPACK __STOL
-  bcs NumberError
-  cmpi.l #$0001_0000,d0
-  bcc NumberError
-  rts
+  FATAL_ERROR '引数が足りません'
 
 
 ;MD=0 1バイトの文字を表示する
@@ -127,7 +110,7 @@ Md16:
   moveq #-1,d0
   SKIP_SPACE a0  ;引数省略時はATR=-1、またはMOD=-1
   beq @f
-    bsr ParseUint16
+    bsr ParseIntWord
   @@:
   move d0,-(sp)
   move d7,-(sp)
@@ -141,11 +124,11 @@ Md3:
   moveq #-1,d6  ;Y
   SKIP_SPACE a0  ;引数省略時はX=-1
   beq @f
-    bsr ParseUint16
+    bsr ParseIntWord
     move.l d0,d5
     SKIP_SPACE a0
     beq @f
-      bsr ParseUint16
+      bsr ParseIntWord
       move.l d0,d6
   @@:
   move d6,-(sp)  ;Y
@@ -187,7 +170,7 @@ Md13:
   moveq #0,d0
   SKIP_SPACE a0  ;引数省略時はN=0(またはMOD=0)
   beq @f
-    bsr ParseUint16
+    bsr ParseIntWord
   @@:
   move d0,-(sp)
   move d7,-(sp)
@@ -200,12 +183,12 @@ Md15:
   SKIP_SPACE a0        ;引数省略時の自然な既定値がないので
   beq NoArgumentError  ;エラーにする
 
-  bsr ParseUint16
+  bsr ParseIntWord
   move.l d0,d5
   SKIP_SPACE a0
   beq NoArgumentError
 
-  bsr ParseUint16
+  bsr ParseIntWord
   move.l d0,d6
 
   move d6,-(sp)  ;YL
@@ -216,16 +199,9 @@ Md15:
   rts
 
 
- DEFINE_PRINT$4_4 Print$4_4
-
-
-.data
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
-
-strNoArgError:
-  .dc.b '引数が足りません',CR,LF,0
+  DEFINE_PARSEINT ParseInt
+  DEFINE_PARSEINTWORD ParseIntWord
+  DEFINE_PRINT$4_4 Print$4_4
 
 
 .end ProgramStart

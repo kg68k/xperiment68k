@@ -32,8 +32,7 @@ ProgramStart:
   SKIP_SPACE a0
   beq PrintUsage
 
-  FPACK __STOL
-  bcs NumberError
+  bsr ParseInt
   move.l d0,d1  ;モード
   .irp %md,0,1,2,3,16,17,18
     moveq #%md,d0
@@ -53,7 +52,6 @@ b_conmod_18:
   DOS _EXIT
 
 b_conmod_2:
-b_conmod_16:
   SKIP_SPACE a0
   beq PrintUsage
   FPACK __STOH
@@ -77,10 +75,20 @@ b_conmod_3:
   IOCS _B_CONMOD
   DOS _EXIT
 
+b_conmod_16:
+  SKIP_SPACE a0
+  beq PrintUsage
+  bsr ParseInt
+  move.l d0,d2
+  IOCS _B_CONMOD
+  DOS _EXIT
+
 
 NumberError:
-  DOS_PRINT (strNumberError,pc)
-  DOS _EXIT
+  FATAL_ERROR '数値の指定が正しくありません。'
+
+
+  DEFINE_PARSEINT ParseInt
 
 
 .data
@@ -91,13 +99,10 @@ strUsage:
   .dc.b '   1 ... カーソル点滅禁止',CR,LF
   .dc.b '   2 <hex> ... カーソルパターン指定',CR,LF
   .dc.b '   3 <hex hex hex hex> <hex hex hex hex> ... カーソルパターン定義',CR,LF
-  .dc.b '  16 <n> ... スムーススクロール指定(n = 0...3)',CR,LF
+  .dc.b '  16 <n> ... スムーススクロール指定(n = 0..3)',CR,LF
   .dc.b '  17 ... ラスタコピースクロール指定',CR,LF
   .dc.b '  18 ... ソフトコピースクロール指定',CR,LF
   .dc.b 0
-
-strNumberError:
-  .dc.b '数値の指定が正しくありません。',CR,LF,0
 
 
 .bss

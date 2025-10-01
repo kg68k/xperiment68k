@@ -16,12 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
-.include macro.mac
-.include fefunc.mac
 .include vector.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -36,23 +31,17 @@ ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
   bne @f
-    PRINT_1LINE_USAGE 'usage: mpcm_echcnt <n>  (0<=n<=8)'
+    PRINT_1LINE_USAGE 'usage: mpcm_echcnt <n(0..8)>'
     DOS _EXIT
   @@:
-  FPACK __STOL
-  bcc @f
-    DOS_PRINT (strNumError,pc)
-    DOS _EXIT
-  @@:
+  bsr ParseInt
   move.l d0,d1
 
   pea (GetMpcmVersion,pc)
   DOS _SUPER_JSR
-  addq.l #4,sp
-  tst.l d0
+  move.l d0,(sp)+
   bpl @f
-    DOS_PRINT (strNoMpcm,pc)
-    DOS _EXIT
+    FATAL_ERROR 'MPCMが組み込まれていません。'
   @@:
 
   move #M_SET_ECHCNT,d0
@@ -73,10 +62,7 @@ GetMpcmVersion:
   rts
 
 
-.data
-
-strNumError: .dc.b '数値の指定が正しくありません。',CR,LF,0
-strNoMpcm: .dc.b 'MPCMが組み込まれていません。',CR,LF,0
+  DEFINE_PARSEINT ParseInt
 
 
 .end ProgramStart

@@ -19,8 +19,6 @@
 .include macro.mac
 .include dosdef.mac
 .include fefunc.mac
-.include console.mac
-.include doscall.mac
 .include process.mac
 
 .include xputil.mac
@@ -98,14 +96,13 @@ PrintUsage:
   DOS _EXIT
 
 
-GetFreeMemorySize
-  FPACK __STOL
-  bcs 9f
+GetFreeMemorySize:
+  bsr ParseInt
   moveq #10,d1
-  cmpi.b #'k',(a0)
+  cmpi.b #'k',(a0)  ;KiB単位での指定
   beq 1f
   moveq #20,d1
-  cmpi.b #'m',(a0)
+  cmpi.b #'m',(a0)  ;MiB単位での指定
   bne 8f
     1:
     addq.l #1,a0
@@ -141,6 +138,7 @@ error2:
   DOS _EXIT2
 
 
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 

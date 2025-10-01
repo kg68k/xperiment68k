@@ -17,9 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
 .include filesys.mac
 
 .include xputil.mac
@@ -38,7 +35,7 @@ Start:
   lea (LengthTable,pc),a1
   bsr AnalyzeArgument
   beq @f
-    PRINT_1LINE_USAGE 'usage: appendbytes <length<[,...] <filename>'
+    PRINT_1LINE_USAGE 'usage: appendbytes <length>[,...] <filename>'
     DOS _EXIT
   @@:
 
@@ -135,13 +132,14 @@ FillBuffer:
 
 AnalyzeArgument:
   lea (4,a1),a2
+  tst.b (a0)
+  beq 8f
 
   ;バイト数
   @@:
     cmpi.l #MAX_LENGTH,(a1)
     bcc 8f  ;バイト数の指定が多すぎる
-    FPACK __STOL
-    bcs 8f
+    bsr ParseInt
     cmpi.l #MAX_DATA_SIZE,d0
     bhi 8f
       addq.l #1,(a1)   ;バイト数を指定した回数
@@ -162,6 +160,7 @@ AnalyzeArgument:
   rts
 
 
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 

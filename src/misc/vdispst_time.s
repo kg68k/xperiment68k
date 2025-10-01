@@ -19,9 +19,6 @@
 .include iomap.mac
 .include macro.mac
 .include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -30,11 +27,9 @@
 .text
 
 ProgramStart:
-  moveq #1,d0  ;カウンター省略時は1
   lea (1,a2),a0
   bsr AnalyzeArgument
   move.l d0,d7
-  bmi exit
 
   suba.l a1,a1
   IOCS _B_SUPER
@@ -43,15 +38,14 @@ ProgramStart:
   IOCS _ONTIME
   move.l d0,d6  ;開始時間
 
-  move d7,d1
+  move d7,d1  ;割り込み期間、カウンター
   lea (TimerAInterrupt,pc),a1
-  move.l d7,d0
-  swap d0
+  tst.l d7
+  smi d0
   bsr Vdispst
   tst.l d0
   beq @f
-    DOS_PRINT (AlreadyUsed,pc)
-    bra exit
+    FATAL_ERROR 'IOCS _VDISPSTは既に設定されています。'
   @@:
 
   @@:
@@ -82,28 +76,19 @@ exit:
 
 AnalyzeArgument:
   move.l d7,-(sp)
-  move.l d0,d7
-  SKIP_SPACE a0
+  moveq #0<<8+1,d7  ;割り込み期間は垂直帰線期間、カウンター省略時は1
   1:
-    move.b (a0)+,d0
+    SKIP_SPACE a0
     beq 9f
-    cmpi.b #' ',d0
-    beq 1b
-    cmpi.b #'a',d0
+    cmpi.b #'-',(a0)
     bne @f
-      ori.l #$00ff_0000,d7  ;-a 不具合回避を行う
-      bra 1b
+      cmpi.b #'a',(1,a0)
+      bne @f
+        addq.l #2,a0
+        bset #31,d7  ;-a 不具合回避を行う
+        bra 1b
     @@:
-    subq.l #1,a0
-    FPACK __STOL
-    bcs @f
-    cmpi.l #255,d0
-    bls 2f
-    @@:
-      DOS_PRINT (CounterError,pc)
-      moveq #-1,d7
-      bra 9f
-    2:
+    bsr ParseIntByte
     move.b d0,d7
   bra 1b
 9:
@@ -162,10 +147,7 @@ PrintD0Dec:
   rts
 
 
-.data
-
-CounterError: .dc.b '割り込みカウンターは0～255で指定してください。',CR,LF,0
-AlreadyUsed: .dc.b 'IOCS _VDISPSTは既に設定されています。',CR,LF,0
+  DEFINE_PARSEINTBYTE ParseIntByte
 
 
 .bss
