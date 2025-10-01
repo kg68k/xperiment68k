@@ -20,23 +20,6 @@
         xp_parseint_mac:=1
 
 
-;(マクロ内部で使用) 文字列を数値化する際のエラー処理
-_DEFINE_PARSEINTERROR: .macro
-  _DEFINE_PARSEINTERROR: .macro
-  .endm
-
-_ParseIntError:
-  lea (@strNumberError,pc),a0
-  bra _Fatal
-
-.data
-@strNumberError: .dc.b '数値の指定が正しくありません。',CR,LF,0
-.text
-
-  _DEFINE_FATAL
-.endm
-
-
 ;(マクロ内部で使用) 文字列を数値化(ロングワードサイズ)
 _DEFINE_PARSEINT: .macro
   _DEFINE_PARSEINT: .macro
@@ -146,7 +129,10 @@ _ParseInt:
   bls _ParseIntError  ;0と1の後ろにほかの数字が続いていたらエラーにする
   rts
 
-  _DEFINE_PARSEINTERROR
+_ParseIntError:
+  FATAL_ERROR '数値の指定が正しくありません。'
+
+  _DEFINE_FATAL
 .endm
 
 

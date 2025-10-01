@@ -56,6 +56,18 @@ label: .equ _Fatal
 .endm
 
 
+;エラーを表示して終了
+FATAL_ERROR: .macro mes
+  lea (@mes,pc),a0
+  bra _Fatal
+  .data
+  @mes: .dc.b mes,CR,LF,0
+  .text
+
+  _DEFINE_FATAL
+.endm
+
+
 ;グラフィック画面が使用できることを確認する
 ;  破壊レジスタ d0-d2
 USE_GVRAM: .macro
