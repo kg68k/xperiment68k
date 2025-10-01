@@ -17,9 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include dosdef.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
 .include filesys.mac
 
 .include xputil.mac
@@ -29,13 +26,9 @@
 .text
 
 ProgramStart:
-  moveq #0,d7  ;タイムスタンプ(0なら取得のみ)
-
   lea (1,a2),a0
-  bsr GetArgument
-  tst.l d0
-  bmi PrintUsage
-  move.l d1,d7
+  bsr GetArguments
+  move.l d0,d7  ;タイムスタンプ(0なら取得のみ)
 
   moveq #OPENMODE_READ,d0  ;取得時は読み込みオープン
   tst.l d7
@@ -48,7 +41,7 @@ ProgramStart:
   addq.l #6,sp
   move.l d0,d6
   bpl @f
-    lea (OpenErrMessage,pc),a0
+    lea (strFileOpenError,pc),a0
     bra error
   @@:
   move.l d7,-(sp)
@@ -76,59 +69,46 @@ error2:
 
 
 PrintUsage:
-  DOS_PRINT (UsageMessage,pc)
-  move #EXIT_FAILURE,-(sp)
-  DOS _EXIT2
+  lea (strUsage,pc),a0
+  bra Fatal
 
 
-GetArgument:
-  moveq #0,d1  ;-dまたは-xで指定したタイムスタンプ 省略時0
+GetArguments:
+  moveq #0,d1  ;-tで指定したタイムスタンプ 省略時0
 1:
   SKIP_SPACE a0
-  beq 8f  ;ファイル名なし
+  beq PrintUsage  ;ファイル名なし
   cmpi.b #'-',(a0)
-  bne 7f  ;ファイル名あり
+  bne 9f  ;ファイル名あり
 
   addq.l #1,a0
-  move.b (a0)+,d0
-  cmpi.b #'d',d0
-  bne @f
-    SKIP_SPACE a0  ;-d<decimal>
-    beq 8f
-    FPACK __STOL
-    bcs 8f
+  cmpi.b #'t',(a0)+
+  bne PrintUsage
+    SKIP_SPACE a0  ;-t<n>
+    beq PrintUsage
+
+    bsr ParseInt
     move.l d0,d1
     bra 1b
-  @@:
-  cmpi.b #'x',d0
-  bne 8f
-    SKIP_SPACE a0  ;-x<hex>
-    beq 8f
-    FPACK __STOH
-    bcs 8f
-    move.l d0,d1
-    bra 1b
-7:
-  moveq #0,d0
-  bra 9f
-8:
-  moveq #-1,d0
 9:
+  move.l d1,d0
   rts
 
 
+  DEFINE_FATAL Fatal
+  DEFINE_PARSEINT ParseInt
   DEFINE_PRINTD0$4_4 PrintD0$4_4
 
 
 .data
 
-UsageMessage:
+strUsage:
   .dc.b 'usage: dos_filedate [option] <filename>',CR,LF
-  .dc.b '  -d<decimal>  set filedate',CR,LF
-  .dc.b '  -x<hex>      set filedate',CR,LF
+  .dc.b 'option:',CR,LF
+  .dc.b '  -t<n>  set filedate(<n>: DOS timestamp format)',CR,LF
   .dc.b 0
 
-OpenErrMessage:.dc.b 'file open error: ',0
+strFileOpenError: .dc.b 'file open error: ',0
 
 
 .end ProgramStart
