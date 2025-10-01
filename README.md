@@ -101,6 +101,7 @@
   * [pathlenfix](docs/file.md#pathlenfix) ... Human68kにパッチをあててディレクトリ名の最大長を拡張
   * [rewind](docs/file.md#rewind) ... `DOS _SEEK (mode=2, offset=-1)`によるファイルシークの動作検証
 * [Font](docs/font.md)
+  * [ankfont](docs/font.md#ankfont) ... ANKフォントをテキスト画面に描画
   * [defchr_7621](docs/font.md#defchr_7621) ... `IOCS _DEFCHR`の動作検証
   * [defchr_81f8](docs/font.md#defchr_81f8) ... SJIS:$81f8のフォントにナチュラル記号を定義
   * [exchr_hex](docs/font.md#exchr_hex) ... 拡張外字処理を有効にして常駐終了

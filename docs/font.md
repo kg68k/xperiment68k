@@ -1,5 +1,10 @@
 # Font
 
+## ankfont
+ANK文字(0x00～0xff)のフォントを`IOCS _FNTADR`で取得し、テキスト画面に描画に描画します。
+なにかコマンドライン引数を指定すると、CGROMから直接フォントを取得します。
+
+
 ## defchr_7621
 文字コード`$7621`(Shift_JIS:`$eb9f`)の16ドットフォントを`IOCS _FNTGET`で取得し、
 先頭32ドットを`$deadbeef`に書き換えて`IOCS _DEFCHR`で同じ文字に設定します。
