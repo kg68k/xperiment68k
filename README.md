@@ -105,6 +105,7 @@
   * [defchr_7621](docs/font.md#defchr_7621) ... `IOCS _DEFCHR`の動作検証
   * [defchr_81f8](docs/font.md#defchr_81f8) ... SJIS:$81f8のフォントにナチュラル記号を定義
   * [exchr_hex](docs/font.md#exchr_hex) ... 拡張外字処理を有効にして常駐終了
+  * [fntadr](docs/font.md#fntadr) ... `IOCS _FNTADR`でフォントアドレスを取得
   * [fntget](docs/font.md#fntget) ... フォントを拡大してテキストとして表示
   * [fntsize](docs/font.md#fntsize) ... `IOCS _FNTADR`、`IOCS _FNTGET`の結果を一覧表示
   * [uskcg24](docs/font.md#uskcg24) ... ユーザー定義外字の文字表をテキスト画面に描画

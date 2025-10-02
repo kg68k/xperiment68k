@@ -1,4 +1,4 @@
-.title fntget - show font data
+.title fntadr - IOCS _FNTADR
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2025 TcbnErik
@@ -21,70 +21,43 @@
 .include xputil.mac
 
 
-BLANK_CHAR: .equ '□'
-DOT_CHAR:   .equ '■'
-
-
 .cpu 68000
 .text
 
 ProgramStart:
   lea (1,a2),a0
   bsr getArguments
-
+  move.l d1,d2
   move.l d0,d1
-  lea (FntgetBuffer,pc),a1
-  IOCS _FNTGET
+  IOCS _FNTADR
 
   lea (Buffer,pc),a0
-  bsr stringifyFontData
+  lea (strD0equ,pc),a1
+  STRCPY a1,a0,-1
+  bsr ToHexString8
+
+  lea (strD1equ,pc),a1
+  STRCPY a1,a0,-1
+  move.l d1,d0
+  bsr ToHexString4_4
+
+  lea (strD2equ,pc),a1
+  STRCPY a1,a0,-1
+  move.l d2,d0
+  bsr ToHexString4_4
+
+  lea (strCrLf,pc),a1
+  STRCPY a1,a0
   DOS_PRINT (Buffer,pc)
 
   DOS _EXIT
-
-
-stringifyFontData:
-  PUSH d2-d7
-  move #BLANK_CHAR,d2
-  move #DOT_CHAR,d3
-  move (a1)+,d6  ;横ドット数
-  move (a1)+,d7  ;縦ドット数
-  subq #1,d7
-  1:
-    move d6,d5  ;残りドット数
-    2:
-      moveq #8,d4  ;今回のループ数
-      sub d4,d5
-      bcc @f
-        add d5,d4    ;7ドット以下の端数の場合
-        moveq #0,d5  ;残りなし
-      @@:
-      move.b (a1)+,d1
-      subq #1,d4
-      3:
-        add.b d1,d1
-        bcc @f
-          move d3,(a0)+  ;%1のドット
-          bra 4f
-        @@:
-          move d2,(a0)+  ;%0のドット
-        4:
-      dbra d4,3b
-    tst d5
-    bne 2b
-    move #CR<<8+LF,(a0)+
-  dbra d7,1b
-
-  clr.b (a0)
-  POP d2-d7
-  rts
 
 
 getArguments:
   PUSH d5-d7
   moveq #0,d5
   moveq #0,d6  ;文字コード
-  moveq #0,d7  ;フォントサイズ
+  moveq #8,d7  ;フォントサイズ
   1:
     SKIP_SPACE a0
     beq 9f
@@ -98,8 +71,8 @@ getArguments:
         SKIP_SPACE a0
         beq PrintUsage
 
-        bsr ParseIntWord  ;IOCS _FNTGETが対応しているのは0,6,8,12だが
-        move d0,d7        ;特に制限せず指定されたものをそのまま使う
+        bsr ParseInt  ;IOCS _FNTADRが対応しているのは6,8,12だが
+        move.l d0,d7  ;特に制限せず指定されたものをそのまま使う
         bra 1b
       @@:
       cmpi.b #'c',d0
@@ -108,24 +81,23 @@ getArguments:
         SKIP_SPACE a0
         beq PrintUsage
 
-        bsr ParseIntWord
-        move d0,d6
+        bsr ParseInt
+        move.l d0,d6
         moveq #-1,d5  ;文字指定あり
         bra 1b
       @@:
       bra PrintUsage
     2:
     bsr GetChar
-    move d0,d6
+    move.l d0,d6
     moveq #-1,d5  ;文字指定あり
     bra 1b
   9:
   tst.l d5
   beq PrintUsage  ;文字が指定されなかった
 
-  move d7,d0
-  swap d0
-  move d6,d0
+  move.l d6,d0
+  move.l d7,d1
   POP d5-d7
   rts
 
@@ -149,31 +121,33 @@ PrintUsage:
   bra Fatal
 
 
-  DEFINE_PARSEINTWORD ParseIntWord
+  DEFINE_TOHEXSTRING8 ToHexString8
+  DEFINE_TOHEXSTRING4_4 ToHexString4_4
+  DEFINE_PARSEINTWORD ParseInt
   DEFINE_FATAL Fatal
 
 
 .data
 
 strUsage:
-  .dc.b 'usage: fntget [options] <char>',CR,LF
+  .dc.b 'usage: fntadr [options] <char>',CR,LF
   .dc.b 'options:',CR,LF
   .dc.b '  -c<code> ... character code',CR,LF
   .dc.b '  -f<size> ... font size (<size>=6,8,12)',CR,LF
   .dc.b 0
 
+strD0equ: .dc.b 'd0.l = $',0
+strD1equ: .dc.b ', d1.l = $',0
+strD2equ: .dc.b ', d2.l = $',0
+
+strCrLf: .dc.b CR,LF,0
+
 
 .bss
 .even
 
-FntgetBuffer:
-  .ds 1
-  .ds 1
-  .ds.b (24/8)*24
-
 Buffer:
-  .ds.b (2*24+2)*24
-  .ds.b 16
+  .ds.b 256
 
 
 .end ProgramStart
