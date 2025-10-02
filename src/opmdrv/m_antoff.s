@@ -16,7 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
 
@@ -25,7 +25,7 @@
 .text
 
 ProgramStart:
-  moveq #-1,d2  ;引数省略時は全チャンネルに出力
+  moveq #O3_ANTOFF_ALL_CH,d2  ;引数省略時は全チャンネルに出力
 
   lea (1,a2),a0
   SKIP_SPACE a0

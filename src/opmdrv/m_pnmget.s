@@ -18,15 +18,9 @@
 
 .include macro.mac
 .include fefunc.mac
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
-
-
-PCM_NOTE_MIN: .equ 0
-PCM_NOTE_MAX: .equ 127
-
-TONE_NAME_LEN: .equ 10
 
 
 .cpu 68000
@@ -68,7 +62,7 @@ PrintToneName:
   lea (strCommaName,pc),a2
   STRCPY a2,a0,-1
 
-  clr.b (TONE_NAME_LEN,a1)
+  clr.b (O3_TONE_NAME_LEN,a1)
   lea (a1),a2
   STRCPY a2,a0,-1
 
@@ -81,12 +75,12 @@ PrintToneName:
 
 PrintAllToneNames:
   lea (Buffer,pc),a0
-  moveq #PCM_NOTE_MIN,d7
+  moveq #O3_PCM_NOTE_MIN,d7
   @@:
     move.l d7,d0
     bsr ToneNameToString
     addq #1,d7
-  cmpi #PCM_NOTE_MAX,d7
+  cmpi #O3_PCM_NOTE_MAX,d7
   bls @b
 
   DOS_PRINT (Buffer,pc)
@@ -109,7 +103,7 @@ ToneNameToString:
     bsr ToHexString$4_4
     bra @f
   1:
-    clr.b (TONE_NAME_LEN,a1)
+    clr.b (O3_TONE_NAME_LEN,a1)
     lea (a1),a2
     STRCPY a2,a0,-1
   @@:
@@ -138,7 +132,7 @@ Buffer: .ds.b 4096
 
 .even
 NameBuffer:
-  .ds.b TONE_NAME_LEN  ;音色名
+  .ds.b O3_TONE_NAME_LEN  ;音色名
   .ds.b 1  ;NUL終端
   .ds.b 1  ;-k指定時にバッファ先頭を1バイトずらして奇数バイトにする分
 

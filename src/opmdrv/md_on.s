@@ -16,7 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
 
@@ -25,7 +25,7 @@
 .text
 
 ProgramStart:
-  moveq #0,d2  ;チャンネル番号の省略時は全チャンネル対象
+  moveq #O2_ON_ALL_CH,d2  ;チャンネル番号の省略時は全チャンネル対象
   lea (1,a2),a0
   SKIP_SPACE a0
   beq @f

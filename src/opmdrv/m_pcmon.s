@@ -16,7 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
 
@@ -41,7 +41,7 @@ ProgramStart:
 
 
 ParseArguments:
-  move.l #4<<8+3,d1  ;15.6kHz、ステレオ
+  move.l #O3_PCM_15_6KHZ<<8+O3_PCMON_STEREO,d1  ;15.6kHz、ステレオ
 
   bsr ParseIntWord
   swap d1

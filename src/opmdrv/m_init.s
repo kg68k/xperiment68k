@@ -16,7 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
 
@@ -25,11 +25,11 @@
 .text
 
 ProgramStart:
-  moveq #1,d2  ;音色初期化あり
+  moveq #O3_INIT_WITH_TONE,d2  ;音色初期化あり
   addq.l #1,a2
   SKIP_SPACE a2
   beq @f
-    moveq #0,d2  ;音色初期化なし
+    moveq #O3_INIT_SKIP_TONE,d2  ;音色初期化なし
   @@:
   OPM _M_INIT
   bsr Print$4_4

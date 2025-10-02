@@ -16,7 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
 
@@ -25,7 +25,7 @@
 .text
 
 ProgramStart:
-  moveq #-1,d2  ;省略時は-1=全トラック合計
+  moveq #O3_USE_TOTAL,d2  ;省略時は-1=全トラック合計
   lea (1,a2),a0
   SKIP_SPACE a0
   beq @f

@@ -16,7 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
 
@@ -25,7 +25,7 @@
 .text
 
 ProgramStart:
-  moveq #-1,d2  ;省略時は現在の状態を取得
+  moveq #O3_ENABLE_INQUIRY,d2  ;省略時は現在の状態を取得
   lea (1,a2),a0
   SKIP_SPACE a0
   beq @f

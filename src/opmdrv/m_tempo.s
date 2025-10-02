@@ -17,13 +17,9 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include fefunc.mac
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
-
-
-TEMPO_MIN: .equ 20   ;OPMDRV.X、OPMDRV2.Xでは32
-TEMPO_MAX: .equ 300  ;OPMDRV.X、OPMDRV2.Xでは200
 
 
 .cpu 68000
@@ -42,11 +38,11 @@ ProgramStart:
 
 
 PrintCurrentTempo:
-  moveq #-1,d2
+  moveq #O3_TEMPO_INQUIRY,d2
   OPM _M_TEMPO
-  cmpi.l #TEMPO_MIN,d0
+  cmpi.l #O3_TEMPO_MIN,d0
   bcs 1f
-  cmpi.l #TEMPO_MAX,d0
+  cmpi.l #O3_TEMPO_MAX,d0
   bhi 1f
     lea (Buffer,pc),a0
     FPACK __LTOS

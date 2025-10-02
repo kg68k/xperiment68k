@@ -16,7 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include opmdrv.mac
+.include opmdrvdef.mac
 .include filesys.mac
 
 .include xputil.mac
@@ -35,7 +35,7 @@ ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
   bne 1f
-    moveq #-1,d2  ;コマンドライン引数の省略時はPCMバッファをクリアする
+    moveq #O3_PCMSET_CLEAR,d2  ;コマンドライン引数の省略時はPCMバッファをクリアする
     bra @f
   1:
     bsr ParseArgAndReadFile

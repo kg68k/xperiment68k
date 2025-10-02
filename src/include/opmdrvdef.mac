@@ -1,0 +1,211 @@
+.nlist
+
+;opmdrvdef.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
+;Last-Modified: 2025-10-03
+;
+;Copying and distribution of this file, with or without modification,
+;are permitted in any medium without royalty provided the copyright
+;notice and this notice are preserved.  This file is offered as-is,
+;without any warranty.
+
+
+.ifndef __opmdrvdef_mac__
+        __opmdrvdef_mac__:=1
+
+.include opmdrv.mac
+.nlist
+
+
+* OPMDRV*.X common values --------------------- *
+
+TRACK_MIN:      .equ 1
+TRACK_MAX:      .equ 80
+TRACK_COUNT:    .equ 80
+
+FM_TONE_MIN:    .equ 1
+FM_TONE_MAX:    .equ 200
+FM_TONE_COUNT:  .equ 200
+
+FM_TONE_V_SIZE: .equ 55
+
+CONT_ALL_CH:    .equ 0
+PLAY_ALL_CH:    .equ 0
+STAT_ALL_CH:    .equ 0
+STOP_ALL_CH:    .equ 0
+
+
+* OPMDRV.X values ----------------------------- *
+
+O1_CHANNEL_MIN:     .equ 1
+O1_CHANNEL_MAX:     .equ 8
+O1_CHANNEL_COUNT:   .equ 8
+
+O1_TEMPO_MIN:   .equ 32
+O1_TEMPO_MAX:   .equ 200
+
+
+* OPMDRV2.X values ---------------------------- *
+
+O2_CHANNEL_MIN:     .equ 1
+O2_CHANNEL_MAX:     .equ 24
+O2_CHANNEL_COUNT:   .equ 24
+
+O2_TEMPO_MIN:   .equ 32
+O2_TEMPO_MAX:   .equ 200
+
+O2_OFF_ALL_CH:  .equ 0
+O2_ON_ALL_CH:   .equ 0
+O2_STAT_ALL_CH: .equ 0
+
+
+* OPMDRV3.X values ---------------------------- *
+
+O3_CHANNEL_MIN:     .equ 1
+O3_CHANNEL_MAX:     .equ 25
+O3_CHANNEL_COUNT:   .equ 25
+
+O3_MIDI_TONE_MIN:   .equ 1
+O3_MIDI_TONE_MAX:   .equ 128
+O3_MIDI_TONE_COUNT: .equ 128
+
+O3_PCM_NOTE_MIN:    .equ 0
+O3_PCM_NOTE_MAX:    .equ 127
+
+O3_MEASURE_MIN:     .equ 0
+O3_MEASURE_MAX:     .equ 32767
+
+O3_TONE_NAME_LEN:   .equ 10
+O3_SND_SIZE:        .equ 80
+
+O3_ANTOFF_ALL_CH:   .equ -1
+O3_ENABLE_ALL_CH:   .equ -1
+O3_CONT_ALL_CH:     .equ -1
+O3_PLAY_ALL_CH:     .equ -1
+O3_STAT_ALL_CH:     .equ -1
+O3_STOP_ALL_CH:     .equ -1
+
+O3_PCM_LEN_MAX:     .equ 32767
+O3_PCM_3_9KHZ:      .equ 0
+O3_PCM_5_2KHZ:      .equ 1
+O3_PCM_7_8KHZ:      .equ 2
+O3_PCM_10_4KHZ:     .equ 3
+O3_PCM_15_6KHZ:     .equ 4
+
+O3_BEND_MIN:        .equ 0
+O3_BEND_MAX:        .equ 127
+
+O3_CHAN_INQUIRY:    .equ -1
+
+O3_ENABLE_INQUIRY:  .equ -1
+
+O3_IFCHK_EXISTS:    .equ 0
+O3_IFCHK_NOT_EXIST: .equ -1
+
+O3_INIT_SKIP_TONE:  .equ 0
+O3_INIT_WITH_TONE:  .equ 1
+
+O3_MOD_MIN:         .equ 0
+O3_MOD_MAX:         .equ 127
+
+O3_MODSNS_INQUIRY:  .equ -1
+O3_MODSNS_MIN:      .equ 0
+O3_MODSNS_MAX:      .equ 127
+
+O3_MSTVOL_INQUIRY:  .equ -1
+O3_MSTVOL_MIN:      .equ 0
+O3_MSTVOL_MAX:      .equ 127
+
+O3_OPMEXC_INQUIRY:  .equ -1
+O3_OPMEXC_NOT_SET:  .equ 0
+O3_OPMEXC_SET:      .equ 1
+
+O3_OPMLFQ_INQUIRY:  .equ -1
+O3_OPMLFQ_MIN:      .equ 0
+O3_OPMLFQ_MAX:      .equ 255
+
+O3_OPMREG_DATA_INQUIRY: .equ -1
+O3_OPMREG_NOT_WITTEN:   .equ -1
+O3_OPMREG_DATA_MIN: .equ $0000
+O3_OPMREG_DATA_MAX: .equ $00ff
+O3_OPMREG_REG_MIN:  .equ 0
+O3_OPMREG_REG_MAX:  .equ 255
+O3_OPMREG_REG_COUNT:.equ 256
+
+O3_PANPOT_INQUIRY:  .equ -1
+O3_PANPOT_MIN:      .equ 0
+O3_PANPOT_MAX:      .equ 127
+O3_PANPOT_RIGHT:    .equ O3_PANPOT_MIN
+O3_PANPOT_CENTER:   .equ 64
+O3_PANPOT_LEFT:     .equ O3_PANPOT_MAX
+
+O3_PANFLT_INQUIRY:  .equ -1
+O3_PANFLT_OFF:      .equ 0
+O3_PANFLT_ON:       .equ 1
+
+O3_PCMBSY_NONE:     .equ $00
+O3_PCMBSY_ADPCMOUT: .equ $02  ;or M_PCMON
+O3_PCMBSY_ADPCMINP: .equ $04  ;or M_PCMREC
+O3_PCMBSY_ADPCMAOT: .equ $12
+O3_PCMBSY_ADPCMAIN: .equ $14
+O3_PCMBSY_ADPCMLOT: .equ $22
+O3_PCMBSY_ADPCMLIN: .equ $24
+
+O3_PCMON_LEFT:      .equ 1
+O3_PCMON_RIGHT:     .equ 2
+O3_PCMON_STEREO:    .equ 3
+
+O3_PCMSET_CLEAR:    .equ -1
+
+O3_PGMFLT_INQUIRY:  .equ -1
+O3_PGMFLT_OFF:      .equ 0
+O3_PGMFLT_ON:       .equ 1
+
+O3_PROG_INQUIRY:    .equ -1
+O3_PROG_MIN:        .equ FM_TONE_MIN
+O3_PROG_MAX:        .equ FM_TONE_MAX
+
+;O3_SYNC_INQUIRY:   .equ -1  ;does not work.
+O3_SYNC_INT_MIDI:   .equ 0
+O3_SYNC_EXT_MIDI:   .equ 1
+O3_SYNC_EXT_FSK:    .equ 2
+
+O3_SYSCH_INQUIRY:   .equ -1
+O3_SYSCH_OPM:       .equ 0  ;O=OPM, P=OPM, M=MIDI
+O3_SYSCH_OMP:       .equ 1
+O3_SYSCH_MOP:       .equ 2
+O3_SYSCH_MPO:       .equ 3
+O3_SYSCH_POM:       .equ 4
+O3_SYSCH_PMO:       .equ 5
+
+O3_TEMPO_INQUIRY:   .equ -1
+O3_TEMPO_MIN:       .equ 20
+O3_TEMPO_MAX:       .equ 300
+
+O3_TRNS_INQUIRY:    .equ -1
+O3_TRNS_MIN:        .equ 0
+O3_TRNS_MAX:        .equ 48
+
+O3_USE_TOTAL:       .equ -1  ;0 does not work.
+
+O3_VEL_INQUIRY:     .equ -1
+O3_VEL_MIN:         .equ 0
+O3_VEL_MAX:         .equ 127
+
+O3_VOL_INQUIRY:     .equ -1
+O3_VOL_MIN:         .equ 0
+O3_VOL_MAX:         .equ 127
+
+O3_VOLFLT_INQUIRY:  .equ -1
+O3_VOLFLT_OFF:      .equ 0
+O3_VOLFLT_ON:       .equ 1
+
+O3_YCOM_INQUIRY:    .equ -1
+O3_YCOM_MIDI_CTRL:  .equ 0
+O3_YCOM_OPM_REG:    .equ 1
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

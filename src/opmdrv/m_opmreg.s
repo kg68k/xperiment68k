@@ -17,7 +17,7 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
 
@@ -42,19 +42,17 @@ ProgramStart:
   DOS _EXIT
 
 
-REGS_COUNT: .equ 256
-REGS_PER_LINE: .equ 16
+REGS_PER_LINE: .equ 16  ;1行あたりに表示するレジスタ数
 
 PrintAllRegisters:
   link a6,#-128
   DOS_PRINT (strHeader,pc)
 
-  moveq #0,d7  ;レジスタ番号(0-255)
-  moveq #REGS_COUNT/REGS_PER_LINE-1,d6
+  moveq #O3_OPMREG_REG_MIN,d7  ;レジスタ番号(0-255)
+  moveq #O3_OPMREG_REG_COUNT/REGS_PER_LINE-1,d6
   1:
     lea (sp),a0
     move.l d7,d0
-    andi #.not.(REGS_PER_LINE-1),d0
     bsr ToHexString$2
     lea (strColon,pc),a1
     STRCPY a1,a0,-1
@@ -62,16 +60,16 @@ PrintAllRegisters:
     moveq #REGS_PER_LINE-1,d5
     2:
       move.l d7,d2
-      moveq #-1,d3  ;レジスタの値の取得
+      moveq #O3_OPMREG_DATA_INQUIRY,d3  ;レジスタの値の取得
       OPM _M_OPMREG
 
-      cmpi.l #-1,d0
+      cmpi.l #O3_OPMREG_NOT_WITTEN,d0
       bne @f
         lea (strAsterisk,pc),a1  ;レジスタが書き換えられていない
         STRCPY a1,a0,-1
         bra 5f
       @@:
-      cmpi.l #$ff,d0
+      cmpi.l #O3_OPMREG_DATA_MAX,d0
       bls @f
         lea (strUnexpected,pc),a1  ;未定義の返り値
         STRCPY a1,a0,-1
@@ -96,7 +94,7 @@ PrintAllRegisters:
 
 
 ParseArguments:
-  moveq #-1,d1  ;書き込むデータ省略時は値の取得
+  moveq #O3_OPMREG_DATA_INQUIRY,d1  ;書き込むデータ省略時は値の取得
 
   bsr ParseInt
   move.l d0,d2  ;レジスタ番号
@@ -117,6 +115,7 @@ ParseArguments:
 
 .data
 
+.fail REGS_PER_LINE.ne.16
 strHeader: .dc.b '    | +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f',CR,LF
            .dc.b '----+------------------------------------------------',CR,LF,0
 strColon:  .dc.b    ' | ',0

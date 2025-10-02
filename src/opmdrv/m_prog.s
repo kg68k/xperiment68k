@@ -18,16 +18,9 @@
 
 .include macro.mac
 .include fefunc.mac
-.include opmdrv.mac
+.include opmdrvdef.mac
 
 .include xputil.mac
-
-CHANNEL_NO_MIN: .equ 1
-CHANNEL_NO_MAX: .equ 25
-CHANNEL_COUNT:  .equ 25
-
-TONE_NO_MIN: .equ 1
-TONE_NO_MAX: .equ 200
 
 
 .cpu 68000
@@ -43,7 +36,7 @@ ProgramStart:
     bsr ParseIntWord
     move d0,d2  ;チャンネル番号
     swap d2
-    move #-1,d2  ;音色番号省略時は設定取得
+    move #O3_PROG_INQUIRY,d2  ;音色番号省略時は設定取得
     SKIP_SPACE a0
     beq @f
       bsr ParseIntWord
@@ -62,8 +55,8 @@ PrintAllChannels:
   lea (strHeader,pc),a1
   STRCPY a1,a0,-1
 
-  moveq #CHANNEL_COUNT-1,d7
-  moveq.l #CHANNEL_NO_MIN,d6
+  moveq #O3_CHANNEL_COUNT-1,d7
+  moveq.l #O3_CHANNEL_MIN,d6
   1:
     move.l d6,d0
     moveq #2,d1
@@ -71,14 +64,14 @@ PrintAllChannels:
     lea (strColon,pc),a1
     STRCPY a1,a0,-1
 
-    moveq #-1,d2
-    move d6,d2
-    swap d2  ;上位ワード=チャンネル番号、下位ワード=$ffff
+    move d6,d2  ;チャンネル番号
+    swap d2
+    move #O3_PROG_INQUIRY,d2
     OPM _M_PROG
 
-    cmpi.l #TONE_NO_MIN,d0
+    cmpi.l #O3_PROG_MIN,d0
     bcs @f
-    cmpi.l #TONE_NO_MAX,d0
+    cmpi.l #O3_PROG_MAX,d0
     bhi @f
       FPACK __LTOS
       bra 8f
