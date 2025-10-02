@@ -46,9 +46,7 @@ ProgramStart:
   DOS _SUPER
   addq.l #4,sp
 
-  IOCS _B_CUROFF
   bsr DrawAnkFontTable
-  IOCS _B_CURON
 
   DOS _EXIT
 
@@ -75,11 +73,23 @@ DRAW_CHAR: .macro fontAreg,vramAreg
   .endm
 .endm
 
+SAVE_CRTC_R21: .macro
+  move (a5),d7
+.endm
+
+SET_CRTC_R21: .macro
+  move #%01_0011_0011,(a5)  ;プレーン0,1同時アクセス、ラスタコピー
+.endm
+
+RESTORE_CRTC_R21: .macro
+  move d7,(a5)  ;CRTC R21を戻す
+.endm
+
 DrawAnkFontTable:
   PUSH d3-d7/a4-a5
   lea (a0),a4  ;フォント取得ルーチン
   lea (CRTC_R21),a5
-  move (a5),d7
+  SAVE_CRTC_R21
 
   lea (strHeader1,pc),a0
   bsr DrawLineAndCursorDown
@@ -90,13 +100,14 @@ DrawAnkFontTable:
   moveq #0,d4  ;文字コード
   moveq #16-1,d6
   1:
+    IOCS _B_CUROFF
     bsr GetTvramAddressAtCursorLine
 
     move d4,d0
     bsr GetHeaderRow
     bsr DrawLine
 
-    move #%01_0011_0011,(a5)  ;プレーン0,1同時アクセス、ラスタコピー
+    SET_CRTC_R21
     moveq #16-1,d5
     2:
       move d4,d1
@@ -107,7 +118,8 @@ DrawAnkFontTable:
       addq.b #1,d4
     dbra d5,2b
 
-    move d7,(a5)  ;CRTC R21を戻す
+    RESTORE_CRTC_R21
+    IOCS _B_CURON
     IOCS _B_DOWN_S
   dbra d6,1b
 
@@ -125,14 +137,16 @@ HexTable: .dc.b '0123456789abcdef'
 
 
 DrawLineAndCursorDown:
+  IOCS _B_CUROFF
   bsr DrawLine
+  IOCS _B_CURON
   IOCS _B_DOWN_S
   rts
 
 DrawLine:
   lea (a0),a2
   bsr GetTvramAddressAtCursorLine
-  move #%01_0011_0000,(a5)  ;プレーン0,1同時アクセス、ラスタコピー
+  SET_CRTC_R21
   bra 8f
   1:
     moveq #8,d2
@@ -145,7 +159,7 @@ DrawLine:
   move.b (a2)+,d1
   bne 1b
 
-  move d7,(a5)  ;CRTC R21を戻す
+  RESTORE_CRTC_R21
   rts
 
 
