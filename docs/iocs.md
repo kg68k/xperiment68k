@@ -1,5 +1,10 @@
 # IOCS CALL
 
+## iocs_akconv
+コマンドライン引数で指定したANK文字コードを`IOCS _AKCONV`でS-JISに変換し、
+結果を表示します。
+
+
 ## iocs_b_clr_st
 `IOCS _B_CLR_ST`で画面の複数行を消去します。
 
@@ -49,9 +54,19 @@
 戻り値は常に0になります。
 
 
+## iocs_jissft
+コマンドライン引数で指定したJIS文字コードを`IOCS _JISSFT`でS-JISに変換し、
+結果を表示します。
+
+
 ## iocs_ontime
 `IOCS _ONTIME`で取得した起動後の経過時間を表示します。  
 なにかコマンドライン引数を指定すると日数、時分秒と1/100秒に変換して表示します。
+
+
+## iocs_sftjis
+コマンドライン引数で指定したS-JIS文字コードを`IOCS _SFTJIS`でJISに変換し、
+結果を表示します。
 
 
 ## iocs_timebcd
