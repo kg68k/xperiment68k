@@ -523,6 +523,8 @@ IS_MPU_68000: .macro dn
 
 
 ;(マクロ内部で使用) 符号なし32ビット÷32ビット
+;  参考: Oh!X 1992年09月号 p.57 村田敏幸、SOFTBANK
+;        「X68000マシン語プログラミング Chapter_23H 整数演算のアルゴリズム」
 _DEFINE_DIVU32: .macro
   _DEFINE_DIVU32: .macro
   .endm
