@@ -58,15 +58,14 @@ ProgramStart:
   DOS _EXIT
 
 
-U32DivMod:
-  FPACK __IDIV
-  rts
-
 ;__LTOSの引数はsigned intを受け取るが、手抜きしてこれを使う。
 ;負数が渡されることはないので問題ない。
 U32ToDecimalString:
   FPACK __LTOS
   rts
+
+
+  DEFINE_DIVU32 Divu32
 
 
 .data
@@ -130,12 +129,12 @@ MpuClock_GetString::
     moveq #50,d1
     add.l d1,d0
     move.l #1000,d1
-    bsr U32DivMod  ;MHz単位の値に換算
+    bsr Divu32  ;MHz単位の値に換算
     bsr U32ToDecimalString
     move.b #'.',(a0)+
     move.l d1,d0
     moveq #100,d1
-    bsr U32DivMod  ;余りを0.1MHz単位の値に換算
+    bsr Divu32  ;余りを0.1MHz単位の値に換算
     addi.b #'0',d0
     move.b d0,(a0)+  ;少数第1位まで出力
     moveq #'M',d0

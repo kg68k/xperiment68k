@@ -18,8 +18,6 @@
 
 .include macro.mac
 .include fefunc.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -72,14 +70,14 @@ PrintOntimeDHMS:
 
   move.l d3,d0
   moveq #100,d1
-  FPACK __IDIV
+  bsr Divu32
   move.l d1,d7  ;1/100秒(0...99)
 
   moveq #60,d1
-  FPACK __IDIV
+  bsr Divu32
   move.l d1,d6  ;秒数(0...59)
 
-  FPACK __IDIV
+  bsr Divu32
   move.l d1,d5  ;分数(0...59)
 
   ;d0.w = 時間(0...23)
@@ -112,6 +110,7 @@ ToDecimalString02:
   rts
 
 
+  DEFINE_DIVU32 Divu32
   DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
 
 
