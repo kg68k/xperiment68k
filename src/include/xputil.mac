@@ -522,6 +522,72 @@ IS_MPU_68000: .macro dn
 .endm
 
 
+;(マクロ内部で使用) 符号なし32ビット÷32ビット
+_DEFINE_DIVU32: .macro
+  _DEFINE_DIVU32: .macro
+  .endm
+
+_Divu32:
+  tst.l d1
+  beq @divby0
+    cmpi.l #$1_0000,d1
+    bcc @div32by32  ;除数が32ビット
+    divu d1,d0  ;除数が16ビット
+    bvs @quot32  ;商が16ビットに収まらなかった
+
+    swap d0
+    move d0,d1  ;余り(d1.hwは0なのでクリア不要)
+    clr d0
+    swap d0  ;商
+  @divby0:
+  rts
+
+@quot32:
+  move.l d2,-(sp)  ;65536進数2桁÷1桁として計算する
+  moveq #0,d2
+  swap d0
+  move d0,d2
+  divu d1,d2
+  move d2,d0
+  swap d0
+  move d0,d2
+  divu d1,d2
+
+  move d2,d0
+  swap d2
+  move d2,d1
+  move.l (sp)+,d2
+  rts
+
+@div32by32:
+  movem.l d2-d3,-(sp)
+
+  moveq #0,d2
+  moveq #32-1,d3
+  @loop:
+    add.l d0,d0
+    addx.l d2,d2
+    cmp.l d1,d2
+    bcs @skip
+      sub.l d1,d2
+      addq.b #1,d0
+    @skip:
+  dbra d3,@loop
+
+  move.l d2,d1
+  movem.l (sp)+,d2-d3
+  rts
+.endm
+
+
+;符号なし32ビット÷32ビット
+DEFINE_DIVU32: .macro label
+label: .equ _Divu32
+
+  _DEFINE_DIVU32
+.endm
+
+
 .endif
 
 .list

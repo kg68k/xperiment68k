@@ -257,6 +257,7 @@
   * [spchecker](docs/sprite.md#spchecker) ... スプライトを市松模様に表示
   * [splimchk](docs/sprite.md#splimchk) ... スプライトの表示限界の検証用
 * [Test](docs/test.md)
+  * [divu32](docs/test.md#divu32) ... Divu32サブルーチンの動作確認用
   * [parseint](docs/test.md#parseint) ... ParseIntサブルーチンの動作確認用
 * [Z-MUSIC v2](docs/zmsc2.md)
   * [zmsc2_gettrktbl](docs/zmsc2.md#zmsc2_gettrktbl)
