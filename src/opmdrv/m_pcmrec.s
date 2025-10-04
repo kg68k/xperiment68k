@@ -68,7 +68,7 @@ WriteFile:
   addq.l #6,sp
   move.l d0,d1
   bmi 9f
-    move.l d3,-(sp)
+    move.l d2,-(sp)
     pea (a1)
     move d1,-(sp)
     DOS _WRITE
