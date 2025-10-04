@@ -148,7 +148,6 @@
   * [exception](docs/misc.md#exception) ... 例外を発生させて例外処理を呼び出す
   * [joyget](docs/misc.md#joyget) ... `IOCS _JOYGET`によるジョイスティック入力
   * [midi_reg](docs/misc.md#midi_reg) ... MIDIボード(YM3802)のレジスタの値を表示
-  * [parseint](docs/misc.md#parseint) ... ParseIntサブルーチンの動作確認用
   * [reset68k](docs/misc.md#reset68k) ... `trap #10`命令によるソフトウェアリセット
   * [rtc_reg](docs/misc.md#rtc_reg) ... RTC(RP5C15)のレジスタの値を表示
   * [runwaitchk](docs/misc.md#runwaitchk) ... メモリを読み込むループの実行時間を計測
@@ -257,6 +256,8 @@
   * [sp3tx0gr2](docs/sprite.md#sp3tx0gr2) ... 画面間プライオリティを特殊な値に設定。エミュレータの検証用
   * [spchecker](docs/sprite.md#spchecker) ... スプライトを市松模様に表示
   * [splimchk](docs/sprite.md#splimchk) ... スプライトの表示限界の検証用
+* [Test](docs/test.md)
+  * [parseint](docs/test.md#parseint) ... ParseIntサブルーチンの動作確認用
 * [Z-MUSIC v2](docs/zmsc2.md)
   * [zmsc2_gettrktbl](docs/zmsc2.md#zmsc2_gettrktbl)
     ... Z-MUSIC v2の絶対チャンネルテーブル、演奏トラックテーブルを表示
