@@ -5,7 +5,7 @@ O1 = m_alloc.x m_assign.x m_atoi.x m_cont.x m_free.x m_init.x \
 
 O2 = md_off.x md_on.x md_stat.x
 
-O3 = m_antoff.x m_bend.x m_chan.x m_chget.x m_enable.x m_freea.x m_ifchk.x \
+O3 = m_antoff.x m_bend.x m_chan.x m_chget.x m_enable.x m_freea.x m_ifchk.x m_intcall.x \
      m_mstvol.x m_mod.x m_modsns.x m_opmexc.x m_opmlfq.x m_opmreg.x \
      m_pan.x m_panflt.x \
      m_pcmbsy.x m_pcmget.x m_pcmlen.x m_pcmon.x m_pcmrec.x m_pcmset.x \

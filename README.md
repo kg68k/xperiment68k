@@ -173,6 +173,7 @@
   * [m_freea](docs/opmdrv.md#m_freea) ... `OPM _M_FREEA`でトラックバッファの全バイト数を取得
   * [m_ifchk](docs/opmdrv.md#m_ifchk) ... `OPM _M_IFCHK`でMIDIインターフェイスの有無を検出
   * [m_init](docs/opmdrv.md#m_init) ... `OPM _M_INIT`でトラックバッファ初期化
+  * [m_intcall](docs/opmdrv.md#m_intcall) ... `OPM $1f`でユーザーサブルーチンの登録・停止・アドレス取得
   * [m_intoff](docs/opmdrv.md#m_intoff) ... `OPM $0e`で割り込みを停止
   * [m_inton](docs/opmdrv.md#m_inton) ... `OPM $0d`で割り込みを開始
   * [m_mstvol](docs/opmdrv.md#m_mstvol) ... `OPM _M_MSTVOL`でマスターボリュームを設定・取得
