@@ -207,8 +207,10 @@
   * [m_use](docs/opmdrv.md#m_use) ... `OPM _M_USE`でトラックバッファの使用容量を取得
   * [m_vel](docs/opmdrv.md#m_vel) ... `OPM _M_VEL`でチャンネルのベロシティを設定・取得
   * [m_version](docs/opmdrv.md#m_version) ... `OPM _M_VERSION`でバージョンと作成年月日を取得
+  * [m_vget](docs/opmdrv.md#m_vget) ... `OPM _M_VGET`でFM音源(YM2151)の音色データを取得
   * [m_vol](docs/opmdrv.md#m_vol) ... `OPM _M_VOL`でチャンネルのボリュームを設定・取得
   * [m_volflt](docs/opmdrv.md#m_volflt) ... `OPM _M_VOLFLT`でボリューム設定コマンドの出力フィルタを設定・取得
+  * [m_vset](docs/opmdrv.md#m_vset) ... `OPM _M_VSET`でFM音源(YM2151)の音色データを設定
   * [m_ycom](docs/opmdrv.md#m_ycom) ... `OPM _M_YCOM`でYコマンドの使用モードを設定・取得
   * [opmdrvtype](docs/opmdrv.md#opmdrvtype) ... 組み込まれているOPMDRV\*.Xの種類を表示
 * [Proof of Concept](docs/poc.md)
