@@ -1,7 +1,7 @@
 .title dosbusfake - DOS _BUS_ERR fake
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -17,9 +17,8 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include dosdef.mac
-.include console.mac
-.include doscall.mac
+
+.include xputil.mac
 
 
 DosBusFake_END::    .equ 0

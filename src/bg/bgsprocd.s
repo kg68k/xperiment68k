@@ -17,9 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include dosdef.mac
-.include console.mac
-.include doscall.mac
 .include process.mac
 
 .include xputil.mac

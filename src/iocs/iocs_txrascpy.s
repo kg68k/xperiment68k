@@ -16,11 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
-.include dosdef.mac
-.include doscall.mac
-.include iocscall.mac
-
 .include xputil.mac
 
 DEFAULT_DIRECTION: .equ 0
