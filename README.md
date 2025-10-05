@@ -263,6 +263,7 @@
   * [divu10bench](docs/test.md#divu10bench) ... Divu10サブルーチンのベンチマーク
   * [divu32](docs/test.md#divu32) ... Divu32サブルーチンの動作確認用
   * [parseint](docs/test.md#parseint) ... ParseIntサブルーチンの動作確認用
+  * [todecstrbench](docs/test.md#todecstrbench) ... ToDecStringサブルーチンのベンチマーク
 * [Z-MUSIC v2](docs/zmsc2.md)
   * [zmsc2_gettrktbl](docs/zmsc2.md#zmsc2_gettrktbl)
     ... Z-MUSIC v2の絶対チャンネルテーブル、演奏トラックテーブルを表示
