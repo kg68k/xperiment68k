@@ -28,7 +28,7 @@ ProgramStart:
   lea (1,a2),a0
   SKIP_SPACE a0
   bne @f
-    PRINT_1LINE_USAGE 'usage: m_chget <channel_no>'
+    PRINT_1LINE_USAGE 'usage: m_chget <channel_no or -1>'
     DOS _EXIT
   @@:
   bsr ParseInt
