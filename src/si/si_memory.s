@@ -16,12 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -123,6 +118,21 @@ print_mem:
 
   DOS_PRINT (strBuf,pc)
   rts
+
+
+is_060turbo:
+  PUSH d1/a1
+  suba.l a1,a1  ;エラー時の a1 != '060T' を保証
+  move #$8000,d1
+  IOCS _SYS_STAT
+  cmpa.l #'060T',a1
+  POP d1/a1
+  rts
+
+
+  DEFINE_DOSBUSERRWORD DosBusErrWord
+  DEFINE_TODECSTRINGWIDTH ToDecStringWidth
+  DEFINE_TOHEXSTRING8 ToHexString8
 
 
 .data
@@ -282,13 +292,13 @@ Memory_GetHighFreeSize::
 ;break d0
 Memory_AreaToString::
   move.b #'$',(a0)+
-  bsr hexstr_long
+  bsr ToHexString8
 
   move.b #'-',(a0)+
 
   move.b #'$',(a0)+
   move.l d1,d0
-  bra hexstr_long
+  bra ToHexString8
 ; rts
 
 
@@ -304,7 +314,7 @@ Memory_SizeToString::
   clr d0
   swap d0
   lsr #4,d0  ;1024*1024で割ってメガバイト単位に変換
-  bsr fe_iusing
+  bsr ToDecStringWidth
 
   move.b #'M',(a0)+
   move.b #'B',(a0)+
@@ -325,45 +335,13 @@ Memory_FreeSizeToString::
   lsr.l #2,d0  ;1024で割ってキロバイト単位に変換
 
   moveq #1,d1
-  bsr fe_iusing
+  bsr ToDecStringWidth
 
   move.b #'K',(a0)+
   move.b #'B',(a0)+
   clr.b (a0)
   move.l (sp)+,d1
   rts
-
-
-is_060turbo:
-  PUSH d1/a1
-  suba.l a1,a1  ;エラー時の a1 != '060T' を保証
-  move #$8000,d1
-  IOCS _SYS_STAT
-  cmpa.l #'060T',a1
-  POP d1/a1
-  rts
-
-hexstr_long:
-  PUSH d0-d2
-  moveq #8-1,d1
-hexstr_loop:
-  rol.l #4,d0
-  moveq #$f,d2
-  and d0,d2
-  move.b (hex_table,pc,d2.w),(a0)+
-  dbra d1,hexstr_loop
-  clr.b (a0)
-  POP d0-d2
-  rts
-hex_table: .dc.b '0123456789abcdef'
-.even
-
-fe_iusing:
-  FPACK __IUSING
-  rts
-
-
-  DEFINE_DOSBUSERRWORD DosBusErrWord
 
 
 .end ProgramStart

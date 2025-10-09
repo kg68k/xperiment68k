@@ -1,7 +1,7 @@
 .title fntsize - show font size by IOCS _FNTADR and _FNTGET
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2025 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -17,10 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -48,7 +44,7 @@ ProgramStart:
     move.l d7,d0
     lea (Buffer,pc),a0
     moveq #.sizeof.('size'),d1
-    FPACK __IUSING
+    bsr ToDecStringWidth
 
     move.l d6,d0
     move.l d7,d1
@@ -81,17 +77,17 @@ fntadr:
   clr d0
   swap d0
   moveq #.sizeof.('  Xdot'),d1
-  FPACK __IUSING
+  bsr ToDecStringWidth
 
   moveq #0,d0
   move d3,d0
   moveq #.sizeof.(' Xb-1'),d1
-  FPACK __IUSING
+  bsr ToDecStringWidth
 
   moveq #0,d0
   move d2,d0
   moveq #.sizeof.(' Yd-1'),d1
-  FPACK __IUSING
+  bsr ToDecStringWidth
 
   POP d2-d3
   rts
@@ -110,12 +106,12 @@ fntget:
   moveq #0,d0
   move (0,sp),d0
   moveq #.sizeof.('   Xdot'),d1
-  FPACK __IUSING
+  bsr ToDecStringWidth
 
   moveq #0,d0
   move (2,sp),d0
   moveq #.sizeof.(' Ydot'),d1
-  FPACK __IUSING
+  bsr ToDecStringWidth
 
   unlk a6
   rts
@@ -134,6 +130,9 @@ getArgument:
       move.b (a0)+,d0
   @@:
   rts
+
+
+  DEFINE_TODECSTRINGWIDTH ToDecStringWidth
 
 
 .data

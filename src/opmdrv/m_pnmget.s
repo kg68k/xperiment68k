@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
 .include opmdrvdef.mac
 
 .include xputil.mac
@@ -91,7 +90,7 @@ ToneNameToString:
   move.l d0,d2  ;音色番号
 
   moveq #3,d1
-  FPACK __IUSING
+  bsr ToDecStringWidth
   lea (strColon,pc),a2
   STRCPY a2,a0,-1
 
@@ -112,8 +111,9 @@ ToneNameToString:
   rts
 
 
-  DEFINE_PARSEINT ParseInt
+  DEFINE_TODECSTRINGWIDTH ToDecStringWidth
   DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
+  DEFINE_PARSEINT ParseInt
 
 
 .data

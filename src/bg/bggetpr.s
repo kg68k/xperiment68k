@@ -17,9 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
 .include process.mac
 
 .include xputil.mac
@@ -181,7 +178,7 @@ toStringHex8:
 
 toStringDecimal:
   STRCPY a1,a0,-1
-  FPACK __LTOS
+  bsr ToDecString
   bra appendCrLf
 
 stringifyRegisters:
@@ -213,6 +210,7 @@ appendCrLf:
 
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
+  DEFINE_TODECSTRING ToDecString
   DEFINE_TOHEXSTRING2 ToHexString2
   DEFINE_TOHEXSTRING4 ToHexString4
   DEFINE_TOHEXSTRING8 ToHexString8

@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
 
 .include xputil.mac
 
@@ -46,7 +45,7 @@ ProgramStart:
   DOS_PRINT (Result,pc)  ;DOS _READの返り値を表示
   move.l d6,d0
   lea (Buffer,pc),a0
-  FPACK __LTOS
+  bsr ToDecString
   DOS_PRINT (Buffer,pc)
   DOS_PRINT_CRLF
 
@@ -106,6 +105,7 @@ StringToHexString:
   rts
 
 
+  DEFINE_TODECSTRING ToDecString
   DEFINE_TOHEXSTRING2 ToHexString2
 
 

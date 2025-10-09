@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
 
 .include xputil.mac
 
@@ -365,13 +364,11 @@ Measure:
   PUSH d3-d7/a2
   link a6,#-64
   lea (sp),a2
+
   move.l d0,d1
   DOS_PRINT (a0)
-
   move.l d1,d0
-  lea (a2),a0
-  FPACK __LTOS
-  DOS_PRINT (sp)
+  bsr PrintDecString
   DOS_PRINT (strTime,pc)
 
   move.l #65536,d7
@@ -400,15 +397,15 @@ Measure:
     addi.l #24*60*60*100,d0
   @@:
   sub.l d2,d0
-
-  lea (a2),a0
-  FPACK __LTOS
-  DOS_PRINT (sp)
+  bsr PrintDecString
   DOS_PRINT_CRLF
 
   unlk a6
   POP d3-d7/a2
   rts
+
+
+  DEFINE_PRINTDECSTRING PrintDecString
 
 
 .data

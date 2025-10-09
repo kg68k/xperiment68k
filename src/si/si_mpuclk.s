@@ -16,8 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
-
 .include xputil.mac
 
 .include iomap.mac
@@ -58,13 +56,7 @@ ProgramStart:
   DOS _EXIT
 
 
-;__LTOSの引数はsigned intを受け取るが、手抜きしてこれを使う。
-;負数が渡されることはないので問題ない。
-U32ToDecimalString:
-  FPACK __LTOS
-  rts
-
-
+  DEFINE_TODECSTRING ToDecString
   DEFINE_DIVU32 Divu32
 
 
@@ -122,7 +114,7 @@ MpuClock_GetString::
   moveq #100,d1
   cmp.l d1,d0
   bcc 1f
-    bsr U32ToDecimalString  ;0.1MHz未満はkHz単位で出力
+    bsr ToDecString  ;0.1MHz未満はkHz単位で出力
     moveq #'k',d0
     bra 2f
   1:
@@ -130,7 +122,7 @@ MpuClock_GetString::
     add.l d1,d0
     move.l #1000,d1
     bsr Divu32  ;MHz単位の値に換算
-    bsr U32ToDecimalString
+    bsr ToDecString
     move.b #'.',(a0)+
     move.l d1,d0
     moveq #100,d1

@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
 .include filesys.mac
 .include opmdrvdef.mac
 
@@ -91,7 +90,7 @@ PrintTone:
   lea (strToneHeader,pc),a1
   STRCPY a1,a0,-1
   move.l d2,d0
-  FPACK __LTOS  ;音色番号
+  bsr ToDecString  ;音色番号
   move.b #',',(a0)+
   move.b #'0',(a0)+  ;書き換えを始めるパラメーター番号は0で固定
 
@@ -116,7 +115,7 @@ LineToString:
     moveq #0,d0
     move.b (a2)+,d0
     moveq #3,d1
-    FPACK __IUSING
+    bsr ToDecStringWidth
     move.b #',',(a0)+
   dbra d2,@b
   clr.b -(a0)  ;最後の,を消す
@@ -163,8 +162,10 @@ WriteFile:
   rts
 
 
-  DEFINE_PARSEINT ParseInt
+  DEFINE_TODECSTRING ToDecString
+  DEFINE_TODECSTRINGWIDTH ToDecStringWidth
   DEFINE_PRINTD0$4_4 PrintD0$4_4
+  DEFINE_PARSEINT ParseInt
 
 
 .data

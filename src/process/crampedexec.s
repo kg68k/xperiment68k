@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
 .include process.mac
 
 .include xputil.mac

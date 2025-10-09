@@ -18,7 +18,6 @@
 
 .include iomap.mac
 .include macro.mac
-.include fefunc.mac
 
 .include xputil.mac
 
@@ -68,7 +67,7 @@ ProgramStart:
     addi.l #24*60*60,d0  ;起動後24時間を跨いだ
   @@:
   sub.l d6,d0  ;経過時間(1/100秒単位)
-  bsr PrintD0Dec
+  bsr PrintDecString
   DOS_PRINT_CRLF
 exit:
   DOS _EXIT
@@ -138,22 +137,11 @@ VdispstRte:
   rte
 
 
-PrintD0Dec:
-  lea (Buffer,pc),a0
-  pea (a0)
-  FPACK __LTOS
-  DOS _PRINT
-  addq.l #4,sp
-  rts
-
-
+  DEFINE_PRINTDECSTRING PrintDecString
   DEFINE_PARSEINTBYTE ParseIntByte
 
 
 .bss
-.even
-
-Buffer: .ds.b 256
 
 TimerACalled: .ds.b 1
 

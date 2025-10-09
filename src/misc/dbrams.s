@@ -17,10 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 .include iocswork.mac
 
 .include xputil.mac
@@ -67,7 +63,7 @@ printValue:
   move.l d1,d0
   clr d0
   swap d0
-  FPACK __LTOS
+  bsr ToDecString
 
   lea (strRam,pc),a1
   STRCPY a1,a0
@@ -75,7 +71,7 @@ printValue:
 
   moveq #0,d0
   move d1,d0
-  FPACK __LTOS
+  bsr ToDecString
 
   lea (strBuf,pc),a0
   bra print
@@ -84,6 +80,8 @@ print:
   DOS_PRINT (a0)
   DOS_PRINT_CRLF
   rts
+
+  DEFINE_TODECSTRING ToDecString
 
 .data
 strRom: .dc.b 'ROM: ',0

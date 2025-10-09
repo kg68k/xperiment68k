@@ -17,10 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -87,9 +83,7 @@ Measure:
   @@:
   sub.l d2,d0
 
-  lea (Buffer,pc),a0
-  FPACK __LTOS
-  DOS_PRINT (Buffer,pc)
+  bsr PrintDecString
   DOS_PRINT_CRLF
 
   POP d3/d6-d7
@@ -125,18 +119,15 @@ LoopCode:
 LoopCodeEnd:
 
 
+  DEFINE_PRINTDECSTRING PrintDecString
+
+
 .data
 
 OnMainReadMain:   .dc.b 'on main memory, read main memory: ',0
 OnMainReadGvram:  .dc.b 'on main memory, read gvram: ',0
 OnGvramReadMain:  .dc.b 'on gvram, read main memory: ',0
 OnGvramReadGvram: .dc.b 'on gvram, read gvram: ',0
-
-
-.bss
-.even
-
-Buffer: .ds.b 64
 
 
 .end

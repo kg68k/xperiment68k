@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
 .include opmdrvdef.mac
 
 .include xputil.mac
@@ -60,7 +59,7 @@ PrintAllChannels:
   1:
     move.l d6,d0
     moveq #2,d1
-    FPACK __IUSING
+    bsr ToDecStringWidth
     lea (strColon,pc),a1
     STRCPY a1,a0,-1
 
@@ -73,7 +72,7 @@ PrintAllChannels:
     bcs @f
     cmpi.l #O3_PROG_MAX,d0
     bhi @f
-      FPACK __LTOS
+      bsr ToDecString
       bra 8f
     @@:
       bsr ToHexString$4_4  ;エラーコードは16進数で表示する
@@ -90,9 +89,11 @@ PrintAllChannels:
   rts
 
 
-  DEFINE_PARSEINTWORD ParseIntWord
+  DEFINE_TODECSTRING ToDecString
+  DEFINE_TODECSTRINGWIDTH ToDecStringWidth
   DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
   DEFINE_PRINT$4_4 Print$4_4
+  DEFINE_PARSEINTWORD ParseIntWord
 
 
 .data

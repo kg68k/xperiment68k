@@ -16,7 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include fefunc.mac
 .include opmdrvdef.mac
 
 .include xputil.mac
@@ -44,9 +43,7 @@ PrintCurrentTempo:
   bcs 1f
   cmpi.l #O3_TEMPO_MAX,d0
   bhi 1f
-    lea (Buffer,pc),a0
-    FPACK __LTOS
-    DOS_PRINT (Buffer,pc)
+    bsr PrintDecString
     bra @f
   1:
     bsr Print$4_4  ;エラーコードは16進数で表示する
@@ -64,14 +61,9 @@ SetTempo:
   rts
 
 
-  DEFINE_PARSEINT ParseInt
+  DEFINE_PRINTDECSTRING PrintDecString
   DEFINE_PRINT$4_4 Print$4_4
-
-
-.bss
-.even
-
-Buffer: .ds.b 256
+  DEFINE_PARSEINT ParseInt
 
 
 .end ProgramStart

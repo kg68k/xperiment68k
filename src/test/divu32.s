@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
 
 .include xputil.mac
 
@@ -117,12 +116,12 @@ PrintTestResult:
   lea (sp),a0
   lea (strSuccess,pc),a1
   STRCPY a1,a0,-1
-  FPACK __LTOS
+  bsr ToDecString
 
   lea (strFailure,pc),a1
   STRCPY a1,a0,-1
   move.l d1,d0
-  FPACK __LTOS
+  bsr ToDecString
 
   lea (strCrLf,pc),a1
   STRCPY a1,a0
@@ -141,7 +140,7 @@ PrintTestCaseResult:
   lea (sp),a0
   move.b #'[',(a0)+
   move.l d6,d0
-  FPACK __LTOS
+  bsr ToDecString
   move.b #']',(a0)+
   move.b #' ',(a0)+
 
@@ -182,6 +181,7 @@ PrintTestCaseResult:
 
   DEFINE_DIVU32 Divu32
   DEFINE_PARSEINT ParseInt
+  DEFINE_TODECSTRING ToDecString
   DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
   DEFINE_TOHEXSTRING2 ToHexString2
 

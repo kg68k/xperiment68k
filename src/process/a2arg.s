@@ -17,9 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -71,13 +68,10 @@ printHupairMark:
   rts
 
 printArgumentLength:
+  DOS_PRINT (strLength,pc)
   moveq #0,d0
   move.b (a2),d0
-  lea (buffer,pc),a0
-  FPACK __LTOS
-
-  DOS_PRINT (strLength,pc)
-  DOS_PRINT (buffer,pc)
+  bsr PrintDecString
   DOS_PRINT_CRLF
   rts
 
@@ -96,18 +90,15 @@ printArg0:
   rts
 
 
+  DEFINE_PRINTDECSTRING PrintDecString
+
+
 .data
 
 strHupairMark: .dc.b 'hupair_mark = ',0
 strLength:     .dc.b 'length = ',0
 strArgument:   .dc.b 'argument = ',0
 strArg0:       .dc.b 'arg0 = ',0
-
-
-.bss
-.even
-
-buffer: .dc.b 16
 
 
 .end

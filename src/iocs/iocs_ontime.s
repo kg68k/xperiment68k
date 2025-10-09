@@ -17,7 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
 
 .include xputil.mac
 
@@ -64,7 +63,7 @@ PrintOntimeDHMS:
 
   moveq #0,d0
   move d1,d0  ;日数
-  FPACK __LTOS
+  bsr ToDecString
   lea (strDays,pc),a1
   STRCPY a1,a0,-1
 
@@ -111,6 +110,7 @@ ToDecimalString02:
 
 
   DEFINE_DIVU32 Divu32
+  DEFINE_TODECSTRING ToDecString
   DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
 
 

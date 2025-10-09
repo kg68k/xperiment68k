@@ -168,6 +168,123 @@ label:
 .endm
 
 
+;(マクロ内部で使用) 10進数文字列化
+_DEFINE_TODECSTRING: .macro
+  _DEFINE_TODECSTRING: .macro
+  .endm
+
+_ToDecString:
+  movem.l d1-d2/a1,-(sp)
+  lea (@Table,pc),a1
+  moveq #'0',d2
+  move.l (a1)+,d1
+  @_1:
+    cmp.l d1,d0
+    bcc @_3
+  move.l (a1)+,d1
+  bne @_1
+  bra @_9
+  @_2:
+    cmp.l d1,d0
+    bcs @_4
+      @_3:
+        addq.b #1,d2
+        sub.l d1,d0
+      cmp.l d1,d0
+      bcc @_3
+    @_4:
+    move.b d2,(a0)+
+    moveq #'0',d2
+  move.l (a1)+,d1
+  bne @_2
+@_9:
+  add.b d0,d2
+  move.b d2,(a0)+
+  clr.b (a0)
+  movem.l (sp)+,d1-d2/a1
+  rts
+
+@Table:
+  .dc.l 1000000000
+  .dc.l 100000000
+  .dc.l 10000000
+  .dc.l 1000000
+  .dc.l 100000
+  .dc.l 10000
+  .dc.l 1000
+  .dc.l 100
+  .dc.l 10
+  .dc.l 0
+.endm
+
+
+;10進数文字列化
+DEFINE_TODECSTRING: .macro label
+label: .equ _ToDecString
+
+  _DEFINE_TODECSTRING
+.endm
+
+
+;(マクロ内部で使用) 10進数文字列化(幅指定)
+_DEFINE_TODECSTRINGWIDTH: .macro
+  _DEFINE_TODECSTRINGWIDTH: .macro
+  .endm
+
+_ToDecStringWidth:
+  movem.l d1/a1-a2,-(sp)
+  link a6,#-16
+  lea (sp),a2
+  movea.l a0,a1
+
+  lea (a2),a0
+  bsr _ToDecString
+  suba.l a2,a0  ;生成された文字列長
+  sub.l a0,d1  ;足りない文字数
+  bls @skip
+    moveq #' ',d0
+    @padding:
+      move.b d0,(a1)+
+      subq.l #1,d1
+    bne @padding
+  @skip:
+  @copy:
+    move.b (a2)+,(a1)+
+  bne @copy
+  lea (-1,a1),a0
+
+  unlk a6
+  movem.l (sp)+,d1/a1-a2
+  rts
+
+  _DEFINE_TODECSTRING
+.endm
+
+
+;10進数文字列化(幅指定)
+DEFINE_TODECSTRINGWIDTH: .macro label
+label: .equ _ToDecStringWidth
+
+  _DEFINE_TODECSTRINGWIDTH
+.endm
+
+
+;数値を10進数で表示
+DEFINE_PRINTDECSTRING: .macro label
+label:
+  move.l a0,-(sp)
+  link a6,#-12
+  lea (sp),a0
+  bsr _ToDecString
+  DOS_PRINT (sp)
+  unlk a6
+  movea.l (sp)+,a0
+  rts
+
+  _DEFINE_TODECSTRING
+.endm
+
+
 ;(マクロ内部で使用) 16進数文字列化テーブル
 _DEFINE_HEXTABLE: .macro
   .even
@@ -306,13 +423,9 @@ _ToHexString8:
 
 ;数値を16進数で文字列化(8桁)
 DEFINE_TOHEXSTRING8: .macro label
-label:
-  swap d0
-  bsr _ToHexString4
-  swap d0
-  bra _ToHexString4
+label: .equ _ToHexString8
 
-  _DEFINE_TOHEXSTRING4
+  _DEFINE_TOHEXSTRING8
 .endm
 
 

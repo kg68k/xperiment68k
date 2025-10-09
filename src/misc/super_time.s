@@ -17,10 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -38,7 +34,7 @@ DUMMY_INSTRUCTION: .macro
 ProgramStart:
   DOS_PRINT (strLoopCount,pc)
   move.l #LOOP_COUNT,d0
-  bsr PrintD0Dec
+  bsr PrintDecString
   DOS_PRINT_CRLF
 
   bsr CountTime_Empty
@@ -188,18 +184,12 @@ PrintTime:
   move.l d0,-(sp)
   DOS_PRINT (a0)
   move.l (sp)+,d0
-  bsr PrintD0Dec
+  bsr PrintDecString
   DOS_PRINT_CRLF
   rts
 
 
-PrintD0Dec:
-  link a6,#-16
-  lea (sp),a0
-  FPACK __LTOS
-  DOS_PRINT (sp)
-  unlk a6
-  rts
+  DEFINE_PRINTDECSTRING PrintDecString
 
 
 .data

@@ -16,11 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 .include macro.mac
-.include fefunc.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -74,7 +70,7 @@ ProgramStart:
 
   lea (strBuf,pc),a0
   bsr Sram_GetSizeInKiB
-  FPACK __LTOS
+  bsr ToDecString
 
   lea (strKibSlash,pc),a1
   STRCPY a1,a0,-1
@@ -110,6 +106,9 @@ getUseModeString:
   move.b (a1,d0.w),d0
   adda d0,a1
   rts
+
+
+  DEFINE_TODECSTRING ToDecString
 
 
 .data
