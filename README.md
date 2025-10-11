@@ -168,8 +168,10 @@
   * [m_bend](docs/opmdrv.md#m_bend) ... `OPM _M_BEND`でチャンネルのピッチベンドを設定
   * [m_chan](docs/opmdrv.md#m_chan) ... `OPM _M_CHAN`で出力チャンネルを設定・取得
   * [m_chget](docs/opmdrv.md#m_chget) ... `OPM $2e`でチャンネル情報のアドレスを取得
+  * [m_click](docs/opmdrv.md#m_click) ... `OPM _M_CLICK`でメトロノームのクリック音を設定
   * [m_cont](docs/opmdrv.md#m_cont) ... `OPM _M_CONT`で演奏を再開
   * [m_enable](docs/opmdrv.md#m_enable) .. `OPM _M_ENABLE`でチャンネルの発声許可・禁止
+  * [m_end](docs/opmdrv.md#m_end) .. `OPM _M_END`で演奏停止小節を設定
   * [m_free](docs/opmdrv.md#m_free) ... `OPM _M_FREE`でトラックバッファの残りバイト数を取得
   * [m_freea](docs/opmdrv.md#m_freea) ... `OPM _M_FREEA`でトラックバッファの全バイト数を取得
   * [m_ifchk](docs/opmdrv.md#m_ifchk) ... `OPM _M_IFCHK`でMIDIインターフェイスの有無を検出
@@ -177,6 +179,7 @@
   * [m_intcall](docs/opmdrv.md#m_intcall) ... `OPM $1f`でユーザーサブルーチンの登録・停止・アドレス取得
   * [m_intoff](docs/opmdrv.md#m_intoff) ... `OPM $0e`で割り込みを停止
   * [m_inton](docs/opmdrv.md#m_inton) ... `OPM $0d`で割り込みを開始
+  * [m_meas](docs/opmdrv.md#m_meas) ... `OPM _M_MEAS`で演奏中の小節番号を取得
   * [m_mstvol](docs/opmdrv.md#m_mstvol) ... `OPM _M_MSTVOL`でマスターボリュームを設定・取得
   * [m_mod](docs/opmdrv.md#m_mod) ... `OPM _M_MOD`でチャンネルのモジュレーションを設定
   * [m_modsns](docs/opmdrv.md#m_modsns) ... `OPM _M_MODSNS`でFM音源(YM2151)のモジュレーションの深さを設定・取得
@@ -196,6 +199,7 @@
   * [m_tnmget](docs/opmdrv.md#m_pnmget) ... `OPM _M_PNMGET`でPCM音源の音色名を取得
   * [m_tnmset](docs/opmdrv.md#m_pnmset) ... `OPM _M_PNMSET`でPCM音源の音色名を登録
   * [m_prog](docs/opmdrv.md#m_prog) ... `OPM _M_PROG`でチャンネルの音色番号を設定・取得
+  * [m_start](docs/opmdrv.md#m_start) .. `OPM _M_START`で演奏開始小節を設定
   * [m_stat](docs/opmdrv.md#m_stat) ... `OPM _M_STAT`で演奏状態を取得
   * [m_stop](docs/opmdrv.md#m_stop) ... `OPM _M_STOP`で演奏を停止
   * [m_sync](docs/opmdrv.md#m_sync) ... `OPM _M_SYNC`で同期モードを設定
