@@ -1,7 +1,7 @@
 .nlist
 
 ;opmdrvdef.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-10-03
+;Last-Modified: 2025-10-14
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -124,7 +124,7 @@ O3_OPMLFQ_MIN:      .equ 0
 O3_OPMLFQ_MAX:      .equ 255
 
 O3_OPMREG_DATA_INQUIRY: .equ -1
-O3_OPMREG_NOT_WITTEN:   .equ -1
+O3_OPMREG_NOT_WRITTEN:  .equ -1
 O3_OPMREG_DATA_MIN: .equ $0000
 O3_OPMREG_DATA_MAX: .equ $00ff
 O3_OPMREG_REG_MIN:  .equ 0

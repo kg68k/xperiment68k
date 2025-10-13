@@ -63,7 +63,7 @@ PrintAllRegisters:
       moveq #O3_OPMREG_DATA_INQUIRY,d3  ;レジスタの値の取得
       OPM _M_OPMREG
 
-      cmpi.l #O3_OPMREG_NOT_WITTEN,d0
+      cmpi.l #O3_OPMREG_NOT_WRITTEN,d0
       bne @f
         lea (strAsterisk,pc),a1  ;レジスタが書き換えられていない
         STRCPY a1,a0,-1
