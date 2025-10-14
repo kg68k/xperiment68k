@@ -39,7 +39,7 @@ ProgramStart:
   beq @f
     bsr ParseIntWord
     moveq #0,d7
-    move d0,d7  ;指定の機能番号のみ表示する
+    move d0,d7  ;指定のOPMコール番号のみ表示する
   @@:
 
   clr.l -(sp)
@@ -52,13 +52,13 @@ ProgramStart:
     FATAL_ERROR 'OPMDRV3.Xが組み込まれていません。'
   @@:
 
-  ;IOCS _OPMDRVの処理コードを見て機能番号の最大値を得る。
+  ;IOCS _OPMDRVの処理コードを見てOPMコール番号の最大値を得る。
   ;OPMDRV.X、OPMDRV2.Xでも同じことはできて、さらに処理アドレステーブルを
   ;取り出すこともできるが、とりあえずOPMDRV3.Xのみを対象としている。
   bsr GetOpmCallCount
   move.l d0,d6
   bpl @f
-    FATAL_ERROR 'OPMDRV3.XのOPMコールの機能番号の最大値が取得できませんでした。'
+    FATAL_ERROR 'OPMDRV3.XのOPMコール番号の最大値が取得できませんでした。'
   @@:
 
   moveq #-1,d2  ;処理アドレステーブルのアドレスを得る
@@ -69,7 +69,7 @@ ProgramStart:
   bmi 1f
     cmp d6,d7
     bcs @f
-      FATAL_ERROR '指定した機能番号が大きすぎます。'
+      FATAL_ERROR '指定したOPMコール番号が大きすぎます。'
     @@:
     move.l d7,d0
     lsl.l #2,d0
@@ -90,7 +90,7 @@ GetOpmCallCount:
   cmpi #$b27c,(a0)+  ;cmp #$xxxx,d1
   bne @f
     moveq #0,d0
-    move (a0)+,d0  ;機能番号+1
+    move (a0)+,d0  ;OPMコール番号+1
     bgt 9f
     @@:
       moveq #-1,d0
@@ -105,7 +105,7 @@ PrintAllOpmCallVectors:
   PUSH d6-d7/a3
   lea (a0),a3  ;処理アドレステーブル
   move d0,d7  ;コール数(>0)
-  moveq #0,d6  ;処理中の機能番号
+  moveq #0,d6  ;処理中のOPMコール番号
   bra 8f
   1:
     move.l d6,d0
@@ -122,7 +122,7 @@ PrintOpmCallVector:
   link a6,#-32
   lea (a0),a1
   lea (sp),a0
-  bsr ToHexString$2  ;機能番号
+  bsr ToHexString$2  ;OPMコール番号
   move.b #':',(a0)+
   move.b #' ',(a0)+
 
