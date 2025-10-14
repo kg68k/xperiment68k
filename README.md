@@ -218,6 +218,7 @@
   * [m_volflt](docs/opmdrv.md#m_volflt) ... `OPM _M_VOLFLT`でボリューム設定コマンドの出力フィルタを設定・取得
   * [m_vset](docs/opmdrv.md#m_vset) ... `OPM _M_VSET`でFM音源(YM2151)の音色データを設定
   * [m_ycom](docs/opmdrv.md#m_ycom) ... `OPM _M_YCOM`でYコマンドの使用モードを設定・取得
+  * [opmcallvec](docs/opmdrv.md#opmcallvec) ... OPMコールの処理アドレスを表示
   * [opmdrvtype](docs/opmdrv.md#opmdrvtype) ... 組み込まれているOPMDRV\*.Xの種類を表示
 * [Proof of Concept](docs/poc.md)
   * [bglivingdead](docs/poc.md#bglivingdead) ... `DOS _KILL_PR`の動作検証

@@ -12,7 +12,8 @@ O3 = m_antoff.x m_bend.x m_chan.x m_chget.x m_click.x m_enable.x m_end.x \
      m_pcmrec.x m_pcmset.x m_pgmflt.x m_pnmget.x m_pnmset.x m_prog.x \
      m_start.x m_sync.x m_sysch.x m_tnmget.x m_tnmset.x m_trkget.x m_trns.x \
      m_use.x \
-     m_vget.x m_vel.x m_version.x m_vol.x m_volflt.x m_vset.x m_ycom.x
+     m_vget.x m_vel.x m_version.x m_vol.x m_volflt.x m_vset.x m_ycom.x \
+     opmcallvec.x
 
 TARGET = $(O1) $(O2) $(O3) opmdrvtype.x
 
