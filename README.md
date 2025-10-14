@@ -179,6 +179,7 @@
   * [m_intcall](docs/opmdrv.md#m_intcall) ... `OPM $1f`でユーザーサブルーチンの登録・停止・アドレス取得
   * [m_intoff](docs/opmdrv.md#m_intoff) ... `OPM $0e`で割り込みを停止
   * [m_inton](docs/opmdrv.md#m_inton) ... `OPM $0d`で割り込みを開始
+  * [m_mdreg](docs/opmdrv.md#m_mdreg) ... `OPM _M_MDREG`でMIDIコントローラー(YM3802)のレジスタに書き込み
   * [m_meas](docs/opmdrv.md#m_meas) ... `OPM _M_MEAS`で演奏中の小節番号を取得
   * [m_mstvol](docs/opmdrv.md#m_mstvol) ... `OPM _M_MSTVOL`でマスターボリュームを設定・取得
   * [m_mod](docs/opmdrv.md#m_mod) ... `OPM _M_MOD`でチャンネルのモジュレーションを設定
