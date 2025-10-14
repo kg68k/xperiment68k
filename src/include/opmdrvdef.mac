@@ -1,7 +1,7 @@
 .nlist
 
 ;opmdrvdef.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-10-14
+;Last-Modified: 2025-10-15
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -40,6 +40,10 @@ O1_CHANNEL_MIN:     .equ 1
 O1_CHANNEL_MAX:     .equ 8
 O1_CHANNEL_COUNT:   .equ 8
 
+O1_TRACK_MIN:   .equ 1
+O1_TRACK_MAX:   .equ 80
+O1_TRACK_COUNT: .equ 80
+
 O1_TEMPO_MIN:   .equ 32
 O1_TEMPO_MAX:   .equ 200
 
@@ -49,6 +53,10 @@ O1_TEMPO_MAX:   .equ 200
 O2_CHANNEL_MIN:     .equ 1
 O2_CHANNEL_MAX:     .equ 24
 O2_CHANNEL_COUNT:   .equ 24
+
+O2_TRACK_MIN:   .equ 1
+O2_TRACK_MAX:   .equ 223
+O2_TRACK_COUNT: .equ 223
 
 O2_TEMPO_MIN:   .equ 32
 O2_TEMPO_MAX:   .equ 200
@@ -63,6 +71,10 @@ O2_STAT_ALL_CH: .equ 0
 O3_CHANNEL_MIN:     .equ 1
 O3_CHANNEL_MAX:     .equ 25
 O3_CHANNEL_COUNT:   .equ 25
+
+O3_TRACK_MIN:       .equ 1
+O3_TRACK_MAX:       .equ 80
+O3_TRACK_COUNT:     .equ 80
 
 O3_MIDI_TONE_MIN:   .equ 1
 O3_MIDI_TONE_MAX:   .equ 128
@@ -103,6 +115,8 @@ O3_IFCHK_NOT_EXIST: .equ -1
 
 O3_INIT_SKIP_TONE:  .equ 0
 O3_INIT_WITH_TONE:  .equ 1
+
+O3_ASSIGN_INQUIRY:  .equ -1
 
 O3_MOD_MIN:         .equ 0
 O3_MOD_MAX:         .equ 127
