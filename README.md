@@ -44,6 +44,7 @@
 * [DOS CALL](docs/dos.md)
   * [dos_chdir](docs/dos.md#dos_chdir) ... `DOS _CHDIR`でカレントディレクトリを変更
   * [dos_chgdrv](docs/dos.md#dos_chgdrv) ... `DOS _CHGDRV`でカレントドライブを変更
+  * [dos_chmod](docs/dos.md#dos_chmod) ... `DOS _CHMOD`でファイルの属性を取得・変更
   * [dos_conctrl](docs/dos.md#dos_conctrl) ... `DOS _CONCTRL`でコンソール制御・直接出力
   * [dos_create_sp](docs/dos.md#dos_create_sp) ... `DOS _CREATE`の特殊モードでファイルを作成
   * [dos_curdir](docs/dos.md#dos_curdir) ... `DOS _CURDIR`でカレントディレクトリを取得
