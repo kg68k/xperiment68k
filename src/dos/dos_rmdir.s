@@ -1,4 +1,4 @@
-.title dos_mkdir - DOS _MKDIR
+.title dos_rmdir - DOS _RMDIR
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2025 TcbnErik
@@ -27,7 +27,7 @@ Start:
   SKIP_SPACE a2  ;空文字列も受け付ける(挙動確認用)
 
   pea (a2)
-  DOS _MKDIR
+  DOS _RMDIR
   addq.l #4,sp
   bsr Print$4_4
   DOS_PRINT_CRLF

@@ -70,6 +70,7 @@
   * [dos_nameck](docs/dos.md#dos_nameck) ... `DOS _NAMECK`でパス名を展開
   * [dos_namests](docs/dos.md#dos_namests) ... `DOS _NAMESTS`でパス名を展開
   * [dos_putchar](docs/dos.md#dos_putchar) ... `DOS _PUTCHAR`で標準出力に文字出力
+  * [dos_rmdir](docs/dos.md#dos_rmdir) ... `DOS _RMDIR`でディレクトリを削除
   * [dos_setdate](docs/dos.md#dos_setdate) ... `DOS _SETDATE`で日付を設定
   * [dos_setenv](docs/dos.md#dos_setenv) ... `DOS _SETENV`で環境変数を設定
   * [dos_settim2](docs/dos.md#dos_settim2) ... `DOS _SETTIM2`で時刻を設定(ロングワード)
