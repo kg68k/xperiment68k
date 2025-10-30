@@ -236,6 +236,8 @@
   * [nameck_bof](docs/poc.md#nameck_bof) ... `DOS _NAMECK`のバッファオーバーフローの動作検証
   * [namests_bof](docs/poc.md#namests_bof) ... `DOS _NAMESTS`のバッファオーバーフローの動作検証
   * [ns_sbo](docs/poc.md#ns_sbo) ... `DOS _NAMESTS`の内部ルーチンのバッファオーバーフローの動作検証
+  * [pathchk_bof1](docs/poc.md#pathchk_bof1) ... `DOS _EXEC (md=2;pathchk)`のバッファオーバーフローの動作検証 その1
+  * [pathchk_bof2](docs/poc.md#pathchk_bof2) ... `DOS _EXEC (md=2;pathchk)`のバッファオーバーフローの動作検証 その2
   * [zerounit.sys](docs/poc.md#zerounitsys) ... ブロックデバイスのユニット数=0の動作検証
 * [Process](docs/process.md)
   * [a2arg](docs/process.mad#a2arg) ... 渡されたコマンドライン引数の内容を表示
