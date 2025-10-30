@@ -1,7 +1,7 @@
 .nlist
 
 ;dosdef.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-07-24
+;Last-Modified: 2025-10-31
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -44,6 +44,12 @@ COMLINE_LEN:    .ds.b 1
 COMLINE_BUFFER: .ds.b 255
 sizeof_COMLINE:
 .fail $.ne.256
+
+.offset 0
+CMDLINE_LEN:    .ds.b 1
+CMDLINE_BUFFER: .ds.b 256
+sizeof_CMDLINE:
+.fail $.ne.257
 
 .offset 0
 FREEINF_FREE: .ds 1
