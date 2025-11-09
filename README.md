@@ -119,10 +119,12 @@
   * [sq64k](docs/graphic.md#sq64k) ... 画面モードを768×512、65536色に変更
 * [IOCS CALL](docs/iocs.md)
   * [iocs_akconv](docs/iocs.md#iocs_akconv) ... `IOCS _AKCONV`でANK文字コードをS-JISに変換
-  * [iocs_b_clr_st](docs/iocs.md#iocs_b_clr_st) ... `IOCS _B_CLR_ST`で画面の複数行を消去
+  * [iocs_b_clr_st](docs/iocs.md#iocs_b_clr_st) ... `IOCS _B_CLR_ST`でコンソールの複数行を消去
   * [iocs_b_conmod](docs/iocs.md#iocs_b_conmod) ... `IOCS _B_CONMOD`でカーソルとスクロールを設定
-  * [iocs_b_del](docs/iocs.md#iocs_b_del) ... `IOCS _B_DEL`で画面の複数行を削除
-  * [iocs_b_ins](docs/iocs.md#iocs_b_ins) ... `IOCS _B_INS`で画面に複数行を挿入
+  * [iocs_b_del](docs/iocs.md#iocs_b_del) ... `IOCS _B_DEL`でコンソールの複数行を削除
+  * [iocs_b_ins](docs/iocs.md#iocs_b_ins) ... `IOCS _B_INS`でコンソールに複数行を挿入
+  * [iocs_b_putc](docs/iocs.md#iocs_b_putc) ... `IOCS _B_PUTC`でコンソールに文字を表示
+  * [iocs_b_print](docs/iocs.md#iocs_b_print) ... `IOCS _B_PRINT`でコンソールに文字列を表示
   * [iocs_datebcd](docs/iocs.md#iocs_datebcd) ... `IOCS _DATEBCD`で日付データのバイナリ→BCD変換
   * [iocs_datebin](docs/iocs.md#iocs_datebin) ... `IOCS _DATEBIN`で日付データのBCD→バイナリ変換
   * [iocs_dateget](docs/iocs.md#iocs_dateget) ... `IOCS _DATEGET`で日付を取得
