@@ -75,6 +75,8 @@
   * [dos_setenv](docs/dos.md#dos_setenv) ... `DOS _SETENV`で環境変数を設定
   * [dos_settim2](docs/dos.md#dos_settim2) ... `DOS _SETTIM2`で時刻を設定(ロングワード)
   * [dos_settime](docs/dos.md#dos_settime) ... `DOS _SETTIME`で時刻を設定
+  * [dos_verify](docs/dos.md#dos_verify) ... `DOS _VERIFY`でベリファイフラグを設定
+  * [dos_verifyg](docs/dos.md#dos_verifyg) ... `DOS _VERIFYG`でベリファイフラグを取得
   * [dos_vernum](docs/dos.md#dos_vernum) ... `DOS _VERNUM`でHuman68kのバージョンを取得
   * [dos_wait](docs/dos.md#dos_wait) ... `DOS _WAIT`で終了したプロセスの終了コードを取得
 * [Emulator](docs/emulator.md)
