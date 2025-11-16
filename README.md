@@ -133,6 +133,8 @@
   * [iocs_dateset](docs/iocs.md#iocs_dateset) ... `IOCS _DATESET`で日付を設定
   * [iocs_b_drvchk](docs/iocs.md#iocs_b_drvchk) ... `IOCS _B_DRVCHK`で2HDドライブの状態設定
   * [iocs_jissft](docs/iocs.md#iocs_jissft) ... `IOCS _JISSFT`でJIS文字コードをS-JISに変換
+  * [iocs_ms_offtm](docs/iocs.md#iocs_ms_offtm) ... `IOCS _MS_OFFTM`でマウスボタンを離すまでの時間を計測
+  * [iocs_ms_ontm](docs/iocs.md#iocs_ms_ontm) ... `IOCS _MS_ONTM`でマウスボタンを押すまでの時間を計測
   * [iocs_ontime](docs/iocs.md#iocs_ontime) ... `IOCS _ONTIME`で起動後の経過時間を取得
   * [iocs_sftjis](docs/iocs.md#iocs_sftjis) ... `IOCS _SFTJIS`でS-JIS文字コードをJISに変換
   * [iocs_timebcd](docs/iocs.md#iocs_timebcd) ... `IOCS _TIMEBCD`で時刻データのバイナリ→BCD変換
