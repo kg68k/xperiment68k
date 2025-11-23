@@ -155,6 +155,7 @@
   * [datetime](docs/misc.md#datetime) ... IOCSで日時を取得、表示
   * [dbrams](docs/misc.md#dbrams) ... IOCSワーク`$cb8`、`$cba`の値を再計測
   * [exception](docs/misc.md#exception) ... 例外を発生させて例外処理を呼び出す
+  * [hasophash](docs/misc.md#hasophash) ... HAS060X.Xの命令ハッシュ値を計算
   * [joyget](docs/misc.md#joyget) ... `IOCS _JOYGET`によるジョイスティック入力
   * [midi_reg](docs/misc.md#midi_reg) ... MIDIボード(YM3802)のレジスタの値を表示
   * [minish](docs/misc.md#minish) ... 最小限の機能(ファイルの実行だけ)しかない簡易シェル(minimal shell)
