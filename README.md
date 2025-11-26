@@ -136,6 +136,7 @@
   * [iocs_ms_offtm](docs/iocs.md#iocs_ms_offtm) ... `IOCS _MS_OFFTM`でマウスボタンを離すまでの時間を計測
   * [iocs_ms_ontm](docs/iocs.md#iocs_ms_ontm) ... `IOCS _MS_ONTM`でマウスボタンを押すまでの時間を計測
   * [iocs_ontime](docs/iocs.md#iocs_ontime) ... `IOCS _ONTIME`で起動後の経過時間を取得
+  * [iocs_romver](docs/iocs.md#iocs_romver) ... `IOCS _ROMVER`でROMのバージョンを取得
   * [iocs_sftjis](docs/iocs.md#iocs_sftjis) ... `IOCS _SFTJIS`でS-JIS文字コードをJISに変換
   * [iocs_timebcd](docs/iocs.md#iocs_timebcd) ... `IOCS _TIMEBCD`で時刻データのバイナリ→BCD変換
   * [iocs_timebin](docs/iocs.md#iocs_timebin) ... `IOCS _TIMEBIN`で時刻データのBCD→バイナリ変換
@@ -155,6 +156,7 @@
   * [datetime](docs/misc.md#datetime) ... IOCSで日時を取得、表示
   * [dbrams](docs/misc.md#dbrams) ... IOCSワーク`$cb8`、`$cba`の値を再計測
   * [exception](docs/misc.md#exception) ... 例外を発生させて例外処理を呼び出す
+  * [e_ver232c](docs/misc.md#e_ver232c) ... `ERS E_VER232C`でRSDRV.SYSのバージョンを取得
   * [hasophash](docs/misc.md#hasophash) ... HAS060X.Xの命令ハッシュ値を計算
   * [joyget](docs/misc.md#joyget) ... `IOCS _JOYGET`によるジョイスティック入力
   * [midi_reg](docs/misc.md#midi_reg) ... MIDIボード(YM3802)のレジスタの値を表示
@@ -165,6 +167,7 @@
   * [runwaitchk](docs/misc.md#runwaitchk) ... メモリを読み込むループの実行時間を計測
   * [super_time](docs/misc.md#super_time) ... `IOCS _B_SUPER`、`DOS _SUPER`、`DOS _SUPER_JSR`のベンチマーク
   * [sysport](docs/misc.md#sysport) ... システムポート領域の値の表示
+  * [s_level](docs/misc.md#s_level) ... `SCSI _S_LEVEL`でSCSI IOCSのバージョンを取得
   * [tokikoe](docs/misc.md#tokikoe) ... テキスト画面に特定のメッセージを描画
   * [trap15trace](docs/misc.md#trap15trace) ... トレース実行に対応した`trap #15`処理ルーチン
   * [vdispst_time](docs/misc.md#vdispst_time) ... `IOCS _VDISPST`による割り込みが発生するまでの時間を計測
