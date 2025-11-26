@@ -1,0 +1,43 @@
+.nlist
+
+;rsdrv.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
+;Last-Modified: 2025-11-27
+;
+;Copying and distribution of this file, with or without modification,
+;are permitted in any medium without royalty provided the copyright
+;notice and this notice are preserved.  This file is offered as-is,
+;without any warranty.
+
+
+.ifndef __rsdrv_mac__
+        __rsdrv_mac__:=1
+
+
+* Macro --------------------------------------- *
+
+ERS: .macro callno,auxno
+  move.l #(auxno<<8).or.callno,d2
+  moveq #$f1,d0  ;_RSDRV
+  trap #15
+.endm
+
+
+* RSDRV Call Number --------------------------- *
+
+E_SET232C:      .equ    $30
+E_LOF232C:      .equ    $31
+E_INP232C:      .equ    $32
+E_ISNS232C:     .equ    $33
+E_OSNS232C:     .equ    $34
+E_OUT232C:      .equ    $35
+E_BUF232C:      .equ    $36
+E_VER232C:      .equ    $37
+E_PINP232C:     .equ    $38
+E_PSET232C:     .equ    $39
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

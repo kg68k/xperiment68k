@@ -1,7 +1,7 @@
 .nlist
 
 ;dosdef.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-10-31
+;Last-Modified: 2025-11-27
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -58,18 +58,6 @@ FREEINF_SEC:  .ds 1
 FREEINF_BYTE: .ds 1
 sizeof_FREEINF:
 .fail $.ne.8
-
-.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
-.offset 0
-PRCCTRL_LENGTH:  .ds.l 1
-PRCCTRL_BUF_PTR: .ds.l 1
-PRCCTRL_COMMAND: .ds   1
-PRCCTRL_YOUR_ID: .ds   1
-.ifndef sizeof_PRCCTRL
-sizeof_PRCCTRL:
-.endif
-.fail $.ne.12
-.endif
 
 .text
 
@@ -138,15 +126,6 @@ EXECMODE_PATHCHK:  .equ 2
 EXECMODE_LOADONLY: .equ 3
 EXECMODE_EXECONLY: .equ 4
 EXECMODE_BINDNO:   .equ 5
-
-.ifndef __RUKA_DISABLE_OBSOLETE_MACRO__
-.ifndef THREAD_ISBUSY
-THREAD_KILL:   .equ $fff9
-THREAD_WAKEUP: .equ $fffb
-THREAD_SLEEP:  .equ $fffc
-THREAD_ISBUSY: .equ $ffff
-.endif
-.endif
 
 INPUT_MAX: .equ 256
 ENV_MAX:   .equ 256

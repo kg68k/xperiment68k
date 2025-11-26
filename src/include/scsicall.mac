@@ -1,0 +1,76 @@
+.nlist
+
+;scsicall.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
+;Last-Modified: 2025-11-27
+;
+;Copying and distribution of this file, with or without modification,
+;are permitted in any medium without royalty provided the copyright
+;notice and this notice are preserved.  This file is offered as-is,
+;without any warranty.
+
+
+.ifndef __scsicall_mac__
+        __scsicall_mac__:=1
+
+
+* Macro --------------------------------------- *
+
+SCSI: .macro callno
+  moveq #callno,d1
+  moveq #$f5,d0  ;_SCSIDRV
+  trap #15
+.endm
+
+
+* SCSI IOCS Call Number ----------------------- *
+
+_S_RESET:       .equ $00
+_S_SELECT:      .equ $01
+_S_SELECTA:     .equ $02
+_S_CMDOUT:      .equ $03
+_S_DATAIN:      .equ $04
+_S_DATAOUT:     .equ $05
+_S_STSIN:       .equ $06
+_S_MSGIN:       .equ $07
+_S_MSGOUT:      .equ $08
+_S_PHASE:       .equ $09
+_S_LEVEL:       .equ $0a
+_S_DATAINI:     .equ $0b
+_S_DATAIN_P:    .equ $0b  ;=_S_DATAINI
+_S_DATAOUTI:    .equ $0c
+_S_DATAOUT_P:   .equ $0c  ;=_S_DATAOUTI
+_S_MSGOUTEXT:   .equ $0d  ;X68030
+
+_S_INQUIRY:     .equ $20
+_S_READ:        .equ $21
+_S_WRITE:       .equ $22
+_S_FORMAT:      .equ $23
+_S_TESTUNIT:    .equ $24
+_S_READCAP:     .equ $25
+_S_READEXT:     .equ $26
+_S_WRITEEXT:    .equ $27
+_S_VERIFYEXT:   .equ $28
+_S_VERIFY:      .equ $28  ;=_S_VERIFYEXT
+_S_MODESENSE:   .equ $29
+_S_MODESELECT:  .equ $2a
+_S_REZEROUNIT:  .equ $2b
+_S_REQUEST:     .equ $2c
+_S_SEEK:        .equ $2d
+_S_READI:       .equ $2e
+_S_STARTSTOP:   .equ $2f
+
+_S_EJECT6MO1:   .equ $30
+_S_REASSIGN:    .equ $31
+_S_PAMEDIUM:    .equ $32
+
+_S_B_DSKINI:    .equ $36  ;SASI
+_S_B_FORMAT:    .equ $37  ;SASI
+_S_B_BADFMT:    .equ $38  ;SASI
+_S_B_ASSIGN:    .equ $39  ;SASI
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

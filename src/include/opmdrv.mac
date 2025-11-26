@@ -1,7 +1,7 @@
 .nlist
 
 ;opmdrv.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-07-24
+;Last-Modified: 2025-11-27
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -17,7 +17,7 @@
 
 OPM: .macro callno
   moveq #callno,d1
-  moveq #$f0,d0
+  moveq #$f0,d0  ;_OPMDRV
   trap #15
 .endm
 
