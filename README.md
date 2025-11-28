@@ -158,6 +158,7 @@
   * [exception](docs/misc.md#exception) ... 例外を発生させて例外処理を呼び出す
   * [e_ver232c](docs/misc.md#e_ver232c) ... `ERS E_VER232C`でRSDRV.SYSのバージョンを取得
   * [hasophash](docs/misc.md#hasophash) ... HAS060X.Xの命令ハッシュ値を計算
+  * [is31days](docs/misc.md#is31days) ... 月の日数が31日まであるか確認するコード(移植版)
   * [joyget](docs/misc.md#joyget) ... `IOCS _JOYGET`によるジョイスティック入力
   * [midi_reg](docs/misc.md#midi_reg) ... MIDIボード(YM3802)のレジスタの値を表示
   * [minish](docs/misc.md#minish) ... 最小限の機能(ファイルの実行だけ)しかない簡易シェル(minimal shell)

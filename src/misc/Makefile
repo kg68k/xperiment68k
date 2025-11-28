@@ -1,7 +1,7 @@
 # Makefile for Xperiment68k (misc)
 
 TARGET = \
-         datetime.x dbrams.x exception.x e_ver232c.x hasophash.x joyget.x \
+         datetime.x dbrams.x exception.x e_ver232c.x hasophash.x is31days.x joyget.x \
          midi_reg.x minish.x nminoreset.x \
          reset68k.r rtc_reg.x runwaitchk.x \
          super_time.x sysport.x s_level.x \
