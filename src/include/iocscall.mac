@@ -1,7 +1,7 @@
 .nlist
 
 ;iocscall.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-07-24
+;Last-Modified: 2025-12-13
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -131,8 +131,8 @@ _OPMSET:        .equ    $68
 _OPMSNS:        .equ    $69
 _OPMINTST:      .equ    $6a
 _TIMERDST:      .equ    $6b
-_TIMERAST:      .equ    $6c
-_VDISPST:       .equ    $6c  ;=_TIMERAST
+_VDISPST:       .equ    $6c
+_TIMERAST:      .equ    $6c  ;=_VDISPST
 _CRTCRAS:       .equ    $6d
 _HSYNCST:       .equ    $6e
 _PRNINTST:      .equ    $6f
