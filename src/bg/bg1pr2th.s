@@ -49,7 +49,7 @@ BgThreadStart2:
 
 BtThreadLoop:
 Awaken:
-  move (PRCCTRL_COMMAND,a5),d0
+  move (PRCCTRL_command,a5),d0
   cmpi #THREAD_ISBUSY,d0
   beq Sleep  ;DOS _SEND_PR(CMDNO=$fffb)で起こされた
   cmpi #THREAD_SLEEP,d0
@@ -69,9 +69,9 @@ Kill:
 
 
 InitPrcctrlBuffer:
-  move.l #sizeof_PrcctrlDataBuffer,(PRCCTRL_LENGTH,a5)
-  move #THREAD_ISBUSY,(PRCCTRL_COMMAND,a5)
-  move #-1,(PRCCTRL_YOUR_ID,a5)
+  move.l #sizeof_PrcctrlDataBuffer,(PRCCTRL_length,a5)
+  move #THREAD_ISBUSY,(PRCCTRL_command,a5)
+  move #-1,(PRCCTRL_your_id,a5)
   rts
 
 
@@ -98,7 +98,7 @@ PrintUnknownCommand:
   link a6,#-16
   lea (UnknownCmdMessage,pc),a1
   bsr PrintWithHeader
-  move (PRCCTRL_COMMAND,a5),d0
+  move (PRCCTRL_command,a5),d0
   lea (sp),a0
   bsr ToHexString4
   IOCS_B_PRINT (sp)

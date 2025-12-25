@@ -59,7 +59,7 @@ UnknownCommand:
 Sleep:
   bsr SleepPr
 Awaken:
-  move (PrcctrlBuffer+PRCCTRL_COMMAND,pc),d0
+  move (PrcctrlBuffer+PRCCTRL_command,pc),d0
   cmpi #THREAD_ISBUSY,d0
   beq Sleep  ;DOS _SEND_PR(CMDNO=$fffb)で起こされた
   cmpi #THREAD_SLEEP,d0
@@ -80,7 +80,7 @@ Awaken:
 
   lea (ExecuteMessage,pc),a1
   bsr PrintWithHeader
-  movea.l (PrcctrlBuffer+PRCCTRL_BUF_PTR,pc),a4
+  movea.l (PrcctrlBuffer+PRCCTRL_buf_ptr,pc),a4
   IOCS_B_PRINT (a4)
 
   lea (a4),a5
@@ -124,9 +124,9 @@ Kill:
 
 InitPrcctrlBuffer:
   lea (PrcctrlBuffer,pc),a0
-  move.l #sizeof_PrcctrlDataBuffer,(PRCCTRL_LENGTH,a0)
-  move #THREAD_ISBUSY,(PRCCTRL_COMMAND,a0)
-  move #-1,(PRCCTRL_YOUR_ID,a0)
+  move.l #sizeof_PrcctrlDataBuffer,(PRCCTRL_length,a0)
+  move #THREAD_ISBUSY,(PRCCTRL_command,a0)
+  move #-1,(PRCCTRL_your_id,a0)
   rts
 
 
@@ -153,7 +153,7 @@ PrintUnknownCommand:
   link a6,#-16
   lea (UnknownCmdMessage,pc),a1
   bsr PrintWithHeader
-  move (PrcctrlBuffer+PRCCTRL_COMMAND,pc),d0
+  move (PrcctrlBuffer+PRCCTRL_command,pc),d0
   lea (sp),a0
   bsr ToHexString4
   IOCS_B_PRINT (sp)

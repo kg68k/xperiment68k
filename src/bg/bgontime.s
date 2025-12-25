@@ -64,7 +64,7 @@ BgThreadStart:
 Sleep:
   bsr SleepPr
 Awaken:
-  move (PrcctrlBuffer+PRCCTRL_COMMAND,pc),d0
+  move (PrcctrlBuffer+PRCCTRL_command,pc),d0
   cmpi #THREAD_SLEEP,d0
   beq Sleep
   cmpi #THREAD_KILL,d0
@@ -73,7 +73,7 @@ Awaken:
   ;他のコマンドは無視する
   bsr InitPrcctrlBuffer
 BgLoop:
-  move (PrcctrlBuffer+PRCCTRL_YOUR_ID,pc),d0
+  move (PrcctrlBuffer+PRCCTRL_your_id,pc),d0
   cmpi #-1,d0
   bne Awaken
 
@@ -111,9 +111,9 @@ Kill:
 
 InitPrcctrlBuffer:
   lea (PrcctrlBuffer,pc),a0
-  move.l #sizeof_PrcctrlDataBuffer,(PRCCTRL_LENGTH,a0)
-  move #THREAD_ISBUSY,(PRCCTRL_COMMAND,a0)
-  move #-1,(PRCCTRL_YOUR_ID,a0)
+  move.l #sizeof_PrcctrlDataBuffer,(PRCCTRL_length,a0)
+  move #THREAD_ISBUSY,(PRCCTRL_command,a0)
+  move #-1,(PRCCTRL_your_id,a0)
   rts
 
 
