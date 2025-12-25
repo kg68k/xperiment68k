@@ -350,20 +350,10 @@ src2build src
 make -C build
 ```
 
-### u8tosjを使用する方法
-
-必要ツール: [u8tosj](https://github.com/kg68k/u8tosj)
-
-srcディレクトリのある場所で以下のコマンドを実行します。
-```
-make
-make -C build
-```
-
 ### その他の方法
 
-src/内のファイルを適当なツールで適宜Shift_JISに変換してbuild/ディレクトリに置き、
-build/内で`make`を実行してください。  
+src/内のファイルを適当なツールで適宜Shift_JISに変換して別のディレクトリに保存し、
+ディレクトリ内で`make`を実行してください。  
 UTF-8のままでは正しくビルドできません。
 
 
