@@ -49,6 +49,7 @@
   * [dos_create_sp](docs/dos.md#dos_create_sp) ... `DOS _CREATE`の特殊モードでファイルを作成
   * [dos_curdir](docs/dos.md#dos_curdir) ... `DOS _CURDIR`でカレントディレクトリを取得
   * [dos_curdrv](docs/dos.md#dos_curdrv) ... `DOS _CURDRV`でカレントドライブを取得
+  * [dos_diskred](docs/dos.md#dos_diskred) ... `DOS _DISKRED`でブロックデバイスから直接読み込み
   * [dos_exit2](docs/dos.md#dos_exit2) ... `DOS _EXIT2`で指定した終了コードで終了
   * [dos_fatchk](docs/dos.md#dos_fatchk) ... `DOS _FATCHK`でファイルのセクタを取得
   * [dos_fgetc](docs/dos.md#dos_fgetc) ... `DOS _FGETC`でファイルから文字入力
