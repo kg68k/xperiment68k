@@ -295,6 +295,7 @@
   * [zmsc2_mstat](docs/zmsc2.md#zmsc2_mstat) ... Z-MUSIC v2の演奏状態を表示
   * [zmsc2_oddopm](docs/zmsc2.md#zmsc2_oddopm)
     ... 奇数アドレスにあるZ-MUSIC v2のZMDデータをOPMデバイスに書き込む
+  * [zmsc2_t12poc](docs/zmsc2.md#zmsc2_t12poc) ... ZMSC.X v2の常駐解除時のメモリ破壊の動作検証
 
 
 ## 数値の指定
