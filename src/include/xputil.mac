@@ -1,7 +1,7 @@
 .nlist
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -34,6 +34,9 @@
 
 ;(マクロ内部で使用) エラーを表示して終了
 _DEFINE_FATAL: .macro
+  _DEFINE_FATAL: .macro
+  .endm
+
 _Fatal:
   move #2,-(sp)  ;STDERR
   pea (a0)
@@ -42,9 +45,6 @@ _Fatal:
 
   move #EXIT_FAILURE,-(sp)
   DOS _EXIT2
-
-  _DEFINE_FATAL: .macro
-  .endm
 .endm
 
 
@@ -76,15 +76,8 @@ USE_GVRAM: .macro
   IOCS _TGUSEMD
   btst d0,#%0110  ;d0=0:未使用 3:破壊
   beq @skip
-    lea (@strGvramInUse,pc),a0
-    bra _Fatal
-
-    _DEFINE_FATAL
+    FATAL_ERROR 'グラフィック画面は使用中です。'
   @skip:
-
-  .data
-    @strGvramInUse: .dc.b 'グラフィック画面は使用中です。',CR,LF,0
-  .text
 .endm
 
 
