@@ -1,7 +1,7 @@
 # Makefile for Xperiment68k
 
 SUBDIRS = adpcm bg charset console dos emulator fe file font graphic \
-          iocs keyboard misc opmdrv poc process si sprite zmsc2
+          iocs keyboard misc opmdrv poc process si sprite test zmsc2
 
 .PHONY: $(SUBDIRS)
 
