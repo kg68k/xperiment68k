@@ -1,7 +1,7 @@
 .title zmsc2_mstat - show Z-MUSIC m_stat result
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -17,16 +17,9 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include vector.mac
+.include zmusic2.mac
 
 .include xputil.mac
-
-
-ZM_M_STAT: .equ $09
-
-ZMUSIC: .macro no
-  moveq #no,d1
-  trap #3
-.endm
 
 
 .cpu 68000
@@ -46,7 +39,7 @@ ProgramStart:
     bsr ParseInt
     move.l d0,d2
   @@:
-  ZMUSIC ZM_M_STAT
+  ZM2 ZM2_M_STAT
   bsr Print$4_4
   DOS_PRINT_CRLF
 

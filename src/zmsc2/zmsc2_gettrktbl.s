@@ -1,7 +1,7 @@
 .title zmsc2_gettrktbl - show Z-MUSIC get_trk_tbl result
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -20,16 +20,9 @@
 .include vector.mac
 .include console.mac
 .include doscall.mac
+.include zmusic2.mac
 
 .include xputil.mac
-
-
-ZM_GET_TRK_TBL: .equ $3a
-
-ZMUSIC: .macro no
-  moveq #no,d1
-  trap #3
-.endm
 
 
 .cpu 68000
@@ -42,7 +35,7 @@ ProgramStart:
     DOS _EXIT
   @@:
 
-  ZMUSIC ZM_GET_TRK_TBL
+  ZM2 ZM2_GET_TRK_TBL
   move.l d0,d6  ;絶対チャンネルテーブルのアドレス
   move.l a0,d7  ;演奏トラックテーブルのアドレス
 

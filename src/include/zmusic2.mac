@@ -1,0 +1,164 @@
+.nlist
+
+;zmusic2.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
+;Last-Modified: 2026-01-19
+;
+;Copying and distribution of this file, with or without modification,
+;are permitted in any medium without royalty provided the copyright
+;notice and this notice are preserved.  This file is offered as-is,
+;without any warranty.
+
+
+.ifndef __zmusic2_mac__
+        __zmusic2_mac__:=1
+
+
+* Macro --------------------------------------- *
+
+ZM2: .macro callno
+  moveq #callno,d1
+  trap #3
+.endm
+
+
+* Z-MUSIC v2 function call number ------------- *
+
+ZM2_M_INIT:              .equ $00
+ZM2_M_ALLOC:             .equ $01
+ZM2_M_ASSIGN:            .equ $02
+ZM2_M_VGET:              .equ $03
+ZM2_M_VSET:              .equ $04
+ZM2_M_TEMPO:             .equ $05
+ZM2_M_TRK:               .equ $06
+ZM2_M_FREE:              .equ $07
+ZM2_M_PLAY:              .equ $08
+ZM2_M_STAT:              .equ $09
+ZM2_M_STOP:              .equ $0a
+ZM2_M_CONT:              .equ $0b
+ZM2_M_ATOI:              .equ $0c
+ZM2_INIT_ALL:            .equ $0d
+ZM2_INT_STOP:            .equ $0e
+ZM2_M_PLAY2:             .equ $0f
+ZM2_ADPCM_READ:          .equ $10
+ZM2_PLAY_CNV_DATA:       .equ $11
+ZM2_SE_PLAY:             .equ $12
+ZM2_SE_ADPCM1:           .equ $13
+ZM2_SE_ADPCM2:           .equ $14
+ZM2_SET_CH_MODE:         .equ $15
+ZM2_MIDI_REC:            .equ $16
+ZM2_MIDI_REC_END:        .equ $17
+ZM2_MIDI_TRNS:           .equ $18
+ZM2_CALC_TOTAL:          .equ $19
+ZM2_FADE_OUT:            .equ $1a
+ZM2_M_VSET2:             .equ $1b
+ZM2_SEND_RD_EXC:         .equ $1c
+ZM2_SEND_EXC:            .equ $1d
+ZM2_SC55_P_RSV:          .equ $1e
+ZM2_SC55_REVERB:         .equ $1f
+ZM2_SC55_CHORUS:         .equ $20
+ZM2_SC55_PART_PARAMETER: .equ $21
+ZM2_SC55_DRUM_PARAMETER: .equ $22
+ZM2_SC55_PRINT:          .equ $23
+ZM2_SC55_DISPLAY:        .equ $24
+ZM2_MT32_P_RSV:          .equ $25
+ZM2_MT32_REVERB:         .equ $26
+ZM2_MT32_SETUP:          .equ $27
+ZM2_MT32_DRUM:           .equ $28
+ZM2_MT32_COMMON:         .equ $29
+ZM2_MT32_PARTIAL:        .equ $2a
+ZM2_MT32_PATCH:          .equ $2b
+ZM2_MT32_PRINT:          .equ $2c
+ZM2_U220_SETUP:          .equ $2d
+ZM2_U220_COMMON:         .equ $2e
+ZM2_U220_D_SETUP:        .equ $2f
+ZM2_U220_P_SETUP:        .equ $30
+ZM2_U220_PRINT:          .equ $31
+ZM2_U220_TIMBRE:         .equ $32
+ZM2_U220_DRUM:           .equ $33
+ZM2_M1_MIDI_CH:          .equ $34
+ZM2_SEND_TO_M1:          .equ $35
+ZM2_M1_P_SETUP:          .equ $36
+ZM2_M1_E_SETUP:          .equ $37
+ZM2_M1_PRINT:            .equ $38
+ZM2_BLOCK_ADPCM_DATA:    .equ $39
+ZM2_GET_TRK_TBL:         .equ $3a
+ZM2_SET_LOOP_TIME:       .equ $3b
+ZM2_GET_PLAY_WORK:       .equ $3c
+ZM2_GET_TIMER_MODE:      .equ $3d
+ZM2_SET_FM_MASTER_VOL:   .equ $3e
+ZM2_SET_TIMER_VALUE:     .equ $3f
+ZM2_RELEASE_SUPPORT:     .equ $40
+ZM2_JUMP_ACTIVE:         .equ $41
+ZM2_SET_MCLK:            .equ $42
+ZM2_PICTURE_SYNC:        .equ $43
+ZM2_MASK_CHANNELS:       .equ $44
+ZM2_BUFFER_INFO:         .equ $45
+ZM2_SET_ZPD_TBL:         .equ $46
+ZM2_SET_OUTPUT_LEVEL:    .equ $47
+ZM2_EOX_WAIT:            .equ $48
+ZM2_SET_WAVE_FORM1:      .equ $49
+ZM2_SET_WAVE_FORM2:      .equ $4a
+ZM2_MASK_TRACKS:         .equ $4b
+ZM2_SET_OUTPUT_LEVEL2:   .equ $4c
+ZM2_GET_LOOP_TIME:       .equ $4d
+ZM2_GET_1ST_COMMENT:     .equ $4e
+ZM2_INT_START:           .equ $4f
+ZM2_ZM_STATUS:           .equ $50
+ZM2_SC55_INIT:           .equ $51
+ZM2_MT32_INIT:           .equ $52
+ZM2_RELATIVE_UV:         .equ $53
+ZM2_INTERCEPT_PLAY:      .equ $54
+ZM2_M_INP1:              .equ $55
+ZM2_M_OUT1:              .equ $56
+ZM2_OCCUPIED_SIZE:       .equ $57
+ZM2_CALL_INT_PLAY_OPE    .equ $58
+
+
+* Constants ----------------------------------- *
+
+ZM2_CHANNEL_MIN:    .equ 1
+ZM2_CHANNEL_MAX:    .equ 32
+ZM2_CHANNEL_COUNT:  .equ 32
+
+ZM2_TRACK_MIN:      .equ 1
+ZM2_TRACK_MAX:      .equ 80
+ZM2_TRACK_COUNT:    .equ 80
+
+ZM2_FM_TONE_V_SIZE: .equ 55
+
+ZM2_FM_TONE_MIN:    .equ 1
+ZM2_FM_TONE_MAX:    .equ 200
+ZM2_FM_TONE_COUNT:  .equ 200
+
+ZM2_PCM_NOTE_MIN:   .equ 0
+ZM2_PCM_NOTE_MAX:   .equ 511
+ZM2_PCM_NOTE_COUNT: .equ 512
+
+ZM2_TEMPO_MIN:      .equ 20
+ZM2_TEMPO_MAX:      .equ 300
+
+ZM2_MSTVOL_MIN:     .equ 0
+ZM2_MSTVOL_MAX:     .equ 255
+
+ZM2_PANPOT_MUTE:    .equ 1
+ZM2_PANPOT_LEFT:    .equ 1
+ZM2_PANPOT_RIGHT:   .equ 2
+ZM2_PANPOT_CENTER:  .equ 3
+
+ZM2_PCM_3_9KHZ:        .equ 0
+ZM2_PCM_5_2KHZ:        .equ 1
+ZM2_PCM_7_8KHZ:        .equ 2
+ZM2_PCM_10_4KHZ:       .equ 3
+ZM2_PCM_15_6KHZ:       .equ 4
+ZM2_PCM_15_6KHZ_16BIT: .equ 5  ;PCM8
+ZM2_PCM_15_6KHZ_8BIT:  .equ 6  ;PCM8
+
+ZM2_PRIORITY_MIN:   .equ 0
+ZM2_PRIORITY_MAX:   .equ 255
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list
