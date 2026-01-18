@@ -140,7 +140,7 @@ ZM2_TEMPO_MAX:      .equ 300
 ZM2_MSTVOL_MIN:     .equ 0
 ZM2_MSTVOL_MAX:     .equ 255
 
-ZM2_PANPOT_MUTE:    .equ 1
+ZM2_PANPOT_MUTE:    .equ 0
 ZM2_PANPOT_LEFT:    .equ 1
 ZM2_PANPOT_RIGHT:   .equ 2
 ZM2_PANPOT_CENTER:  .equ 3
