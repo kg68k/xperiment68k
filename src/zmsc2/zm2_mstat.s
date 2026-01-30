@@ -1,4 +1,4 @@
-.title zmsc2_mstat - show Z-MUSIC m_stat result
+.title zm2_mstat - show Z-MUSIC m_stat result
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2026 TcbnErik

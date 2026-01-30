@@ -1,4 +1,4 @@
-.title zmsc2_t12poc - Z-MUSIC v2 trap #12 (COPY key) memory overwriting PoC
+.title zm2_t12poc - Z-MUSIC v2 trap #12 (COPY key) memory overwriting PoC
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2026 TcbnErik
@@ -43,7 +43,7 @@ ProgramStart:
   beq ParentMode
   bgt ChildMode
 
-  PRINT_1LINE_USAGE 'usage: zmsc2_t12poc [zmsc.x]'
+  PRINT_1LINE_USAGE 'usage: zm2_t12poc [zmsc.x]'
   DOS _EXIT
 
 

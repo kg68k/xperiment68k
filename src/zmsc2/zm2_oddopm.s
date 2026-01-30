@@ -1,4 +1,4 @@
-.title zmsc2_oddopm - write Z-MUSIC v2 ZMD data to OPM from odd address
+.title zm2_oddopm - write Z-MUSIC v2 ZMD data to OPM from odd address
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2025 TcbnErik

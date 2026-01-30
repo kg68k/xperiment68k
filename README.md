@@ -290,12 +290,12 @@
   * [parseint](docs/test.md#parseint) ... ParseIntサブルーチンの動作確認用
   * [todecstrbench](docs/test.md#todecstrbench) ... ToDecStringサブルーチンのベンチマーク
 * [Z-MUSIC v2](docs/zmsc2.md)
-  * [zmsc2_gettrktbl](docs/zmsc2.md#zmsc2_gettrktbl)
+  * [zm2_gettrktbl](docs/zmsc2.md#zm2_gettrktbl)
     ... Z-MUSIC v2の絶対チャンネルテーブル、演奏トラックテーブルを表示
-  * [zmsc2_mstat](docs/zmsc2.md#zmsc2_mstat) ... Z-MUSIC v2の演奏状態を表示
-  * [zmsc2_oddopm](docs/zmsc2.md#zmsc2_oddopm)
+  * [zm2_mstat](docs/zmsc2.md#zm2_mstat) ... Z-MUSIC v2の演奏状態を表示
+  * [zm2_oddopm](docs/zmsc2.md#zm2_oddopm)
     ... 奇数アドレスにあるZ-MUSIC v2のZMDデータをOPMデバイスに書き込む
-  * [zmsc2_t12poc](docs/zmsc2.md#zmsc2_t12poc) ... ZMSC.X v2の常駐解除時のメモリ破壊の動作検証
+  * [zm2_t12poc](docs/zmsc2.md#zm2_t12poc) ... ZMSC.X v2の常駐解除時のメモリ破壊の動作検証
 * [Z-MUSIC v3](docs/zmsc3.md)
   * [zm3_exg_memid](docs/zmsc3.md#zm3_exg_memid) ... `ZM_EXCHANGE_MEMID`でメモリブロックの用途IDを変更
   * [zm3_free_mem2](docs/zmsc3.md#zm3_free_mem2) ... `ZM_FREE_MEM2`でメモリブロックを解放
