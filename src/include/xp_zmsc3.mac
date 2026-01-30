@@ -1,0 +1,90 @@
+.nlist
+
+;This file is part of Xperiment68k
+;Copyright (C) 2026 TcbnErik
+;
+;This program is free software: you can redistribute it and/or modify
+;it under the terms of the GNU General Public License as published by
+;the Free Software Foundation, either version 3 of the License, or
+;(at your option) any later version.
+;
+;This program is distributed in the hope that it will be useful,
+;but WITHOUT ANY WARRANTY; without even the implied warranty of
+;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;GNU General Public License for more details.
+;
+;You should have received a copy of the GNU General Public License
+;along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+.ifndef xp_zmsc3_mac
+        xp_zmsc3_mac:=1
+
+.include doscall.mac
+.nlist
+.include xputil.mac
+.nlist
+
+
+;(マクロ内部で使用) 常駐しているZ-MUSIC(v2/v3)のバージョン番号を得る
+_DEFINE_GETZMSCVER: .macro label
+  _DEFINE_GETZMSCVER: .macro
+  .endm
+
+_GetZmusicVersion:
+  move.l a0,-(sp)
+  movea.l (ZM3_TRAP3_VEC*4).w,a0
+  moveq #0,d0
+  move -(a0),d0  ;(常駐していれば)バージョン番号
+  cmpi #'iC',-(a0)
+  bne @notfound
+    cmpi.l #'ZmuS',-(a0)
+    beq @found
+      @notfound:
+      moveq #-1,d0
+    @found:
+  movea.l (sp)+,a0
+  rts
+.endm
+
+;常駐しているZ-MUSIC(v2/v3)のバージョン番号を得る
+DEFINE_GETZMSCVER: .macro label
+label: .equ _GetZmusicVersion
+
+  _DEFINE_GETZMSCVER
+.endm
+
+
+;(マクロ内部で使用) ZMSC3.Xが常駐していることを確認する
+_DEFINE_ENSUREZMSC3: .macro
+  _DEFINE_ENSUREZMSC3: .macro
+  .endm
+
+_EnsureZmsc3:
+  pea (_GetZmusicVersion,pc)
+  DOS _SUPER_JSR
+  move.l d0,(sp)+
+  bmi @notfound
+    andi #$f000,d0  ;バージョン整数部
+    cmpi #$3000,d0
+    beq @found
+      @notfound:
+      FATAL_ERROR 'ZMSC3.Xが常駐していません。'
+    @found:
+  rts
+
+  _DEFINE_GETZMSCVER
+.endm
+
+
+;ZMSC3.Xが常駐していることを確認する
+DEFINE_ENSUREZMSC3: .macro label
+label: .equ _EnsureZmsc3
+
+  _DEFINE_ENSUREZMSC3
+.endm
+
+
+.endif
+
+.list

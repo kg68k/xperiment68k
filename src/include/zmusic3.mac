@@ -1,0 +1,250 @@
+.nlist
+
+;zmusic3.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
+;Last-Modified: 2026-01-30
+;
+;Copying and distribution of this file, with or without modification,
+;are permitted in any medium without royalty provided the copyright
+;notice and this notice are preserved.  This file is offered as-is,
+;without any warranty.
+
+
+.ifndef __zmusic3_mac__
+        __zmusic3_mac__:=1
+
+
+* Macro --------------------------------------- *
+
+ZM3: .macro callno
+  moveq #callno,d0
+  trap #3
+.endm
+
+
+* Z-MUSIC v3 function call number ------------- *
+
+ZM_INIT:                   .equ $00
+ZM_ASSIGN:                 .equ $01
+ZM_COMPILER:               .equ $02
+ZM_VGET:                   .equ $03
+ZM_VSET:                   .equ $04
+ZM_TEMPO:                  .equ $06
+ZM_SET_TIMER_VALUE:        .equ $07
+ZM_PLAY:                   .equ $08
+ZM_PLAY2:                  .equ $09
+ZM_PLAY_AGAIN:             .equ $0a
+ZM_PLAY_STATUS:            .equ $0b
+ZM_STOP:                   .equ $0c
+ZM_CONT:                   .equ $0d
+ZM_ATOI:                   .equ $0e
+ZM_SET_MASTER_CLOCK:       .equ $0f
+ZM_PLAY_ZMD:               .equ $10
+ZM_PLAY_ZMD_SE:            .equ $11
+ZM_SE_PLAY:                .equ $12
+ZM_SE_ADPCM1:              .equ $13
+ZM_SE_ADPCM2:              .equ $14
+ZM_INTERCEPT_PLAY:         .equ $15
+ZM_CURRENT_MIDI_IN:        .equ $16
+ZM_CURRENT_MIDI_OUT:       .equ $17
+ZM_MIDI_TRANSMISSION:      .equ $18
+ZM_EXCLUSIVE:              .equ $19
+ZM_SET_EOX_WAIT:           .equ $1b
+ZM_MIDI_INP1:              .equ $1c
+ZM_MIDI_OUT1:              .equ $1d
+ZM_MIDI_REC:               .equ $1e
+ZM_MIDI_REC_END:           .equ $1f
+ZM_GS_RESET:               .equ $20
+ZM_GS_PARTIAL_RESERVE:     .equ $21
+ZM_GS_REVERB:              .equ $22
+ZM_GS_CHORUS:              .equ $23
+ZM_GS_PART_PARAMETER:      .equ $24
+ZM_GS_PART_SETUP:          .equ $24
+ZM_GS_DRUM_PARAMETER:      .equ $25
+ZM_GS_DRUM_SETUP:          .equ $25
+ZM_GS_DRUM_NAME:           .equ $26
+ZM_GS_PRINT:               .equ $27
+ZM_GS_DISPLAY:             .equ $28
+ZM_GM_SYSTEM_ON:           .equ $29
+ZM_MT32_RESET:             .equ $30
+ZM_MT32_PARTIAL_RESERVE:   .equ $31
+ZM_MT32_REVERB:            .equ $32
+ZM_MT32_PART_SETUP:        .equ $33
+ZM_MT32_DRUM:              .equ $34
+ZM_MT32_COMMON:            .equ $35
+ZM_MT32_PARTIAL:           .equ $36
+ZM_MT32_PATCH:             .equ $37
+ZM_MT32_PRINT:             .equ $38
+ZM_U220_SETUP:             .equ $39
+ZM_U220_PART_SETUP:        .equ $3a
+ZM_U220_COMMON:            .equ $3b
+ZM_U220_TIMBRE:            .equ $3c
+ZM_U220_DRUM_SETUP:        .equ $3d
+ZM_U220_DRUM_INST:         .equ $3e
+ZM_U220_PRINT:             .equ $3f
+ZM_M1_SETUP:               .equ $40
+ZM_M1_PART_SETUP:          .equ $41
+ZM_M1_EFFECT_SETUP:        .equ $42
+ZM_M1_PRINT:               .equ $43
+ZM_SEND_TO_M1:             .equ $44
+ZM_SC88_MODE_SET:          .equ $46
+ZM_SC88_REVERB:            .equ $47
+ZM_SC88_CHORUS:            .equ $48
+ZM_SC88_DELAY:             .equ $49
+ZM_SC88_EQUALIZER:         .equ $4a
+ZM_SC88_PART_SETUP:        .equ $4b
+ZM_SC88_PART_PARAMETER:    .equ $4b
+ZM_SC88_DRUM_SETUP:        .equ $4c
+ZM_SC88_DRUM_PARAMETER:    .equ $4c
+ZM_SC88_DRUM_NAME:         .equ $4d
+ZM_SC88_USER_INST:         .equ $4e
+ZM_SC88_USER_DRUM:         .equ $4f
+ZM_PCM_READ:               .equ $50
+ZM_REGISTER_ZPD:           .equ $51
+ZM_SET_ZPD_TABLE:          .equ $52
+ZM_CONVERT_PCM:            .equ $53
+ZM_EXEC_SUBFILE:           .equ $54
+ZM_TRANSMIT_MIDI_DUMP:     .equ $55
+ZM_SET_WAVE_FORM1:         .equ $56
+ZM_SET_WAVE_FORM2:         .equ $57
+ZM_OBTAIN_EVENTS:          .equ $58
+ZM_LOOP_CONTROL:           .equ $59
+ZM_MASK_TRACKS:            .equ $5a
+ZM_MASK_CHANNELS:          .equ $5b
+ZM_SET_CH_OUTPUT_LEVEL:    .equ $5c
+ZM_SET_TR_OUTPUT_LEVEL:    .equ $5d
+ZM_MASTER_FADER:           .equ $5e
+ZM_GET_FADER_STATUS:       .equ $5f
+ZM_GET_PLAY_TIME:          .equ $60
+ZM_GET_1ST_COMMENT:        .equ $61
+ZM_GET_TIMER_MODE:         .equ $62
+ZM_GET_TRACK_TABLE:        .equ $63
+ZM_GET_PLAY_WORK:          .equ $64
+ZM_GET_BUFFER_INFORMATION: .equ $65
+ZM_GET_ZMSC_STATUS:        .equ $66
+ZM_CALC_TOTAL:             .equ $67
+ZM_APPLICATION_RELEASER:   .equ $68
+ZM_RELEASE_DRIVER:         .equ $69
+ZM_OCCUPY_ZMUSIC:          .equ $6a
+ZM_HOOK_FNC_SERVICE:       .equ $6b
+ZM_HOOK_ZMD_SERVICE:       .equ $6c
+ZM_OCCUPY_COMPILER:        .equ $6d
+ZM_STORE_ERROR:            .equ $6e
+ZM_PRINT_ERROR:            .equ $6f
+ZM_GET_MEM:                .equ $70
+ZM_ENLARGE_MEM:            .equ $71
+ZM_FREE_MEM:               .equ $72
+ZM_FREE_MEM2:              .equ $73
+ZM_EXCHANGE_MEMID:         .equ $74
+ZM_INIT_ALL:               .equ $78
+ZM_INT_START:              .equ $79
+ZM_INT_STOP:               .equ $7a
+ZM_SET_INT_SERVICE:        .equ $7b
+ZM_CONTROL_TEMPO:          .equ $7c
+ZM_ZMUSIC_MODE:            .equ $7e
+ZM_EXEC_ZMD:               .equ $7f
+
+
+* Constants ----------------------------------- *
+
+ZM3_TRAP3_VEC:      .equ $23
+
+ZM3_CHANNEL_MIN:    .equ 0
+ZM3_CHANNEL_MAX:    .equ 15
+ZM3_CHANNEL_COUNT:  .equ 16
+
+ZM3_TRACK_MIN:      .equ 0
+ZM3_TRACK_MAX:      .equ 65534
+ZM3_TRACK_COUNT:    .equ 65535
+
+ZM3_FM_TONE_V_SIZE: .equ 55
+
+ZM3_FM_TONE_MIN:    .equ 0
+ZM3_FM_TONE_MAX:    .equ 32767
+ZM3_FM_TONE_COUNT:  .equ 32768
+
+ZM3_PCM_TONE_MIN:   .equ 0
+ZM3_PCM_TONE_MAX:   .equ 32767
+ZM3_PCM_TONE_COUNT: .equ 32768
+
+ZM3_PCM_NOTE_BIAS:  .equ $8000
+ZM3_PCM_NOTE_MIN:   .equ 0
+ZM3_PCM_NOTE_MAX:   .equ 32767
+ZM3_PCM_NOTE_COUNT: .equ 32768
+
+ZM3_TEMPO_TIMERA_MIN: .equ 20
+ZM3_TEMPO_TIMERA_MAX: .equ 32767
+ZM3_TEMPO_TIMERB_MIN: .equ 20
+ZM3_TEMPO_TIMERB_MAX: .equ 5000
+ZM3_TEMPO_YM3802_MIN: .equ 1
+ZM3_TEMPO_YM3802_MAX: .equ 32767
+
+ZM3_TIMERA_MIN:     .equ 0
+ZM3_TIMERA_MAX:     .equ 1023
+ZM3_TIMERB_MIN:     .equ 0
+ZM3_TIMERB_MAX:     .equ 255
+ZM3_YM3802_MIN:     .equ 0
+ZM3_YM3802_MAX:     .equ 8191
+
+ZM3_VOLUME_MIN:     .equ 0
+ZM3_VOLUME_DEFAULT: .equ 64
+ZM3_VOLUME_MAX:     .equ 127
+
+ZM3_PANPOT_MUTE:    .equ 0
+ZM3_PANPOT_LEFT:    .equ 1
+ZM3_PANPOT_RIGHT:   .equ 2
+ZM3_PANPOT_CENTER:  .equ 3
+
+ZM3_PANPOT2_BIAS:   .equ $80
+ZM3_PANPOT2_MIN:    .equ 0
+ZM3_PANPOT2_MAX:    .equ 127
+ZM3_PANPOT2_LEFT:   .equ ZM3_PANPOT2_MIN
+ZM3_PANPOT2_CENTER: .equ 64
+ZM3_PANPOT2_RIGHT:  .equ ZM3_PANPOT2_MAX
+
+ZM3_PCMTYPE_ADPCM:  .equ $ff
+ZM3_PCMTYPE_16BIT:  .equ $01
+ZM3_PCMTYPE_8BIT:   .equ $02
+
+ZM3_PCM_3_9KHZ:     .equ 0
+ZM3_PCM_5_2KHZ:     .equ 1
+ZM3_PCM_7_8KHZ:     .equ 2
+ZM3_PCM_10_4KHZ:    .equ 3
+ZM3_PCM_15_6KHZ:    .equ 4
+
+ZM3_PRIORITY_MIN:   .equ 0
+ZM3_PRIORITY_MAX:   .equ 255
+
+;device ID
+ZM3_DEV_FM:         .equ $0000
+ZM3_DEV_ADPCM:      .equ $0001
+ZM3_DEV_MIDI1:      .equ $8000
+ZM3_DEV_MIDI2:      .equ $8001
+ZM3_DEV_MIDI3:      .equ $8002
+ZM3_DEV_MIDI4:      .equ $8003
+ZM3_DEV_PATTERN:    .equ $7fff
+
+;memory block ID ('X*' means full width character)
+ZM3_MEMID_ZMSC:     .equ 'ZmSc'
+ZM3_MEMID_LOCK:     .equ $8000_0000
+ZM3_MEMID_ZPD:      .equ $5a826f44  ;'ZP*D'
+ZM3_MEMID_ZPD_TBL:  .equ 'ZPDT'
+ZM3_MEMID_ZMD:      .equ $5a826c44  ;'ZM*D'
+ZM3_MEMID_WAVE:     .equ 'WAVE'
+ZM3_MEMID_WAVE_TBL: .equ 'WAVT'
+ZM3_MEMID_ADPCM:    .equ 'SPCM'
+ZM3_MEMID_CALC:     .equ 'CALC'
+ZM3_MEMID_TEMP:     .equ 'TEMP'
+ZM3_MEMID_APPLI:    .equ 'APPL'
+ZM3_MEMID_ERROR:    .equ $82645252  ;'E*RR'
+ZM3_MEMID_STARTUP:  .equ 'STUP'
+ZM3_MEMID_FMSND:    .equ 'FMSD'
+ZM3_MEMID_SYSTEM:   .equ $53827853  ;'SY*S'
+ZM3_MEMID_SMF:      .equ $53826c46  ;'SM*F'
+ZM3_MEMID_ALL:      .equ $0000_0000
+
+
+* End of File --------------------------------- *
+
+.endif
+
+.list

@@ -1,7 +1,7 @@
 .nlist
 
 ;zmusic2.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2026-01-19
+;Last-Modified: 2026-01-30
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -115,6 +115,8 @@ ZM2_CALL_INT_PLAY_OPE    .equ $58
 
 
 * Constants ----------------------------------- *
+
+ZM2_TRAP3_VEC:      .equ $23
 
 ZM2_CHANNEL_MIN:    .equ 1
 ZM2_CHANNEL_MAX:    .equ 32
