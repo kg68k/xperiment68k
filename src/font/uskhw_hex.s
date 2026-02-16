@@ -1,4 +1,4 @@
-.title uskhw_hex - $f4xx nad $f5xx external character font generator (hex)
+.title uskhw_hex - $f4xx and $f5xx external character font generator (hex)
 
 ;This file is part of Xperiment68k
 ;Copyright (C) 2024 TcbnErik
