@@ -277,6 +277,7 @@
   * [si_midi](docs/si.md#si_midi) ... MIDIボードの種類を表示
   * [si_model](docs/si.md#si_model) ... 本体の機種名を表示
   * [si_mpuclk](docs/si.md#si_mpuclk) ... MPUクロック数を表示
+  * [si_pcgexp](docs/si.md#si_pcgexp) ... PCGメモリ増設(改造)の有無を表示
   * [si_phantomx](docs/si.md#si_phantomx) ... PhantomXの情報を表示
   * [si_scsiex](docs/si.md#si_scsiex) ... SCSIボードの機種名を表示
   * [si_sram](docs/si.md#si_sram) ... SRAMの容量と使用状況を表示
