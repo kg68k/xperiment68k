@@ -1,7 +1,7 @@
 .title uskcg24 - draw uskcg table with 24dot font
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -17,9 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include console.mac
-.include iocscall.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -32,7 +29,8 @@ CRTC_R21: .equ $00e8002a
 TEXTLINE_TO_BYTE_SHIFT: .equ 7
 BYTES_PER_TEXTLINE: .equ 1<<TEXTLINE_TO_BYTE_SHIFT
 
-CONSOLE_WIDTH: .equ 768
+CONSOLE_WIDTH:  .equ 768
+CONSOLE_HEIGHT: .equ 512
 CONSOLE_LINE_TO_TEXTLINE_SHIFT: .equ 4
 CONSOLE_FONT_HEIGHT: .equ 1<<CONSOLE_LINE_TO_TEXTLINE_SHIFT
 
@@ -64,8 +62,8 @@ Start:
 
   moveq #0,d6  ;Y座標
 
-  moveq #0,d0
-  bsr getText
+  lea (Header,pc),a0
+  lea (HeaderEnd,pc),a1
   move.l d6,d0
   bsr PrintLines
   move.l d0,d6
@@ -75,8 +73,8 @@ Start:
   move.l d6,d0
   bsr PrintLines
 
-  moveq #CONSOLE_FONT_HEIGHT-1,d2
-  add d0,d2
+  moveq #CONSOLE_FONT_HEIGHT,d2  ;-1すると表示ライン数が16の倍数のとき隙間がなくなるが
+  add d0,d2                      ;コマンドプロンプトと密接して見づらいので隙間をあける
   lsr #CONSOLE_LINE_TO_TEXTLINE_SHIFT,d2
   moveq #0,d1
   IOCS _B_LOCATE
@@ -86,19 +84,110 @@ Start:
 
 
 getText:
-  lsl #3,d0
-  movem.l (@f,pc,d0.w),a0-a1
+  cmpi #2,d0
+  bhi @f
+    lea (CodeTableA,pc),a0  ;1 -> A
+    bcs CreateDumpList
+      lea (CodeTableB,pc),a0  ;2 -> B
+      bra CreateDumpList
+  @@:
+  bsr CreateCodeTable  ;$8000, $f000～$f500
+  bra CreateDumpList
+
+
+CreateCodeTable:
+  lea (CodeTableBuffer,pc),a0
+  moveq #0<<16+16,d1  ;スキップ文字数0、表示文字数16
+  moveq #16-1,d2
+  @@:
+    move d0,(a0)+  ;文字コード
+    move.l d1,(a0)+
+    addi #16,d0
+  dbra d2,@b
+  lea (CodeTableBuffer,pc),a0
   rts
 
-@@:
-  .dc.l Header,HeaderEnd
-  .dc.l UskTextA,UskTextAEnd
-  .dc.l UskTextB,UskTextBEnd
-  .dc.l UskText4,UskText4End
-  .dc.l UskText5,UskText5End
+
+CreateDumpList:
+  PUSH d3-d4
+  lea (a0),a1
+  lea (DumpListBuffer,pc),a0
+  bra 8f
+  1:
+    bpl 7f  ;文字コード $00ff は空行
+      move d3,d0
+      bsr WriteIndex
+
+      moveq #16,d4  ;残り文字数
+      move (a1)+,d0  ;スキップ文字数
+      beq @f
+        sub d0,d4
+        bsr WriteSkipChars
+      @@:
+      move (a1)+,d0  ;表示文字数(>0)
+      sub d0,d4
+      bsr WritePrintChars
+      move d4,d0  ;残りのスキップ文字数
+      beq @f
+        bsr WriteSkipChars
+      @@:
+      subq.l #1,a0  ;最後の空白を消す
+    7:
+    clr.b (a0)+
+  8:
+  move (a1)+,d3  ;文字コード($xxx0)
+  bne 1b
+
+  ;文字コード $0000 はテーブル終了
+  lea (a0),a1  ;末尾
+  lea (DumpListBuffer,pc),a0  ;先頭
+  POP d3-d4
+  rts
+
+WriteIndex:
+  move.b #' ',(a0)+
+  bsr ToHexString$4
+  move.b #'│'>>8,(a0)+
+  move.b #'│'.and.$ff,(a0)+
+  rts
+
+WriteSkipChars:
+  subq #1,d0
+  @@:
+    move.b #FILLER_CHAR>>8,(a0)+
+    move.b #FILLER_CHAR.and.$ff,(a0)+
+    addq #1,d3
+    move.b #' ',(a0)+
+  dbra d0,@b
+  rts
+
+WritePrintChars:
+  moveq #0,d1
+  cmpi #$f000,d3
+  bcc 1f
+    move d3,-(sp)
+    cmpi.b #$80,(sp)+
+    bne @f
+      1:
+      moveq #' ',d1
+  @@:
+  subq #1,d0
+  1:
+    tst.b d1
+    beq @f
+      move.b d1,(a0)+  ;表示幅が半角なので空白を追加する
+    @@:
+    move d3,-(sp)
+    move.b (sp)+,(a0)+
+    move.b d3,(a0)+
+    addq #1,d3
+    move.b #' ',(a0)+
+  dbra d0,1b
+  rts
 
 
 AnalyzeArgument:
+  moveq #0,d0
   bra 8f
   1:
     cmpi.b #'a',d0
@@ -111,14 +200,17 @@ AnalyzeArgument:
       moveq #2,d0
       rts
     @@:
-    cmpi.b #'4',d0
-    bne @f
-      moveq #3,d0
-      rts
+    cmpi.b #'0',d0
+    bcs @f
+      cmpi.b #'5',d0
+      bhi @f
+        addi #$f0-'0',d0
+        lsl #8,d0
+        rts
     @@:
-    cmpi.b #'5',d0
+    cmpi.b #'8',d0
     bne @f
-      moveq #4,d0
+      move #$8000,d0
       rts
     @@:
   8:
@@ -333,7 +425,53 @@ compositeFont0PPPPPP0:
   rts
 
 
+  DEFINE_TOHEXSTRING$4 ToHexString$4
+
+
 .data
+
+CT_NEWLINE:   .equ $00ff
+CT_TABLE_END: .equ $0000
+
+.even
+CodeTableA:
+  .dc $8690,15, 1  ;$869f
+  .dc $86a0, 0,16
+  .dc $86b0, 0,16
+  .dc $86c0, 0,16
+  .dc $86d0, 0,16
+  .dc $86e0, 0,16
+  .dc $86f0, 0,13  ;～$86fc
+  .dc CT_NEWLINE
+  .dc $8740, 0,16
+  .dc $8750, 0,16
+  .dc $8760, 0,16
+  .dc $8770, 0,15  ;～$877e
+  .dc $8780, 0,16
+  .dc $8790, 0,15  ;～$879e
+  .dc CT_TABLE_END
+
+CodeTableB:
+  .dc $eb90,15, 1  ;$eb9f
+  .dc $eba0, 0,16
+  .dc $ebb0, 0,16
+  .dc $ebc0, 0,16
+  .dc $ebd0, 0,16
+  .dc $ebe0, 0,16
+  .dc $ebf0, 0,13  ;～$ebfc
+  .dc CT_NEWLINE
+  .dc $ec40, 0,16
+  .dc $ec50, 0,16
+  .dc $ec60, 0,16
+  .dc $ec70, 0,15  ;～$ec7e
+  .dc $ec80, 0,16
+  .dc $ec90, 0,15  ;～$ec9e
+  .dc CT_TABLE_END
+
+Header:
+  .dc.b '      │+0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f',0
+  .dc.b '───┼────────────────────────',0
+HeaderEnd:
 
 Usage:
   .dc.b 'uskcg24: 外字の一覧を24ドットフォントで表示します。',CR,LF
@@ -344,107 +482,15 @@ Usage:
   .dc.b 0
 
 
-DUMPL: .macro header,skipLen,code,codeLen
-  .dc.b header
-  .rept skipLen
-    .dc.b ' ',FILLER_CHAR
-  .endm
-  @c:=code
-  .rept codeLen
-    .if code>=$f000
-      .dc.b ' '
-    .endif
-    .dc.b ' ',@c>>8,@c.and.$ff
-    @c:=@c+1
-  .endm
-  .rept 16-(skipLen+codeLen)
-    .dc.b ' ',FILLER_CHAR
-  .endm
-  .dc.b 0
-.endm
-
-Header:
-  .dc.b '     | +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f',0
-  .dc.b '-----+------------------------------------------------',0
-HeaderEnd:
-
-UskTextA:
-  DUMPL '8690 |',15,$869f,1
-  DUMPL '86a0 |', 0,$86a0,16
-  DUMPL '86b0 |', 0,$86b0,16
-  DUMPL '86c0 |', 0,$86c0,16
-  DUMPL '86d0 |', 0,$86d0,16
-  DUMPL '86e0 |', 0,$86e0,16
-  DUMPL '86f0 |', 0,$86f0,13  ;～$86fc
-  .dc.b 0
-  DUMPL '8740 |', 0,$8740,16
-  DUMPL '8750 |', 0,$8750,16
-  DUMPL '8760 |', 0,$8760,16
-  DUMPL '8770 |', 0,$8770,15  ;～$877e
-  DUMPL '8780 |', 0,$8780,16
-  DUMPL '8790 |', 0,$8790,15  ;～$879e
-UskTextAEnd:
-
-UskTextB:
-  DUMPL 'eb90 |',15,$eb9f,1
-  DUMPL 'eba0 |', 0,$eba0,16
-  DUMPL 'ebb0 |', 0,$ebb0,16
-  DUMPL 'ebc0 |', 0,$ebc0,16
-  DUMPL 'ebd0 |', 0,$ebd0,16
-  DUMPL 'ebe0 |', 0,$ebe0,16
-  DUMPL 'ebf0 |', 0,$ebf0,13  ;～$ebfc
-  .dc.b 0
-  DUMPL 'ec40 |', 0,$ec40,16
-  DUMPL 'ec50 |', 0,$ec50,16
-  DUMPL 'ec60 |', 0,$ec60,16
-  DUMPL 'ec70 |', 0,$ec70,15  ;～$ec7e
-  DUMPL 'ec80 |', 0,$ec80,16
-  DUMPL 'ec90 |', 0,$ec90,15  ;～$ec9e
-UskTextBEnd:
-
-UskText4:
-  DUMPL 'f400 |',0,$f400,16
-  DUMPL 'f410 |',0,$f410,16
-  DUMPL 'f420 |',0,$f420,16
-  DUMPL 'f430 |',0,$f430,16
-  DUMPL 'f440 |',0,$f440,16
-  DUMPL 'f450 |',0,$f450,16
-  DUMPL 'f460 |',0,$f460,16
-  DUMPL 'f470 |',0,$f470,16
-  DUMPL 'f480 |',0,$f480,16
-  DUMPL 'f490 |',0,$f490,16
-  DUMPL 'f4a0 |',0,$f4a0,16
-  DUMPL 'f4b0 |',0,$f4b0,16
-  DUMPL 'f4c0 |',0,$f4c0,16
-  DUMPL 'f4d0 |',0,$f4d0,16
-  DUMPL 'f4e0 |',0,$f4e0,16
-  DUMPL 'f4f0 |',0,$f4f0,16
-UskText4End:
-
-UskText5:
-  DUMPL 'f500 |',0,$f500,16
-  DUMPL 'f510 |',0,$f510,16
-  DUMPL 'f520 |',0,$f520,16
-  DUMPL 'f530 |',0,$f530,16
-  DUMPL 'f540 |',0,$f540,16
-  DUMPL 'f550 |',0,$f550,16
-  DUMPL 'f560 |',0,$f560,16
-  DUMPL 'f570 |',0,$f570,16
-  DUMPL 'f580 |',0,$f580,16
-  DUMPL 'f590 |',0,$f590,16
-  DUMPL 'f5a0 |',0,$f5a0,16
-  DUMPL 'f5b0 |',0,$f5b0,16
-  DUMPL 'f5c0 |',0,$f5c0,16
-  DUMPL 'f5d0 |',0,$f5d0,16
-  DUMPL 'f5e0 |',0,$f5e0,16
-  DUMPL 'f5f0 |',0,$f5f0,16
-UskText5End:
-
-
 .bss
 .quad
 
 CompositeBuffer: .ds.b BYTES_PER_TEXTLINE*FONT_HEIGHT
+
+DumpListBuffer: .ds.b (CONSOLE_WIDTH/FONT_WIDTH_HALF*2)*(CONSOLE_HEIGHT/FONT_HEIGHT)
+
+.even
+CodeTableBuffer: .ds.w 3*16+1
 
 
 .end
