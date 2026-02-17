@@ -115,6 +115,7 @@
   * [fntsize](docs/font.md#fntsize) ... `IOCS _FNTADR`、`IOCS _FNTGET`の結果を一覧表示
   * [uskcg24](docs/font.md#uskcg24) ... ユーザー定義外字の文字表をテキスト画面に描画
   * [uskcg_hex](docs/font.md#uskcg_hex) ... ユーザー定義外字のフォントを文字コード表記に書き換え
+  * [uskcg_save](docs/font.md#uskcg_save) ... ユーザー定義外字のフォントをファイルに保存
   * [uskfontadr](docs/font.md#uskfontadr) ... 外字フォントデータのアドレスを表示
   * [uskhw_hex](docs/font.md#uskhw_hex) ... 半角外字のフォントを文字コード表記に書き換え
 * [Grahic](docs/graphic.md)

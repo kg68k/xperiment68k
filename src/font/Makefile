@@ -2,7 +2,7 @@
 
 TARGET = \
          ankfont.x defchr_7621.x defchr_81f8.x exchr_hex.x fntadr.x fntget.x fntsize.x \
-         uskcg24.x uskcg_hex.x uskfontadr.x uskhw_hex.x
+         uskcg24.x uskcg_hex.x uskcg_save.x uskfontadr.x uskhw_hex.x
 
 include ../common.mk
 
