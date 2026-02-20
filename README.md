@@ -68,6 +68,7 @@
   * [dos_inkey](docs/dos.md#dos_inkey) ... `DOS _INKEY`で標準入力から文字入力
   * [dos_inpout](docs/dos.md#dos_inpout) ... `DOS _INPOUT`による文字入力または文字出力
   * [dos_keyctrl01](docs/dos.md#dos_keyctrl01) ... `DOS _KEYCTRL`によるキー入力
+  * [dos_keysns](docs/dos.md#dos_keysns) ... `DOS _KEYSNS`でコンソールから入力可能かどうかを取得
   * [dos_maketmp](docs/dos.md#dos_maketmp) ... `DOS _MAKETMP`でテンポラリファイルを作成
   * [dos_malloc2](docs/dos.md#dos_malloc2) ... `DOS _MALLOC2`または`_S_MALLOC`でメモリを確保
   * [dos_mkdir](docs/dos.md#dos_mkdir) ... `DOS _MKDIR`でディレクトリを作成
