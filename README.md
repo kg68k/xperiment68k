@@ -45,7 +45,10 @@
   * [dos_chdir](docs/dos.md#dos_chdir) ... `DOS _CHDIR`でカレントディレクトリを変更
   * [dos_chgdrv](docs/dos.md#dos_chgdrv) ... `DOS _CHGDRV`でカレントドライブを変更
   * [dos_chmod](docs/dos.md#dos_chmod) ... `DOS _CHMOD`でファイルの属性を取得・変更
+  * [dos_cinsns](docs/dos.md#dos_cinsns) ... `DOS _CINSNS`で補助入出力から入力可能かどうかを取得
   * [dos_conctrl](docs/dos.md#dos_conctrl) ... `DOS _CONCTRL`でコンソール制御・直接出力
+  * [dos_consns](docs/dos.md#dos_consns) ... `DOS _CONSNS`でコンソールへ出力可能かどうかを取得
+  * [dos_coutsns](docs/dos.md#dos_coutsns) ... `DOS _COUTSNS`で補助入出力へ出力可能かどうかを取得
   * [dos_create_sp](docs/dos.md#dos_create_sp) ... `DOS _CREATE`の特殊モードでファイルを作成
   * [dos_curdir](docs/dos.md#dos_curdir) ... `DOS _CURDIR`でカレントディレクトリを取得
   * [dos_curdrv](docs/dos.md#dos_curdrv) ... `DOS _CURDRV`でカレントドライブを取得
@@ -70,6 +73,7 @@
   * [dos_mkdir](docs/dos.md#dos_mkdir) ... `DOS _MKDIR`でディレクトリを作成
   * [dos_nameck](docs/dos.md#dos_nameck) ... `DOS _NAMECK`でパス名を展開
   * [dos_namests](docs/dos.md#dos_namests) ... `DOS _NAMESTS`でパス名を展開
+  * [dos_prnsns](docs/dos.md#dos_prnsns) ... `DOS _PRNSNS`でプリンタへ出力可能かどうかを取得
   * [dos_putchar](docs/dos.md#dos_putchar) ... `DOS _PUTCHAR`で標準出力に文字出力
   * [dos_rmdir](docs/dos.md#dos_rmdir) ... `DOS _RMDIR`でディレクトリを削除
   * [dos_setdate](docs/dos.md#dos_setdate) ... `DOS _SETDATE`で日付を設定
