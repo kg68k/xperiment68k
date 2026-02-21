@@ -99,6 +99,14 @@ RTC(RP5C15)のレジスタの値を表示します。
 実行コードがメインメモリ上にある場合とGVRAM上にある場合、読み込みアドレスがメインメモリの場合と
 GVRAMの場合、それぞれの組み合わせで合計4通りを計測します。
 
+X68030 (25MHz)での結果(thanks to [紅茶羊羹](https://x.com/youkan700/status/2025006285696184446)さん)
+```
+on main memory, read main memory: 55
+on main memory, read gvram: 143
+on gvram, read main memory: 187
+on gvram, read gvram: 277
+```
+
 
 ## super_time
 `IOCS _B_SUPER`、`DOS _SUPER`、`DOS _SUPER_JSR`の実行時間を計測します。
