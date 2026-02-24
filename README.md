@@ -132,14 +132,15 @@
   * [iocs_b_clr_st](docs/iocs.md#iocs_b_clr_st) ... `IOCS _B_CLR_ST`でコンソールの複数行を消去
   * [iocs_b_conmod](docs/iocs.md#iocs_b_conmod) ... `IOCS _B_CONMOD`でカーソルとスクロールを設定
   * [iocs_b_del](docs/iocs.md#iocs_b_del) ... `IOCS _B_DEL`でコンソールの複数行を削除
+  * [iocs_b_drvchk](docs/iocs.md#iocs_b_drvchk) ... `IOCS _B_DRVCHK`で2HDドライブの状態設定
   * [iocs_b_ins](docs/iocs.md#iocs_b_ins) ... `IOCS _B_INS`でコンソールに複数行を挿入
   * [iocs_b_putc](docs/iocs.md#iocs_b_putc) ... `IOCS _B_PUTC`でコンソールに文字を表示
+  * [iocs_b_recali](docs/iocs.md#iocs_b_recali) ... `IOCS _B_RECALI`でFDD/SASIドライブのリキャリブレイト
   * [iocs_b_print](docs/iocs.md#iocs_b_print) ... `IOCS _B_PRINT`でコンソールに文字列を表示
   * [iocs_datebcd](docs/iocs.md#iocs_datebcd) ... `IOCS _DATEBCD`で日付データのバイナリ→BCD変換
   * [iocs_datebin](docs/iocs.md#iocs_datebin) ... `IOCS _DATEBIN`で日付データのBCD→バイナリ変換
   * [iocs_dateget](docs/iocs.md#iocs_dateget) ... `IOCS _DATEGET`で日付を取得
   * [iocs_dateset](docs/iocs.md#iocs_dateset) ... `IOCS _DATESET`で日付を設定
-  * [iocs_b_drvchk](docs/iocs.md#iocs_b_drvchk) ... `IOCS _B_DRVCHK`で2HDドライブの状態設定
   * [iocs_jissft](docs/iocs.md#iocs_jissft) ... `IOCS _JISSFT`でJIS文字コードをS-JISに変換
   * [iocs_ms_offtm](docs/iocs.md#iocs_ms_offtm) ... `IOCS _MS_OFFTM`でマウスボタンを離すまでの時間を計測
   * [iocs_ms_ontm](docs/iocs.md#iocs_ms_ontm) ... `IOCS _MS_ONTM`でマウスボタンを押すまでの時間を計測
