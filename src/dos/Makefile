@@ -3,7 +3,8 @@
 TARGET = \
          dos_chdir.x dos_chgdrv.x dos_chmod.x dos_conctrl.x dos_cinsns.x \
          dos_consns.x dos_coutsns.x dos_create_sp.x dos_curdir.x dos_curdrv.x \
-         dos_diskred.x dos_exit2.x \
+         dos_diskred.x dos_dup.x dos_dup0.x dos_dup2.x \
+         dos_exit2.x \
          dos_fatchk.x dos_fgetc.x dos_fgets.x dos_filedate.x \
          dos_getc.x dos_getchar.x dos_getdate.x dos_getenv.x dos_gets.x dos_gettim2.x dos_gettime.x \
          dos_inkey.x dos_inpout.x dos_keyctrl01.x dos_keysns.x \
