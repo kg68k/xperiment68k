@@ -607,6 +607,21 @@ B_PRINT_CRLF: .macro
 .endm
 
 
+;改行をバッファに書き込む
+WRITE_CRLF: .macro an
+  move.b #CR,(an)+
+  move.b #LF,(an)+
+.endm
+
+
+;改行とNULをバッファに書き込む
+WRITE_CRLF_NUL: .macro an
+  move.b #CR,(an)+
+  move.b #LF,(an)+
+  clr.b (an)
+.endm
+
+
 ;空白文字を飛ばし、文字列が終端したかどうかを調べる
 SKIP_SPACE: .macro an
   @loop:

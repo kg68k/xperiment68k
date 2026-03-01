@@ -1,7 +1,7 @@
 .title opmdrvtype - show OPMDRV*.X type and version
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -94,9 +94,7 @@ opmdrv3:
   move.b #'-',(a0)+
   bsr bcdToChar2  ;日
 
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0
-
+  WRITE_CRLF_NUL a0
   lea (Buffer,pc),a0
   rts
 
@@ -189,8 +187,6 @@ strOpmdrv2: .dc.b 'OPMDRV2.X',CR,LF,0
 
 strOpmdrv3: .dc.b 'OPMDRV3.X version=',0
 strDate:    .dc.b ' date=',0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

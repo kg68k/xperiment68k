@@ -1,7 +1,7 @@
 .title uskfontadr - show uskfont address
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -16,8 +16,6 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include console.mac
-.include doscall.mac
 .include iocswork.mac
 
 .include xputil.mac
@@ -77,7 +75,7 @@ PrintUskFontAddress:
   lea (Buffer,pc),a1
   jsr (a2)  ;アドレスを表示
 
-  lea (CrLf,pc),a1
+  lea (strCrLf,pc),a1
   jsr (a2)
   rts
 
@@ -104,8 +102,9 @@ UskFont4: .dc.b 'グループ4 (全角 24x24, SJIS:eb9f～ec9e JIS:7621～777e):
 UskFont5: .dc.b 'グループ5 (半角 12x24, SJIS:f400～f5ff               ): $',0
 
 RebootMessage:
-      .dc.b CR,LF,'終了しました。フロッピーディスクを抜いて再起動してください。'
-CrLf: .dc.b CR,LF,0
+  .dc.b CR,LF,'終了しました。フロッピーディスクを抜いて再起動してください。'
+
+strCrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -68,9 +68,8 @@ ExecuteCommandline:
   STRCPY a1,a0,-1
   move.l d1,d0
   bsr ToHexString$4_4
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0,-1
 
+  WRITE_CRLF_NUL a0
   DOS_PRINT (sp)
   unlk a6
   rts
@@ -123,8 +122,7 @@ PrintTestResult:
   move.l d1,d0
   bsr ToDecString
 
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0
+  WRITE_CRLF_NUL a0
   DOS_PRINT (sp)
   unlk a6
   rts
@@ -170,9 +168,7 @@ PrintTestCaseResult:
   move.l d5,d0
   bsr ToHexString$4_4
 
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0,-1
-
+  WRITE_CRLF_NUL a0
   DOS_PRINT (sp)
   unlk a6
   POP d4-d5/d7
@@ -207,8 +203,6 @@ strFailure: .dc.b ', failure: ',0
 
 strQuot: .dc.b 'quotient = ',0
 strRem:  .dc.b ', remainder = ',0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

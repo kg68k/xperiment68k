@@ -1,7 +1,7 @@
 .title iocs_ontime - IOCS _ONTIME
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -36,8 +36,7 @@ ProgramStart:
     bsr PrintOntimeHex
   @@:
 
-  lea (CrLf,pc),a1
-  STRCPY a1,a0
+  WRITE_CRLF_NUL a0
   DOS_PRINT (Buffer,pc)
   DOS _EXIT
 
@@ -123,8 +122,6 @@ strDays:    .dc.b 'd ',0
 strHours:   .dc.b ':',0
 strMinutes: .dc.b ':',0
 strSeconds: .dc.b '"',0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -1,7 +1,7 @@
 .title opmcallvec - show OPMDRV3.X OPM call vectors
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -128,8 +128,7 @@ PrintOpmCallVector:
 
   move.l a1,d0  ;処理アドレス
   bsr ToHexString$4_4
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0
+  WRITE_CRLF_NUL a0
 
   DOS_PRINT (sp)
   unlk a6
@@ -208,11 +207,6 @@ GetZmusicVersion:
   DEFINE_PARSEINTWORD ParseIntWord
   DEFINE_TOHEXSTRING$2 ToHexString$2
   DEFINE_TOHEXSTRING$4_4 ToHexString$4_4
-
-
-.data
-
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

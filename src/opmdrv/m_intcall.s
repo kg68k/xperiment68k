@@ -1,7 +1,7 @@
 .title m_intcall - OPM $1f (intcall)
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -121,7 +121,7 @@ NotRegisterCall:
 NotRegisterCall2:
   OPM _M_INTCALL
   bsr Print$8
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
   rts
 
 
@@ -129,7 +129,7 @@ Keep:
   lea (UserInt,pc),a1
   OPM _M_INTCALL
   bsr Print$8
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
 
   DOS_PRINT (strKeeped,pc)
 
@@ -145,8 +145,6 @@ Keep:
 .data
 
 strKeeped: .dc.b '常駐しました。',CR,LF,0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

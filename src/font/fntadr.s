@@ -1,7 +1,7 @@
 .title fntadr - IOCS _FNTADR
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -46,8 +46,7 @@ ProgramStart:
   move.l d2,d0
   bsr ToHexString4_4
 
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0
+  WRITE_CRLF_NUL a0
   DOS_PRINT (Buffer,pc)
 
   DOS _EXIT
@@ -139,8 +138,6 @@ strUsage:
 strD0equ: .dc.b 'd0.l = $',0
 strD1equ: .dc.b ', d1.l = $',0
 strD2equ: .dc.b ', d2.l = $',0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

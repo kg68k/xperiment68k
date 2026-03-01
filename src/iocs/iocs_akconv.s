@@ -1,7 +1,7 @@
 .title iocs_akconv - IOCS _AKCONV
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -63,8 +63,7 @@ Akconv:
   @@:
   move.b d1,(a0)+  ;下位バイト
 
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0
+  WRITE_CRLF_NUL a0
 
   DOS_PRINT (sp)
   unlk a6
@@ -79,8 +78,6 @@ Akconv:
 
 strHiragana: .dc.b 'ひらがな: ',0
 strKatakana: .dc.b 'カタカナ: ',0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

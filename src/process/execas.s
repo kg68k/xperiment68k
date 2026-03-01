@@ -1,7 +1,7 @@
 .title execas - make exec file alias
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -244,7 +244,7 @@ error:
   pea (TargetPath,pc)
   DOS _FPUTS
   addq.l #4,sp
-  pea (CrLf,pc)
+  pea (strCrLf,pc)
   DOS _FPUTS
 
   moveq #-1,d0
@@ -255,12 +255,12 @@ LoadError:      .dc.b 'execas: load error: ',0
 NoHupairError:  .dc.b 'execas: no HUPAIR mark: ',0
 recursiveError: .dc.b 'execas: recursive execution: ',0
 
-CrLf: .dc.b CR,LF,0
-.even
+strCrLf: .dc.b CR,LF,0
 
+.even
 TargetPath: .ds.b 90
-.even
 
+.even
 RuntimeEnd:
 
 ;;;;;;;; ランタイムコードここまで ;;;;;;;;

@@ -1,7 +1,7 @@
 .title minish - minimal shell
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 
 .include xputil.mac
 
-VERSION: .reg '1.0.0'
+VERSION: .reg '1.0.1'
 
 
 .cpu 68000
@@ -59,7 +59,7 @@ mainLoop:
   DOS _GETS
   addq.l #4,sp
   move.l d0,d1
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
 
   addq.l #INPPTR_BUFFER,a0
   bsr SkipBlank
@@ -157,7 +157,7 @@ PrintExecError:
   DOS_PRINT (a0)
   move.l (sp)+,d0
   bsr Print$4_4
-  DOS_PRINT (strCrLf,pc)
+  DOS_PRINT_CRLF
   moveq #-1,d0
   rts
 
@@ -196,8 +196,6 @@ strPathchkError: .dc.b '実行ファイル検索エラー: ',0
 strLoadExecError: .dc.b 'ファイル実行エラー: ',0
 
 strExitShell: .dc.b 'シェルとして起動しましたが、終了してHuman68kに戻ります。',CR,LF,0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

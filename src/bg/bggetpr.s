@@ -1,7 +1,7 @@
 .title bggetpr - DOS _GET_PR
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -204,8 +204,7 @@ copyThreadName:
   bra appendCrLf
 
 appendCrLf:
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0,-1
+  WRITE_CRLF a0
   rts
 
 
@@ -239,8 +238,6 @@ strName:       .dc.b 'name[16]: ',0
 strWaitTime:   .dc.b 'wait_time: ',0
 
 strComma: .dc.b ',',0  ;一行が長くなるので,のあとにスペースは入れない
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

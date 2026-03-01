@@ -1,7 +1,7 @@
 .title si_mpuclk - show information: MPU clock
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -50,8 +50,7 @@ ProgramStart:
   lea (Buffer,pc),a0
   bsr MpuClock_GetString
 
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0
+  WRITE_CRLF_NUL a0
   DOS_PRINT (Buffer,pc)
   DOS _EXIT
 
@@ -60,8 +59,6 @@ ProgramStart:
   DEFINE_DIVU32 Divu32
 
 
-.data
-strCrLf: .dc.b CR,LF,0
 .bss
 .even
 Buffer: .ds.b 64

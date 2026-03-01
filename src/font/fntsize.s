@@ -1,7 +1,7 @@
 .title fntsize - show font size by IOCS _FNTADR and _FNTGET
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -54,9 +54,7 @@ ProgramStart:
     move.l d7,d1
     bsr fntget
 
-    lea (CrLf,pc),a1
-    STRCPY a1,a0
-
+    WRITE_CRLF_NUL a0
     DOS_PRINT (Buffer,pc)
 
     addq #1,d7
@@ -140,8 +138,6 @@ getArgument:
 title: .dc.b '    ┌─ _FNTADR ─┐┌ _FNTGET ┐',CR,LF
        .dc.b 'size  Xdot Xb-1 Yd-1   Xdot Ydot',CR,LF
        .dc.b 0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

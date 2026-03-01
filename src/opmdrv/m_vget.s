@@ -1,7 +1,7 @@
 .title m_vget - OPM _M_VGET
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -84,8 +84,7 @@ PrintTone:
     move.b #'/',(a0)+  ;音色名があればコメントとして出力する
     move.b #' ',(a0)+
     STRCPY a1,a0,-1
-    lea (strCrLf,pc),a1
-    STRCPY a1,a0,-1
+    WRITE_CRLF a0
   @@:
   lea (strToneHeader,pc),a1
   STRCPY a1,a0,-1
@@ -107,9 +106,7 @@ PrintTone:
   rts
 
 LineToString:
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0,-1
-
+  WRITE_CRLF a0
   moveq #11-1,d2
   @@:
     moveq #0,d0
@@ -172,8 +169,6 @@ WriteFile:
 
 strToneHeader: .dc.b '(v',0
 strToneFooter: .dc.b ')',CR,LF,0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -1,7 +1,7 @@
 .title hasophash - calculate op hash of HAS060X.X
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -56,8 +56,7 @@ StringifyOp:
   bsr CalculateHash
 
   bsr ToHexString$4
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0,-1
+  WRITE_CRLF_NUL a0
   rts
 
 
@@ -71,12 +70,12 @@ StringifyAllOp:
     move.b #' ',(a0)+
 
     STRCPY a3,a0,-1  ;キー文字列
-    lea (strCrLf,pc),a1
-    STRCPY a1,a0,-1
+    WRITE_CRLF a0
   8:
   STRLEN a3,d0
   subq #1,d0  ;キー文字列長-1
   bcc 1b
+  clr.b (a0)
   rts
 
 
@@ -98,8 +97,6 @@ CalculateHash:
 
 
 .data
-
-strCrLf: .dc.b CR,LF,0
 
 len:=0  ;文字列化に必要なバッファサイズ
 op: .macro str

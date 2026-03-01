@@ -1,7 +1,7 @@
 .title midi_reg - show YM3802 registers
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include console.mac
-.include doscall.mac
 
 .include xputil.mac
 
@@ -109,8 +107,7 @@ printReg:
   lea (sp),a0
   STRCPY a1,a0,-1   ;ヘッダ
   bsr ToHexString2  ;値
-  lea (strCrLf,pc),a1
-  STRCPY a1,a0
+  WRITE_CRLF_NUL a0
   DOS_PRINT (sp)
   unlk a6
   POP d1/a0-a1
@@ -130,8 +127,6 @@ R54: .dc.b 'R54: $',0
 R64: .dc.b 'R64: $',0
 R74: .dc.b 'R74: $',0
 R96: .dc.b 'R96: $',0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

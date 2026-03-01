@@ -1,7 +1,7 @@
 .title m_opmreg - OPM _M_OPMREG
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -83,9 +83,8 @@ PrintAllRegisters:
       addq #1,d7
     dbra d5,2b
 
-    subq.l #1,a1  ;最後のスペースを取り除く
-    lea (strCrLf,pc),a1
-    STRCPY a1,a0
+    subq.l #1,a0  ;最後のスペースを取り除く
+    WRITE_CRLF_NUL a0
     DOS_PRINT (sp)
   dbra d6,1b
 
@@ -122,8 +121,6 @@ strColon:  .dc.b    ' | ',0
 
 strAsterisk:   .dc.b '**',0
 strUnexpected: .dc.b '??',0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .end ProgramStart

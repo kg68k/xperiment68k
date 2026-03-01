@@ -1,7 +1,7 @@
 .title m_pnmget - OPM _M_PNMGET
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -65,9 +65,7 @@ PrintToneName:
   lea (a1),a2
   STRCPY a2,a0,-1
 
-  lea (strCrLf,pc),a2
-  STRCPY a2,a0,-1
-
+  WRITE_CRLF_NUL a0
   DOS_PRINT (Buffer,pc)
   rts
 
@@ -82,6 +80,7 @@ PrintAllToneNames:
   cmpi #O3_PCM_NOTE_MAX,d7
   bls @b
 
+  clr.b (a0)
   DOS_PRINT (Buffer,pc)
   rts
 
@@ -106,8 +105,7 @@ ToneNameToString:
     lea (a1),a2
     STRCPY a2,a0,-1
   @@:
-  lea (strCrLf,pc),a2
-  STRCPY a2,a0,-1
+  WRITE_CRLF a0
   rts
 
 
@@ -121,8 +119,6 @@ ToneNameToString:
 strColon: .dc.b ': ',0
 strD0equ: .dc.b 'd0.l = ',0
 strCommaName: .dc.b ', name = ',0
-
-strCrLf: .dc.b CR,LF,0
 
 
 .bss

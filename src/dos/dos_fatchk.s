@@ -1,7 +1,7 @@
 .title dos_fatchk - DOS _FATCHK
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -79,8 +79,7 @@ PrintFatChkData:
     move.l (a2)+,d0  ;sector length
     bsr ToHexString$4_4
 
-    lea (CrLf,pc),a1
-    STRCPY a1,a0
+    WRITE_CRLF_NUL a0
     DOS_PRINT (Buffer,pc)
   8:
   subq.l #4+4,d2
@@ -98,7 +97,6 @@ PrintFatChkData:
 .data
 
 NoArgMessage: .dc.b 'no filename',CR,LF,0
-CrLf: .dc.b CR,LF,0
 
 DriveMessage: .dc.b 'drive = ',0
 

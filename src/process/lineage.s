@@ -1,7 +1,7 @@
 .title lineage - show ancestor memory blocks
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include console.mac
-.include doscall.mac
 .include process.mac
 
 .include xputil.mac
@@ -68,9 +66,8 @@ PrintMemblk:
   STRCPY a1,a0,-1
   lea (PSP_Filename,a3),a1
   STRCPY a1,a0,-1
-  lea (CrLf,pc),a1
-  STRCPY a1,a0
 
+  WRITE_CRLF_NUL a0
   DOS_PRINT (Buffer,pc)
   POP d3/a3
   rts
@@ -84,8 +81,6 @@ Header:
   .dc.b 'address : previous parent   end+1    next',CR,LF
   .dc.b '--------  -------- -------- -------- --------',CR,LF
   .dc.b 0
-
-CrLf: .dc.b CR,LF,0
 
 
 .bss

@@ -1,7 +1,7 @@
 .title joyget - show IOCS _JOYGET result
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2024 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 .include macro.mac
-.include doscall.mac
-.include iocscall.mac
 
 .include xputil.mac
 
@@ -74,9 +72,7 @@ printJoyData:
   lea (strJ1,pc),a1
   bsr stringifyJoyData
 
-  lea (CrLf,pc),a1
-  STRCPY a1,a0
-
+  WRITE_CRLF_NUL a0
   IOCS_B_PRINT (Buffer,pc)
 
   addq.l #4,sp
@@ -120,7 +116,6 @@ joyNameTable: .dc '？ＢＡ？→←↓↑'
 strTime: .dc.b 'time=$',0
 strJ0: .dc.b ', #0=$',0
 strJ1: .dc.b ', #1=$',0
-CrLf: .dc.b CR,LF,0
 
 
 .bss
