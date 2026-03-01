@@ -56,6 +56,9 @@ PrintDupTable:
 
 
 StringifyDupTable:
+  lea (strHeader,pc),a1
+  STRCPY a1,a0,-1
+
   move (Files).w,d7
   cmpi #$ff,d7
   bls @f
@@ -66,7 +69,7 @@ StringifyDupTable:
   1:
     tst d5
     bne @f
-      bsr WriteHeader
+      bsr WriteLineHeader
     @@:
     move.b #' ',(a0)+
 
@@ -105,7 +108,7 @@ StringifyDupMapping:
     rts
 
 
-WriteHeader:
+WriteLineHeader:
   move.l d6,d0
   moveq #2,d1
   bsr ToDecStringWidth
@@ -134,6 +137,7 @@ GetDupMapping:
 
 .data
 
+strHeader: .dc.b '    stdin  stdout stderr stdaux stdprn',CR,LF,0
 strMinus1: .dc.b '  -1  ',0
 
 
