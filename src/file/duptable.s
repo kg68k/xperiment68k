@@ -102,9 +102,12 @@ StringifyDupMapping:
     STRCPY a1,a0,-1
     rts
   @@:
-    bsr ToHexString$2  ;使用中のファイルハンドル
+    move d0,-(sp)  ;使用中のファイルハンドル
+    move.b (sp),d0
+    bsr ToHexString$2  ;上位バイト
     move.b #'_',(a0)+
-    bsr ToHexString2
+    move (sp)+,d0
+    bsr ToHexString2  ;下位バイト
     rts
 
 
