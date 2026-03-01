@@ -102,6 +102,7 @@
 * [File](docs/file.md)
   * [appendbytes](docs/file.md#appendbytes) ... ファイル末尾にデータを追記
   * [closerewindatr](docs/file.md#closerewindatr) ... `DOS _CLOSE`時のファイル属性巻き戻りの動作検証
+  * [duptable](docs/file.md#duptable) ... ファイルハンドルのDUPテーブルを表示
   * [exfiles](docs/file.md#exfiles) ... `DOS _FILES`の拡張モードでエントリを検索
   * [existsdir](docs/file.md#existsdir) ... ディレクトリが存在するか調べる
   * [fileop](docs/file.md#fileop) ... ファイルの作成、オープンと入出力
