@@ -1,7 +1,7 @@
 .nlist
 
 ;macro.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-07-24
+;Last-Modified: 2026-03-25
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -57,6 +57,18 @@ PUSH_SR_DI: .macro
 
 POP_SR: .macro
   move (sp)+,sr
+.endm
+
+ZCLR: .macro value,dst
+  .sizem sz,argc
+  .fail (value).ne.0
+  clr&sz dst
+.endm
+
+FFST: .macro value,dst
+  .sizem sz,argc
+  .fail ((value).ne.$ff).and.((value).ne.-1)
+  st&sz dst
 .endm
 
 STRCPY: .macro src,dst,rewind
