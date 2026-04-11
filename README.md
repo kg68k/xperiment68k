@@ -281,6 +281,7 @@
   * [malloc_ba_exec](docs/process.md#malloc_ba_exec) ... `DOS _EXEC`の前後でメモリを確保
   * [openkeep](docs/process.md#openkeep) ... ファイルを開いたまま常駐終了する。`DOS _KEEPPR`の動作検証
   * [pathchk](docs/process.md#pathchk) ... `DOS _EXEC (MD=2;pathchk)`で実行ファイルを検索
+  * [super_exec](docs/process.md#super_exec) ... スーパーバイザモードに切り替えてファイルを実行
   * [sysstack_exec](docs/process.md#sysstack_exec) ... システムスタックを確保してファイルを実行
 * [Show Information](docs/si.md)
   * [si_acc](docs/si.md#si_acc) ... 装着されているアクセラレータの種類を表示

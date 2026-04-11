@@ -3,7 +3,7 @@
 TARGET = \
          a2arg.x a2arg_nh.x bindno.x crampedexec.x dumpenv.x dumpstupreg.x entryceil.x \
          execas.x keepceil.x keepcmem.x lineage.x loadonly.x mallocall.x malloc_ba_exec.x \
-         openkeep.x pathchk.x sysstack_exec.x
+         openkeep.x pathchk.x super_exec.x sysstack_exec.x
 
 include ../common.mk
 
