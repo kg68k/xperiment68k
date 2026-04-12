@@ -305,8 +305,9 @@
   * [todecstrbench](docs/test.md#todecstrbench) ... ToDecStringサブルーチンのベンチマーク
 * [Z-MUSIC v2](docs/zmsc2.md)
   * [zm2_gettrktbl](docs/zmsc2.md#zm2_gettrktbl)
-    ... Z-MUSIC v2の絶対チャンネルテーブル、演奏トラックテーブルを表示
-  * [zm2_mstat](docs/zmsc2.md#zm2_mstat) ... Z-MUSIC v2の演奏状態を表示
+    ... `get_trk_tbl`での絶対チャンネルテーブル、演奏トラックテーブルを取得
+  * [zm2_minp1](docs/zmsc2.md#zm2_minp1) ... `m_inp1`でMIDI入力
+  * [zm2_mstat](docs/zmsc2.md#zm2_mstat) ... `m_stat`で演奏状態を取得
   * [zm2_oddopm](docs/zmsc2.md#zm2_oddopm)
     ... 奇数アドレスにあるZ-MUSIC v2のZMDデータをOPMデバイスに書き込む
   * [zm2_t12poc](docs/zmsc2.md#zm2_t12poc) ... ZMSC.X v2の常駐解除時のメモリ破壊の動作検証
