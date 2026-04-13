@@ -304,6 +304,8 @@
   * [parseint](docs/test.md#parseint) ... ParseIntサブルーチンの動作確認用
   * [todecstrbench](docs/test.md#todecstrbench) ... ToDecStringサブルーチンのベンチマーク
 * [Z-MUSIC v2](docs/zmsc2.md)
+  * [zm2_d5poc](docs/zmsc2.md#zm2_d5poc) ... `trap #3`ファンクションコールのエラー時にファイルが
+    クローズされる不具合の検証
   * [zm2_gettrktbl](docs/zmsc2.md#zm2_gettrktbl)
     ... `get_trk_tbl`で絶対チャンネルテーブル、演奏トラックテーブルを取得
   * [zm2_minp1](docs/zmsc2.md#zm2_minp1) ... `m_inp1`でMIDI入力
