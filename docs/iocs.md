@@ -89,6 +89,26 @@
 結果を表示します。
 
 
+## iocs_ms_curgt
+`IOCS _MS_CURGT`でマウスカーソルの座標を取得し、結果を表示します。
+
+
+## iocs_ms_curof
+`IOCS _MS_CUROF`でマウスカーソルを消去します。
+
+
+## iocs_ms_curon
+`IOCS _MS_CURON`でマウスカーソルを表示します。
+
+
+## iocs_ms_getdt
+`IOCS _MS_GETDT`でマウスの移動量とボタン状態を取得し、結果を表示します。
+
+
+## iocs_ms_init
+`IOCS _MS_INIT`でマウスを初期化します。
+
+
 ## iocs_ms_offtm
 `IOCS _MS_OFFTM`でマウスボタンを離すまでの時間を計測し、結果を表示します。  
 コマンドライン引数でボタン(省略時は0=左ボタン)と待ち時間(省略時は0=時間無制限)を指定します。
@@ -97,6 +117,10 @@
 ## iocs_ms_ontm
 `IOCS _MS_ONTM`でマウスボタンを押すまでの時間を計測し、結果を表示します。  
 コマンドライン引数でボタン(省略時は0=左ボタン)と待ち時間(省略時は0=時間無制限)を指定します。
+
+
+## iocs_ms_stat
+`IOCS _MS_STAT`でマウスカーソルの表示状態を取得し、結果を表示します。
 
 
 ## iocs_ontime

@@ -147,8 +147,14 @@
   * [iocs_dateget](docs/iocs.md#iocs_dateget) ... `IOCS _DATEGET`で日付を取得
   * [iocs_dateset](docs/iocs.md#iocs_dateset) ... `IOCS _DATESET`で日付を設定
   * [iocs_jissft](docs/iocs.md#iocs_jissft) ... `IOCS _JISSFT`でJIS文字コードをS-JISに変換
+  * [iocs_ms_curgt](docs/iocs.md#iocs_ms_curgt) ... `IOCS _MS_CURGT`でマウスカーソルの座標を取得
+  * [iocs_ms_curof](docs/iocs.md#iocs_ms_curof) ... `IOCS _MS_CUROF`でマウスカーソルを消去
+  * [iocs_ms_curon](docs/iocs.md#iocs_ms_curon) ... `IOCS _MS_CURON`でマウスカーソルを表示
+  * [iocs_ms_getdt](docs/iocs.md#iocs_ms_getdt) ... `IOCS _MS_GETDT`でマウス移動量・ボタン状態を取得
+  * [iocs_ms_init](docs/iocs.md#iocs_ms_init) ... `IOCS _MS_INIT`でマウス初期化
   * [iocs_ms_offtm](docs/iocs.md#iocs_ms_offtm) ... `IOCS _MS_OFFTM`でマウスボタンを離すまでの時間を計測
   * [iocs_ms_ontm](docs/iocs.md#iocs_ms_ontm) ... `IOCS _MS_ONTM`でマウスボタンを押すまでの時間を計測
+  * [iocs_ms_stat](docs/iocs.md#iocs_ms_stat) ... `IOCS _MS_STAT`でマウスカーソルの表示状態を取得
   * [iocs_ontime](docs/iocs.md#iocs_ontime) ... `IOCS _ONTIME`で起動後の経過時間を取得
   * [iocs_romver](docs/iocs.md#iocs_romver) ... `IOCS _ROMVER`でROMのバージョンを取得
   * [iocs_sftjis](docs/iocs.md#iocs_sftjis) ... `IOCS _SFTJIS`でS-JIS文字コードをJISに変換
