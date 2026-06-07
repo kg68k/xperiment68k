@@ -1,7 +1,7 @@
 .title files - DOS _FILES/_NFILES
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -64,6 +64,7 @@ filesError:
   DOS_PRINT (FilesError,pc)
   move.l (sp)+,d0
   bsr PrintD0$4_4
+  DOS_PRINT_CRLF
   rts
 
 nfilesError:
@@ -71,6 +72,7 @@ nfilesError:
   DOS_PRINT (NfilesError,pc)
   move.l (sp)+,d0
   bsr PrintD0$4_4
+  DOS_PRINT_CRLF
   rts
 
 
