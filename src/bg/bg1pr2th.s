@@ -1,7 +1,7 @@
 .title bg1pr2th - create 2 threads in one process
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -116,7 +116,6 @@ PrintWithHeader:
 
 
   DEFINE_TOHEXSTRING4   ToHexString4
-  DEFINE_TOHEXSTRING4_4 ToHexString4_4
 
 
 PrcctrlBuffer1:
