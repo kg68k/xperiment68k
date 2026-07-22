@@ -184,6 +184,7 @@
   * [minish](docs/misc.md#minish) ... 最小限の機能(ファイルの実行だけ)しかない簡易シェル(minimal shell)
   * [nminoreset](docs/misc.md#nminoreset) ... NMIスイッチ処理でのNMIリセットの必要性の検証
   * [reset68k](docs/misc.md#reset68k) ... `trap #10`命令によるソフトウェアリセット
+  * [romdb_fb](docs/misc.md#romdb_fb) ... X68030のROMデバッガが呼び出す`IOCS $fb`のテスト
   * [rtc_reg](docs/misc.md#rtc_reg) ... RTC(RP5C15)のレジスタの値を表示
   * [runwaitchk](docs/misc.md#runwaitchk) ... メモリを読み込むループの実行時間を計測
   * [super_time](docs/misc.md#super_time) ... `IOCS _B_SUPER`、`DOS _SUPER`、`DOS _SUPER_JSR`のベンチマーク

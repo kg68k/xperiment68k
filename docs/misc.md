@@ -90,6 +90,16 @@ echo \L\L $NJX68k>reset68k.r
 ```
 
 
+## romdb_fb
+X68030(IOCS ROM v1.3)のROMデバッガ(ROM Debugger Version 2.32)が呼び出す`IOCS $fb`のテストです。
+実行すると`IOCS $fb`をフックして常駐終了し、
+このコールが呼び出されたらレジスタの値とスタックの内容を表示します。
+
+常駐解除はできないので、実行後は再起動してください。
+
+参考: https://x.com/kamadox/status/2063829184955429137
+
+
 ## rtc_reg
 RTC(RP5C15)のレジスタの値を表示します。
 
