@@ -109,9 +109,8 @@ DumpMemory:
       moveq #0,d1  ;変換したロングワード数
       lea (Buffer,pc),a0
       2:
-        move.b #'$',(a0)+
         move.l (a1)+,d0
-        bsr ToHexString8
+        bsr ToHexString$8
         move.b #' ',(a0)+
   
         addq #1,d1
@@ -160,7 +159,7 @@ exec:
   DEFINE_PRINT$4_4 Print$4_4
   DEFINE_PRINTD0$4_4 PrintD0$4_4
   DEFINE_PRINTDECSTRING PrintDecString
-  DEFINE_TOHEXSTRING8 ToHexString8
+  DEFINE_TOHEXSTRING$8 ToHexString$8
 
 
 .data

@@ -163,17 +163,17 @@ StringifyThreadInfo:
 
 toStringHex2:
   STRCPY a1,a0,-1
-  bsr ToHexString2
+  bsr ToHexString$2
   bra appendCrLf
 
 toStringHex4:
   STRCPY a1,a0,-1
-  bsr ToHexString4
+  bsr ToHexString$4
   bra appendCrLf
 
 toStringHex8:
   STRCPY a1,a0,-1
-  bsr ToHexString8
+  bsr ToHexString$8
   bra appendCrLf
 
 toStringDecimal:
@@ -185,9 +185,8 @@ stringifyRegisters:
   move d0,d3
   @@:
     STRCPY a1,a0,-1  ;ヘッダまたは", "をコピー
-    move.b #'$',(a0)+
     move.l (a2)+,d0
-    bsr ToHexString8
+    bsr ToHexString$8
     lea (strComma,pc),a1
   dbra d3,@b
   bra appendCrLf
@@ -210,30 +209,30 @@ appendCrLf:
 
   DEFINE_PRINTD0$4_4 PrintD0$4_4
   DEFINE_TODECSTRING ToDecString
-  DEFINE_TOHEXSTRING2 ToHexString2
-  DEFINE_TOHEXSTRING4 ToHexString4
-  DEFINE_TOHEXSTRING8 ToHexString8
+  DEFINE_TOHEXSTRING$2 ToHexString$2
+  DEFINE_TOHEXSTRING$4 ToHexString$4
+  DEFINE_TOHEXSTRING$8 ToHexString$8
 
 
 .data
 
 ThreadNameTooLong: .dc.b 'スレッド名が長すぎます。',CR,LF,0
 
-strNextPtr:    .dc.b 'next_ptr: $',0
-strWaitFlg:    .dc.b 'wait_flg: $',0
+strNextPtr:    .dc.b 'next_ptr: ',0
+strWaitFlg:    .dc.b 'wait_flg: ',0
 strCounter:    .dc.b 'counter: ',0
 strMaxCounter: .dc.b 'max_counter: ',0
-strDosCmd:     .dc.b 'doscmd: $',0
-strPspId:      .dc.b 'psp_id: $',0
-strUspReg:     .dc.b 'usp_reg: $',0
+strDosCmd:     .dc.b 'doscmd: ',0
+strPspId:      .dc.b 'psp_id: ',0
+strUspReg:     .dc.b 'usp_reg: ',0
 strDReg:       .dc.b 'd_reg[8]: ',0
 strAReg:       .dc.b 'a_reg[7]: ',0
-strSrReg:      .dc.b 'sr_reg: $',0
-strPcReg:      .dc.b 'pc_reg: $',0
-strSspReg:     .dc.b 'ssp_reg: $',0
+strSrReg:      .dc.b 'sr_reg: ',0
+strPcReg:      .dc.b 'pc_reg: ',0
+strSspReg:     .dc.b 'ssp_reg: ',0
 strInDosF:     .dc.b 'indosf: ',0
-strInDosP:     .dc.b 'indosp: $',0
-strBufPtr:     .dc.b 'buf_ptr: $',0
+strInDosP:     .dc.b 'indosp: ',0
+strBufPtr:     .dc.b 'buf_ptr: ',0
 strName:       .dc.b 'name[16]: ',0
 strWaitTime:   .dc.b 'wait_time: ',0
 

@@ -1,7 +1,7 @@
 .title si_memory - show information: main memory and high memory
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -132,7 +132,7 @@ is_060turbo:
 
   DEFINE_DOSBUSERRWORD DosBusErrWord
   DEFINE_TODECSTRINGWIDTH ToDecStringWidth
-  DEFINE_TOHEXSTRING8 ToHexString8
+  DEFINE_TOHEXSTRING$8 ToHexString$8
 
 
 .data
@@ -291,14 +291,10 @@ Memory_GetHighFreeSize::
 ;  a0.l ... 文字列末尾のアドレス(NUL を指す)
 ;break d0
 Memory_AreaToString::
-  move.b #'$',(a0)+
-  bsr ToHexString8
-
+  bsr ToHexString$8
   move.b #'-',(a0)+
-
-  move.b #'$',(a0)+
   move.l d1,d0
-  bra ToHexString8
+  bra ToHexString$8
 ; rts
 
 
