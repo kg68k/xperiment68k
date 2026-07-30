@@ -93,6 +93,7 @@
   * [adpcmotchk](docs/emulator.md#adpcmotchk) ... IOCSによるADPCM再生後にDMACのレジスタ値を表示
   * [buserr_2w](docs/emulator.md#buserr_2w) ... バスエラーを発生させる。エミュレータの検証用
   * [isemu_rtc](docs/emulator.md#isemu_rtc) ... RTCの挙動の違いを利用したエミュレータ判別
+  * [lsrb_dxdy](docs/emulator.md#lsrb_dxdy) ... `lsr.b d3,d4`命令を実行する。エミュレータの検証用
   * [movem_aipi](docs/emulator.md#movem_aipi) ... `movem.l (a0)+,a0`命令を実行する。エミュレータの検証用
   * [run68_dos_test](docs/emulator.md#run68_dos_test) ... run68の`-f`オプションの動作確認用
   * [sram_memsize](docs/emulator.md#sram_memsize) ... SRAMのメインメモリ容量を書き換える。エミュレータの検証用
