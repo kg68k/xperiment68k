@@ -134,6 +134,8 @@
   * [colorgradient](docs/graphic.md#colorgradient) ... カラーグラデーションの画像を描画
   * [sq64k](docs/graphic.md#sq64k) ... 画面モードを768×512、65536色に変更
 * [IOCS CALL](docs/iocs.md)
+  * [cache_flush](docs/iocs.md#cache_flush) ... `IOCS _SYS_STAT`でMPUキャッシュを消去
+  * [cache_st](docs/iocs.md#cache_st) ... `IOCS _SYS_STAT`でMPUキャッシュの設定を取得
   * [iocs_akconv](docs/iocs.md#iocs_akconv) ... `IOCS _AKCONV`でANK文字コードをS-JISに変換
   * [iocs_b_clr_st](docs/iocs.md#iocs_b_clr_st) ... `IOCS _B_CLR_ST`でコンソールの複数行を消去
   * [iocs_b_conmod](docs/iocs.md#iocs_b_conmod) ... `IOCS _B_CONMOD`でカーソルとスクロールを設定
@@ -166,6 +168,7 @@
   * [iocs_txfill](docs/iocs.md#iocs_txfill) ... `IOCS _TXFILL`のサンプル
   * [iocs_txrascpy](docs/iocs.md#iocs_txrascpy) ... `IOCS _TXYLINE`のサンプル
   * [iocs_txyline](docs/iocs.md#iocs_txyline) ... `IOCS _TXRASCPY`でラスタコピーを行う
+  * [mpu_stat](docs/iocs.md#mpu_stat) ... `IOCS _SYS_STAT`でMPUの状態を取得
 * [Keyboard](docs/keyboard.md)
   * [bitsns](docs/keyboard.md#bitsns) ... `IOCS _BITSNS`でキーの押し下げ状態を表示
   * [jfp_stat](docs/keyboard.md#jfp_stat) ... 日本語FPの各状態を表示

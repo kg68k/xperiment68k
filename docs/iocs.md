@@ -1,5 +1,17 @@
 # IOCS CALL
 
+
+## cache_flush
+`IOCS _SYS_STAT`でMPUキャッシュを消去します。
+
+スケールファクタを使用したトリックによりMPUを判別し、68000と68010の場合は
+`IOCS _SYS_STAT`を呼び出しません。
+
+
+## cache_st
+`IOCS _SYS_STAT`でMPUキャッシュの設定を取得し、結果を表示します。  
+
+
 ## iocs_akconv
 コマンドライン引数で指定したANK文字コードを`IOCS _AKCONV`でS-JISに変換し、
 結果を表示します。
@@ -176,3 +188,8 @@ IOCS.XやHIOCS.Xを組み込んでいるとコンソールのスクロールに�
 
 画面が乱れる場合は、`IOCS _TXRASCPY`を高クロック対応ルーチンに差し替えるドライバを組み込んでください
 (HIOCS PLUS version 1.10+16.17以降など)。
+
+
+## mpu_stat
+`IOCS _SYS_STAT`でMPUの状態を取得し、結果を表示します。  
+

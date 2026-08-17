@@ -1,6 +1,7 @@
 # Makefile for Xperiment68k (iocs)
 
 TARGET = \
+         cache_flush.x cache_st.x \
          iocs_akconv.x \
          iocs_b_clr_st.x iocs_b_conmod.x iocs_b_del.x iocs_b_drvchk.x iocs_b_ins.x \
          iocs_b_print.x iocs_b_putc.x iocs_b_recali.x \
@@ -10,7 +11,8 @@ TARGET = \
          iocs_ms_init.x iocs_ms_offtm.x iocs_ms_ontm.x iocs_ms_stat.x \
          iocs_ontime.x iocs_romver.x iocs_sftjis.x \
          iocs_timebcd.x iocs_timebin.x iocs_timeget.x iocs_timeset.x \
-         iocs_txfill.x iocs_txyline.x iocs_txrascpy.x
+         iocs_txfill.x iocs_txyline.x iocs_txrascpy.x \
+         mpu_stat.x
 
 include ../common.mk
 
