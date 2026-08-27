@@ -1,7 +1,7 @@
 .nlist
 
 ;zmusic3.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2026-01-30
+;Last-Modified: 2026-06-07
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -213,6 +213,10 @@ ZM3_PCM_15_6KHZ:    .equ 4
 
 ZM3_PRIORITY_MIN:   .equ 0
 ZM3_PRIORITY_MAX:   .equ 255
+
+ZM3_TIMER_MODE_A:      .equ 0
+ZM3_TIMER_MODE_B:      .equ 1
+ZM3_TIMER_MODE_YM3802: .equ 2
 
 ;device ID
 ZM3_DEV_FM:         .equ $0000

@@ -1,7 +1,7 @@
 .nlist
 
 ;zmusic2.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2026-01-30
+;Last-Modified: 2026-06-07
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -157,6 +157,9 @@ ZM2_PCM_15_6KHZ_8BIT:  .equ 6  ;PCM8
 
 ZM2_PRIORITY_MIN:   .equ 0
 ZM2_PRIORITY_MAX:   .equ 255
+
+ZM2_TIMER_MODE_A:   .equ 0
+ZM2_TIMER_MODE_B:   .equ 1
 
 
 * End of File --------------------------------- *

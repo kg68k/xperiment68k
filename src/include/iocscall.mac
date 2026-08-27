@@ -1,7 +1,7 @@
 .nlist
 
 ;iocscall.mac - RUKA assembler macro for X680x0/Human68k by TcbnErik
-;Last-Modified: 2025-12-13
+;Last-Modified: 2026-07-23
 ;
 ;Copying and distribution of this file, with or without modification,
 ;are permitted in any medium without royalty provided the copyright
@@ -239,15 +239,18 @@ _TXRASCPY:      .equ    $df
 
 _OPMDRV:        .equ    $f0  ;opmdrv.x
 _RSDRV:         .equ    $f1  ;rsdrv.sys
-_A_JOYGET:      .equ    $f2  ;ajoy.x
+_A_JOY:         .equ    $f2  ;ajoy.x
+_A_JOYGET:      .equ    $f2  ;=_A_JOY
 _MUSICDRV:      .equ    $f3  ;musicdrv.x
 _MERCURY:       .equ    $f4  ;mercurydriver.sys
 _SCSIDRV:       .equ    $f5
 _HIMEM:         .equ    $f8  ;himem.sys/ts16drv.x/060turbo.sys
+*_TS16DRV:      .equ    $f8  ;=_HIMEM
 
-;ts6bgag.x
-_TS6BGAG:       .equ    $f9
-_TS6BGAS:       .equ    $fa
+_TS6BGAG:       .equ    $f9  ;ts6bgag.x AGIOCS
+
+_ROMDB_CMD:     .equ    $fb  ;ROMDB command extension
+_ROMDB_ASM:     .equ    $fc  ;ROMDB assembler extension
 
 _ABORTRST:      .equ    $fd
 _IPLERR:        .equ    $fe
