@@ -287,6 +287,7 @@
   * [execas](docs/process.md#execas) ... 「ファイルを別名で実行するR形式実行ファイル」を作成
   * [keepceil](docs/process.md#keepceil) ... 上位メモリに常駐する。常駐検査コードの検証用
   * [keepcmem](docs/process.md#keepcmem) ... 上位メモリからメモリを確保して常駐する。常駐検査コードの検証用
+  * [keep_undersized](docs/process.md#keep_undersized) ... 最小サイズで常駐する。常駐検査コードの検証用
   * [lineage](docs/process.md#lineage) ... 自分自身と祖先のメモリ管理ポインタを表示
   * [loadonly](docs/process.md#loadonly) ... `DOS _EXEC (MD=3;loadonly)`で実行ファイルをロード
   * [mallocall](docs/process.md#mallocall) ... メモリブロックを可能な限り確保
