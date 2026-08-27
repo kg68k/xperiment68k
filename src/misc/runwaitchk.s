@@ -1,7 +1,7 @@
 .title runwaitchk - memory wait checker
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2025 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -97,11 +97,7 @@ WriteCodeToGvram:
   @@:
     move (a0)+,(a1)+
   dbra d0,@b
-  IS_MPU_68000 d0
-  beq @f
-    moveq #3,d1  ;キャッシュ消去
-    IOCS _SYS_STAT
-  @@:
+  CACHE_FLUSH
   rts
 
 

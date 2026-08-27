@@ -1,7 +1,7 @@
 .title pathlenfix - fix path length limit problem
 
 ;This file is part of Xperiment68k
-;Copyright (C) 2023 TcbnErik
+;Copyright (C) 2026 TcbnErik
 ;
 ;This program is free software: you can redistribute it and/or modify
 ;it under the terms of the GNU General Public License as published by
@@ -16,8 +16,7 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.include console.mac
-.include doscall.mac
+.include macro.mac
 
 .include xputil.mac
 
@@ -45,12 +44,7 @@ Start:
   @@:
 
   bsr Patch
-
-  IS_MPU_68000 d0
-  beq @f
-    moveq #3,d1
-    IOCS _SYS_STAT
-  @@:
+  CACHE_FLUSH
 
   DOS_PRINT (Success,pc)
   DOS _EXIT
