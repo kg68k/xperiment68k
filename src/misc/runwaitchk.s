@@ -16,12 +16,11 @@
 ;You should have received a copy of the GNU General Public License
 ;along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+.include iomap.mac
 .include macro.mac
+.include iocswork.mac
 
 .include xputil.mac
-
-
-GVRAM: .equ $c00000
 
 
 .cpu 68000
@@ -38,6 +37,8 @@ ProgramStart:
   clr.l -(sp)
   DOS _SUPER
   addq.l #4,sp
+
+  bsr PrintSystemStatus
 
   bsr WriteCodeToGvram
 
@@ -115,6 +116,38 @@ LoopCode:
 LoopCodeEnd:
 
 
+PrintSystemStatus:
+  link a6,#-128
+  lea (sp),a0
+
+  lea (strMpuType,pc),a1
+  STRCPY a1,a0,-1
+  move.b (MPUTYPE),d0
+  bsr ToHexString$2
+
+  lea (strRomCnt,pc),a1
+  STRCPY a1,a0,-1
+  move (ROMCNT),d0
+  bsr ToHexString$4
+
+  lea (strRamCnt,pc),a1
+  STRCPY a1,a0,-1
+  move (RAMCNT),d0
+  bsr ToHexString$4
+
+  lea (strSysPort6,pc),a1
+  STRCPY a1,a0,-1
+  move.b (SYS_P6),d0
+  bsr ToHexString$2
+
+  WRITE_CRLF_NUL a0
+  DOS_PRINT (sp)
+  unlk a6
+  rts
+
+
+  DEFINE_TOHEXSTRING$2 ToHexString$2
+  DEFINE_TOHEXSTRING$4 ToHexString$4
   DEFINE_PRINTDECSTRING PrintDecString
 
 
@@ -124,6 +157,11 @@ OnMainReadMain:   .dc.b 'on main memory, read main memory: ',0
 OnMainReadGvram:  .dc.b 'on main memory, read gvram: ',0
 OnGvramReadMain:  .dc.b 'on gvram, read main memory: ',0
 OnGvramReadGvram: .dc.b 'on gvram, read gvram: ',0
+
+strMpuType:  .dc.b 'mputype = ',0
+strRomCnt:   .dc.b ', romcnt = ',0
+strRamCnt:   .dc.b ', ramcnt = ',0
+strSysPort6: .dc.b ', sysport6 = ',0
 
 
 .end
